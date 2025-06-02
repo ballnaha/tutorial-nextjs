@@ -5,7 +5,6 @@ import {
   Box,
   Card,
   CardContent,
-  CardActions,
   Button,
   Chip,
   Accordion,
@@ -15,10 +14,11 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Alert,
   Paper,
-  Divider,
+  Stack,
   Avatar,
+  Breadcrumbs,
+  LinearProgress,
 } from '@mui/material';
 import {
   ExpandMore,
@@ -33,23 +33,40 @@ import {
   Widgets,
   DevicesOther,
   ColorLens,
+  Schedule,
+  Star,
+  Speed,
+  Security,
+  Home,
+  NavigateNext,
 } from '@mui/icons-material';
 import Link from 'next/link';
+import { useState } from 'react';
 
-const lessons = [
+interface Lesson {
+  id: number;
+  title: string;
+  description: string;
+  duration: string;
+  level: 'เริ่มต้น' | 'ปานกลาง' | 'ขั้นสูง';
+  topics: string[];
+  code?: string;
+  status: 'available' | 'coming-soon';
+  estimatedTime?: number;
+  emoji: string;
+}
+
+const lessons: Lesson[] = [
   {
     id: 1,
-    title: '🎨 เริ่มต้นกับ Material-UI',
+    title: 'เริ่มต้นกับ Material-UI',
     description: 'ติดตั้งและใช้งาน MUI ครั้งแรก พร้อมทำความรู้จัก Design System',
     duration: '25 นาที',
     level: 'เริ่มต้น',
-    topics: [
-      'Material-UI คืออะไร?',
-      'การติดตั้ง MUI',
-      'Material Design Principles',
-      'ThemeProvider และ CssBaseline',
-      'การใช้งาน Component แรก',
-    ],
+    topics: ['Material-UI คืออะไร?', 'การติดตั้ง MUI', 'Material Design Principles', 'ThemeProvider และ CssBaseline'],
+    status: 'available',
+    estimatedTime: 25,
+    emoji: '🎨',
     code: `npm install @mui/material @emotion/react @emotion/styled
 
 // App.tsx
@@ -70,458 +87,757 @@ function App() {
   },
   {
     id: 2,
-    title: '🎭 Theme และ Styling',
-    description: 'การปรับแต่ง Theme และการใช้งาน sx prop',
-    duration: '30 นาที',
+    title: 'บทที่ 2: Theme และ Styling ระดับสูง',
+    description: 'เรียนรู้การจัดการ Theme, CSS Variables, Dark Mode และการ customize styles อย่างลึกซึ้ง',
+    duration: '35 นาที',
     level: 'เริ่มต้น',
-    topics: [
-      'การสร้าง Custom Theme',
-      'Color Palette',
-      'Typography',
-      'การใช้งาน sx prop',
-      'styled() function',
-      'useTheme hook',
-    ],
-    code: `const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#1976d2',
-    },
-    secondary: {
-      main: '#dc004e',
-    },
-  },
-  typography: {
-    h1: {
-      fontSize: '2.5rem',
-      fontWeight: 'bold',
-    },
-  },
-})
-
-// ใช้งาน sx prop
-<Box sx={{
-  bgcolor: 'primary.main',
-  color: 'white',
-  p: 2,
-  borderRadius: 1,
-}}>
-  Custom styled box
-</Box>`
+    status: 'available' as const,
+    emoji: '🎭',
+    topics: ['Theme Provider', 'CSS Variables', 'Dark Mode', 'Custom Components']
   },
   {
     id: 3,
-    title: '📝 Layout Components',
+    title: 'Layout Components',
     description: 'Container, Grid, Stack, Box สำหรับจัดวาง Layout',
     duration: '35 นาที',
     level: 'เริ่มต้น',
-    topics: [
-      'Container component',
-      'Grid system (Grid v1 & v2)',
-      'Stack component',
-      'Box component',
-      'Responsive Design',
-      'Breakpoints',
-    ],
-    code: `import { Container, Grid, Stack, Box } from '@mui/material'
-
-<Container maxWidth="lg">
-  <Grid container spacing={2}>
-    <Grid item xs={12} md={6}>
-      <Box sx={{ p: 2, bgcolor: 'grey.100' }}>
-        Item 1
-      </Box>
-    </Grid>
-    <Grid item xs={12} md={6}>
-      <Stack spacing={2} direction="row">
-        <Button>Button 1</Button>
-        <Button>Button 2</Button>
-      </Stack>
-    </Grid>
-  </Grid>
-</Container>`
+    topics: ['Container component', 'Grid system', 'Stack component', 'Box component', 'Responsive Design'],
+    status: 'coming-soon',
+    estimatedTime: 35,
+    emoji: '📝',
   },
   {
     id: 4,
-    title: '🔘 Buttons และ Actions',
+    title: 'Buttons และ Actions',
     description: 'การใช้งาน Button, IconButton, FAB และ ButtonGroup',
     duration: '20 นาที',
     level: 'เริ่มต้น',
-    topics: [
-      'Button variants',
-      'IconButton',
-      'Floating Action Button (FAB)',
-      'ButtonGroup',
-      'Loading state',
-      'Custom styling',
-    ],
-    code: `import { Button, IconButton, Fab, ButtonGroup } from '@mui/material'
-import { Add, Delete, Save } from '@mui/icons-material'
-
-<ButtonGroup variant="contained">
-  <Button startIcon={<Save />}>บันทึก</Button>
-  <Button endIcon={<Delete />}>ลบ</Button>
-</ButtonGroup>
-
-<IconButton color="primary">
-  <Add />
-</IconButton>
-
-<Fab color="secondary" sx={{ position: 'fixed', bottom: 16, right: 16 }}>
-  <Add />
-</Fab>`
+    topics: ['Button variants', 'IconButton', 'Floating Action Button', 'ButtonGroup', 'Loading state'],
+    status: 'coming-soon',
+    estimatedTime: 20,
+    emoji: '🔘',
   },
   {
     id: 5,
-    title: '📋 Forms และ Inputs',
+    title: 'Forms และ Inputs',
     description: 'TextField, Select, Checkbox, Radio และการจัดการ Form',
     duration: '40 นาที',
     level: 'ปานกลาง',
-    topics: [
-      'TextField variants',
-      'Select และ MenuItem',
-      'Checkbox และ Radio',
-      'Form validation',
-      'FormControl และ FormHelperText',
-      'การใช้งานกับ react-hook-form',
-    ],
-    code: `import { TextField, Select, MenuItem, Checkbox, FormControlLabel } from '@mui/material'
-
-<TextField
-  label="ชื่อ"
-  variant="outlined"
-  fullWidth
-  required
-  error={!!errors.name}
-  helperText={errors.name?.message}
-/>
-
-<Select value={age} onChange={handleChange}>
-  <MenuItem value={10}>สิบ</MenuItem>
-  <MenuItem value={20}>ยี่สิบ</MenuItem>
-</Select>
-
-<FormControlLabel
-  control={<Checkbox />}
-  label="ยอมรับเงื่อนไข"
-/>`
+    topics: ['TextField variants', 'Select และ MenuItem', 'Checkbox และ Radio', 'Form validation'],
+    status: 'coming-soon',
+    estimatedTime: 40,
+    emoji: '📋',
   },
   {
     id: 6,
-    title: '📊 Data Display',
-    description: 'Table, List, Card และการแสดงข้อมูล',
+    title: 'Navigation Components',
+    description: 'AppBar, Drawer, Tabs, Breadcrumbs สำหรับนำทาง',
     duration: '35 นาที',
     level: 'ปานกลาง',
-    topics: [
-      'Table, TableHead, TableBody',
-      'List และ ListItem',
-      'Card และ CardContent',
-      'Avatar และ Chip',
-      'Pagination',
-      'การ sort และ filter',
-    ],
-    code: `import { Table, TableHead, TableRow, TableCell, Card, List } from '@mui/material'
-
-<Card>
-  <CardContent>
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableCell>ชื่อ</TableCell>
-          <TableCell>อีเมล</TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {users.map((user) => (
-          <TableRow key={user.id}>
-            <TableCell>{user.name}</TableCell>
-            <TableCell>{user.email}</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
-  </CardContent>
-</Card>`
+    topics: ['AppBar และ Toolbar', 'Drawer และ Menu', 'Tabs และ TabPanel', 'Breadcrumbs navigation'],
+    status: 'coming-soon',
+    estimatedTime: 35,
+    emoji: '🗂️',
   },
   {
     id: 7,
-    title: '🚪 Navigation',
-    description: 'AppBar, Drawer, Tabs และระบบนำทาง',
-    duration: '30 นาที',
+    title: 'Data Display',
+    description: 'Table, List, Card, Chip สำหรับแสดงข้อมูล',
+    duration: '45 นาที',
     level: 'ปานกลาง',
-    topics: [
-      'AppBar และ Toolbar',
-      'Drawer (Sidebar)',
-      'Tabs และ TabPanel',
-      'Breadcrumbs',
-      'BottomNavigation',
-      'Responsive Navigation',
-    ],
-    code: `import { AppBar, Toolbar, Drawer, Tabs, Tab } from '@mui/material'
-
-<AppBar position="sticky">
-  <Toolbar>
-    <Typography variant="h6" sx={{ flexGrow: 1 }}>
-      My App
-    </Typography>
-    <Button color="inherit">Login</Button>
-  </Toolbar>
-</AppBar>
-
-<Drawer anchor="left" open={open} onClose={handleClose}>
-  <List>
-    <ListItem button>
-      <ListItemText primary="หน้าหลัก" />
-    </ListItem>
-  </List>
-</Drawer>`
+    topics: ['Table และ DataGrid', 'List และ ListItem', 'Card component', 'Chip และ Badge'],
+    status: 'coming-soon',
+    estimatedTime: 45,
+    emoji: '📊',
   },
   {
     id: 8,
-    title: '💬 Feedback Components',
-    description: 'Dialog, Snackbar, Alert และการแจ้งเตือน',
-    duration: '25 นาที',
+    title: 'Feedback Components',
+    description: 'Dialog, Snackbar, Alert สำหรับการแจ้งเตือน',
+    duration: '30 นาที',
     level: 'ปานกลาง',
-    topics: [
-      'Dialog และ DialogContent',
-      'Snackbar notifications',
-      'Alert component',
-      'Progress indicators',
-      'Backdrop และ Loading',
-      'Toast notifications',
-    ],
-    code: `import { Dialog, Snackbar, Alert, CircularProgress } from '@mui/material'
-
-<Dialog open={open} onClose={handleClose}>
-  <DialogTitle>ยืนยันการลบ</DialogTitle>
-  <DialogContent>
-    <DialogContentText>
-      คุณแน่ใจหรือไม่ที่จะลบรายการนี้?
-    </DialogContentText>
-  </DialogContent>
-  <DialogActions>
-    <Button onClick={handleClose}>ยกเลิก</Button>
-    <Button onClick={handleDelete} color="error">ลบ</Button>
-  </DialogActions>
-</Dialog>
-
-<Snackbar open={showAlert}>
-  <Alert severity="success">บันทึกสำเร็จ!</Alert>
-</Snackbar>`
+    topics: ['Dialog และ Modal', 'Snackbar notifications', 'Alert messages', 'Progress indicators'],
+    status: 'coming-soon',
+    estimatedTime: 30,
+    emoji: '💬',
   },
 ];
 
 const features = [
-  { icon: <Brush />, title: 'Material Design', desc: 'ตาม Google Design System' },
-  { icon: <DevicesOther />, title: 'Responsive', desc: 'รองรับทุกหน้าจอ' },
-  { icon: <ColorLens />, title: 'Customizable', desc: 'ปรับแต่งได้ง่าย' },
-  { icon: <Widgets />, title: '50+ Components', desc: 'Components ครบครัน' },
+  {
+    icon: <Speed />,
+    title: 'Material Design 3.0',
+    description: 'ใช้ Material Design ล่าสุดจาก Google พร้อม theme system ที่ทันสมัย',
+    color: '#1976d2'
+  },
+  {
+    icon: <Widgets />,
+    title: '50+ Components',
+    description: 'Component ครบครันสำหรับสร้าง UI ทุกประเภท พร้อมการปรับแต่งที่ยืดหยุ่น',
+    color: '#388e3c'
+  },
+  {
+    icon: <DevicesOther />,
+    title: 'Responsive Design',
+    description: 'รองรับทุกหน้าจออัตโนมัติ ด้วย breakpoint system ที่ทรงพลัง',
+    color: '#f57c00'
+  },
+  {
+    icon: <Security />,
+    title: 'TypeScript Ready',
+    description: 'Type safety เต็มรูปแบบ พร้อม auto-completion และ IntelliSense',
+    color: '#7b1fa2'
+  }
 ];
 
+const getLevelColor = (level: string) => {
+  switch (level) {
+    case 'เริ่มต้น': return 'success';
+    case 'ปานกลาง': return 'warning';
+    case 'ขั้นสูง': return 'error';
+    default: return 'default';
+  }
+};
+
+const getLevelProgress = (level: string) => {
+  switch (level) {
+    case 'เริ่มต้น': return 30;
+    case 'ปานกลาง': return 60;
+    case 'ขั้นสูง': return 90;
+    default: return 0;
+  }
+};
+
 export default function MUITutorialPage() {
+  const [expandedLesson, setExpandedLesson] = useState<number | false>(false);
+  
+  const totalLessons = lessons.length;
+  const availableLessons = lessons.filter(lesson => lesson.status === 'available').length;
+  const totalTime = lessons.reduce((sum, lesson) => sum + (lesson.estimatedTime || 0), 0);
+  const comingSoonLessons = lessons.filter(lesson => lesson.status === 'coming-soon');
+
+  const handleAccordionChange = (panel: number) => (_: React.SyntheticEvent, isExpanded: boolean) => {
+    setExpandedLesson(isExpanded ? panel : false);
+  };
+
+  // Structured Data for SEO
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "หลักสูตร Material-UI (MUI) สำหรับมือใหม่",
+    "description": "เรียนรู้ Material-UI Component Library สำหรับสร้าง UI ที่สวยงามและทันสมัย หลักสูตรฟรีสำหรับมือใหม่",
+    "provider": {
+      "@type": "Organization",
+      "name": "Next.js Tutorial Thailand",
+      "url": "https://your-domain.com"
+    },
+    "educationalLevel": "Beginner to Intermediate",
+    "programmingLanguage": ["JavaScript", "TypeScript"],
+    "teaches": [
+      "Material-UI",
+      "React Components", 
+      "Material Design",
+      "UI/UX Design",
+      "Frontend Development",
+      "Responsive Design",
+      "Theme Customization"
+    ],
+    "courseMode": "online",
+    "inLanguage": "th",
+    "isAccessibleForFree": true,
+    "totalTime": `PT${Math.floor(totalTime / 60)}H${totalTime % 60}M`,
+    "numberOfLessons": lessons.length,
+    "availableLessons": availableLessons,
+    "hasCourseInstance": {
+      "@type": "CourseInstance",
+      "courseMode": "online",
+      "instructor": {
+        "@type": "Person",
+        "name": "Next.js Tutorial Thailand"
+      }
+    }
+  };
+
   return (
-    <Container maxWidth="lg">
-      {/* Header */}
-      <Box sx={{ py: 4 }}>
-        <Typography variant="h1" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 2 }}>
-          <Palette color="primary" sx={{ fontSize: '3rem' }} />
-          Material-UI (MUI) Tutorial
-        </Typography>
-        <Typography variant="h5" color="text.secondary" sx={{ mb: 4 }}>
-          เรียนรู้การใช้งาน MUI Component Library สำหรับสร้าง UI ที่สวยงามและทันสมัย
-        </Typography>
-
-        <Alert severity="info" sx={{ mb: 4 }}>
-          <Typography variant="body1">
-            📋 <strong>สิ่งที่ต้องมีก่อนเรียน:</strong> ความรู้พื้นฐาน React, Next.js, HTML, CSS
+    <>
+      {/* SEO Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      
+      <Container maxWidth="lg">
+        {/* Breadcrumbs */}
+        <Breadcrumbs 
+          aria-label="breadcrumb" 
+          sx={{ py: 2 }}
+          separator={<NavigateNext fontSize="small" />}
+        >
+          <Link href="/" style={{ 
+            textDecoration: 'none', 
+            color: 'inherit',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '4px'
+          }}>
+            <Home sx={{ fontSize: 16 }} />
+            หน้าหลัก
+          </Link>
+          <Typography color="text.primary" sx={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <Palette sx={{ fontSize: 16 }} />
+            Material-UI Tutorial
           </Typography>
-        </Alert>
+        </Breadcrumbs>
 
-        {/* Features */}
-        <Box sx={{ 
-          display: 'flex', 
-          flexDirection: { xs: 'column', sm: 'row' }, 
-          gap: 2, 
-          mb: 4 
-        }}>
-          {features.map((feature, index) => (
-            <Paper key={index} sx={{ p: 2, flex: 1, textAlign: 'center' }}>
-              <Box sx={{ color: 'primary.main', mb: 1 }}>
-                {feature.icon}
-              </Box>
-              <Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>
-                {feature.title}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {feature.desc}
-              </Typography>
-            </Paper>
-          ))}
-        </Box>
-
-        {/* Preview */}
-        <Paper sx={{ p: 3, bgcolor: 'grey.50', mb: 4 }}>
-          <Typography variant="h6" sx={{ mb: 2 }}>
-            🎯 สิ่งที่จะได้เรียนรู้:
+        {/* Minimal Banner */}
+        <Box sx={{ mb: 4 }}>
+          <Typography 
+            variant="h3" 
+            component="h1" 
+            sx={{ 
+              mb: 2,
+              fontWeight: 600,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 2
+            }}
+          >
+            <Avatar sx={{ bgcolor: '#007FFF', width: 48, height: 48 }}>
+              <Palette />
+            </Avatar>
+            Material-UI (MUI) Tutorial
           </Typography>
+          
+          <Typography 
+            variant="body1" 
+            color="text.secondary" 
+            sx={{ mb: 3, maxWidth: '600px' }}
+          >
+            เรียนรู้การใช้งาน MUI Component Library ที่ใหญ่ที่สุดของ React สำหรับสร้าง UI ที่สวยงามและใช้งานง่าย
+          </Typography>
+
+          {/* Quick Stats */}
           <Box sx={{ 
             display: 'flex', 
-            flexDirection: { xs: 'column', sm: 'row' }, 
-            gap: 2 
+            gap: 3, 
+            alignItems: 'center',
+            flexWrap: 'wrap'
           }}>
-            <Box sx={{ flex: 1 }}>
-              <List dense>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="primary" /></ListItemIcon>
-                  <ListItemText primary="การติดตั้งและตั้งค่า MUI" />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="primary" /></ListItemIcon>
-                  <ListItemText primary="การใช้งาน Theme และ Styling" />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="primary" /></ListItemIcon>
-                  <ListItemText primary="Layout และ Grid System" />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="primary" /></ListItemIcon>
-                  <ListItemText primary="Form Components ต่างๆ" />
-                </ListItem>
-              </List>
-            </Box>
-            <Box sx={{ flex: 1 }}>
-              <List dense>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="primary" /></ListItemIcon>
-                  <ListItemText primary="Navigation Components" />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="primary" /></ListItemIcon>
-                  <ListItemText primary="Data Display Components" />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="primary" /></ListItemIcon>
-                  <ListItemText primary="Feedback และ Notifications" />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="primary" /></ListItemIcon>
-                  <ListItemText primary="Best Practices และ Tips" />
-                </ListItem>
-              </List>
+            <Chip 
+              icon={<CheckCircle />}
+              label={`${availableLessons}/${totalLessons} บทเรียน`} 
+              color="primary" 
+              variant="outlined"
+            />
+            <Chip 
+              icon={<Schedule />}
+              label={`${Math.floor(totalTime / 60)} ชั่วโมง ${totalTime % 60} นาที`} 
+              color="secondary" 
+              variant="outlined"
+            />
+            <Chip 
+              label="ฟรี 100%" 
+              color="success" 
+              variant="outlined"
+            />
+          </Box>
+        </Box>
+
+        {/* Course Features Section */}
+        <Container maxWidth="lg" sx={{ py: 6 }}>
+          {/* Why Choose This Course */}
+          <Box sx={{ textAlign: 'center', mb: 6 }}>
+            <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
+              ทำไมต้องเรียน Material-UI?
+            </Typography>
+            <Typography variant="h6" color="text.secondary" sx={{ mb: 4, maxWidth: 600, mx: 'auto' }}>
+              หลักสูตรที่ออกแบบมาเพื่อสอนการสร้าง UI ที่สวยงามและมีประสิทธิภาพด้วย MUI
+            </Typography>
+            
+            <Box sx={{ 
+              display: 'grid', 
+              gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }, 
+              gap: 3 
+            }}>
+              {features.map((feature, index) => (
+                <Card 
+                  key={index}
+                  sx={{ 
+                    p: 3, 
+                    textAlign: 'center',
+                    height: '100%',
+                    transition: 'all 0.2s ease',
+                    '&:hover': {
+                      boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
+                    }
+                  }}
+                >
+                  <Avatar 
+                    sx={{ 
+                      bgcolor: feature.color + '20',
+                      color: feature.color,
+                      width: 64,
+                      height: 64,
+                      mx: 'auto',
+                      mb: 2
+                    }}
+                  >
+                    {feature.icon}
+                  </Avatar>
+                  <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
+                    {feature.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {feature.description}
+                  </Typography>
+                </Card>
+              ))}
             </Box>
           </Box>
-        </Paper>
-      </Box>
 
-      <Divider sx={{ mb: 4 }} />
+          {/* Technology Stack */}
+          <Box sx={{ textAlign: 'center', mb: 6 }}>
+            <Typography variant="h4" sx={{ mb: 2, fontWeight: 600 }}>
+              เทคโนโลยีที่จะได้เรียนรู้
+            </Typography>
+            <Stack direction="row" spacing={2} justifyContent="center" flexWrap="wrap" useFlexGap>
+              {[
+                { name: 'Material-UI v6', color: '#007FFF' },
+                { name: 'React 19', color: '#63B3ED' },
+                { name: 'TypeScript', color: '#5C9EE8' },
+                { name: 'Material Design', color: '#8BB7ED' },
+                { name: 'Emotion CSS', color: '#4A5568' },
+                { name: 'Responsive Design', color: '#2D3748' },
+              ].map((tech) => (
+                <Chip
+                  key={tech.name}
+                  label={tech.name}
+                  sx={{
+                    px: 2,
+                    py: 0.5,
+                    fontSize: '0.9rem',
+                    fontWeight: 600,
+                    bgcolor: `${tech.color}15`,
+                    color: tech.color,
+                    border: `2px solid ${tech.color}25`,
+                    '&:hover': {
+                      bgcolor: `${tech.color}20`,
+                    }
+                  }}
+                />
+              ))}
+            </Stack>
+          </Box>
 
-      {/* Lessons */}
-      <Typography variant="h2" sx={{ mb: 3 }}>
-        📚 บทเรียนทั้งหมด ({lessons.length} บท)
-      </Typography>
+          {/* Available Lessons */}
+          {availableLessons > 0 && (
+            <Box id="course-content" sx={{ mb: 8 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 4 }}>
+                <Box>
+                  <Typography variant="h3" sx={{ fontWeight: 700, mb: 1 }}>
+                    📚 บทเรียนที่พร้อมใช้งาน
+                  </Typography>
+                  <Typography variant="h6" color="text.secondary">
+                    {availableLessons} บทเรียน • เริ่มเรียนได้ทันที • อัพเดตเนื้อหาสม่ำเสมอ
+                  </Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                  <Chip 
+                    icon={<CheckCircle />}
+                    label={`${availableLessons}/${totalLessons} พร้อมใช้งาน`}
+                    color="success"
+                    variant="outlined"
+                    sx={{ fontWeight: 600 }}
+                  />
+                  <Chip 
+                    label={`${Math.round(totalTime / 60)} ชม. ${totalTime % 60} นาที`}
+                    color="primary"
+                    variant="outlined"
+                    sx={{ fontWeight: 600 }}
+                  />
+                </Box>
+              </Box>
 
-      <Box sx={{ mb: 4 }}>
-        {lessons.map((lesson) => (
-          <Accordion key={lesson.id} sx={{ mb: 2 }}>
-            <AccordionSummary
-              expandIcon={<ExpandMore />}
+              {/* SEO Content for Lessons */}
+              <Box sx={{ 
+                bgcolor: 'primary.50', 
+                p: 3, 
+                borderRadius: 2, 
+                mb: 4,
+                border: '1px solid',
+                borderColor: 'primary.100'
+              }}>
+                <Typography variant="h6" sx={{ mb: 2, color: 'primary.main', fontWeight: 600 }}>
+                  🎯 เนื้อหาหลักสูตรที่คุณจะได้เรียนรู้
+                </Typography>
+                <Box sx={{ 
+                  display: 'grid', 
+                  gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, 
+                  gap: 2 
+                }}>
+                  <Box>
+                    <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>🎨 UI Components:</Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Buttons, Forms, Navigation, Data Display, Layout Components
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>🎭 Theming & Styling:</Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Custom Themes, sx prop, styled() function, Color Palettes
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>📱 Responsive Design:</Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Grid System, Breakpoints, Mobile-first Approach
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>🎯 เหมาะสำหรับ:</Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      นักพัฒนา React ที่ต้องการสร้าง UI ที่สวยงามและมีมาตรฐาน
+                    </Typography>
+                  </Box>
+                </Box>
+              </Box>
+
+              <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' }, gap: 3 }}>
+                {lessons.filter(lesson => lesson.status === 'available').map((lesson) => (
+                  <Card 
+                    key={lesson.id}
+                    component={Link}
+                    href={`/mui-tutorial/lesson-${lesson.id}`}
+                    sx={{ 
+                      height: '100%',
+                      transition: 'all 0.2s ease',
+                      cursor: 'pointer',
+                      textDecoration: 'none',
+                      position: 'relative',
+                      overflow: 'hidden',
+                      '&:hover': {
+                        boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
+                      },
+                      '&::before': {
+                        content: '""',
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        height: 4,
+                        bgcolor: getLevelColor(lesson.level) === 'success' ? '#48BB78' : 
+                                  getLevelColor(lesson.level) === 'warning' ? '#F6AD55' : '#F56565',
+                      }
+                    }}
+                  >
+                    <CardContent sx={{ p: 3, height: '100%', display: 'flex', flexDirection: 'column' }}>
+                      <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 2 }}>
+                        <Avatar 
+                          sx={{ 
+                            bgcolor: 'grey.100', 
+                            color: 'text.primary',
+                            width: 48,
+                            height: 48,
+                            fontSize: '1.5rem',
+                            mr: 2
+                          }}
+                        >
+                          {lesson.emoji}
+                        </Avatar>
+                        <Box sx={{ flex: 1 }}>
+                          <Typography variant="h6" sx={{ fontWeight: 600, mb: 0.5, lineHeight: 1.3 }}>
+                            บทที่ {lesson.id}: {lesson.title}
+                          </Typography>
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                            <Chip 
+                              label={lesson.level} 
+                              size="small"
+                              color={getLevelColor(lesson.level) as any}
+                              variant="outlined"
+                            />
+                            <Box sx={{ display: 'flex', alignItems: 'center', color: 'text.secondary' }}>
+                              <Schedule sx={{ fontSize: 14, mr: 0.5 }} />
+                              <Typography variant="caption">{lesson.duration}</Typography>
+                            </Box>
+                          </Box>
+                        </Box>
+                      </Box>
+                      
+                      <Typography variant="body2" color="text.secondary" sx={{ mb: 2, flex: 1, lineHeight: 1.5 }}>
+                        {lesson.description}
+                      </Typography>
+                      
+                      <Box sx={{ mb: 2 }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
+                          <Typography variant="caption" color="text.secondary">
+                            ความยาก
+                          </Typography>
+                          <Typography variant="caption" color="text.secondary">
+                            {getLevelProgress(lesson.level)}%
+                          </Typography>
+                        </Box>
+                        <LinearProgress 
+                          variant="determinate" 
+                          value={getLevelProgress(lesson.level)}
+                          sx={{
+                            height: 4,
+                            borderRadius: 2,
+                            bgcolor: 'grey.200',
+                            '& .MuiLinearProgress-bar': {
+                              borderRadius: 2,
+                              bgcolor: getLevelColor(lesson.level) === 'success' ? '#48BB78' : 
+                                       getLevelColor(lesson.level) === 'warning' ? '#F6AD55' : '#F56565',
+                            }
+                          }}
+                        />
+                      </Box>
+                      
+                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                        {lesson.topics.slice(0, 3).map((topic, index) => (
+                          <Chip 
+                            key={index}
+                            label={topic} 
+                            size="small" 
+                            variant="outlined"
+                            sx={{ 
+                              fontSize: '0.7rem',
+                              height: 24,
+                              bgcolor: 'grey.50',
+                            }}
+                          />
+                        ))}
+                        {lesson.topics.length > 3 && (
+                          <Chip 
+                            label={`+${lesson.topics.length - 3}`} 
+                            size="small" 
+                            variant="outlined"
+                            sx={{ 
+                              fontSize: '0.7rem',
+                              height: 24,
+                              bgcolor: 'grey.50',
+                            }}
+                          />
+                        )}
+                      </Box>
+                    </CardContent>
+                  </Card>
+                ))}
+              </Box>
+            </Box>
+          )}
+
+          {/* Coming Soon Lessons */}
+          {comingSoonLessons.length > 0 && (
+            <Box sx={{ mb: 6 }}>
+              <Typography variant="h4" sx={{ fontWeight: 700, mb: 3 }}>
+                บทเรียนที่กำลังจะมา
+              </Typography>
+              
+              <Accordion 
+                sx={{ 
+                  bgcolor: 'white',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+                  borderRadius: 2,
+                  '&:before': { display: 'none' }
+                }}
+              >
+                <AccordionSummary 
+                  expandIcon={<ExpandMore />}
+                  sx={{ 
+                    px: 3,
+                    py: 2,
+                    '& .MuiAccordionSummary-content': {
+                      alignItems: 'center'
+                    }
+                  }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                    <Avatar sx={{ bgcolor: 'grey.100' }}>
+                      <Star color="warning" />
+                    </Avatar>
+                    <Box>
+                      <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                        เร็วๆ นี้ ({comingSoonLessons.length} บทเรียน)
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        บทเรียน Material-UI ที่กำลังพัฒนา
+                      </Typography>
+                    </Box>
+                  </Box>
+                </AccordionSummary>
+                
+                <AccordionDetails sx={{ px: 3, pb: 3 }}>
+                  <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, gap: 2 }}>
+                    {comingSoonLessons.map((lesson) => (
+                      <Box 
+                        key={lesson.id}
+                        sx={{ 
+                          p: 2, 
+                          border: '1px solid', 
+                          borderColor: 'grey.200',
+                          borderRadius: 1,
+                          bgcolor: 'grey.50'
+                        }}
+                      >
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1 }}>
+                          <Typography variant="body1" sx={{ fontSize: '1.2rem' }}>
+                            {lesson.emoji}
+                          </Typography>
+                          <Box>
+                            <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
+                              บทที่ {lesson.id}: {lesson.title}
+                            </Typography>
+                            <Box sx={{ display: 'flex', gap: 1 }}>
+                              <Chip label={lesson.duration} size="small" variant="outlined" />
+                              <Chip label={lesson.level} size="small" color={getLevelColor(lesson.level) as any} variant="outlined" />
+                            </Box>
+                          </Box>
+                        </Box>
+                        <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                          {lesson.description}
+                        </Typography>
+                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                          {lesson.topics.slice(0, 2).map((topic, index) => (
+                            <Typography key={index} variant="caption" color="text.secondary">
+                              • {topic}
+                            </Typography>
+                          ))}
+                        </Box>
+                      </Box>
+                    ))}
+                  </Box>
+                </AccordionDetails>
+              </Accordion>
+            </Box>
+          )}
+
+          {/* Learning Path */}
+          <Paper sx={{ p: 4, mb: 4, bgcolor: 'grey.50' }}>
+            <Typography variant="h4" sx={{ fontWeight: 600, mb: 2, textAlign: 'center' }}>
+              🎯 เส้นทางการเรียนรู้
+            </Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ mb: 4, textAlign: 'center', maxWidth: 600, mx: 'auto' }}>
+              เรียนรู้ Material-UI อย่างเป็นระบบ ตั้งแต่พื้นฐานจนใช้งานได้จริง
+            </Typography>
+            
+            <Box sx={{ 
+              display: 'grid',
+              gridTemplateColumns: { xs: '1fr', md: '1fr 1fr 1fr' },
+              gap: 3
+            }}>
+              <Box sx={{ textAlign: 'center' }}>
+                <Avatar sx={{ 
+                  bgcolor: 'primary.main', 
+                  mx: 'auto', 
+                  mb: 2, 
+                  width: 64, 
+                  height: 64,
+                  fontSize: '1.5rem'
+                }}>
+                  1️⃣
+                </Avatar>
+                <Typography variant="h6" sx={{ mb: 1 }}>
+                  เรียนรู้พื้นฐาน
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  ติดตั้ง MUI, ทำความเข้าใจ Material Design และใช้งาน Component พื้นฐาน
+                </Typography>
+              </Box>
+              
+              <Box sx={{ textAlign: 'center' }}>
+                <Avatar sx={{ 
+                  bgcolor: 'secondary.main', 
+                  mx: 'auto', 
+                  mb: 2, 
+                  width: 64, 
+                  height: 64,
+                  fontSize: '1.5rem'
+                }}>
+                  2️⃣
+                </Avatar>
+                <Typography variant="h6" sx={{ mb: 1 }}>
+                  ฝึกทำ Layout
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  เรียนรู้ Grid System, Responsive Design และการจัดวาง UI ที่สวยงาม
+                </Typography>
+              </Box>
+              
+              <Box sx={{ textAlign: 'center' }}>
+                <Avatar sx={{ 
+                  bgcolor: 'success.main', 
+                  mx: 'auto', 
+                  mb: 2, 
+                  width: 64, 
+                  height: 64,
+                  fontSize: '1.5rem'
+                }}>
+                  3️⃣
+                </Avatar>
+                <Typography variant="h6" sx={{ mb: 1 }}>
+                  สร้างแอปจริง
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  ประยุกต์ใช้ MUI ในการสร้างแอปพลิเคชันจริง พร้อม best practices
+                </Typography>
+              </Box>
+            </Box>
+          </Paper>
+        </Container>
+
+        {/* Call to Action */}
+        <Card
+          sx={{
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            color: 'white',
+            position: 'relative',
+            overflow: 'hidden',
+            mb: 4,
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: 'url("data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
+            }
+          }}
+        >
+          <CardContent sx={{ py: 6, position: 'relative', zIndex: 1, textAlign: 'center' }}>
+            <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
+              พร้อมสร้าง UI สวยๆ ด้วย Material-UI แล้วหรือยัง?
+            </Typography>
+            <Typography variant="h6" sx={{ mb: 4, opacity: 0.9, maxWidth: 600, mx: 'auto' }}>
+              เริ่มต้นการเดินทางสู่การเป็น UI Developer ด้วย Material-UI
+              จากพื้นฐานไปจนถึงระดับมืออาชีพ
+            </Typography>
+            <Button
+              variant="contained"
+              size="large"
+              startIcon={<Palette />}
+              component={Link}
+              href="/mui-tutorial/lesson-1"
               sx={{
-                '& .MuiAccordionSummary-content': {
-                  alignItems: 'center',
+                bgcolor: 'white',
+                color: 'primary.main',
+                px: 4,
+                py: 1.5,
+                fontSize: '1.1rem',
+                fontWeight: 600,
+                borderRadius: 3,
+                boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
+                '&:hover': {
+                  bgcolor: 'grey.100',
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.25)',
                 }
               }}
             >
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, width: '100%' }}>
-                <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                  บทที่ {lesson.id}: {lesson.title}
-                </Typography>
-                <Box sx={{ display: 'flex', gap: 1 }}>
-                  <Chip label={lesson.duration} size="small" color="primary" />
-                  <Chip label={lesson.level} size="small" color="secondary" />
-                </Box>
-              </Box>
-            </AccordionSummary>
-            
-            <AccordionDetails>
-              <Typography variant="body1" sx={{ mb: 2 }}>
-                {lesson.description}
-              </Typography>
-
-              <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 'bold' }}>
-                🎯 หัวข้อที่จะเรียน:
-              </Typography>
-              <List dense>
-                {lesson.topics.map((topic, index) => (
-                  <ListItem key={index} sx={{ py: 0 }}>
-                    <ListItemIcon sx={{ minWidth: 24 }}>
-                      <CheckCircle color="primary" sx={{ fontSize: 16 }} />
-                    </ListItemIcon>
-                    <ListItemText primary={topic} />
-                  </ListItem>
-                ))}
-              </List>
-
-              {lesson.code && (
-                <Box sx={{ mt: 3 }}>
-                  <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 'bold' }}>
-                    💻 ตัวอย่างโค้ด:
-                  </Typography>
-                  <Paper sx={{ p: 2, bgcolor: 'grey.100', fontFamily: 'monospace' }}>
-                    <pre style={{ margin: 0, fontSize: '0.875rem', overflowX: 'auto' }}>
-                      {lesson.code}
-                    </pre>
-                  </Paper>
-                </Box>
-              )}
-
-              <Box sx={{ mt: 3, display: 'flex', gap: 2 }}>
-                <Button
-                  variant="contained"
-                  startIcon={<PlayArrow />}
-                  component={Link}
-                  href={`/mui-tutorial/lesson-${lesson.id}`}
-                >
-                  เริ่มเรียนบทนี้
-                </Button>
-                <Button
-                  variant="outlined"
-                  startIcon={<Code />}
-                  href="#"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  ดูตัวอย่าง Live Demo
-                </Button>
-              </Box>
-            </AccordionDetails>
-          </Accordion>
-        ))}
-      </Box>
-
-      {/* Getting Started */}
-      <Paper sx={{ p: 4, bgcolor: 'secondary.light', color: 'secondary.contrastText' }}>
-        <Typography variant="h3" sx={{ mb: 2, textAlign: 'center' }}>
-          🎨 พร้อมสร้าง UI สวยๆ แล้วใช่ไหม?
-        </Typography>
-        <Typography variant="body1" sx={{ mb: 3, textAlign: 'center' }}>
-          เริ่มต้นจากบทที่ 1 และสร้าง Component สวยๆ ด้วย MUI กันเลย!
-        </Typography>
-        <Box sx={{ textAlign: 'center' }}>
-          <Button
-            variant="contained"
-            size="large"
-            sx={{ 
-              bgcolor: 'white', 
-              color: 'secondary.main',
-              '&:hover': { bgcolor: 'grey.100' }
-            }}
-            startIcon={<PlayArrow />}
-            component={Link}
-            href="/mui-tutorial/lesson-1"
-          >
-            เริ่มเรียนบทที่ 1
-          </Button>
-        </Box>
-      </Paper>
-    </Container>
+              เริ่มเรียน Material-UI เลย!
+            </Button>
+          </CardContent>
+        </Card>
+      </Container>
+    </>
   );
 } 

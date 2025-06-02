@@ -221,6 +221,28 @@ const lessons: Lesson[] = [
     emoji: '🎯',
     status: 'available',
     estimatedTime: 60
+  },
+  {
+    id: 17,
+    title: 'TypeScript & Interface ใน Next.js',
+    description: 'เรียนรู้การใช้ TypeScript และการสร้าง Interface เพื่อเขียนโค้ดที่ปลอดภัย',
+    duration: '50 นาที',
+    level: 'ปานกลาง',
+    topics: ['TypeScript Basics', 'Interface Definition', 'Component Props', 'Generic Types'],
+    emoji: '🛡️',
+    status: 'available',
+    estimatedTime: 50
+  },
+  {
+    id: 18,
+    title: 'Functions & Constants อย่างละเอียด',
+    description: 'เรียนรู้การเขียน Functions และการใช้ Constants ใน JavaScript/TypeScript',
+    duration: '45 นาที',
+    level: 'เริ่มต้น',
+    topics: ['Function Types', 'Arrow Functions', 'Constants & Scope', 'Best Practices'],
+    emoji: '⚡',
+    status: 'available',
+    estimatedTime: 45
   }
 ];
 

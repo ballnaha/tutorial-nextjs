@@ -2,6 +2,7 @@ import "./globals.css";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
 import { theme } from './theme';
 import { Navbar } from './components/Navbar';
 import { Box } from '@mui/material';
@@ -100,14 +101,14 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#1976d2' },
-    { media: '(prefers-color-scheme: dark)', color: '#1976d2' },
+    { media: '(prefers-color-scheme: light)', color: '#5C9EE8' },
+    { media: '(prefers-color-scheme: dark)', color: '#90caf9' },
   ],
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
-  colorScheme: 'light',
+  colorScheme: 'light dark',
 };
 
 // Global Structured Data
@@ -198,7 +199,11 @@ export default function RootLayout({
         
         {/* Preconnect to external domains */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        
+        {/* Performance optimizations */}
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         
         {/* Favicon */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -224,31 +229,37 @@ export default function RootLayout({
         <meta property="article:tag" content="Next.js, React, Tutorial, Programming" />
       </head>
       <body>
-        <AppRouterCacheProvider>
+        <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+            <CssBaseline enableColorScheme />
+            <InitColorSchemeScript attribute="class" />
+            <Box 
+              component="main" 
+              sx={{ 
+                minHeight: '100vh',
+                bgcolor: 'background.default',
+                color: 'text.primary'
+              }}
+            >
               <Navbar />
-              <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-                {children}
-              </Box>
-              
-              {/* Footer for SEO */}
-              <Box 
-                component="footer" 
-                sx={{ 
-                  mt: 'auto',
-                  py: 3, 
-                  px: 3,
-                  bgcolor: 'grey.100',
-                  borderTop: '1px solid',
-                  borderColor: 'grey.300'
-                }}
-              >
-                <Box sx={{ textAlign: 'center', color: 'text.secondary' }}>
-                  <p>© 2024 Next.js Tutorial ไทย - เรียนรู้การสร้างเว็บแอปพลิเคชันฟรี</p>
-                  <p>บทเรียน Next.js, Material-UI และ Prisma ภาษาไทยครบครัน</p>
-                </Box>
+              {children}
+            </Box>
+            
+            {/* Footer for SEO */}
+            <Box 
+              component="footer" 
+              sx={{ 
+                mt: 'auto',
+                py: 3, 
+                px: 3,
+                bgcolor: 'grey.100',
+                borderTop: '1px solid',
+                borderColor: 'grey.300'
+              }}
+            >
+              <Box sx={{ textAlign: 'center', color: 'text.secondary' }}>
+                <p>© 2025 Next.js Tutorial ไทย - เรียนรู้การสร้างเว็บแอปพลิเคชันฟรี</p>
+                <p>บทเรียน Next.js, Material-UI และ Prisma ภาษาไทยครบครัน</p>
               </Box>
             </Box>
           </ThemeProvider>

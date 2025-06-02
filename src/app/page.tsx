@@ -103,16 +103,18 @@ export const metadata: Metadata = {
 const tutorialCards = [
   {
     title: 'Next.js พื้นฐาน',
-    description: 'เรียนรู้ Next.js 15 ตั้งแต่เริ่มต้นจนใช้งานได้จริง ครอบคลุมทุกสิ่งที่จำเป็นสำหรับการพัฒนาเว็บแอปพลิเคชันสมัยใหม่',
+    description: 'เรียนรู้ Next.js 15 ตั้งแต่เริ่มต้นจนใช้งานได้จริง ครอบคลุมทุกสิ่งที่จำเป็นสำหรับการพัฒนาเว็บแอปพลิเคชันสมัยใหม่ รวมถึง TypeScript และ Functions',
     icon: <Web sx={{ fontSize: 40 }} />,
     color: '#000000',
-    lessons: 16,
+    lessons: 18,
     difficulty: 'เริ่มต้น',
-    duration: '8-12 ชั่วโมง',
+    duration: '12-15 ชั่วโมง',
     href: '/nextjs-basics',
     features: [
       'App Router และ Server Components',
       'Client Components และ Hydration',
+      'TypeScript & Interface Programming',
+      'Functions & Constants ขั้นสูง',
       'API Routes และ Database Integration',
       'Static Site Generation (SSG)',
       'Server-Side Rendering (SSR)',
@@ -120,7 +122,9 @@ const tutorialCards = [
       'Authentication และ Authorization',
       'Middleware และ Security',
       'Performance Optimization',
-      'Deployment และ Production'
+      'Deployment และ Production',
+      'Advanced Patterns & Best Practices',
+      'Testing และ Code Quality'
     ]
   },
   {
@@ -173,7 +177,7 @@ const highlights = [
 ];
 
 const stats = [
-  { number: '34', label: 'บทเรียน', icon: <Web /> },
+  { number: '36', label: 'บทเรียน', icon: <Web /> },
   { number: '100%', label: 'ฟรี', icon: <CheckCircle /> },
 ];
 
@@ -276,7 +280,11 @@ export default function HomePage() {
               fontWeight: 400
             }}
           >
-            เรียนรู้ Next.js 15, Material-UI และ Prisma อย่างครบครันด้วยบทเรียนภาษาไทยที่เข้าใจง่าย
+            เรียนรู้ Next.js 15, TypeScript, Material-UI และ Prisma อย่างครบครันด้วยบทเรียนภาษาไทยที่เข้าใจง่าย 
+          </Typography>
+
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 4, maxWidth: '800px', mx: 'auto' }}>
+          เนื้อหาทั้งหมดสร้างมาจาก AI เนื่องจากผู้สร้างบทเรียนเป็นมือใหม่เหมือนกัน และต้องการหาแหล่งเรียน แต่เนื่องด้วยเจอแต่เนื้อหาภาษาอังกฤษ จึงต้องสร้างบทเรียนภาษาไทยขึ้นมาเอง จึงอยากจะทำให้ง่ายต่อการเรียนรู้มากขึ้น
           </Typography>
 
           {/* Statistics */}
@@ -366,7 +374,7 @@ export default function HomePage() {
                 เทคโนโลยีล่าสุด
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                อัปเดตตาม Next.js 15, React 19 และเทคโนโลยีใหม่ล่าสุดเสมอ
+                อัปเดตตาม Next.js 15, React 19, TypeScript และเทคโนโลยีใหม่ล่าสุดเสมอ
               </Typography>
             </Paper>
 
@@ -376,7 +384,7 @@ export default function HomePage() {
                 ใช้งานได้จริง
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                ตัวอย่างโค้ดและโปรเจคที่สามารถนำไปใช้งานจริงได้ทันที
+                ตัวอย่างโค้ดและโปรเจคที่สามารถนำไปใช้งานจริงได้ทันที พร้อม Interactive Demo
               </Typography>
             </Paper>
 
@@ -404,7 +412,7 @@ export default function HomePage() {
             color="text.secondary" 
             sx={{ mb: 4, maxWidth: '600px', mx: 'auto' }}
           >
-            เรียนรู้การพัฒนาเว็บแอปพลิเคชันครบวงจร ตั้งแต่ Frontend ด้วย Next.js และ Material-UI 
+            เรียนรู้การพัฒนาเว็บแอปพลิเคชันครบวงจร ตั้งแต่ Frontend ด้วย Next.js, TypeScript และ Material-UI 
             ไปจนถึง Backend ด้วย Prisma และ MySQL
           </Typography>
 
@@ -550,7 +558,7 @@ export default function HomePage() {
                 เรียนตามลำดับ
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                เริ่มจาก Next.js พื้นฐานก่อน แล้วไปต่อ Material-UI และ Prisma
+                เริ่มจาก Next.js พื้นฐานก่อน แล้วไปต่อ TypeScript, Material-UI และ Prisma
               </Typography>
             </Box>
             
@@ -597,18 +605,18 @@ export default function HomePage() {
                 ใช้เวลาเรียนนานแค่ไหน?
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                ขึ้นอยู่กับเวลาที่มี หากเรียนวันละ 1-2 ชั่วโมง ใช้เวลาประมาณ 2-3 สัปดาห์ 
-                จะสามารถเรียนจบและสร้างแอปพลิเคชันได้
+                ขึ้นอยู่กับเวลาที่มี หากเรียนวันละ 1-2 ชั่วโมง ใช้เวลาประมาณ 3-4 สัปดาห์ 
+                จะสามารถเรียนจบทั้ง 18 บทและสร้างแอปพลิเคชันได้
               </Typography>
             </Paper>
 
-            <Paper sx={{ p: 3 }}>
+            <Paper sx={{ p: 3, mb: 2 }}>
               <Typography variant="h6" sx={{ mb: 1 }}>
                 หลังเรียนจบแล้วสามารถทำอะไรได้บ้าง?
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 สามารถสร้างเว็บแอปพลิเคชันแบบ Full Stack ได้ เช่น เว็บร้านค้า, Blog, 
-                ระบบจัดการข้อมูล หรือแอปพลิเคชันอื่นๆ ตามความต้องการ
+                ระบบจัดการข้อมูล หรือแอปพลิเคชันอื่นๆ ตามความต้องการ พร้อม TypeScript ที่ปลอดภัย
               </Typography>
             </Paper>
 

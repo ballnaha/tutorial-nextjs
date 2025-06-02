@@ -20,7 +20,6 @@ import {
   LinearProgress,
   CircularProgress,
   Tooltip,
-  Grid,
   Accordion,
   AccordionSummary,
   AccordionDetails,
@@ -180,8 +179,8 @@ function PatternComparison() {
             {currentPattern.useCase}
           </Typography>
 
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={6}>
+          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 2 }}>
+            <Box sx={{ flex: 1 }}>
               <Typography variant="subtitle2" sx={{ mb: 1, color: 'success.main' }}>
                 ✅ ข้อดี:
               </Typography>
@@ -198,9 +197,9 @@ function PatternComparison() {
                   </ListItem>
                 ))}
               </List>
-            </Grid>
+            </Box>
             
-            <Grid item xs={12} md={6}>
+            <Box sx={{ flex: 1 }}>
               <Typography variant="subtitle2" sx={{ mb: 1, color: 'error.main' }}>
                 ⚠️ ข้อเสีย:
               </Typography>
@@ -217,8 +216,8 @@ function PatternComparison() {
                   </ListItem>
                 ))}
               </List>
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </Paper>
 
         <Alert severity="info" sx={{ mt: 2 }}>
@@ -552,8 +551,8 @@ export default function Lesson16Page() {
 
           <Typography variant="h5" sx={{ mb: 2 }}>🎨 Patterns สำคัญที่ควรรู้</Typography>
           
-          <Grid container spacing={3} sx={{ mb: 4 }}>
-            <Grid item xs={12} md={6}>
+          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 3, mb: 4 }}>
+            <Box sx={{ flex: 1 }}>
               <Card>
                 <CardContent>
                   <Typography variant="h6" sx={{ mb: 2, color: 'primary.main' }}>
@@ -587,9 +586,9 @@ function useApi<T>(url: string) {
                   </Alert>
                 </CardContent>
               </Card>
-            </Grid>
+            </Box>
 
-            <Grid item xs={12} md={6}>
+            <Box sx={{ flex: 1 }}>
               <Card>
                 <CardContent>
                   <Typography variant="h6" sx={{ mb: 2, color: 'secondary.main' }}>
@@ -625,8 +624,8 @@ Modal.Body = ({ children }) => (
                   </Alert>
                 </CardContent>
               </Card>
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </TabPanel>
 
         {/* Tab 2: Architecture */}
