@@ -5,7 +5,6 @@ import {
   Box,
   Card,
   CardContent,
-  CardActions,
   Button,
   Chip,
   Accordion,
@@ -15,96 +14,95 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Alert,
   Paper,
-  Divider,
+  Stack,
   Avatar,
+  Breadcrumbs,
+  LinearProgress,
 } from '@mui/material';
 import {
   ExpandMore,
   PlayArrow,
   Code,
   CheckCircle,
+  Palette,
+  Brush,
+  Dashboard,
+  TableChart,
+  Edit,
+  Widgets,
+  DevicesOther,
+  ColorLens,
+  Schedule,
+  Star,
+  Speed,
+  Security,
+  Home,
+  NavigateNext,
   Storage,
   Dataset,
-  TableChart,
-  Security,
-  Speed,
   Build,
   CloudSync,
   AccountTree,
 } from '@mui/icons-material';
 import Link from 'next/link';
+import { useState } from 'react';
 
-const lessons = [
+interface Lesson {
+  id: number;
+  title: string;
+  description: string;
+  duration: string;
+  level: 'เริ่มต้น' | 'ปานกลาง' | 'ขั้นสูง';
+  topics: string[];
+  code?: string;
+  status: 'available' | 'coming-soon';
+  estimatedTime?: number;
+  emoji: string;
+}
+
+const lessons: Lesson[] = [
   {
     id: 1,
-    title: '🗄️ เริ่มต้นกับ Prisma ORM',
-    description: 'ทำความรู้จักกับ Prisma และการติดตั้งร่วมกับ MySQL',
+    title: 'เริ่มต้นกับ Prisma ORM',
+    description: 'ทำความรู้จักกับ Prisma และการติดตั้งร่วมกับ MySQL/PostgreSQL',
     duration: '30 นาที',
     level: 'เริ่มต้น',
-    topics: [
-      'Prisma คืออะไร?',
-      'ข้อดีของ ORM',
-      'การติดตั้ง Prisma',
-      'การตั้งค่า MySQL',
-      'การสร้าง Schema แรก',
-    ],
-    code: `# ติดตั้ง Prisma
-npm install prisma @prisma/client
-npm install mysql2
-
-# เริ่มต้น Prisma
+    topics: ['Prisma คืออะไร?', 'ข้อดีของ ORM', 'การติดตั้ง Prisma', 'การตั้งค่าฐานข้อมูล', 'Prisma Client'],
+    status: 'available',
+    estimatedTime: 30,
+    emoji: '🗄️',
+    code: `npm install prisma @prisma/client
 npx prisma init
 
-# .env
-DATABASE_URL="mysql://user:password@localhost:3306/mydatabase"
-
-# schema.prisma
+// schema.prisma
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }`
   },
   {
     id: 2,
-    title: '📋 Prisma Schema',
-    description: 'การออกแบบและเขียน Schema สำหรับฐานข้อมูล',
+    title: 'Prisma Schema Design',
+    description: 'การออกแบบและเขียน Schema สำหรับฐานข้อมูลอย่างมีประสิทธิภาพ',
     duration: '35 นาที',
     level: 'เริ่มต้น',
-    topics: [
-      'Data Types ใน Prisma',
-      'Fields และ Attributes',
-      'Primary Key และ Unique',
-      'Default Values',
-      'Optional Fields',
-    ],
+    topics: ['Data Types', 'Fields และ Attributes', 'Primary Key และ Unique', 'Default Values', 'Schema Validation'],
+    status: 'available',
+    estimatedTime: 35,
+    emoji: '📋',
     code: `model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   name      String?
   role      Role     @default(USER)
   posts     Post[]
-  profile   Profile?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  @@map("users")
-}
-
-model Post {
-  id        Int      @id @default(autoincrement())
-  title     String
-  content   String?  @db.Text
-  published Boolean  @default(false)
-  authorId  Int
-  author    User     @relation(fields: [authorId], references: [id])
-  
-  @@map("posts")
 }
 
 enum Role {
@@ -114,489 +112,792 @@ enum Role {
   },
   {
     id: 3,
-    title: '🔗 Relations (ความสัมพันธ์)',
-    description: 'การสร้างความสัมพันธ์ระหว่างตารางต่างๆ',
+    title: 'Relations และ Associations',
+    description: 'การสร้างความสัมพันธ์ระหว่างตารางต่างๆ และการจัดการ Foreign Keys',
     duration: '40 นาที',
     level: 'ปานกลาง',
-    topics: [
-      'One-to-One Relations',
-      'One-to-Many Relations',
-      'Many-to-Many Relations',
-      'Self Relations',
-      'Referential Actions',
-    ],
-    code: `// One-to-One
-model User {
-  id      Int      @id @default(autoincrement())
-  profile Profile?
-}
-
-model Profile {
-  id     Int    @id @default(autoincrement())
-  bio    String
-  userId Int    @unique
-  user   User   @relation(fields: [userId], references: [id])
-}
-
-// One-to-Many
-model User {
-  id    Int    @id @default(autoincrement())
-  posts Post[]
-}
-
-model Post {
-  id       Int  @id @default(autoincrement())
-  authorId Int
-  author   User @relation(fields: [authorId], references: [id])
-}
-
-// Many-to-Many
-model Post {
-  id         Int        @id @default(autoincrement())
-  categories Category[]
-}
-
-model Category {
-  id    Int    @id @default(autoincrement())
-  posts Post[]
-}`
+    topics: ['One-to-One Relations', 'One-to-Many Relations', 'Many-to-Many Relations', 'Self Relations', 'Referential Actions'],
+    status: 'available',
+    estimatedTime: 40,
+    emoji: '🔗',
   },
   {
     id: 4,
-    title: '🔄 Migrations',
-    description: 'การจัดการการเปลี่ยนแปลงโครงสร้างฐานข้อมูล',
+    title: 'Migrations และ Database Management',
+    description: 'การจัดการการเปลี่ยนแปลงโครงสร้างฐานข้อมูลด้วย Prisma Migrate',
     duration: '25 นาที',
     level: 'ปานกลาง',
-    topics: [
-      'การสร้าง Migration แรก',
-      'Migration History',
-      'การ Reset Database',
-      'Migration ใน Production',
-      'การแก้ไข Migration Conflicts',
-    ],
-    code: `# สร้าง migration จาก schema
-npx prisma migrate dev --name init
-
-# ดู migration history
-npx prisma migrate status
-
-# reset database
-npx prisma migrate reset
-
-# deploy migrations to production
-npx prisma migrate deploy
-
-# generate Prisma client
-npx prisma generate`
+    topics: ['การสร้าง Migration', 'Migration History', 'Database Reset', 'Production Migrations', 'Schema Drift'],
+    status: 'available',
+    estimatedTime: 25,
+    emoji: '🔄',
   },
   {
     id: 5,
-    title: '📊 CRUD Operations',
-    description: 'การสร้าง อ่าน อัปเดต และลบข้อมูล',
+    title: 'CRUD Operations',
+    description: 'การสร้าง อ่าน อัปเดต และลบข้อมูลด้วย Prisma Client',
     duration: '45 นาที',
     level: 'ปานกลาง',
-    topics: [
-      'Create Operations',
-      'Read Operations',
-      'Update Operations',
-      'Delete Operations',
-      'Batch Operations',
-      'Transactions',
-    ],
-    code: `import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
-
-// Create
-const user = await prisma.user.create({
-  data: {
-    email: 'john@example.com',
-    name: 'John Doe',
-    posts: {
-      create: [
-        { title: 'Hello World', content: 'This is my first post' }
-      ]
-    }
-  },
-  include: { posts: true }
-})
-
-// Read
-const users = await prisma.user.findMany({
-  where: { email: { contains: '@gmail.com' } },
-  include: { posts: true },
-  orderBy: { createdAt: 'desc' }
-})
-
-// Update
-const updatedUser = await prisma.user.update({
-  where: { id: 1 },
-  data: { name: 'Jane Doe' }
-})
-
-// Delete
-await prisma.user.delete({
-  where: { id: 1 }
-})`
+    topics: ['Create Operations', 'Read Operations', 'Update Operations', 'Delete Operations', 'Batch Operations'],
+    status: 'available',
+    estimatedTime: 45,
+    emoji: '📊',
   },
   {
     id: 6,
-    title: '🔍 Advanced Queries',
-    description: 'การ Query ข้อมูลขั้นสูงและการเพิ่มประสิทธิภาพ',
-    duration: '35 นาที',
-    level: 'ขั้นสูง',
-    topics: [
-      'Filtering และ Sorting',
-      'Pagination',
-      'Aggregation',
-      'Raw Queries',
-      'Query Optimization',
-    ],
-    code: `// Advanced filtering
-const posts = await prisma.post.findMany({
-  where: {
-    AND: [
-      { published: true },
-      {
-        OR: [
-          { title: { contains: 'prisma' } },
-          { content: { contains: 'database' } }
-        ]
-      }
-    ]
-  }
-})
-
-// Pagination
-const posts = await prisma.post.findMany({
-  skip: 10,
-  take: 5,
-  orderBy: { createdAt: 'desc' }
-})
-
-// Aggregation
-const result = await prisma.user.aggregate({
-  _count: { id: true },
-  _avg: { age: true },
-  _sum: { score: true }
-})
-
-// Raw query
-const users = await prisma.$queryRaw\`
-  SELECT * FROM users WHERE age > \${minAge}
-\``
+    title: 'Query และ Filtering',
+    description: 'การค้นหาและกรองข้อมูลขั้นสูงด้วย Prisma Query API',
+    duration: '50 นาที',
+    level: 'ปานกลาง',
+    topics: ['Where Conditions', 'Sorting และ Ordering', 'Pagination', 'Select และ Include', 'Aggregations'],
+    status: 'available',
+    estimatedTime: 50,
+    emoji: '🔍',
   },
   {
     id: 7,
-    title: '🔐 Authentication & Authorization',
-    description: 'การสร้างระบบ Authentication ด้วย Prisma',
-    duration: '40 นาที',
-    level: 'ขั้นสูง',
-    topics: [
-      'User Registration',
-      'Password Hashing',
-      'JWT Tokens',
-      'Session Management',
-      'Role-based Access Control',
-    ],
-    code: `import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
-
-// สร้างผู้ใช้ใหม่
-async function createUser(email: string, password: string) {
-  const hashedPassword = await bcrypt.hash(password, 10)
-  
-  return prisma.user.create({
-    data: {
-      email,
-      password: hashedPassword,
-    }
-  })
-}
-
-// เข้าสู่ระบบ
-async function login(email: string, password: string) {
-  const user = await prisma.user.findUnique({
-    where: { email }
-  })
-  
-  if (!user || !await bcrypt.compare(password, user.password)) {
-    throw new Error('Invalid credentials')
-  }
-  
-  const token = jwt.sign(
-    { userId: user.id },
-    process.env.JWT_SECRET!,
-    { expiresIn: '7d' }
-  )
-  
-  return { user, token }
-}`
+    title: 'Transactions และ Error Handling',
+    description: 'การจัดการ transactions และการจัดการข้อผิดพลาดใน Prisma',
+    duration: '35 นาที',
+    level: 'ปานกลาง',
+    topics: ['Database Transactions', 'Interactive Transactions', 'Error Handling', 'Connection Pooling', 'Retry Logic'],
+    status: 'available',
+    estimatedTime: 35,
+    emoji: '⚡',
   },
   {
     id: 8,
-    title: '🚀 Production Best Practices',
-    description: 'การนำ Prisma ไปใช้งานจริงและการเพิ่มประสิทธิภาพ',
-    duration: '30 นาที',
+    title: 'Prisma Studio และ Tools',
+    description: 'การใช้ Prisma Studio และเครื่องมือต่างๆ สำหรับจัดการฐานข้อมูล',
+    duration: '20 นาที',
+    level: 'เริ่มต้น',
+    topics: ['Prisma Studio', 'Database Browser', 'Visual Query Builder', 'Data Seeding', 'Database Introspection'],
+    status: 'available',
+    estimatedTime: 20,
+    emoji: '🎨',
+  },
+  {
+    id: 9,
+    title: 'TypedSQL และ Raw Queries',
+    description: 'การใช้ Raw SQL queries และ TypedSQL ใน Prisma 6.8+',
+    duration: '40 นาที',
     level: 'ขั้นสูง',
-    topics: [
-      'Connection Pooling',
-      'Environment Variables',
-      'Error Handling',
-      'Logging และ Monitoring',
-      'Database Seeding',
-      'Backup Strategies',
-    ],
-    code: `// prisma/seed.ts
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
-
-async function main() {
-  await prisma.user.createMany({
-    data: [
-      { email: 'admin@example.com', name: 'Admin', role: 'ADMIN' },
-      { email: 'user@example.com', name: 'User', role: 'USER' }
-    ]
-  })
-}
-
-main()
-  .catch((e) => {
-    console.error(e)
-    process.exit(1)
-  })
-  .finally(async () => {
-    await prisma.$disconnect()
-  })
-
-// Connection pooling configuration
-datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
-  connectionLimit = 10
-}`
+    topics: ['Raw SQL Queries', 'TypedSQL', 'SQL Template Literals', 'Performance Optimization', 'Complex Queries'],
+    status: 'available',
+    estimatedTime: 40,
+    emoji: '🚀',
+  },
+  {
+    id: 10,
+    title: 'Performance และ Optimization',
+    description: 'การเพิ่มประสิทธิภาพและปรับแต่ง Prisma สำหรับ Production',
+    duration: '45 นาที',
+    level: 'ขั้นสูง',
+    topics: ['Query Optimization', 'Connection Pooling', 'Read Replicas', 'Caching Strategies', 'Monitoring'],
+    status: 'available',
+    estimatedTime: 45,
+    emoji: '⚡',
+  },
+  {
+    id: 11,
+    title: 'Testing กับ Prisma',
+    description: 'การเขียน unit tests และ integration tests สำหรับ Prisma',
+    duration: '40 นาที',
+    level: 'ขั้นสูง',
+    topics: ['Test Database Setup', 'Mocking Prisma', 'Integration Testing', 'Database Fixtures', 'Test Isolation'],
+    status: 'available',
+    estimatedTime: 40,
+    emoji: '🧪',
+  },
+  {
+    id: 12,
+    title: 'Deployment และ Production',
+    description: 'การ deploy Prisma application ใน production environments',
+    duration: '50 นาที',
+    level: 'ขั้นสูง',
+    topics: ['Environment Setup', 'Migration Deployment', 'Connection Security', 'Monitoring', 'Backup Strategies'],
+    status: 'available',
+    estimatedTime: 50,
+    emoji: '🌐',
   },
 ];
 
 const features = [
-  { icon: <Dataset />, title: 'Type-safe', desc: 'TypeScript support' },
-  { icon: <Speed />, title: 'Performance', desc: 'Optimized queries' },
-  { icon: <Build />, title: 'Developer Experience', desc: 'Great tooling' },
-  { icon: <Security />, title: 'Secure', desc: 'SQL injection protection' },
+  {
+    icon: <Storage />,
+    title: 'Type-Safe Database',
+    desc: 'ฐานข้อมูลที่ปลอดภัยด้วย TypeScript และ auto-completion เต็มรูปแบบ',
+    color: '#1976d2'
+  },
+  {
+    icon: <Code />,
+    title: 'Modern ORM',
+    desc: 'ORM รุ่นใหม่ที่ออกแบบมาสำหรับ JavaScript/TypeScript โดยเฉพาะ',
+    color: '#388e3c'
+  },
+  {
+    icon: <Speed />,
+    title: 'High Performance',
+    desc: 'ประสิทธิภาพสูงด้วย connection pooling และ query optimization',
+    color: '#f57c00'
+  },
+  {
+    icon: <Build />,
+    title: 'Developer Experience',
+    desc: 'เครื่องมือครบครันสำหรับนักพัฒนา พร้อม Prisma Studio และ CLI',
+    color: '#7b1fa2'
+  }
 ];
 
+const getLevelColor = (level: string) => {
+  switch (level) {
+    case 'เริ่มต้น': return 'success';
+    case 'ปานกลาง': return 'warning';
+    case 'ขั้นสูง': return 'error';
+    default: return 'default';
+  }
+};
+
+const getLevelProgress = (level: string) => {
+  switch (level) {
+    case 'เริ่มต้น': return 30;
+    case 'ปานกลาง': return 60;
+    case 'ขั้นสูง': return 90;
+    default: return 0;
+  }
+};
+
 export default function PrismaTutorialPage() {
+  const [expandedLesson, setExpandedLesson] = useState<number | false>(false);
+  
+  const totalLessons = lessons.length;
+  const availableLessons = lessons.filter(lesson => lesson.status === 'available').length;
+  const totalTime = lessons.reduce((sum, lesson) => sum + (lesson.estimatedTime || 0), 0);
+  const comingSoonLessons = lessons.filter(lesson => lesson.status === 'coming-soon');
+
+  const handleAccordionChange = (panel: number) => (_: React.SyntheticEvent, isExpanded: boolean) => {
+    setExpandedLesson(isExpanded ? panel : false);
+  };
+
+  // Structured Data for SEO
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "หลักสูตร Prisma ORM สำหรับมือใหม่",
+    "description": "เรียนรู้ Prisma ORM จากศูนย์สู่มืออาชีพ พร้อมการจัดการฐานข้อมูลแบบ type-safe หลักสูตรฟรีสำหรับมือใหม่",
+    "provider": {
+      "@type": "Organization",
+      "name": "Prisma Tutorial Thailand",
+      "url": "https://your-domain.com"
+    },
+    "educationalLevel": "Beginner to Advanced",
+    "programmingLanguage": ["JavaScript", "TypeScript"],
+    "teaches": [
+      "Prisma ORM",
+      "Database Design", 
+      "TypeScript",
+      "SQL",
+      "Database Management",
+      "Query Optimization",
+      "Performance Tuning",
+      "Testing"
+    ],
+    "courseMode": "online",
+    "inLanguage": "th",
+    "isAccessibleForFree": true,
+    "totalTime": `PT${Math.floor(totalTime / 60)}H${totalTime % 60}M`,
+    "numberOfLessons": lessons.length,
+    "availableLessons": availableLessons,
+    "hasCourseInstance": {
+      "@type": "CourseInstance",
+      "courseMode": "online",
+      "instructor": {
+        "@type": "Person",
+        "name": "Prisma Tutorial Thailand"
+      }
+    }
+  };
+
   return (
+    <>
+      {/* SEO Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      
     <Container maxWidth="lg">
-      {/* Header */}
-      <Box sx={{ py: 4 }}>
-        <Typography variant="h1" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 2 }}>
-          <Storage color="primary" sx={{ fontSize: '3rem' }} />
-          Prisma & MySQL Tutorial
-        </Typography>
-        <Typography variant="h5" color="text.secondary" sx={{ mb: 4 }}>
-          เรียนรู้การจัดการฐานข้อมูลด้วย Prisma ORM และ MySQL อย่างครบครัน
-        </Typography>
-
-        <Alert severity="warning" sx={{ mb: 4 }}>
-          <Typography variant="body1">
-            📋 <strong>สิ่งที่ต้องมีก่อนเรียน:</strong> ความรู้พื้นฐาน Next.js, TypeScript, SQL และ MySQL
+        {/* Breadcrumbs */}
+        <Breadcrumbs 
+          aria-label="breadcrumb" 
+          sx={{ py: 2 }}
+          separator={<NavigateNext fontSize="small" />}
+        >
+          <Link href="/" style={{ 
+            textDecoration: 'none', 
+            color: 'inherit',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '4px'
+          }}>
+            <Home sx={{ fontSize: 16 }} />
+            หน้าหลัก
+          </Link>
+          <Typography color="text.primary" sx={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <Storage sx={{ fontSize: 16 }} />
+            Prisma Tutorial
           </Typography>
-        </Alert>
+        </Breadcrumbs>
 
-        {/* Features */}
-        <Box sx={{ 
+        {/* Minimal Banner */}
+        <Box sx={{ mb: 4 }}>
+          <Typography 
+            variant="h3" 
+            component="h1" 
+            sx={{ 
+              mb: 2,
+              fontWeight: 600,
           display: 'flex', 
-          flexDirection: { xs: 'column', sm: 'row' }, 
-          gap: 2, 
-          mb: 4 
-        }}>
-          {features.map((feature, index) => (
-            <Paper key={index} sx={{ p: 2, flex: 1, textAlign: 'center' }}>
-              <Box sx={{ color: 'primary.main', mb: 1 }}>
-                {feature.icon}
-              </Box>
-              <Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>
-                {feature.title}
+              alignItems: 'center',
+              gap: 2
+            }}
+          >
+            <Avatar sx={{ bgcolor: '#2D3748', width: 48, height: 48 }}>
+              <Storage />
+            </Avatar>
+            Prisma ORM Tutorial
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {feature.desc}
-              </Typography>
-            </Paper>
-          ))}
-        </Box>
-
-        {/* What you'll learn */}
-        <Paper sx={{ p: 3, bgcolor: 'grey.50', mb: 4 }}>
-          <Typography variant="h6" sx={{ mb: 2 }}>
-            🎯 สิ่งที่จะได้เรียนรู้:
+          
+          <Typography 
+            variant="body1" 
+            color="text.secondary" 
+            sx={{ mb: 3, maxWidth: '600px' }}
+          >
+            เรียนรู้ Prisma ORM จากศูนย์สู่มืออาชีพ ครอบคลุมการออกแบบฐานข้อมูล, migrations, และ type-safe queries
           </Typography>
+
+          {/* Quick Stats */}
           <Box sx={{ 
             display: 'flex', 
-            flexDirection: { xs: 'column', sm: 'row' }, 
-            gap: 2 
+            gap: 3, 
+            alignItems: 'center',
+            flexWrap: 'wrap'
           }}>
-            <Box sx={{ flex: 1 }}>
-              <List dense>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="primary" /></ListItemIcon>
-                  <ListItemText primary="การติดตั้งและตั้งค่า Prisma" />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="primary" /></ListItemIcon>
-                  <ListItemText primary="การออกแบบ Schema" />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="primary" /></ListItemIcon>
-                  <ListItemText primary="Database Relations" />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="primary" /></ListItemIcon>
-                  <ListItemText primary="Migration Management" />
-                </ListItem>
-              </List>
-            </Box>
-            <Box sx={{ flex: 1 }}>
-              <List dense>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="primary" /></ListItemIcon>
-                  <ListItemText primary="CRUD Operations" />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="primary" /></ListItemIcon>
-                  <ListItemText primary="Advanced Queries" />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="primary" /></ListItemIcon>
-                  <ListItemText primary="Authentication System" />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="primary" /></ListItemIcon>
-                  <ListItemText primary="Production Best Practices" />
-                </ListItem>
-              </List>
-            </Box>
+            <Chip 
+              icon={<CheckCircle />}
+              label={`${availableLessons}/${totalLessons} บทเรียน`} 
+              color="primary" 
+              variant="outlined"
+            />
+            <Chip 
+              icon={<Schedule />}
+              label={`${Math.floor(totalTime / 60)} ชั่วโมง ${totalTime % 60} นาที`} 
+              color="secondary" 
+              variant="outlined"
+            />
+            <Chip 
+              label="ฟรี 100%" 
+              color="success" 
+              variant="outlined"
+            />
           </Box>
-        </Paper>
-
-        {/* Prerequisites */}
-        <Alert severity="info" icon={<Dataset />} sx={{ mb: 4 }}>
-          <Typography variant="body1">
-            <strong>เตรียมพร้อม:</strong> ติดตั้ง MySQL Server, MySQL Workbench (หรือ phpMyAdmin) และ Node.js ล่วงหน้า
-          </Typography>
-        </Alert>
       </Box>
 
-      <Divider sx={{ mb: 4 }} />
-
-      {/* Lessons */}
-      <Typography variant="h2" sx={{ mb: 3 }}>
-        📚 บทเรียนทั้งหมด ({lessons.length} บท)
+        {/* Course Features Section */}
+        <Container maxWidth="lg" sx={{ py: 6 }}>
+          {/* Why Choose This Course */}
+          <Box sx={{ textAlign: 'center', mb: 6 }}>
+            <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
+              ทำไมต้องเรียน Prisma ORM?
+            </Typography>
+            <Typography variant="h6" color="text.secondary" sx={{ mb: 4, maxWidth: 600, mx: 'auto' }}>
+              หลักสูตรที่ออกแบบมาเพื่อสอนการใช้ Prisma ORM อย่างมืออาชีพ พร้อมตัวอย่างจริงและ best practices
       </Typography>
 
-      <Box sx={{ mb: 4 }}>
-        {lessons.map((lesson) => (
-          <Accordion key={lesson.id} sx={{ mb: 2 }}>
-            <AccordionSummary
-              expandIcon={<ExpandMore />}
+            <Box sx={{ 
+              display: 'grid', 
+              gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }, 
+              gap: 3 
+            }}>
+              {features.map((feature, index) => (
+                <Card 
+                  key={index}
               sx={{
-                '& .MuiAccordionSummary-content': {
-                  alignItems: 'center',
-                }
-              }}
-            >
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, width: '100%' }}>
-                <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                  บทที่ {lesson.id}: {lesson.title}
-                </Typography>
-                <Box sx={{ display: 'flex', gap: 1 }}>
-                  <Chip label={lesson.duration} size="small" color="primary" />
-                  <Chip label={lesson.level} size="small" color="secondary" />
+                    p: 3, 
+                    textAlign: 'center',
+                    height: '100%',
+                    transition: 'all 0.2s ease',
+                    '&:hover': {
+                      boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
+                    }
+                  }}
+                >
+                  <Avatar 
+                    sx={{ 
+                      bgcolor: feature.color + '20',
+                      color: feature.color,
+                      width: 64,
+                      height: 64,
+                      mx: 'auto',
+                      mb: 2
+                    }}
+                  >
+                    {feature.icon}
+                  </Avatar>
+                  <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
+                    {feature.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {feature.desc}
+                  </Typography>
+                </Card>
+              ))}
+            </Box>
+          </Box>
+
+          {/* Technology Stack */}
+          <Box sx={{ textAlign: 'center', mb: 6 }}>
+            <Typography variant="h4" sx={{ mb: 2, fontWeight: 600 }}>
+              เทคโนโลยีที่จะได้เรียนรู้
+            </Typography>
+            <Stack direction="row" spacing={2} justifyContent="center" flexWrap="wrap" useFlexGap>
+              {[
+                { name: 'Prisma 6.8', color: '#2D3748' },
+                { name: 'TypeScript', color: '#5C9EE8' },
+                { name: 'PostgreSQL', color: '#336791' },
+                { name: 'MySQL', color: '#4479A1' },
+                { name: 'SQLite', color: '#003B57' },
+                { name: 'MongoDB', color: '#47A248' },
+              ].map((tech) => (
+                <Chip
+                  key={tech.name}
+                  label={tech.name}
+                  sx={{
+                    px: 2,
+                    py: 0.5,
+                    fontSize: '0.9rem',
+                    fontWeight: 600,
+                    bgcolor: `${tech.color}15`,
+                    color: tech.color,
+                    border: `2px solid ${tech.color}25`,
+                    '&:hover': {
+                      bgcolor: `${tech.color}20`,
+                    }
+                  }}
+                />
+              ))}
+            </Stack>
+          </Box>
+
+          {/* Available Lessons */}
+          {availableLessons > 0 && (
+            <Box id="course-content" sx={{ mb: 8 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 4 }}>
+                <Box>
+                  <Typography variant="h3" sx={{ fontWeight: 700, mb: 1 }}>
+                    📚 บทเรียนที่พร้อมใช้งาน
+                  </Typography>
+                  <Typography variant="h6" color="text.secondary">
+                    {availableLessons} บทเรียน • เริ่มเรียนได้ทันที • อัพเดตเนื้อหาสม่ำเสมอ
+                  </Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                  <Chip 
+                    icon={<CheckCircle />}
+                    label={`${availableLessons}/${totalLessons} พร้อมใช้งาน`}
+                    color="success"
+                    variant="outlined"
+                    sx={{ fontWeight: 600 }}
+                  />
+                  <Chip 
+                    label={`${Math.round(totalTime / 60)} ชม. ${totalTime % 60} นาที`}
+                    color="primary"
+                    variant="outlined"
+                    sx={{ fontWeight: 600 }}
+                  />
                 </Box>
               </Box>
-            </AccordionSummary>
-            
-            <AccordionDetails>
-              <Typography variant="body1" sx={{ mb: 2 }}>
+
+              {/* SEO Content for Lessons */}
+              <Box sx={{ 
+                bgcolor: 'primary.50', 
+                p: 3, 
+                borderRadius: 2, 
+                mb: 4,
+                border: '1px solid',
+                borderColor: 'primary.100'
+              }}>
+                <Typography variant="h6" sx={{ mb: 2, color: 'primary.main', fontWeight: 600 }}>
+                  🎯 เนื้อหาหลักสูตรที่คุณจะได้เรียนรู้
+                </Typography>
+                <Box sx={{ 
+                  display: 'grid', 
+                  gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, 
+                  gap: 2 
+                }}>
+                  <Box>
+                    <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>🗄️ Database Design:</Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Schema Design, Relations, Migrations, Data Modeling
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>🔍 Query Operations:</Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      CRUD Operations, Filtering, Sorting, Aggregations, TypedSQL
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>⚡ Performance:</Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Query Optimization, Connection Pooling, Caching, Monitoring
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>🎯 เหมาะสำหรับ:</Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      นักพัฒนาที่ต้องการจัดการฐานข้อมูลแบบ type-safe และมีประสิทธิภาพ
+                    </Typography>
+                  </Box>
+                </Box>
+              </Box>
+
+              <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' }, gap: 3 }}>
+                {lessons.filter(lesson => lesson.status === 'available').map((lesson) => (
+                  <Card 
+                    key={lesson.id}
+                    component={Link}
+                    href={`/prisma-tutorial/lesson-${lesson.id}`}
+                    sx={{ 
+                      height: '100%',
+                      transition: 'all 0.2s ease',
+                      cursor: 'pointer',
+                      textDecoration: 'none',
+                      position: 'relative',
+                      overflow: 'hidden',
+                      '&:hover': {
+                        boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
+                      },
+                      '&::before': {
+                        content: '""',
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        height: 4,
+                        bgcolor: getLevelColor(lesson.level) === 'success' ? '#48BB78' : 
+                                  getLevelColor(lesson.level) === 'warning' ? '#F6AD55' : '#F56565',
+                      }
+                    }}
+                  >
+                    <CardContent sx={{ p: 3, height: '100%', display: 'flex', flexDirection: 'column' }}>
+                      <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 2 }}>
+                        <Avatar 
+                          sx={{ 
+                            bgcolor: 'grey.100', 
+                            color: 'text.primary',
+                            width: 48,
+                            height: 48,
+                            fontSize: '1.5rem',
+                            mr: 2
+                          }}
+                        >
+                          {lesson.emoji}
+                        </Avatar>
+                        <Box sx={{ flex: 1 }}>
+                          <Typography variant="h6" sx={{ fontWeight: 600, mb: 0.5, lineHeight: 1.3 }}>
+                            บทที่ {lesson.id}: {lesson.title}
+                          </Typography>
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                            <Chip 
+                              label={lesson.level} 
+                              size="small"
+                              color={getLevelColor(lesson.level) as any}
+                              variant="outlined"
+                            />
+                            <Box sx={{ display: 'flex', alignItems: 'center', color: 'text.secondary' }}>
+                              <Schedule sx={{ fontSize: 14, mr: 0.5 }} />
+                              <Typography variant="caption">{lesson.duration}</Typography>
+                            </Box>
+                          </Box>
+                        </Box>
+                      </Box>
+                      
+                      <Typography variant="body2" color="text.secondary" sx={{ mb: 2, flex: 1, lineHeight: 1.5 }}>
                 {lesson.description}
               </Typography>
 
-              <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 'bold' }}>
-                🎯 หัวข้อที่จะเรียน:
+                      <Box sx={{ mb: 2 }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
+                          <Typography variant="caption" color="text.secondary">
+                            ความยาก
+                          </Typography>
+                          <Typography variant="caption" color="text.secondary">
+                            {getLevelProgress(lesson.level)}%
               </Typography>
-              <List dense>
-                {lesson.topics.map((topic, index) => (
-                  <ListItem key={index} sx={{ py: 0 }}>
-                    <ListItemIcon sx={{ minWidth: 24 }}>
-                      <CheckCircle color="primary" sx={{ fontSize: 16 }} />
-                    </ListItemIcon>
-                    <ListItemText primary={topic} />
-                  </ListItem>
+                        </Box>
+                        <LinearProgress 
+                          variant="determinate" 
+                          value={getLevelProgress(lesson.level)}
+                          sx={{
+                            height: 4,
+                            borderRadius: 2,
+                            bgcolor: 'grey.200',
+                            '& .MuiLinearProgress-bar': {
+                              borderRadius: 2,
+                              bgcolor: getLevelColor(lesson.level) === 'success' ? '#48BB78' : 
+                                       getLevelColor(lesson.level) === 'warning' ? '#F6AD55' : '#F56565',
+                            }
+                          }}
+                        />
+                      </Box>
+                      
+                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                        {lesson.topics.slice(0, 3).map((topic, index) => (
+                          <Chip 
+                            key={index}
+                            label={topic} 
+                            size="small" 
+                            variant="outlined"
+                            sx={{ 
+                              fontSize: '0.7rem',
+                              height: 24,
+                              bgcolor: 'grey.50',
+                            }}
+                          />
+                        ))}
+                        {lesson.topics.length > 3 && (
+                          <Chip 
+                            label={`+${lesson.topics.length - 3}`} 
+                            size="small" 
+                            variant="outlined"
+                            sx={{ 
+                              fontSize: '0.7rem',
+                              height: 24,
+                              bgcolor: 'grey.50',
+                            }}
+                          />
+                        )}
+                      </Box>
+                    </CardContent>
+                  </Card>
                 ))}
-              </List>
-
-              {lesson.code && (
-                <Box sx={{ mt: 3 }}>
-                  <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 'bold' }}>
-                    💻 ตัวอย่างโค้ด:
-                  </Typography>
-                  <Paper sx={{ p: 2, bgcolor: 'grey.100', fontFamily: 'monospace' }}>
-                    <pre style={{ margin: 0, fontSize: '0.875rem', overflowX: 'auto' }}>
-                      {lesson.code}
-                    </pre>
-                  </Paper>
+              </Box>
                 </Box>
               )}
 
-              <Box sx={{ mt: 3, display: 'flex', gap: 2 }}>
-                <Button
-                  variant="contained"
-                  startIcon={<PlayArrow />}
-                  component={Link}
-                  href={`/prisma-tutorial/lesson-${lesson.id}`}
+          {/* Coming Soon Lessons */}
+          {comingSoonLessons.length > 0 && (
+            <Box sx={{ mb: 6 }}>
+              <Typography variant="h4" sx={{ fontWeight: 700, mb: 3 }}>
+                บทเรียนที่กำลังจะมา
+              </Typography>
+              
+              <Accordion 
+                sx={{ 
+                  bgcolor: 'white',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+                  borderRadius: 2,
+                  '&:before': { display: 'none' }
+                }}
+              >
+                <AccordionSummary 
+                  expandIcon={<ExpandMore />}
+                  sx={{ 
+                    px: 3,
+                    py: 2,
+                    '& .MuiAccordionSummary-content': {
+                      alignItems: 'center'
+                    }
+                  }}
                 >
-                  เริ่มเรียนบทนี้
-                </Button>
-                <Button
-                  variant="outlined"
-                  startIcon={<Dataset />}
-                  href="#"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Schema Examples
-                </Button>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                    <Avatar sx={{ bgcolor: 'grey.100' }}>
+                      <Star color="warning" />
+                    </Avatar>
+                    <Box>
+                      <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                        เร็วๆ นี้ ({comingSoonLessons.length} บทเรียน)
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        บทเรียน Prisma ที่กำลังพัฒนา
+                      </Typography>
+                    </Box>
+                  </Box>
+                </AccordionSummary>
+                
+                <AccordionDetails sx={{ px: 3, pb: 3 }}>
+                  <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, gap: 2 }}>
+                    {comingSoonLessons.map((lesson) => (
+                      <Box 
+                        key={lesson.id}
+                        sx={{ 
+                          p: 2, 
+                          border: '1px solid', 
+                          borderColor: 'grey.200',
+                          borderRadius: 1,
+                          bgcolor: 'grey.50'
+                        }}
+                      >
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1 }}>
+                          <Typography variant="body1" sx={{ fontSize: '1.2rem' }}>
+                            {lesson.emoji}
+                          </Typography>
+                          <Box>
+                            <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
+                              บทที่ {lesson.id}: {lesson.title}
+                            </Typography>
+                            <Box sx={{ display: 'flex', gap: 1 }}>
+                              <Chip label={lesson.duration} size="small" variant="outlined" />
+                              <Chip label={lesson.level} size="small" color={getLevelColor(lesson.level) as any} variant="outlined" />
+                            </Box>
+                          </Box>
+                        </Box>
+                        <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                          {lesson.description}
+                        </Typography>
+                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                          {lesson.topics.slice(0, 2).map((topic, index) => (
+                            <Typography key={index} variant="caption" color="text.secondary">
+                              • {topic}
+                            </Typography>
+                          ))}
+                        </Box>
+                      </Box>
+                    ))}
               </Box>
             </AccordionDetails>
           </Accordion>
-        ))}
+            </Box>
+          )}
+
+          {/* Learning Path */}
+          <Paper sx={{ p: 4, mb: 4, bgcolor: 'grey.50' }}>
+            <Typography variant="h4" sx={{ fontWeight: 600, mb: 2, textAlign: 'center' }}>
+              🎯 เส้นทางการเรียนรู้ Prisma
+            </Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ mb: 4, textAlign: 'center', maxWidth: 600, mx: 'auto' }}>
+              เรียนรู้ Prisma ORM อย่างเป็นระบบ จากพื้นฐานจนใช้งานใน production
+            </Typography>
+            
+            <Box sx={{ 
+              display: 'grid',
+              gridTemplateColumns: { xs: '1fr', md: '1fr 1fr 1fr' },
+              gap: 3
+            }}>
+              <Box sx={{ textAlign: 'center' }}>
+                <Avatar sx={{ 
+                  bgcolor: 'primary.main', 
+                  mx: 'auto', 
+                  mb: 2, 
+                  width: 64, 
+                  height: 64,
+                  fontSize: '1.5rem'
+                }}>
+                  1️⃣
+                </Avatar>
+                <Typography variant="h6" sx={{ mb: 1 }}>
+                  เรียนรู้พื้นฐาน
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  ติดตั้ง Prisma, ออกแบบ Schema และเข้าใจ ORM concepts
+                </Typography>
       </Box>
 
-      {/* Getting Started */}
-      <Paper sx={{ p: 4, bgcolor: 'success.light', color: 'success.contrastText' }}>
-        <Typography variant="h3" sx={{ mb: 2, textAlign: 'center' }}>
-          🗄️ พร้อมจัดการฐานข้อมูลแล้วใช่ไหม?
+              <Box sx={{ textAlign: 'center' }}>
+                <Avatar sx={{ 
+                  bgcolor: 'secondary.main', 
+                  mx: 'auto', 
+                  mb: 2, 
+                  width: 64, 
+                  height: 64,
+                  fontSize: '1.5rem'
+                }}>
+                  2️⃣
+                </Avatar>
+                <Typography variant="h6" sx={{ mb: 1 }}>
+                  ฝึกใช้งาน
         </Typography>
-        <Typography variant="body1" sx={{ mb: 3, textAlign: 'center' }}>
-          เริ่มต้นจากบทที่ 1 และเรียนรู้การใช้งาน Prisma ORM อย่างเป็นระบบ
+                <Typography variant="body2" color="text.secondary">
+                  CRUD Operations, Relations, Migrations และ Query Optimization
         </Typography>
+              </Box>
+              
         <Box sx={{ textAlign: 'center' }}>
+                <Avatar sx={{ 
+                  bgcolor: 'success.main', 
+                  mx: 'auto', 
+                  mb: 2, 
+                  width: 64, 
+                  height: 64,
+                  fontSize: '1.5rem'
+                }}>
+                  3️⃣
+                </Avatar>
+                <Typography variant="h6" sx={{ mb: 1 }}>
+                  Production Ready
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Performance Tuning, Testing, Deployment และ Best Practices
+                </Typography>
+              </Box>
+            </Box>
+          </Paper>
+        </Container>
+
+        {/* Call to Action */}
+        <Card
+          sx={{
+            background: 'linear-gradient(135deg, #2D3748 0%, #4A5568 100%)',
+            color: 'white',
+            position: 'relative',
+            overflow: 'hidden',
+            mb: 4,
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: 'url("data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
+            }
+          }}
+        >
+          <CardContent sx={{ py: 6, position: 'relative', zIndex: 1, textAlign: 'center' }}>
+            <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 , color: 'white' }}>
+              พร้อมเป็นมืออาชีพ Prisma ORM แล้วหรือยัง?
+            </Typography>
+            <Typography variant="h6" sx={{ mb: 4, opacity: 0.9, maxWidth: 600, mx: 'auto' , color: 'white' }}>
+              เริ่มต้นการเดินทางสู่การเป็น Database Expert ด้วย Prisma ORM
+              จากพื้นฐานไปจนถึงระดับมืออาชีพ
+            </Typography>
           <Button
             variant="contained"
             size="large"
+              startIcon={<Storage />}
+              component={Link}
+              href="/prisma-tutorial/lesson-1"
             sx={{ 
               bgcolor: 'white', 
-              color: 'success.main',
-              '&:hover': { bgcolor: 'grey.100' }
-            }}
-            startIcon={<PlayArrow />}
-            component={Link}
-            href="/prisma-tutorial/lesson-1"
-          >
-            เริ่มเรียนบทที่ 1
+                color: 'primary.main',
+                px: 4,
+                py: 1.5,
+                fontSize: '1.1rem',
+                fontWeight: 600,
+                borderRadius: 3,
+                boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
+                '&:hover': {
+                  bgcolor: 'grey.100',
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.25)',
+                }
+              }}
+            >
+              เริ่มเรียน Prisma เลย!
           </Button>
-        </Box>
-      </Paper>
+          </CardContent>
+        </Card>
     </Container>
+    </>
   );
 } 

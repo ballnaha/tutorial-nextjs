@@ -5,54 +5,49 @@ import {
   Box,
   Paper,
   Alert,
-  Card,
-  CardContent,
-  Stack,
-  Chip,
   Button,
-  Tab,
-  Tabs,
-  FormControlLabel,
-  Switch,
-  Divider,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  TextField,
-  MenuItem,
-  Slider,
+  Chip,
+  Card,
+  CardContent,
+  Tabs,
+  Tab,
+  Stack,
   Avatar,
-  Badge,
-  IconButton,
-  ToggleButton,
-  ToggleButtonGroup,
+  LinearProgress,
+  Slider,
+  Switch,
+  FormControlLabel,
+  TextField,
+  Grid,
+  Divider,
 } from '@mui/material';
 import {
   ArrowBack,
   ArrowForward,
-  Palette,
-  DarkMode,
-  LightMode,
-  AutoMode,
-  Code,
-  ColorLens,
-  Brush,
-  Settings,
   CheckCircle,
-  Star,
-  Notifications,
-  Favorite,
-  FavoriteBorder,
-  Brightness4,
-  Brightness7,
-  BrushOutlined,
-  StyleOutlined,
+  Palette,
+  ColorLens,
+  FormatPaint,
+  Code,
+  Settings,
+  Visibility,
+  VisibilityOff,
+  TextFields,
+  Style,
+  Tune,
+  Assignment,
+  PlayArrow,
+  AutoFixHigh,
+  Lightbulb,
+  Timer,
 } from '@mui/icons-material';
 import Link from 'next/link';
 import { useState } from 'react';
-import { useColorScheme } from '@mui/material/styles';
-import { styled, alpha } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -75,436 +70,173 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
-// Custom styled components for demonstration
-const CustomCard = styled(Card)(({ theme }) => ({
-  borderRadius: theme.spacing(2),
-  transition: 'all 0.3s ease',
-  '&:hover': {
-    transform: 'translateY(-4px)',
-    boxShadow: theme.shadows[8],
-  },
-  ...theme.applyStyles('dark', {
-    backgroundColor: theme.vars?.palette.grey[900],
-    borderColor: theme.vars?.palette.grey[700],
+// Theme Examples
+const defaultTheme = createTheme();
+
+const customThemes = {
+  blue: createTheme({
+    palette: {
+      primary: {
+        main: '#1976d2',
+      },
+      secondary: {
+        main: '#dc004e',
+      },
+    },
   }),
-}));
-
-const GradientButton = styled(Button)(({ theme }) => ({
-  background: `linear-gradient(45deg, ${theme.palette.primary.main} 30%, ${theme.palette.secondary.main} 90%)`,
-  border: 0,
-  borderRadius: 25,
-  boxShadow: `0 3px 5px 2px ${alpha(theme.palette.primary.main, 0.3)}`,
-  color: 'white',
-  height: 48,
-  padding: '0 30px',
-  '&:hover': {
-    background: `linear-gradient(45deg, ${theme.palette.primary.dark} 30%, ${theme.palette.secondary.dark} 90%)`,
-    transform: 'scale(1.05)',
-  },
-  
-  // Dark mode รองรับผ่าน theme.palette ที่เปลี่ยนไปตาม colorScheme
-  ...theme.applyStyles('dark', {
-    boxShadow: `0 3px 5px 2px ${alpha(theme.palette.primary.main, 0.2)}`,
+  green: createTheme({
+    palette: {
+      primary: {
+        main: '#2e7d32',
+      },
+      secondary: {
+        main: '#ed6c02',
+      },
+    },
   }),
-}));
-
-const InteractiveDemo = () => {
-  const { mode, setMode } = useColorScheme();
-  const [primaryColor, setPrimaryColor] = useState('#1976d2');
-  const [spacing, setSpacing] = useState(8);
-  const [borderRadius, setBorderRadius] = useState(4);
-
-  // Fallback สำหรับกรณีที่ mode ยังไม่ ready (hydration)
-  if (!mode) {
-    return (
-      <Box sx={{ mb: 4 }}>
-        <Typography variant="h6" sx={{ mb: 2 }}>🎮 Interactive Theme Playground</Typography>
-        <Paper sx={{ p: 3 }}>
-          <Typography>🔄 กำลังโหลด theme...</Typography>
-        </Paper>
-      </Box>
-    );
-  }
-
-  return (
-    <Box sx={{ mb: 4 }}>
-      <Typography variant="h6" sx={{ mb: 2 }}>🎮 Interactive Theme Playground</Typography>
-      
-      <Stack spacing={3}>
-        <Paper sx={{ p: 2, bgcolor: 'background.paper' }}>
-          <Typography variant="subtitle2" sx={{ mb: 2 }}>โหมดปัจจุบัน: <strong>{mode}</strong></Typography>
-          <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', alignItems: 'center' }}>
-            <ToggleButtonGroup
-              value={mode}
-              exclusive
-              onChange={(event, newMode) => newMode && setMode(newMode)}
-              aria-label="color scheme"
-            >
-              <ToggleButton value="light" aria-label="light mode">
-                <LightMode />
-                Light
-              </ToggleButton>
-              <ToggleButton value="system" aria-label="system mode">
-                <AutoMode />
-                System
-              </ToggleButton>
-              <ToggleButton value="dark" aria-label="dark mode">
-                <DarkMode />
-                Dark
-              </ToggleButton>
-            </ToggleButtonGroup>
-          </Box>
-        </Paper>
-
-        <Box sx={{ display: 'flex', gap: 3, flexWrap: 'wrap' }}>
-          <Box sx={{ minWidth: 200 }}>
-            <Typography gutterBottom>Primary Color</Typography>
-            <TextField
-              type="color"
-              value={primaryColor}
-              onChange={(e) => setPrimaryColor(e.target.value)}
-              fullWidth
-            />
-          </Box>
-          
-          <Box sx={{ minWidth: 200 }}>
-            <Typography gutterBottom>Spacing: {spacing}px</Typography>
-            <Slider
-              value={spacing}
-              onChange={(e, newValue) => setSpacing(newValue as number)}
-              min={4}
-              max={16}
-              step={2}
-            />
-          </Box>
-          
-          <Box sx={{ minWidth: 200 }}>
-            <Typography gutterBottom>Border Radius: {borderRadius}px</Typography>
-            <Slider
-              value={borderRadius}
-              onChange={(e, newValue) => setBorderRadius(newValue as number)}
-              min={0}
-              max={20}
-              step={2}
-            />
-          </Box>
-        </Box>
-
-        <Paper sx={{ p: 3, bgcolor: 'background.paper' }}>
-          <Typography variant="h6" sx={{ mb: 2 }}>👀 Live Preview</Typography>
-          <Stack direction="row" spacing={2} sx={{ flexWrap: 'wrap', gap: 2 }}>
-            <Button 
-              variant="contained" 
-              sx={{ 
-                borderRadius: `${borderRadius}px`,
-                px: `${spacing}px`
-              }}
-            >
-              Themed Button
-            </Button>
-            <Button 
-              variant="outlined"
-              sx={{ 
-                borderRadius: `${borderRadius}px`,
-                px: `${spacing}px`
-              }}
-            >
-              Outlined Button
-            </Button>
-            <GradientButton>
-              Custom Gradient
-            </GradientButton>
-          </Stack>
-        </Paper>
-      </Stack>
-    </Box>
-  );
+  purple: createTheme({
+    palette: {
+      primary: {
+        main: '#7b1fa2',
+      },
+      secondary: {
+        main: '#f57c00',
+      },
+    },
+  }),
 };
 
-const themeExamples = {
-  basic: `// theme.ts - Basic Theme with CSS Variables
-import { createTheme } from '@mui/material/styles';
+const themeBasics = [
+  {
+    concept: 'Theme Provider',
+    description: 'ตัวหลักที่ wrap แอปทั้งหมด ให้ theme ใช้งานได้ทุกที่',
+    code: `import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
-  cssVariables: true, // เปิดใช้ CSS Variables
-  colorSchemes: {
-    light: {
-      palette: {
-        primary: {
-          main: '#1976d2',
-          light: '#42a5f5',
-          dark: '#1565c0',
-        },
-        secondary: {
-          main: '#dc004e',
-          light: '#ff5983',
-          dark: '#9a0036',
-        },
-        background: {
-          default: '#ffffff',
-          paper: '#f5f5f5',
-        },
-      },
-    },
-    dark: {
-      palette: {
-        primary: {
-          main: '#90caf9',
-          light: '#e3f2fd',
-          dark: '#42a5f5',
-        },
-        secondary: {
-          main: '#f48fb1',
-          light: '#fce4ec',
-          dark: '#ad2c4c',
-        },
-        background: {
-          default: '#121212',
-          paper: '#1e1e1e',
-        },
-      },
-    },
+  palette: {
+    primary: { main: '#1976d2' }
+  }
+});
+
+<ThemeProvider theme={theme}>
+  <App />
+</ThemeProvider>`,
+    benefit: 'ทำให้ทุก component ใช้ theme เดียวกัน'
+  },
+  {
+    concept: 'Palette (สี)',
+    description: 'กำหนดสีหลักของแอป ทั้ง primary, secondary, error, warning, info, success',
+    code: `const theme = createTheme({
+  palette: {
+    primary: { main: '#1976d2' },    // สีหลัก
+    secondary: { main: '#dc004e' },  // สีรอง
+    error: { main: '#d32f2f' },      // สีแจ้งเตือน
+    warning: { main: '#ed6c02' },    // สีเตือน
+    info: { main: '#0288d1' },       // สีข้อมูล
+    success: { main: '#2e7d32' },    // สีสำเร็จ
   },
 });`,
-
-  advanced: `// Advanced Theme Configuration
-const advancedTheme = createTheme({
-  cssVariables: true,
-  
-  // Custom breakpoints
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 600,
-      md: 900,
-      lg: 1200,
-      xl: 1536,
-      mobile: 0,
-      tablet: 640,
-      laptop: 1024,
-      desktop: 1200,
-    },
+    benefit: 'ควบคุมสีทั้งแอปจากที่เดียว'
   },
-  
-  // Custom spacing
-  spacing: (factor: number) => \`\${0.5 * factor}rem\`,
-  
-  // Typography system
+  {
+    concept: 'Typography',
+    description: 'กำหนดรูปแบบตัวอักษร ขนาด weight และ font family',
+    code: `const theme = createTheme({
   typography: {
-    fontFamily: 'var(--font-roboto), Roboto, Arial, sans-serif',
+    fontFamily: 'Roboto, Arial, sans-serif',
     h1: {
       fontSize: '2.5rem',
-      fontWeight: 700,
-      lineHeight: 1.2,
+      fontWeight: 600,
+    },
+    h2: {
+      fontSize: '2rem',
+      fontWeight: 500,
     },
     body1: {
       fontSize: '1rem',
       lineHeight: 1.6,
     },
   },
-  
-  // Custom shape
-  shape: {
-    borderRadius: 12,
-  },
-  
-  // Component overrides
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: ({ theme, ownerState }) => ({
-          textTransform: 'none',
-          borderRadius: theme.spacing(2),
-          padding: theme.spacing(1.5, 3),
-          fontWeight: 600,
-          ...(ownerState.variant === 'contained' && {
-            boxShadow: theme.shadows[2],
-            '&:hover': {
-              boxShadow: theme.shadows[4],
-            },
-          }),
-        }),
-      },
-    },
-    MuiCard: {
-      styleOverrides: {
-        root: ({ theme }) => ({
-          borderRadius: theme.spacing(2),
-          transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-          '&:hover': {
-            transform: 'translateY(-2px)',
-            boxShadow: theme.shadows[6],
-          },
-        }),
-      },
-    },
-  },
 });`,
-
-  cssVariables: `/* styles.css - Using MUI CSS Variables */
-.custom-component {
-  /* Access theme colors */
-  background-color: var(--mui-palette-primary-main);
-  color: var(--mui-palette-primary-contrastText);
-  
-  /* Use spacing */
-  padding: var(--mui-spacing-2);
-  margin: var(--mui-spacing-1);
-  
-  /* Typography */
-  font-family: var(--mui-typography-fontFamily);
-  font-size: var(--mui-typography-body1-fontSize);
-  
-  /* Border radius */
-  border-radius: var(--mui-shape-borderRadius);
-  
-  /* Shadows */
-  box-shadow: var(--mui-shadows-2);
-}
-
-/* Dark mode specific styles */
-@media (prefers-color-scheme: dark) {
-  .custom-component {
-    background-color: var(--mui-palette-primary-dark);
+    benefit: 'ตัวอักษรสม่ำเสมอทั้งแอป'
   }
-}`,
+];
 
-  styledComponents: `// Custom Styled Components
-import { styled, alpha } from '@mui/material/styles';
-import { Card, Button } from '@mui/material';
-
-// Custom Card with hover effects
-const AnimatedCard = styled(Card)(({ theme }) => ({
-  borderRadius: theme.spacing(2),
-  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-  cursor: 'pointer',
-  
-  '&:hover': {
-    transform: 'translateY(-8px) scale(1.02)',
-    boxShadow: theme.shadows[12],
-  },
-  
-  // Dark mode styles using applyStyles
-  ...theme.applyStyles('dark', {
-    backgroundColor: theme.vars?.palette.grey[900],
-    borderColor: theme.vars?.palette.grey[700],
-  }),
-}));
-
-// Gradient Button
-const GradientButton = styled(Button)(({ theme }) => ({
-  background: \`linear-gradient(45deg, 
-    \${theme.palette.primary.main} 30%, 
-    \${theme.palette.secondary.main} 90%)\`,
-  border: 0,
-  borderRadius: 25,
-  boxShadow: \`0 3px 5px 2px \${alpha(theme.palette.primary.main, 0.3)}\`,
-  color: 'white',
-  height: 48,
-  padding: '0 30px',
-  
-  '&:hover': {
-    background: \`linear-gradient(45deg, 
-      \${theme.palette.primary.dark} 30%, 
-      \${theme.palette.secondary.dark} 90%)\`,
-    transform: 'scale(1.05)',
-  },
-}));
-
-// Glass morphism effect
-const GlassCard = styled(Card)(({ theme }) => ({
-  backgroundColor: alpha(theme.palette.background.paper, 0.8),
-  backdropFilter: 'blur(20px)',
-  border: \`1px solid \${alpha(theme.palette.divider, 0.2)}\`,
-  borderRadius: theme.spacing(3),
-}));`
-};
-
-const sxExamples = [
+const sxPropExamples = [
   {
-    title: 'Basic sx prop usage',
-    code: `<Box
-  sx={{
-    bgcolor: 'primary.main',
-    color: 'white',
-    p: 2,
-    borderRadius: 1,
-    boxShadow: 2,
-  }}
->
-  Basic styled box
+    title: 'Basic Styling',
+    description: 'การใช้ sx prop พื้นฐาน',
+    before: `// CSS แบบเดิม
+.my-box {
+  padding: 16px;
+  margin: 8px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+}`,
+    after: `// MUI sx prop
+<Box sx={{
+  p: 2,        // padding: 16px
+  m: 1,        // margin: 8px  
+  bgcolor: 'grey.100',
+  borderRadius: 1,
+}}>
+  Content here
 </Box>`,
-    description: 'การใช้ sx prop พื้นฐานสำหรับ styling แบบ inline'
+    benefit: 'เขียนสั้นและได้ access ถึง theme'
   },
   {
     title: 'Responsive Design',
-    code: `<Typography
-  sx={{
-    fontSize: {
-      xs: '1rem',
-      sm: '1.2rem',
-      md: '1.5rem',
-      lg: '2rem',
-    },
-    textAlign: {
-      xs: 'center',
-      md: 'left',
-    },
-  }}
->
-  Responsive Typography
-</Typography>`,
-    description: 'การใช้ breakpoints สำหรับ responsive design'
+    description: 'ทำ responsive ง่ายๆ ด้วย breakpoints',
+    before: `// CSS Media Queries
+.responsive-box {
+  padding: 8px;
+}
+@media (min-width: 600px) {
+  .responsive-box { padding: 16px; }
+}
+@media (min-width: 960px) {
+  .responsive-box { padding: 24px; }
+}`,
+    after: `// MUI Responsive sx
+<Box sx={{
+  p: { xs: 1, sm: 2, md: 3 }
+}}>
+  Auto responsive!
+</Box>`,
+    benefit: 'Responsive ในบรรทัดเดียว'
   },
   {
-    title: 'Theme-based Conditional Styling',
-    code: `<Card
-  sx={(theme) => ({
-    bgcolor: 'background.paper',
-    p: 3,
-    borderRadius: 2,
-    transition: 'all 0.3s ease',
-    
-    '&:hover': {
-      transform: 'translateY(-4px)',
-      boxShadow: theme.shadows[8],
-    },
-    
-    // Dark mode specific styles
-    ...theme.applyStyles('dark', {
-      bgcolor: 'grey.900',
-      border: '1px solid',
-      borderColor: 'grey.700',
-    }),
-  })}
->
-  Theme-aware Card
-</Card>`,
-    description: 'การใช้ function syntax และ applyStyles สำหรับ dark mode'
+    title: 'Theme Integration',
+    description: 'ใช้ค่าจาก theme โดยตรง',
+    before: `// แบบเดิมต้องจำสี
+.primary-text {
+  color: #1976d2;
+}`,
+    after: `// ใช้สีจาก theme
+<Typography sx={{
+  color: 'primary.main',
+  bgcolor: 'primary.light',
+  '&:hover': {
+    bgcolor: 'primary.dark',
+  }
+}}>
+  Theme-aware text
+</Typography>`,
+    benefit: 'เปลี่ยน theme ครั้งเดียว สีเปลี่ยนทั้งแอป'
   }
 ];
 
 export default function MUILesson2Page() {
   const [activeTab, setActiveTab] = useState(0);
-  const { mode, setMode } = useColorScheme();
+  const [selectedTheme, setSelectedTheme] = useState<'blue' | 'green' | 'purple'>('blue');
+  const [primaryColor, setPrimaryColor] = useState('#1976d2');
+  const [secondaryColor, setSecondaryColor] = useState('#dc004e');
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue);
   };
 
-  // ถ้า mode ยังไม่ ready ให้แสดง loading
-  if (!mode) {
-    return (
-      <Container maxWidth="lg">
-        <Box sx={{ py: 4, textAlign: 'center' }}>
-          <Typography variant="h4">🔄 กำลังโหลด theme...</Typography>
-          <Typography variant="body1" color="text.secondary">
-            กรุณารอสักครู่
-          </Typography>
-        </Box>
-      </Container>
-    );
-  }
+  const currentTheme = customThemes[selectedTheme];
 
   return (
     <Container maxWidth="lg">
@@ -522,48 +254,61 @@ export default function MUILesson2Page() {
           
           <Typography variant="h1" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 2 }}>
             <Palette color="primary" sx={{ fontSize: '3rem' }} />
-            บทที่ 2: Theme และ Styling ระดับสูง
+            บทที่ 2: Theme และ Styling
           </Typography>
           
           <Typography variant="h5" color="text.secondary" sx={{ mb: 3 }}>
-            เรียนรู้การจัดการ Theme, CSS Variables, Dark Mode และการ customize styles อย่างลึกซึ้ง! 🎭
+            เรียนรู้การปรับแต่ง Theme และใช้ sx prop เพื่อสร้าง UI ที่สวยงาม! 🎨
           </Typography>
           
           <Box sx={{ display: 'flex', gap: 2, mb: 3, flexWrap: 'wrap' }}>
-            <Chip icon={<ColorLens />} label="CSS Variables" color="primary" />
-            <Chip icon={<DarkMode />} label="Dark Mode" color="secondary" />
-            <Chip icon={<Brush />} label="Custom Styling" color="success" />
-            <Chip icon={<Settings />} label="Theme Provider" color="warning" />
+            <Chip icon={<Palette />} label="Theme Customization" color="primary" />
+            <Chip icon={<Style />} label="sx prop" color="secondary" />
+            <Chip icon={<ColorLens />} label="Color Palette" color="success" />
+            <Chip icon={<TextFields />} label="Typography" color="warning" />
           </Box>
           
           <Alert severity="info" sx={{ mb: 3 }}>
             <Typography variant="body2">
-              🎯 <strong>เป้าหมายของบทเรียนนี้:</strong> เชี่ยวชาญการปรับแต่ง Theme และ Styling ใน MUI v7
+              🎯 <strong>เป้าหมายของบทเรียนนี้:</strong> เข้าใจและปรับแต่ง Theme ได้อย่างมั่นใจ
               <br />
-              ⏱️ <strong>ระยะเวลา:</strong> 35 นาที | 
-              📊 <strong>ระดับ:</strong> ระดับกลาง
+              ⏱️ <strong>ระยะเวลา:</strong> 30 นาที | 
+              📊 <strong>ระดับ:</strong> เริ่มต้นสู่ปานกลาง
             </Typography>
           </Alert>
-          
-          {/* แสดงสถานะปัจจุบัน */}
-          <Paper sx={{ p: 2, mb: 3, bgcolor: 'primary.50', border: '1px solid', borderColor: 'primary.200' }}>
-            <Typography variant="body2" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              🌓 <strong>โหมดปัจจุบัน:</strong> {mode} 
-              <Button 
-                size="small" 
-                variant="outlined" 
-                onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
-                startIcon={mode === 'light' ? <DarkMode /> : <LightMode />}
-                sx={{ ml: 2 }}
-              >
-                สลับเป็น {mode === 'light' ? 'Dark' : 'Light'}
-              </Button>
+
+          {/* What is Theme */}
+          <Paper sx={{ p: 3, mb: 4, bgcolor: 'primary.50', border: '2px solid', borderColor: 'primary.200' }}>
+            <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Lightbulb color="primary" /> 🤔 Theme คืออะไร? (อธิบายแบบง่ายๆ)
             </Typography>
+            
+            <Typography variant="body1" sx={{ mb: 2 }}>
+              ลองนึกภาพว่าคุณเป็น <strong>นักออกแบบภายใน</strong>:
+            </Typography>
+
+            <Box sx={{ pl: 2, borderLeft: '3px solid', borderColor: 'primary.main', mb: 2 }}>
+              <Typography variant="body2" sx={{ mb: 1 }}>
+                • 🎨 <strong>Theme:</strong> เหมือนแผนผังสีและลวดลายของห้อง
+              </Typography>
+              <Typography variant="body2" sx={{ mb: 1 }}>
+                • 🪑 <strong>Components:</strong> เหมือนเฟอร์นิเจอร์ที่จะใช้สีตาม theme
+              </Typography>
+              <Typography variant="body2" sx={{ mb: 1 }}>
+                • 🔧 <strong>sx prop:</strong> เหมือนการปรับแต่งเฟอร์นิเจอร์แต่ละชิ้น
+              </Typography>
+              <Typography variant="body2">
+                • ✨ <strong>ผลลัพธ์:</strong> ห้องที่สวยงาม สีสันกลมกลืน และเปลี่ยนได้ง่าย
+              </Typography>
+            </Box>
+
+            <Alert severity="success" sx={{ mt: 2 }}>
+              <Typography variant="body2">
+                ✨ <strong>ผลลัพธ์:</strong> UI ที่มีสีสันสม่ำเสมอ ปรับแต่งง่าย และดูเป็นมืออาชีพ!
+              </Typography>
+            </Alert>
           </Paper>
         </Box>
-
-        {/* Interactive Demo */}
-        <InteractiveDemo />
 
         {/* Learning Objectives */}
         <Paper sx={{ p: 3, mb: 4 }}>
@@ -577,22 +322,22 @@ export default function MUILesson2Page() {
                 <ListItem>
                   <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
                   <ListItemText 
-                    primary="สร้าง Custom Theme" 
-                    secondary="CSS Variables, Color Schemes, Typography"
+                    primary="สร้างและปรับแต่ง Theme" 
+                    secondary="กำหนดสี, typography, spacing"
                   />
                 </ListItem>
                 <ListItem>
                   <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
                   <ListItemText 
-                    primary="จัดการ Dark/Light Mode" 
-                    secondary="useColorScheme hook, applyStyles"
+                    primary="ใช้ sx prop อย่างมั่นใจ" 
+                    secondary="styling ที่เชื่อมต่อกับ theme"
                   />
                 </ListItem>
                 <ListItem>
                   <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
                   <ListItemText 
-                    primary="Styled Components" 
-                    secondary="styled(), alpha(), custom animations"
+                    primary="ทำ Responsive Design" 
+                    secondary="ใช้ breakpoints ในการออกแบบ"
                   />
                 </ListItem>
               </List>
@@ -603,22 +348,22 @@ export default function MUILesson2Page() {
                 <ListItem>
                   <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
                   <ListItemText 
-                    primary="sx prop มืออาชีพ" 
-                    secondary="Responsive, conditional styling"
+                    primary="Color Palette แบบมืออาชีพ" 
+                    secondary="primary, secondary, และสีอื่นๆ"
                   />
                 </ListItem>
                 <ListItem>
                   <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
                   <ListItemText 
-                    primary="Component Overrides" 
-                    secondary="Global theme customization"
+                    primary="Typography Hierarchy" 
+                    secondary="ระบบตัวอักษรที่สวยงาม"
                   />
                 </ListItem>
                 <ListItem>
                   <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
                   <ListItemText 
-                    primary="Performance Optimization" 
-                    secondary="CSS Variables benefits"
+                    primary="Component Customization" 
+                    secondary="ปรับแต่ง component แต่ละตัว"
                   />
                 </ListItem>
               </List>
@@ -636,449 +381,584 @@ export default function MUILesson2Page() {
             sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}
           >
             <Tab 
-              label="🎨 CSS Variables & Color Schemes" 
+              label="🎨 Theme พื้นฐาน" 
+              icon={<Palette />}
+              iconPosition="start"
+            />
+            <Tab 
+              label="🎯 sx prop" 
+              icon={<Style />}
+              iconPosition="start"
+            />
+            <Tab 
+              label="🌈 Colors & Typography" 
               icon={<ColorLens />}
               iconPosition="start"
             />
             <Tab 
-              label="🌓 Dark Mode Management" 
-              icon={<DarkMode />}
-              iconPosition="start"
-            />
-            <Tab 
-              label="✨ Styled Components" 
-              icon={<Brush />}
-              iconPosition="start"
-            />
-            <Tab 
-              label="📝 sx prop Advanced" 
-              icon={<Code />}
-              iconPosition="start"
-            />
-            <Tab 
-              label="⚙️ Component Overrides" 
+              label="📱 Responsive Design" 
               icon={<Settings />}
+              iconPosition="start"
+            />
+            <Tab 
+              label="🎮 ทดลองใช้งาน" 
+              icon={<PlayArrow />}
               iconPosition="start"
             />
           </Tabs>
         </Box>
 
-        {/* Tab 1: CSS Variables & Color Schemes */}
+        {/* Tab 1: Theme Basics */}
         <TabPanel value={activeTab} index={0}>
-          <Typography variant="h3" sx={{ mb: 3 }}>🎨 CSS Variables & Color Schemes</Typography>
+          <Typography variant="h3" sx={{ mb: 3 }}>🎨 Theme พื้นฐาน</Typography>
           
           <Typography variant="body1" sx={{ mb: 3 }}>
-            <strong>CSS Variables</strong> ใน MUI v7 ทำให้เราสามารถเข้าถึงค่า theme จาก CSS ได้โดยตรง 
-            และจัดการ light/dark mode ได้อย่างมีประสิทธิภาพ
+            Theme ใน MUI เป็นวิธีกำหนดลักษณะของ UI ทั้งแอป รวมถึงสี ตัวอักษร และ spacing
           </Typography>
 
-          <Alert severity="success" sx={{ mb: 3 }}>
-            <Typography variant="body2">
-              ✨ <strong>ประโยชน์ของ CSS Variables:</strong> ป้องกัน SSR flickering, ดู theme values ใน DevTools, 
-              ใช้ในไฟล์ CSS ธรรมดาได้
-            </Typography>
-          </Alert>
+          <Typography variant="h5" sx={{ mb: 2 }}>🔧 แนวคิดสำคัญ</Typography>
 
-          <Typography variant="h5" sx={{ mb: 2 }}>📋 Basic Theme Setup</Typography>
-          
-          <Card sx={{ mb: 3 }}>
-            <CardContent>
-              <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1, mb: 2 }}>
-                <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.875rem' }}>
-                  {themeExamples.basic}
-                </Typography>
-              </Box>
-            </CardContent>
-          </Card>
-
-          <Typography variant="h5" sx={{ mb: 2 }}>🎯 Advanced Theme Configuration</Typography>
-          
-          <Card sx={{ mb: 3 }}>
-            <CardContent>
-              <Typography variant="h6" sx={{ mb: 2 }}>Complete Theme Setup</Typography>
-              <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1 }}>
-                <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.875rem' }}>
-                  {themeExamples.advanced}
-                </Typography>
-              </Box>
-            </CardContent>
-          </Card>
-
-          <Typography variant="h5" sx={{ mb: 2 }}>🌐 Using CSS Variables in Plain CSS</Typography>
-          
-          <Card>
-            <CardContent>
-              <Typography variant="h6" sx={{ mb: 2 }}>CSS Variables in Action</Typography>
-              <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1 }}>
-                <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.875rem' }}>
-                  {themeExamples.cssVariables}
-                </Typography>
-              </Box>
-            </CardContent>
-          </Card>
-        </TabPanel>
-
-        {/* Tab 2: Dark Mode */}
-        <TabPanel value={activeTab} index={1}>
-          <Typography variant="h3" sx={{ mb: 3 }}>🌓 Dark Mode Management</Typography>
-          
-          <Typography variant="body1" sx={{ mb: 3 }}>
-            MUI v7 มาพร้อมกับระบบจัดการ Dark Mode ที่ทรงพลัง สามารถสลับโหมดได้อัตโนมัติ 
-            และรองรับการตั้งค่าของระบบ
-          </Typography>
-
-          <Box sx={{ mb: 4 }}>
-            <Typography variant="h5" sx={{ mb: 2 }}>🎮 Live Dark Mode Toggle</Typography>
-            <Paper sx={{ p: 3 }}>
-              <Stack direction="row" spacing={2} alignItems="center">
-                <Typography>Current Mode: {mode}</Typography>
-                <Button
-                  variant="outlined"
-                  onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
-                  startIcon={mode === 'light' ? <DarkMode /> : <LightMode />}
-                >
-                  Switch to {mode === 'light' ? 'Dark' : 'Light'}
-                </Button>
-              </Stack>
-            </Paper>
-          </Box>
-
-          <Typography variant="h5" sx={{ mb: 2 }}>⚙️ useColorScheme Hook</Typography>
-          
-          <Card sx={{ mb: 3 }}>
-            <CardContent>
-              <Typography variant="h6" sx={{ mb: 2 }}>Dark Mode Hook Usage</Typography>
-              <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1 }}>
-                <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.875rem' }}>
-{`import { useColorScheme } from '@mui/material/styles';
-
-function ThemeToggle() {
-  const { mode, setMode } = useColorScheme();
-  
-  if (!mode) return null; // ป้องกัน hydration mismatch
-  
-  return (
-    <Button
-      onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
-      startIcon={mode === 'light' ? <DarkMode /> : <LightMode />}
-    >
-      Switch to {mode === 'light' ? 'Dark' : 'Light'}
-    </Button>
-  );
-}`}
-                </Typography>
-              </Box>
-            </CardContent>
-          </Card>
-
-          <Typography variant="h5" sx={{ mb: 2 }}>🎨 applyStyles for Dark Mode</Typography>
-          
-          <Card sx={{ mb: 3 }}>
-            <CardContent>
-              <Typography variant="h6" sx={{ mb: 2 }}>Modern Dark Mode Styling</Typography>
-              <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1 }}>
-                <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.875rem' }}>
-{`const StyledCard = styled(Card)(({ theme }) => ({
-  backgroundColor: theme.vars.palette.background.paper,
-  borderRadius: theme.spacing(2),
-  
-  // Dark mode styles
-  ...theme.applyStyles('dark', {
-    backgroundColor: theme.vars.palette.grey[900],
-    border: '1px solid',
-    borderColor: theme.vars.palette.grey[700],
-  }),
-}));
-
-// หรือใช้กับ sx prop
-<Box
-  sx={(theme) => ({
-    bgcolor: 'background.default',
-    p: 3,
-    ...theme.applyStyles('dark', {
-      bgcolor: 'grey.900',
-      color: 'grey.100',
-    }),
-  })}
-/>`}
-                </Typography>
-              </Box>
-            </CardContent>
-          </Card>
-
-          <Alert severity="warning" sx={{ mb: 3 }}>
-            <Typography variant="body2">
-              ⚠️ <strong>สำคัญ:</strong> ใช้ theme.applyStyles() แทน theme.palette.mode === 'dark' 
-              เพื่อป้องกัน SSR flickering
-            </Typography>
-          </Alert>
-
-          <Box sx={{ display: 'grid', gap: 3, gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' } }}>
-            <CustomCard>
-              <CardContent>
-                <Typography variant="h6" sx={{ mb: 1 }}>
-                  🌞 Light Mode Card
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  การ์ดนี้จะเปลี่ยนสีตาม theme mode โดยอัตโนมัติ
-                </Typography>
-              </CardContent>
-            </CustomCard>
-            
-            <CustomCard>
-              <CardContent>
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <Avatar sx={{ bgcolor: 'primary.main' }}>
-                    <Star />
-                  </Avatar>
-                  <Box>
-                    <Typography variant="h6">Dynamic Theme</Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Auto-adapting colors
-                    </Typography>
-                  </Box>
-                </Stack>
-              </CardContent>
-            </CustomCard>
-          </Box>
-        </TabPanel>
-
-        {/* Tab 3: Styled Components */}
-        <TabPanel value={activeTab} index={2}>
-          <Typography variant="h3" sx={{ mb: 3 }}>✨ Styled Components</Typography>
-          
-          <Typography variant="body1" sx={{ mb: 3 }}>
-            <strong>Styled Components</strong> ใน MUI ช่วยให้เราสร้าง custom components ที่มี styling ที่ซับซ้อน
-            และสามารถใช้ซ้ำได้
-          </Typography>
-
-          <Alert severity="warning" sx={{ mb: 3 }}>
-            <Typography variant="body2">
-              ⚠️ <strong>สำคัญ:</strong> ใช้ <code>theme.palette</code> สำหรับ <code>alpha()</code> function, 
-              ใช้ <code>theme.vars</code> สำหรับ CSS Variables อื่นๆ เท่านั้น
-            </Typography>
-          </Alert>
-
-          <Typography variant="h5" sx={{ mb: 2 }}>🎨 Basic Styled Components</Typography>
-          
-          <Card sx={{ mb: 3 }}>
-            <CardContent>
-              <Typography variant="h6" sx={{ mb: 2 }}>Complete Styled Components Examples</Typography>
-              <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1, mb: 3 }}>
-                <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.875rem' }}>
-                  {themeExamples.styledComponents}
-                </Typography>
-              </Box>
-              
-              <Typography variant="h6" sx={{ mb: 2 }}>Live Examples</Typography>
-              <Stack spacing={2}>
-                <CustomCard>
-                  <CardContent>
-                    <Typography variant="h6">Custom Animated Card</Typography>
-                    <Typography variant="body2">Hover เพื่อดู animation effect</Typography>
-                  </CardContent>
-                </CustomCard>
-                
-                <Box>
-                  <GradientButton sx={{ mr: 2 }}>
-                    Gradient Button
-                  </GradientButton>
-                  <Button variant="outlined">
-                    Regular Button
-                  </Button>
-                </Box>
-              </Stack>
-            </CardContent>
-          </Card>
-
-          <Typography variant="h5" sx={{ mb: 2 }}>🔧 Advanced Styling Techniques</Typography>
-          
-          <Box sx={{ display: 'grid', gap: 3 }}>
-            <Card>
-              <CardContent>
-                <Typography variant="h6" sx={{ mb: 2 }}>
-                  💡 Pro Tips for Styled Components
-                </Typography>
-                <List dense>
-                  <ListItem>
-                    <ListItemIcon><CheckCircle color="success" /></ListItemIcon>
-                    <ListItemText 
-                      primary="ใช้ theme.palette สำหรับ alpha() function"
-                      secondary="alpha() ต้องการค่าสีจริง ไม่ใช่ CSS Variables"
-                    />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemIcon><CheckCircle color="success" /></ListItemIcon>
-                    <ListItemText 
-                      primary="ใช้ theme.vars สำหรับ CSS Variables"
-                      secondary="เหมาะสำหรับ border, background ธรรมดา"
-                    />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemIcon><CheckCircle color="success" /></ListItemIcon>
-                    <ListItemText 
-                      primary="เพิ่ม transitions สำหรับ smooth animations"
-                      secondary="ใช้ cubic-bezier สำหรับ natural motion"
-                    />
-                  </ListItem>
-                </List>
-              </CardContent>
-            </Card>
-          </Box>
-        </TabPanel>
-
-        {/* Tab 4: sx prop Advanced */}
-        <TabPanel value={activeTab} index={3}>
-          <Typography variant="h3" sx={{ mb: 3 }}>📝 sx prop Advanced</Typography>
-          
-          <Typography variant="body1" sx={{ mb: 3 }}>
-            <strong>sx prop</strong> เป็นวิธีที่มีประสิทธิภาพในการ styling components แบบ inline 
-            พร้อมรองรับ responsive design และ theme integration
-          </Typography>
-
-          <Typography variant="h5" sx={{ mb: 2 }}>📚 sx Examples</Typography>
-          
           <Stack spacing={3}>
-            {sxExamples.map((example, index) => (
+            {themeBasics.map((concept, index) => (
               <Card key={index}>
                 <CardContent>
-                  <Typography variant="h6" sx={{ mb: 1 }}>
-                    {example.title}
+                  <Typography variant="h6" sx={{ mb: 2, color: 'primary.main' }}>
+                    {concept.concept}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                    {example.description}
+                  <Typography variant="body1" sx={{ mb: 2 }}>
+                    {concept.description}
                   </Typography>
-                  <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1 }}>
+                  
+                  <Typography variant="subtitle2" sx={{ mb: 1 }}>
+                    💻 ตัวอย่างโค้ด:
+                  </Typography>
+                  <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1, mb: 2 }}>
                     <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.875rem' }}>
-                      {example.code}
+                      {concept.code}
                     </Typography>
                   </Box>
+                  
+                  <Alert severity="info">
+                    <Typography variant="body2">
+                      ✅ <strong>ประโยชน์:</strong> {concept.benefit}
+                    </Typography>
+                  </Alert>
                 </CardContent>
               </Card>
             ))}
           </Stack>
 
-          <Alert severity="info" sx={{ mt: 3 }}>
+          <Alert severity="warning" sx={{ mt: 3 }}>
             <Typography variant="body2">
-              💡 <strong>Performance Tip:</strong> ใช้ styled() สำหรับ styles ที่ซับซ้อนและต้องใช้ซ้ำ
-              ใช้ sx สำหรับ quick styling และ one-off customizations
+              💡 <strong>เคล็ดลับ:</strong> เริ่มต้นด้วยการปรับ palette และ typography ก่อน 
+              เพราะจะส่งผลต่อรูปลักษณ์ของแอปมากที่สุด
             </Typography>
           </Alert>
         </TabPanel>
 
-        {/* Tab 5: Component Overrides */}
-        <TabPanel value={activeTab} index={4}>
-          <Typography variant="h3" sx={{ mb: 3 }}>⚙️ Component Overrides</Typography>
+        {/* Tab 2: sx prop */}
+        <TabPanel value={activeTab} index={1}>
+          <Typography variant="h3" sx={{ mb: 3 }}>🎯 sx prop - Styling แบบมืออาชีพ</Typography>
           
           <Typography variant="body1" sx={{ mb: 3 }}>
-            <strong>Component Overrides</strong> ใน theme ช่วยให้เราปรับแต่ง default styles ของ MUI components 
-            ทั้งแอปพลิเคชันได้อย่างสม่ำเสมอ
+            sx prop เป็นวิธีเขียน CSS ใน MUI ที่เชื่อมต่อกับ theme และมี features พิเศษมากมาย
           </Typography>
+
+          <Typography variant="h5" sx={{ mb: 2 }}>⚡ ทำไมต้อง sx prop?</Typography>
+
+          <Stack spacing={3}>
+            {sxPropExamples.map((example, index) => (
+              <Card key={index}>
+                <CardContent>
+                  <Typography variant="h6" sx={{ mb: 2, color: 'secondary.main' }}>
+                    {example.title}
+                  </Typography>
+                  <Typography variant="body1" sx={{ mb: 2 }}>
+                    {example.description}
+                  </Typography>
+
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} md={6}>
+                      <Typography variant="subtitle2" sx={{ mb: 1, color: 'error.main' }}>
+                        ❌ แบบเดิม (CSS):
+                      </Typography>
+                      <Box sx={{ p: 2, bgcolor: 'grey.50', borderRadius: 1, mb: 2 }}>
+                        <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.75rem' }}>
+                          {example.before}
+                        </Typography>
+                      </Box>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                      <Typography variant="subtitle2" sx={{ mb: 1, color: 'success.main' }}>
+                        ✅ แบบใหม่ (sx prop):
+                      </Typography>
+                      <Box sx={{ p: 2, bgcolor: 'success.50', borderRadius: 1, mb: 2 }}>
+                        <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.75rem' }}>
+                          {example.after}
+                        </Typography>
+                      </Box>
+                    </Grid>
+                  </Grid>
+                  
+                  <Alert severity="success">
+                    <Typography variant="body2">
+                      🚀 <strong>ข้อดี:</strong> {example.benefit}
+                    </Typography>
+                  </Alert>
+                </CardContent>
+              </Card>
+            ))}
+          </Stack>
+
+          <Typography variant="h5" sx={{ mb: 2, mt: 4 }}>📝 sx prop Shortcuts</Typography>
+          
+          <Card>
+            <CardContent>
+              <Typography variant="h6" sx={{ mb: 2 }}>
+                🔤 Spacing & Size Shortcuts
+              </Typography>
+              <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1 }}>
+                <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace' }}>
+{`// Spacing (1 unit = 8px)
+p: 2        // padding: 16px
+pt: 1       // padding-top: 8px  
+px: 3       // padding-left: 24px, padding-right: 24px
+m: 2        // margin: 16px
+mb: 1       // margin-bottom: 8px
+mx: 'auto'  // margin-left: auto, margin-right: auto
+
+// Colors
+bgcolor: 'primary.main'     // background-color
+color: 'text.secondary'     // text color
+
+// Display & Layout  
+display: 'flex'
+justifyContent: 'center'
+alignItems: 'center'
+
+// Size
+width: 1                    // width: 100%
+height: 200                 // height: 200px
+minHeight: '100vh'          // min-height: 100vh`}
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        </TabPanel>
+
+        {/* Tab 3: Colors & Typography */}
+        <TabPanel value={activeTab} index={2}>
+          <Typography variant="h3" sx={{ mb: 3 }}>🌈 Colors & Typography</Typography>
+          
+          <Typography variant="body1" sx={{ mb: 3 }}>
+            การกำหนดสีและตัวอักษรที่ดีจะทำให้ UI ดูเป็นมืออาชีพและใช้งานง่าย
+          </Typography>
+
+          <Typography variant="h5" sx={{ mb: 2 }}>🎨 Color Palette System</Typography>
 
           <Card sx={{ mb: 3 }}>
             <CardContent>
-              <Typography variant="h6" sx={{ mb: 2 }}>Global Component Customization</Typography>
+              <Typography variant="h6" sx={{ mb: 2 }}>
+                📊 MUI Color System
+              </Typography>
+              
+              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 2, mb: 3 }}>
+                {[
+                  { name: 'Primary', colors: ['primary.light', 'primary.main', 'primary.dark'], usage: 'สีหลักของแบรนด์' },
+                  { name: 'Secondary', colors: ['secondary.light', 'secondary.main', 'secondary.dark'], usage: 'สีรองสำหรับ accent' },
+                  { name: 'Error', colors: ['error.light', 'error.main', 'error.dark'], usage: 'สีแจ้งข้อผิดพลาด' },
+                  { name: 'Warning', colors: ['warning.light', 'warning.main', 'warning.dark'], usage: 'สีเตือน' },
+                  { name: 'Info', colors: ['info.light', 'info.main', 'info.dark'], usage: 'สีข้อมูล' },
+                  { name: 'Success', colors: ['success.light', 'success.main', 'success.dark'], usage: 'สีความสำเร็จ' },
+                ].map((colorGroup) => (
+                  <Box key={colorGroup.name} sx={{ p: 2, border: '1px solid', borderColor: 'grey.200', borderRadius: 1 }}>
+                    <Typography variant="subtitle1" sx={{ mb: 1, fontWeight: 600 }}>
+                      {colorGroup.name}
+                    </Typography>
+                    <Box sx={{ display: 'flex', gap: 0.5, mb: 1 }}>
+                      {colorGroup.colors.map((color) => (
+                        <Box
+                          key={color}
+                          sx={{
+                            width: 40,
+                            height: 40,
+                            bgcolor: color,
+                            borderRadius: 1,
+                            border: '1px solid',
+                            borderColor: 'grey.300'
+                          }}
+                        />
+                      ))}
+                    </Box>
+                    <Typography variant="body2" color="text.secondary">
+                      {colorGroup.usage}
+                    </Typography>
+                  </Box>
+                ))}
+              </Box>
+
+              <Typography variant="subtitle2" sx={{ mb: 1 }}>
+                💻 ตัวอย่างการใช้งาน:
+              </Typography>
               <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1 }}>
                 <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.875rem' }}>
-{`const theme = createTheme({
-  cssVariables: true,
-  components: {
-    // Button customization
-    MuiButton: {
-      styleOverrides: {
-        root: ({ theme, ownerState }) => ({
-          textTransform: 'none',
-          borderRadius: theme.spacing(2),
-          fontWeight: 600,
-          
-          // Conditional styling based on variant
-          ...(ownerState.variant === 'contained' && {
-            boxShadow: theme.shadows[2],
-            '&:hover': {
-              boxShadow: theme.shadows[4],
-              transform: 'translateY(-1px)',
-            },
-          }),
-          
-          // Size-specific styling
-          ...(ownerState.size === 'large' && {
-            padding: theme.spacing(1.5, 4),
-            fontSize: '1.1rem',
-          }),
-        }),
-      },
-    },
-    
-    // Card customization
-    MuiCard: {
-      styleOverrides: {
-        root: ({ theme }) => ({
-          borderRadius: theme.spacing(2),
-          transition: 'all 0.3s ease',
-          
-          '&:hover': {
-            transform: 'translateY(-4px)',
-            boxShadow: theme.shadows[8],
-          },
-          
-          ...theme.applyStyles('dark', {
-            backgroundColor: theme.vars.palette.grey[900],
-            border: '1px solid',
-            borderColor: theme.vars.palette.grey[700],
-          }),
-        }),
-      },
-    },
-    
-    // Typography customization
-    MuiTypography: {
-      styleOverrides: {
-        h1: {
-          fontWeight: 700,
-          letterSpacing: '-0.02em',
-        },
-        body1: {
-          lineHeight: 1.7,
-        },
-      },
-    },
-  },
-});`}
+{`// ใช้สีในการ styling
+<Button sx={{ bgcolor: 'primary.main', color: 'primary.contrastText' }}>
+  Primary Button
+</Button>
+
+<Alert severity="success">
+  ใช้สีจาก theme ทำให้เปลี่ยน theme ง่าย
+</Alert>
+
+<Typography sx={{ color: 'text.primary' }}>
+  ข้อความหลัก
+</Typography>
+<Typography sx={{ color: 'text.secondary' }}>
+  ข้อความรอง
+</Typography>`}
                 </Typography>
               </Box>
             </CardContent>
           </Card>
 
-          <Typography variant="h5" sx={{ mb: 2 }}>🎯 Live Component Override Examples</Typography>
-          
-          <Box sx={{ display: 'grid', gap: 3 }}>
-            <Paper sx={{ p: 3 }}>
-              <Typography variant="h6" sx={{ mb: 2 }}>Customized Components</Typography>
-              <Stack spacing={2}>
-                <Button variant="contained" size="large">
-                  Custom Styled Button (Large)
-                </Button>
-                <Button variant="outlined" color="secondary">
-                  Custom Outlined Button
-                </Button>
-                <CustomCard>
-                  <CardContent>
-                    <Typography variant="h6">Custom Card with Hover Effect</Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      นี่คือ Card ที่ได้รับการปรับแต่งจาก theme overrides
-                    </Typography>
-                  </CardContent>
-                </CustomCard>
-              </Stack>
-            </Paper>
-          </Box>
+          <Typography variant="h5" sx={{ mb: 2 }}>📝 Typography System</Typography>
 
-          <Alert severity="success" sx={{ mt: 3 }}>
-            <Typography variant="body2">
-              🎨 <strong>Best Practice:</strong> ใช้ component overrides สำหรับ global styling และ 
-              styled() หรือ sx สำหรับ component-specific customizations
-            </Typography>
-          </Alert>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" sx={{ mb: 2 }}>
+                🔤 Typography Variants
+              </Typography>
+              
+              <Box sx={{ mb: 3 }}>
+                {[
+                  { variant: 'h1', text: 'h1. Heading 1', desc: 'หัวข้อใหญ่สุด (96px)' },
+                  { variant: 'h2', text: 'h2. Heading 2', desc: 'หัวข้อรอง (60px)' },
+                  { variant: 'h3', text: 'h3. Heading 3', desc: 'หัวข้อย่อย (48px)' },
+                  { variant: 'h4', text: 'h4. Heading 4', desc: 'หัวข้อเล็ก (34px)' },
+                  { variant: 'h5', text: 'h5. Heading 5', desc: 'หัวข้อเล็กมาก (24px)' },
+                  { variant: 'h6', text: 'h6. Heading 6', desc: 'หัวข้อเล็กสุด (20px)' },
+                  { variant: 'subtitle1', text: 'subtitle1. Subtitle large', desc: 'หัวข้อย่อยใหญ่ (16px)' },
+                  { variant: 'subtitle2', text: 'subtitle2. Subtitle small', desc: 'หัวข้อย่อยเล็ก (14px)' },
+                  { variant: 'body1', text: 'body1. Lorem ipsum dolor sit amet...', desc: 'เนื้อหาหลัก (16px)' },
+                  { variant: 'body2', text: 'body2. Lorem ipsum dolor sit amet...', desc: 'เนื้อหารอง (14px)' },
+                  { variant: 'caption', text: 'caption. Photo caption', desc: 'คำอธิบาย (12px)' },
+                  { variant: 'overline', text: 'OVERLINE', desc: 'ข้อความเหนือหัวข้อ (10px)' },
+                ].map((typo) => (
+                  <Box key={typo.variant} sx={{ mb: 2, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
+                    <Typography variant={typo.variant as any} sx={{ mb: 0.5 }}>
+                      {typo.text}
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      {typo.desc}
+                    </Typography>
+                  </Box>
+                ))}
+              </Box>
+
+              <Typography variant="subtitle2" sx={{ mb: 1 }}>
+                💻 Custom Typography:
+              </Typography>
+              <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1 }}>
+                <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.875rem' }}>
+{`const theme = createTheme({
+  typography: {
+    fontFamily: 'Roboto, Arial, sans-serif',
+    h1: {
+      fontSize: '2.5rem',
+      fontWeight: 600,
+      lineHeight: 1.2,
+    },
+    body1: {
+      fontSize: '1rem',
+      lineHeight: 1.6,
+      letterSpacing: '0.00938em',
+    },
+    // เพิ่ม custom variant
+    poster: {
+      fontSize: '4rem',
+      fontWeight: 900,
+      color: 'primary.main',
+    },
+  },
+});
+
+// การใช้งาน
+<Typography variant="poster">
+  BIG TITLE
+</Typography>`}
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        </TabPanel>
+
+        {/* Tab 4: Responsive Design */}
+        <TabPanel value={activeTab} index={3}>
+          <Typography variant="h3" sx={{ mb: 3 }}>📱 Responsive Design</Typography>
+          
+          <Typography variant="body1" sx={{ mb: 3 }}>
+            MUI มี breakpoint system ที่ทำให้การทำ responsive design ง่ายมาก
+          </Typography>
+
+          <Typography variant="h5" sx={{ mb: 2 }}>📐 Breakpoint System</Typography>
+
+          <Card sx={{ mb: 3 }}>
+            <CardContent>
+              <Typography variant="h6" sx={{ mb: 2 }}>
+                📊 MUI Breakpoints
+              </Typography>
+              
+              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 2, mb: 3 }}>
+                {[
+                  { name: 'xs', range: '0px+', desc: 'มือถือ', icon: '📱' },
+                  { name: 'sm', range: '600px+', desc: 'แท็บเล็ต', icon: '📱' },
+                  { name: 'md', range: '900px+', desc: 'แล็ปท็อป', icon: '💻' },
+                  { name: 'lg', range: '1200px+', desc: 'เดสก์ท็อป', icon: '🖥️' },
+                  { name: 'xl', range: '1536px+', desc: 'จอใหญ่', icon: '🖥️' },
+                ].map((bp) => (
+                  <Box key={bp.name} sx={{ p: 2, border: '1px solid', borderColor: 'grey.200', borderRadius: 1, textAlign: 'center' }}>
+                    <Typography variant="h4" sx={{ mb: 1 }}>{bp.icon}</Typography>
+                    <Typography variant="h6" sx={{ fontWeight: 600 }}>{bp.name}</Typography>
+                    <Typography variant="body2" color="primary.main">{bp.range}</Typography>
+                    <Typography variant="caption" color="text.secondary">{bp.desc}</Typography>
+                  </Box>
+                ))}
+              </Box>
+
+              <Typography variant="subtitle2" sx={{ mb: 1 }}>
+                💻 Responsive sx prop:
+              </Typography>
+              <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1 }}>
+                <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.875rem' }}>
+{`// Responsive padding
+<Box sx={{
+  p: {
+    xs: 1,    // padding: 8px on mobile
+    sm: 2,    // padding: 16px on tablet
+    md: 3,    // padding: 24px on laptop
+  }
+}}>
+
+// Responsive display
+<Box sx={{
+  display: {
+    xs: 'block',     // block on mobile
+    md: 'flex',      // flex on desktop
+  }
+}}>
+
+// Responsive grid
+<Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+  <Grid item xs={2} sm={4} md={4}>
+    Content
+  </Grid>
+</Grid>`}
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
+
+          <Typography variant="h5" sx={{ mb: 2 }}>🎯 Responsive Examples</Typography>
+
+          <Stack spacing={3}>
+            <Card>
+              <CardContent>
+                <Typography variant="h6" sx={{ mb: 2, color: 'primary.main' }}>
+                  📱 Mobile-First Layout
+                </Typography>
+                <Box sx={{
+                  display: 'flex',
+                  flexDirection: { xs: 'column', md: 'row' },
+                  gap: 2,
+                  p: 2,
+                  bgcolor: 'grey.50',
+                  borderRadius: 1,
+                  mb: 2
+                }}>
+                  <Box sx={{ flex: 1, p: 2, bgcolor: 'primary.light', borderRadius: 1, textAlign: 'center' }}>
+                    <Typography>Sidebar</Typography>
+                    <Typography variant="caption">บนมือถือ: เต็มความกว้าง</Typography>
+                    <Typography variant="caption" display="block">บนเดสก์ท็อป: ข้างซ้าย</Typography>
+                  </Box>
+                  <Box sx={{ flex: 3, p: 2, bgcolor: 'secondary.light', borderRadius: 1, textAlign: 'center' }}>
+                    <Typography>Main Content</Typography>
+                    <Typography variant="caption">ปรับขนาดตาม screen</Typography>
+                  </Box>
+                </Box>
+                <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1 }}>
+                  <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.75rem' }}>
+{`<Box sx={{
+  display: 'flex',
+  flexDirection: { xs: 'column', md: 'row' },
+  gap: 2,
+}}>
+  <Box sx={{ flex: 1 }}>Sidebar</Box>
+  <Box sx={{ flex: 3 }}>Main Content</Box>
+</Box>`}
+                  </Typography>
+                </Box>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent>
+                <Typography variant="h6" sx={{ mb: 2, color: 'secondary.main' }}>
+                  🔧 Responsive Typography
+                </Typography>
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="h1" sx={{ 
+                    fontSize: { xs: '2rem', sm: '3rem', md: '4rem' },
+                    textAlign: 'center',
+                    color: 'primary.main'
+                  }}>
+                    ขนาดเปลี่ยนตาม Screen
+                  </Typography>
+                </Box>
+                <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1 }}>
+                  <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.75rem' }}>
+{`<Typography sx={{
+  fontSize: {
+    xs: '2rem',   // 32px on mobile
+    sm: '3rem',   // 48px on tablet  
+    md: '4rem',   // 64px on desktop
+  }
+}}>
+  Responsive Text
+</Typography>`}
+                  </Typography>
+                </Box>
+              </CardContent>
+            </Card>
+          </Stack>
+        </TabPanel>
+
+        {/* Tab 5: Interactive Demo */}
+        <TabPanel value={activeTab} index={4}>
+          <Typography variant="h3" sx={{ mb: 3 }}>🎮 ทดลองใช้งาน Theme</Typography>
+          
+          <Typography variant="body1" sx={{ mb: 3 }}>
+            ทดลองเปลี่ยน theme และดูผลลัพธ์แบบ real-time
+          </Typography>
+
+          <Typography variant="h5" sx={{ mb: 2 }}>🎨 Theme Switcher</Typography>
+
+          <Card sx={{ mb: 3 }}>
+            <CardContent>
+              <Typography variant="h6" sx={{ mb: 2 }}>
+                เลือก Theme:
+              </Typography>
+              <Box sx={{ display: 'flex', gap: 2, mb: 3 }}>
+                {Object.entries(customThemes).map(([key, theme]) => (
+                  <Button
+                    key={key}
+                    variant={selectedTheme === key ? 'contained' : 'outlined'}
+                    onClick={() => setSelectedTheme(key as any)}
+                    sx={{
+                      bgcolor: selectedTheme === key ? theme.palette.primary.main : 'transparent',
+                      borderColor: theme.palette.primary.main,
+                      color: selectedTheme === key ? 'white' : theme.palette.primary.main,
+                      '&:hover': {
+                        bgcolor: theme.palette.primary.light,
+                      }
+                    }}
+                  >
+                    {key === 'blue' && '💙 Blue'} 
+                    {key === 'green' && '💚 Green'}
+                    {key === 'purple' && '💜 Purple'}
+                  </Button>
+                ))}
+              </Box>
+
+              <ThemeProvider theme={currentTheme}>
+                <Paper sx={{ p: 3, border: '2px solid', borderColor: 'primary.main' }}>
+                  <Typography variant="h4" sx={{ mb: 2, color: 'primary.main' }}>
+                    🎨 ตัวอย่าง Theme ที่เลือก
+                  </Typography>
+                  
+                  <Box sx={{ display: 'flex', gap: 2, mb: 3, flexWrap: 'wrap' }}>
+                    <Button variant="contained" color="primary">Primary Button</Button>
+                    <Button variant="contained" color="secondary">Secondary Button</Button>
+                    <Button variant="outlined" color="primary">Outlined</Button>
+                  </Box>
+
+                  <Alert severity="success" sx={{ mb: 2 }}>
+                    <Typography>ตัวอย่าง Alert ที่ใช้ theme สี</Typography>
+                  </Alert>
+
+                  <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 2 }}>
+                    <Box sx={{ p: 2, bgcolor: 'primary.light', borderRadius: 1, textAlign: 'center' }}>
+                      <Typography variant="body2" sx={{ color: 'primary.contrastText' }}>
+                        Primary Light
+                      </Typography>
+                    </Box>
+                    <Box sx={{ p: 2, bgcolor: 'primary.main', borderRadius: 1, textAlign: 'center' }}>
+                      <Typography variant="body2" sx={{ color: 'primary.contrastText' }}>
+                        Primary Main
+                      </Typography>
+                    </Box>
+                    <Box sx={{ p: 2, bgcolor: 'secondary.main', borderRadius: 1, textAlign: 'center' }}>
+                      <Typography variant="body2" sx={{ color: 'secondary.contrastText' }}>
+                        Secondary
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Paper>
+              </ThemeProvider>
+            </CardContent>
+          </Card>
+
+          <Typography variant="h5" sx={{ mb: 2 }}>⚡ sx prop Playground</Typography>
+
+          <Card>
+            <CardContent>
+              <Typography variant="h6" sx={{ mb: 2 }}>
+                ทดลอง sx prop:
+              </Typography>
+              
+              <Box sx={{ 
+                p: 3,
+                bgcolor: 'primary.light',
+                borderRadius: 2,
+                border: '2px dashed',
+                borderColor: 'primary.main',
+                textAlign: 'center',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  bgcolor: 'primary.main',
+                  color: 'primary.contrastText',
+                  transform: 'scale(1.02)',
+                }
+              }}>
+                <Typography variant="h6">
+                  🎯 Hover ที่กล่องนี้!
+                </Typography>
+                <Typography variant="body2">
+                  ใช้ sx prop สำหรับ styling, hover effects และ transitions
+                </Typography>
+              </Box>
+
+              <Box sx={{ mt: 2, p: 2, bgcolor: 'grey.100', borderRadius: 1 }}>
+                <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.75rem' }}>
+{`<Box sx={{
+  p: 3,
+  bgcolor: 'primary.light',
+  borderRadius: 2,
+  border: '2px dashed',
+  borderColor: 'primary.main',
+  transition: 'all 0.3s ease',
+  '&:hover': {
+    bgcolor: 'primary.main',
+    color: 'primary.contrastText',
+    transform: 'scale(1.02)',
+  }
+}}>
+  Interactive Box
+</Box>`}
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
         </TabPanel>
 
         {/* Navigation */}
@@ -1089,7 +969,7 @@ function ThemeToggle() {
             href="/mui-tutorial/lesson-1"
             variant="outlined"
           >
-            บทที่ 1: เริ่มต้นกับ MUI v7
+            บทที่ 1: เริ่มต้นกับ MUI
           </Button>
           
           <Chip 

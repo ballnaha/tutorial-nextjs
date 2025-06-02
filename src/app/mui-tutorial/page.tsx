@@ -39,6 +39,7 @@ import {
   Security,
   Home,
   NavigateNext,
+  Navigation,
 } from '@mui/icons-material';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -87,13 +88,34 @@ function App() {
   },
   {
     id: 2,
-    title: 'บทที่ 2: Theme และ Styling ระดับสูง',
-    description: 'เรียนรู้การจัดการ Theme, CSS Variables, Dark Mode และการ customize styles อย่างลึกซึ้ง',
-    duration: '35 นาที',
+    title: 'Theme และ Styling',
+    description: 'การปรับแต่ง Theme และการใช้งาน sx prop',
+    duration: '30 นาที',
     level: 'เริ่มต้น',
-    status: 'available' as const,
+    topics: ['การสร้าง Custom Theme', 'Color Palette', 'Typography', 'การใช้งาน sx prop'],
+    status: 'available',
+    estimatedTime: 30,
     emoji: '🎭',
-    topics: ['Theme Provider', 'CSS Variables', 'Dark Mode', 'Custom Components']
+    code: `const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#1976d2',
+    },
+    secondary: {
+      main: '#dc004e',
+    },
+  },
+})
+
+// ใช้งาน sx prop
+<Box sx={{
+  bgcolor: 'primary.main',
+  color: 'white',
+  p: 2,
+  borderRadius: 1,
+}}>
+  Custom styled box
+</Box>`
   },
   {
     id: 3,
@@ -102,7 +124,7 @@ function App() {
     duration: '35 นาที',
     level: 'เริ่มต้น',
     topics: ['Container component', 'Grid system', 'Stack component', 'Box component', 'Responsive Design'],
-    status: 'coming-soon',
+    status: 'available',
     estimatedTime: 35,
     emoji: '📝',
   },
@@ -113,7 +135,7 @@ function App() {
     duration: '20 นาที',
     level: 'เริ่มต้น',
     topics: ['Button variants', 'IconButton', 'Floating Action Button', 'ButtonGroup', 'Loading state'],
-    status: 'coming-soon',
+    status: 'available',
     estimatedTime: 20,
     emoji: '🔘',
   },
@@ -124,20 +146,21 @@ function App() {
     duration: '40 นาที',
     level: 'ปานกลาง',
     topics: ['TextField variants', 'Select และ MenuItem', 'Checkbox และ Radio', 'Form validation'],
-    status: 'coming-soon',
+    status: 'available',
     estimatedTime: 40,
     emoji: '📋',
   },
   {
     id: 6,
     title: 'Navigation Components',
-    description: 'AppBar, Drawer, Tabs, Breadcrumbs สำหรับนำทาง',
+    description: 'AppBar, Drawer, Tabs, Breadcrumbs',
     duration: '35 นาที',
     level: 'ปานกลาง',
-    topics: ['AppBar และ Toolbar', 'Drawer และ Menu', 'Tabs และ TabPanel', 'Breadcrumbs navigation'],
-    status: 'coming-soon',
+    topics: ['AppBar & Toolbar', 'Drawer & Menu', 'Tabs', 'Breadcrumbs', 'Layout Design'],
+    status: 'available',
     estimatedTime: 35,
-    emoji: '🗂️',
+    emoji: '📚',
+    
   },
   {
     id: 7,
@@ -146,7 +169,7 @@ function App() {
     duration: '45 นาที',
     level: 'ปานกลาง',
     topics: ['Table และ DataGrid', 'List และ ListItem', 'Card component', 'Chip และ Badge'],
-    status: 'coming-soon',
+    status: 'available',
     estimatedTime: 45,
     emoji: '📊',
   },
@@ -157,7 +180,7 @@ function App() {
     duration: '30 นาที',
     level: 'ปานกลาง',
     topics: ['Dialog และ Modal', 'Snackbar notifications', 'Alert messages', 'Progress indicators'],
-    status: 'coming-soon',
+    status: 'available',
     estimatedTime: 30,
     emoji: '💬',
   },
@@ -266,7 +289,7 @@ export default function MUITutorialPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       
-      <Container maxWidth="lg">
+    <Container maxWidth="lg">
         {/* Breadcrumbs */}
         <Breadcrumbs 
           aria-label="breadcrumb" 
@@ -297,7 +320,7 @@ export default function MUITutorialPage() {
             sx={{ 
               mb: 2,
               fontWeight: 600,
-              display: 'flex',
+          display: 'flex', 
               alignItems: 'center',
               gap: 2
             }}
@@ -306,7 +329,7 @@ export default function MUITutorialPage() {
               <Palette />
             </Avatar>
             Material-UI (MUI) Tutorial
-          </Typography>
+              </Typography>
           
           <Typography 
             variant="body1" 
@@ -341,7 +364,7 @@ export default function MUITutorialPage() {
               variant="outlined"
             />
           </Box>
-        </Box>
+      </Box>
 
         {/* Course Features Section */}
         <Container maxWidth="lg" sx={{ py: 6 }}>
@@ -352,8 +375,8 @@ export default function MUITutorialPage() {
             </Typography>
             <Typography variant="h6" color="text.secondary" sx={{ mb: 4, maxWidth: 600, mx: 'auto' }}>
               หลักสูตรที่ออกแบบมาเพื่อสอนการสร้าง UI ที่สวยงามและมีประสิทธิภาพด้วย MUI
-            </Typography>
-            
+      </Typography>
+
             <Box sx={{ 
               display: 'grid', 
               gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }, 
@@ -362,7 +385,7 @@ export default function MUITutorialPage() {
               {features.map((feature, index) => (
                 <Card 
                   key={index}
-                  sx={{ 
+              sx={{
                     p: 3, 
                     textAlign: 'center',
                     height: '100%',
@@ -564,9 +587,9 @@ export default function MUITutorialPage() {
                       </Box>
                       
                       <Typography variant="body2" color="text.secondary" sx={{ mb: 2, flex: 1, lineHeight: 1.5 }}>
-                        {lesson.description}
-                      </Typography>
-                      
+                {lesson.description}
+              </Typography>
+
                       <Box sx={{ mb: 2 }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
                           <Typography variant="caption" color="text.secondary">
@@ -574,7 +597,7 @@ export default function MUITutorialPage() {
                           </Typography>
                           <Typography variant="caption" color="text.secondary">
                             {getLevelProgress(lesson.level)}%
-                          </Typography>
+              </Typography>
                         </Box>
                         <LinearProgress 
                           variant="determinate" 
@@ -623,8 +646,8 @@ export default function MUITutorialPage() {
                   </Card>
                 ))}
               </Box>
-            </Box>
-          )}
+                </Box>
+              )}
 
           {/* Coming Soon Lessons */}
           {comingSoonLessons.length > 0 && (
@@ -705,9 +728,9 @@ export default function MUITutorialPage() {
                         </Box>
                       </Box>
                     ))}
-                  </Box>
-                </AccordionDetails>
-              </Accordion>
+              </Box>
+            </AccordionDetails>
+          </Accordion>
             </Box>
           )}
 
@@ -742,8 +765,8 @@ export default function MUITutorialPage() {
                 <Typography variant="body2" color="text.secondary">
                   ติดตั้ง MUI, ทำความเข้าใจ Material Design และใช้งาน Component พื้นฐาน
                 </Typography>
-              </Box>
-              
+      </Box>
+
               <Box sx={{ textAlign: 'center' }}>
                 <Avatar sx={{ 
                   bgcolor: 'secondary.main', 
@@ -757,13 +780,13 @@ export default function MUITutorialPage() {
                 </Avatar>
                 <Typography variant="h6" sx={{ mb: 1 }}>
                   ฝึกทำ Layout
-                </Typography>
+        </Typography>
                 <Typography variant="body2" color="text.secondary">
                   เรียนรู้ Grid System, Responsive Design และการจัดวาง UI ที่สวยงาม
-                </Typography>
+        </Typography>
               </Box>
               
-              <Box sx={{ textAlign: 'center' }}>
+        <Box sx={{ textAlign: 'center' }}>
                 <Avatar sx={{ 
                   bgcolor: 'success.main', 
                   mx: 'auto', 
@@ -812,14 +835,14 @@ export default function MUITutorialPage() {
               เริ่มต้นการเดินทางสู่การเป็น UI Developer ด้วย Material-UI
               จากพื้นฐานไปจนถึงระดับมืออาชีพ
             </Typography>
-            <Button
-              variant="contained"
-              size="large"
+          <Button
+            variant="contained"
+            size="large"
               startIcon={<Palette />}
               component={Link}
               href="/mui-tutorial/lesson-1"
-              sx={{
-                bgcolor: 'white',
+            sx={{ 
+              bgcolor: 'white', 
                 color: 'primary.main',
                 px: 4,
                 py: 1.5,
@@ -834,10 +857,10 @@ export default function MUITutorialPage() {
               }}
             >
               เริ่มเรียน Material-UI เลย!
-            </Button>
+          </Button>
           </CardContent>
         </Card>
-      </Container>
+    </Container>
     </>
   );
 } 
