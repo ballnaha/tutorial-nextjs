@@ -1,0 +1,73 @@
+{
+  "name": "Next.js Tutorial ไทย - เรียนรู้การสร้างเว็บแอปพลิเคชันฟรี",
+  "short_name": "Next.js Tutorial ไทย",
+  "description": "บทเรียน Next.js ภาษาไทยครบครัน เรียนรู้ Next.js, Material-UI และ Prisma ตั้งแต่เริ่มต้นจนใช้งานได้จริง",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FCFCFC",
+  "theme_color": "#5C9EE8",
+  "orientation": "portrait-primary",
+  "categories": ["education", "productivity"],
+  "lang": "th",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icon-512x512.png", 
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180", 
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/screenshot-mobile.png", 
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "บทเรียน Next.js",
+      "short_name": "Next.js",
+      "description": "เริ่มต้นเรียน Next.js พื้นฐาน",
+      "url": "/nextjs-basics",
+      "icons": [
+        {
+          "src": "/shortcut-nextjs.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "บทเรียน Material-UI",
+      "short_name": "Material-UI", 
+      "description": "เรียนรู้การใช้ Material-UI",
+      "url": "/material-ui",
+      "icons": [
+        {
+          "src": "/shortcut-mui.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+} 

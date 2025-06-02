@@ -24,3 +24,301 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Code block styling */
+.code-block {
+  background-color: #1e1e1e !important;
+  color: #f8f8f2 !important;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
+  border: none !important;
+}
+
+.code-block pre,
+.code-block .MuiTypography-root {
+  color: #f8f8f2 !important;
+  font-size: 0.85rem !important;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
+  line-height: 1.5 !important;
+}
+
+/* Dark code syntax highlighting */
+.code-block .keyword {
+  color: #f92672;
+}
+
+.code-block .string {
+  color: #a6e22e;
+}
+
+.code-block .comment {
+  color: #75715e;
+  font-style: italic;
+}
+
+.code-block .number {
+  color: #ae81ff;
+}
+
+.code-block .function {
+  color: #66d9ef;
+}
+
+/* Typography for better readability and SEO */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Prompt', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #ffffff;
+}
+
+/* Accessibility improvements */
+:focus {
+  outline: 2px solid #1976d2;
+  outline-offset: 2px;
+}
+
+/* Skip navigation for screen readers */
+.skip-nav {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #1976d2;
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 1000;
+}
+
+.skip-nav:focus {
+  top: 6px;
+}
+
+/* Code blocks styling for better SEO and readability */
+.code-block {
+  background-color: #1e1e1e !important;
+  color: #f8f8f2 !important;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
+  font-size: 0.9rem !important;
+  line-height: 1.5 !important;
+  border-radius: 8px !important;
+  overflow-x: auto !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid #333 !important;
+}
+
+.code-block pre {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  color: inherit !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+}
+
+.code-block code {
+  background: transparent !important;
+  padding: 0 !important;
+  border: none !important;
+  color: inherit !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
+}
+
+/* Syntax highlighting */
+.code-block .token.comment {
+  color: #6272a4;
+}
+
+.code-block .token.string {
+  color: #f1fa8c;
+}
+
+.code-block .token.keyword {
+  color: #ff79c6;
+}
+
+.code-block .token.function {
+  color: #50fa7b;
+}
+
+.code-block .token.number {
+  color: #bd93f9;
+}
+
+/* SEO-friendly heading hierarchy */
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 0.875rem;
+}
+
+h3 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 0.75rem;
+}
+
+h4 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: 0.625rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+
+h6 {
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+
+/* Responsive images for SEO */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Links styling for better UX and SEO */
+a {
+  color: #1976d2;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #1565c0;
+  text-decoration: none;
+}
+
+a:focus {
+  outline: 2px solid #1976d2;
+  outline-offset: 2px;
+}
+
+/* Table styling for better readability */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+th, td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+th {
+  font-weight: 600;
+  background-color: #f5f5f5;
+}
+
+/* Loading and animation improvements */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Mobile optimizations for SEO */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.75rem;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+  }
+  
+  .code-block {
+    font-size: 0.8rem !important;
+  }
+}
+
+/* Print styles for SEO and accessibility */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+  
+  a {
+    color: black !important;
+    text-decoration: underline !important;
+  }
+  
+  .code-block {
+    background: #f5f5f5 !important;
+    color: black !important;
+    border: 1px solid #ccc !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  body {
+    background: white;
+    color: black;
+  }
+  
+  .code-block {
+    background: black !important;
+    color: white !important;
+    border: 2px solid white !important;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+}

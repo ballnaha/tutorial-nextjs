@@ -1,103 +1,659 @@
-import Image from "next/image";
+import {
+  Container,
+  Typography,
+  Box,
+  Card,
+  CardContent,
+  CardActions,
+  Button,
+  Chip,
+  Avatar,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Paper,
+} from '@mui/material';
+import {
+  School,
+  Web,
+  Storage,
+  CheckCircle,
+  Code,
+  Palette,
+  Build,
+  Security,
+  Star,
+  Language,
+  Speed,
+  Public,
+} from '@mui/icons-material';
+import Link from 'next/link';
+import { Metadata } from 'next';
 
-export default function Home() {
+// SEO Metadata
+export const metadata: Metadata = {
+  title: 'Next.js Tutorial ไทย - เรียนรู้ Next.js, Material-UI และ Prisma ฟรี',
+  description: 'บทเรียน Next.js ภาษาไทยที่สมบูรณ์แบบ เรียนรู้ตั้งแต่พื้นฐานจนใช้งานได้จริง พร้อม Material-UI และ Prisma สำหรับสร้างเว็บแอปพลิเคชันครบครัน',
+  keywords: [
+    'Next.js tutorial ไทย',
+    'เรียน Next.js',
+    'React tutorial',
+    'Material-UI tutorial',
+    'Prisma tutorial',
+    'เรียนโปรแกรม',
+    'เรียนเว็บไซต์',
+    'JavaScript tutorial',
+    'TypeScript tutorial',
+    'Full Stack tutorial'
+  ],
+  authors: [{ name: 'Next.js Tutorial Thai' }],
+  creator: 'Next.js Tutorial Thai',
+  publisher: 'Next.js Tutorial Thai',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    title: 'Next.js Tutorial ไทย - เรียนรู้การสร้างเว็บแอปพลิเคชันฟรี',
+    description: 'บทเรียน Next.js ภาษาไทยครบครัน เรียนรู้ Next.js, Material-UI และ Prisma ตั้งแต่เริ่มต้นจนใช้งานได้จริง',
+    url: 'https://nextjs-tutorial-thai.com',
+    siteName: 'Next.js Tutorial ไทย',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Next.js Tutorial ไทย - เรียนรู้การสร้างเว็บแอปพลิเคชัน'
+      }
+    ],
+    locale: 'th_TH',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Next.js Tutorial ไทย - เรียนรู้ Next.js ฟรี',
+    description: 'บทเรียน Next.js ภาษาไทยครบครัน เรียนรู้ตั้งแต่พื้นฐานจนใช้งานได้จริง',
+    images: ['/twitter-image.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'your-google-verification-code',
+  },
+  alternates: {
+    canonical: 'https://nextjs-tutorial-thai.com',
+    languages: {
+      'th': 'https://nextjs-tutorial-thai.com',
+      'en': 'https://nextjs-tutorial-thai.com/en',
+    },
+  },
+};
+
+const tutorialCards = [
+  {
+    title: 'Next.js พื้นฐาน',
+    description: 'เรียนรู้ Next.js 15 ตั้งแต่เริ่มต้นจนใช้งานได้จริง ครอบคลุมทุกสิ่งที่จำเป็นสำหรับการพัฒนาเว็บแอปพลิเคชันสมัยใหม่',
+    icon: <Web sx={{ fontSize: 40 }} />,
+    color: '#000000',
+    lessons: 16,
+    difficulty: 'เริ่มต้น',
+    duration: '8-12 ชั่วโมง',
+    href: '/nextjs-basics',
+    features: [
+      'App Router และ Server Components',
+      'Client Components และ Hydration',
+      'API Routes และ Database Integration',
+      'Static Site Generation (SSG)',
+      'Server-Side Rendering (SSR)',
+      'File-based Routing',
+      'Authentication และ Authorization',
+      'Middleware และ Security',
+      'Performance Optimization',
+      'Deployment และ Production'
+    ]
+  },
+  {
+    title: 'Material-UI (MUI)',
+    description: 'เรียนรู้การใช้งาน Material-UI Component Library ที่ใหญ่ที่สุดของ React สำหรับสร้าง UI ที่สวยงามและใช้งานง่าย',
+    icon: <Palette sx={{ fontSize: 40 }} />,
+    color: '#007FFF',
+    lessons: 8,
+    difficulty: 'ปานกลาง',
+    duration: '4-6 ชั่วโมง',
+    href: '/mui-tutorial',
+    features: [
+      'Theme System และ Custom Styling',
+      'Material Design Components',
+      'Responsive Layout System',
+      'Icons และ Typography',
+      'Form Components และ Validation',
+      'Data Grid และ Data Visualization',
+      'Advanced Components',
+      'Performance Best Practices'
+    ]
+  },
+  {
+    title: 'Prisma & MySQL',
+    description: 'เรียนรู้การจัดการฐานข้อมูลด้วย Prisma ORM ที่ทันสมัยที่สุด พร้อม MySQL สำหรับการพัฒนาแอปพลิเคชันระดับ Production',
+    icon: <Storage sx={{ fontSize: 40 }} />,
+    color: '#2D3748',
+    lessons: 10,
+    difficulty: 'ปานกลาง',
+    duration: '6-8 ชั่วโมง',
+    href: '/prisma-tutorial',
+    features: [
+      'Prisma Schema และ Data Modeling',
+      'Database Migrations และ Seeding',
+      'CRUD Operations และ Query Building',
+      'Relations และ Advanced Queries',
+      'Type Safety และ Auto-completion',
+      'Performance Optimization',
+      'Authentication Integration',
+      'Production Deployment'
+    ]
+  },
+];
+
+const highlights = [
+  { text: 'บทเรียนภาษาไทยที่เข้าใจง่าย', icon: <Language /> },
+  { text: 'ตัวอย่างโค้ดที่ใช้งานได้จริง', icon: <Code /> },
+  { text: 'อัปเดตตามเทคโนโลยีล่าสุด', icon: <Speed /> },
+  { text: 'เรียนฟรี 100% ไม่มีค่าใช้จ่าย', icon: <CheckCircle /> },
+];
+
+const stats = [
+  { number: '34', label: 'บทเรียน', icon: <Web /> },
+  { number: '100%', label: 'ฟรี', icon: <CheckCircle /> },
+];
+
+// Structured Data for SEO
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "name": "Next.js Tutorial ไทย",
+  "description": "บทเรียน Next.js ภาษาไทยที่สมบูรณ์แบบ เรียนรู้ตั้งแต่พื้นฐานจนใช้งานได้จริง",
+  "url": "https://nextjs-tutorial-thai.com",
+  "logo": "https://nextjs-tutorial-thai.com/logo.png",
+  "sameAs": [
+    "https://github.com/nextjs-tutorial-thai",
+    "https://youtube.com/nextjs-tutorial-thai"
+  ],
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "THB",
+    "availability": "https://schema.org/InStock"
+  },
+  "educationalCredentialAwarded": {
+    "@type": "EducationalOccupationalCredential",
+    "name": "Next.js Development Certificate"
+  }
+};
+
+const courseStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "Next.js Tutorial ไทย - เรียนรู้การสร้างเว็บแอปพลิเคชัน",
+  "description": "บทเรียน Next.js ภาษาไทยครบครัน เรียนรู้ Next.js, Material-UI และ Prisma",
+  "provider": {
+    "@type": "Organization",
+    "name": "Next.js Tutorial ไทย"
+  },
+  "hasCourseInstance": tutorialCards.map(card => ({
+    "@type": "CourseInstance",
+    "name": card.title,
+    "description": card.description,
+    "courseMode": "online",
+    "duration": card.duration,
+    "inLanguage": "th"
+  }))
+};
+
+export default function HomePage() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <>
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData)
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(courseStructuredData)
+        }}
+      />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      <Container maxWidth="lg">
+        {/* Hero Section */}
+        <Box component="section" sx={{ textAlign: 'center', py: 6 }}>
+          <Avatar
+            sx={{
+              width: 80,
+              height: 80,
+              mx: 'auto',
+              mb: 3,
+              bgcolor: 'primary.main',
+              fontSize: '2rem',
+            }}
+            aria-label="Next.js Tutorial Logo"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            📚
+          </Avatar>
+          
+          <Typography 
+            variant="h1" 
+            component="h1"
+            color="primary" 
+            gutterBottom
+            sx={{ fontSize: { xs: '2.5rem', md: '3.5rem' } }}
           >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+            Next.js Tutorial ไทย
+          </Typography>
+          
+          <Typography 
+            variant="h2" 
+            component="h2"
+            color="text.secondary" 
+            sx={{ 
+              mb: 4, 
+              maxWidth: '800px', 
+              mx: 'auto',
+              fontSize: { xs: '1.25rem', md: '1.5rem' },
+              fontWeight: 400
+            }}
+          >
+            เรียนรู้ Next.js 15, Material-UI และ Prisma อย่างครบครันด้วยบทเรียนภาษาไทยที่เข้าใจง่าย
+          </Typography>
+
+          {/* Statistics */}
+          <Box sx={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            gap: { xs: 2, md: 4 }, 
+            mb: 4,
+            flexWrap: 'wrap'
+          }}>
+            {stats.map((stat, index) => (
+              <Box key={index} sx={{ textAlign: 'center', minWidth: '100px' }}>
+                <Box sx={{ color: 'primary.main', mb: 1 }}>
+                  {stat.icon}
+                </Box>
+                <Typography variant="h6" component="div" sx={{ fontWeight: 'bold' }}>
+                  {stat.number}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {stat.label}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
+          
+          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 4, flexWrap: 'wrap' }}>
+            {highlights.map((highlight, index) => (
+              <Chip
+                key={index}
+                icon={highlight.icon}
+                label={highlight.text}
+                color="primary"
+                variant="outlined"
+                sx={{ '& .MuiChip-label': { px: 1 } }}
+              />
+            ))}
+          </Box>
+
+          <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Button
+              component={Link}
+              href="/nextjs-basics"
+              variant="contained"
+              size="large"
+              startIcon={<School />}
+              sx={{ fontSize: '1.1rem', px: 4, py: 1.5 }}
+            >
+              เริ่มเรียนเลย!
+            </Button>
+            <Button
+              component={Link}
+              href="#courses"
+              variant="outlined"
+              size="large"
+              startIcon={<Public />}
+              sx={{ fontSize: '1.1rem', px: 4, py: 1.5 }}
+            >
+              ดูบทเรียนทั้งหมด
+            </Button>
+          </Box>
+        </Box>
+
+        {/* Why Choose Us Section */}
+        <Box component="section" sx={{ mb: 6 }}>
+          <Typography variant="h2" component="h2" textAlign="center" sx={{ mb: 4 }}>
+            ทำไมต้องเรียนกับเรา?
+          </Typography>
+          
+          <Box sx={{ 
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', md: '1fr 1fr', lg: '1fr 1fr 1fr 1fr' },
+            gap: 3
+          }}>
+            <Paper sx={{ p: 3, textAlign: 'center', height: '100%' }}>
+              <Language color="primary" sx={{ fontSize: 48, mb: 2 }} />
+              <Typography variant="h6" sx={{ mb: 1 }}>
+                ภาษาไทย 100%
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                บทเรียนทั้งหมดเป็นภาษาไทยที่เข้าใจง่าย ไม่ต้องกังวลเรื่องภาษา
+              </Typography>
+            </Paper>
+
+            <Paper sx={{ p: 3, textAlign: 'center', height: '100%' }}>
+              <Speed color="primary" sx={{ fontSize: 48, mb: 2 }} />
+              <Typography variant="h6" sx={{ mb: 1 }}>
+                เทคโนโลยีล่าสุด
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                อัปเดตตาม Next.js 15, React 19 และเทคโนโลยีใหม่ล่าสุดเสมอ
+              </Typography>
+            </Paper>
+
+            <Paper sx={{ p: 3, textAlign: 'center', height: '100%' }}>
+              <Code color="primary" sx={{ fontSize: 48, mb: 2 }} />
+              <Typography variant="h6" sx={{ mb: 1 }}>
+                ใช้งานได้จริง
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                ตัวอย่างโค้ดและโปรเจคที่สามารถนำไปใช้งานจริงได้ทันที
+              </Typography>
+            </Paper>
+
+            <Paper sx={{ p: 3, textAlign: 'center', height: '100%' }}>
+              <CheckCircle color="primary" sx={{ fontSize: 48, mb: 2 }} />
+              <Typography variant="h6" sx={{ mb: 1 }}>
+                ฟรี 100%
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                เรียนฟรีทุกบทเรียน ไม่มีค่าใช้จ่ายแอบแฝง ไม่ต้องสมัครสมาชิก
+              </Typography>
+            </Paper>
+          </Box>
+        </Box>
+
+        {/* Tutorial Cards Section */}
+        <Box component="section" id="courses" sx={{ mb: 6 }}>
+          <Typography variant="h2" component="h2" textAlign="center" sx={{ mb: 2 }}>
+            บทเรียนทั้งหมด
+          </Typography>
+          
+          <Typography 
+            variant="body1" 
+            textAlign="center" 
+            color="text.secondary" 
+            sx={{ mb: 4, maxWidth: '600px', mx: 'auto' }}
+          >
+            เรียนรู้การพัฒนาเว็บแอปพลิเคชันครบวงจร ตั้งแต่ Frontend ด้วย Next.js และ Material-UI 
+            ไปจนถึง Backend ด้วย Prisma และ MySQL
+          </Typography>
+
+          <Box sx={{ 
+            display: 'flex', 
+            flexDirection: { xs: 'column', lg: 'row' }, 
+            gap: 3
+          }}>
+            {tutorialCards.map((card, index) => (
+              <Box key={index} sx={{ flex: 1 }}>
+                <Card 
+                  component="article"
+                  sx={{ 
+                    height: '100%', 
+                    display: 'flex', 
+                    flexDirection: 'column',
+                    transition: 'all 0.2s ease-in-out',
+                    '&:hover': {
+                      boxShadow: 6,
+                    }
+                  }}
+                >
+                  <CardContent sx={{ flexGrow: 1 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 3 }}>
+                      <Avatar sx={{ bgcolor: card.color, mr: 2, width: 56, height: 56 }}>
+                        {card.icon}
+                      </Avatar>
+                      <Box sx={{ flex: 1 }}>
+                        <Typography variant="h5" component="h3" sx={{ mb: 1 }}>
+                          {card.title}
+                        </Typography>
+                        <Box sx={{ display: 'flex', gap: 1, mb: 1, flexWrap: 'wrap' }}>
+                          <Chip label={`${card.lessons} บท`} size="small" />
+                          <Chip label={card.difficulty} size="small" color="secondary" />
+                          <Chip label={card.duration} size="small" variant="outlined" />
+                        </Box>
+                      </Box>
+                    </Box>
+                    
+                    <Typography variant="body1" color="text.secondary" sx={{ mb: 3, lineHeight: 1.6 }}>
+                      {card.description}
+                    </Typography>
+
+                    <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
+                      สิ่งที่จะได้เรียนรู้:
+                    </Typography>
+                    <List dense>
+                      {card.features.slice(0, 6).map((feature, idx) => (
+                        <ListItem key={idx} sx={{ py: 0.25, pl: 0 }}>
+                          <ListItemIcon sx={{ minWidth: 24 }}>
+                            <CheckCircle color="primary" sx={{ fontSize: 16 }} />
+                          </ListItemIcon>
+                          <ListItemText 
+                            primary={feature} 
+                            primaryTypographyProps={{ variant: 'body2' }}
+                          />
+                        </ListItem>
+                      ))}
+                      {card.features.length > 6 && (
+                        <ListItem sx={{ py: 0.25, pl: 0 }}>
+                          <ListItemText 
+                            primary={`และอีก ${card.features.length - 6} หัวข้อ...`}
+                            primaryTypographyProps={{ 
+                              variant: 'body2', 
+                              fontStyle: 'italic',
+                              color: 'text.secondary'
+                            }}
+                          />
+                        </ListItem>
+                      )}
+                    </List>
+                  </CardContent>
+                  
+                  <CardActions sx={{ p: 2 }}>
+                    <Button
+                      component={Link}
+                      href={card.href}
+                      variant="contained"
+                      fullWidth
+                      startIcon={<School />}
+                      size="large"
+                    >
+                      เริ่มเรียน {card.title}
+                    </Button>
+                  </CardActions>
+                </Card>
+              </Box>
+            ))}
+          </Box>
+        </Box>
+
+        {/* Getting Started Section */}
+        <Paper component="section" sx={{ p: 4, mb: 4, bgcolor: 'grey.50' }}>
+          <Typography variant="h3" component="h2" textAlign="center" sx={{ mb: 2 }}>
+            เริ่มต้นเรียนอย่างไร?
+          </Typography>
+          
+          <Typography 
+            variant="body1" 
+            textAlign="center" 
+            color="text.secondary" 
+            sx={{ mb: 4, maxWidth: '600px', mx: 'auto' }}
+          >
+            ไม่ต้องมีพื้นฐานการเขียนโปรแกรม เราจะสอนทุกอย่างตั้งแต่เริ่มต้น
+          </Typography>
+          
+          <Box sx={{ 
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', md: '1fr 1fr 1fr' },
+            gap: 3
+          }}>
+            <Box sx={{ textAlign: 'center' }}>
+              <Avatar sx={{ 
+                bgcolor: 'primary.main', 
+                mx: 'auto', 
+                mb: 2, 
+                width: 64, 
+                height: 64,
+                fontSize: '1.5rem'
+              }}>
+                1️⃣
+              </Avatar>
+              <Typography variant="h6" sx={{ mb: 1 }}>
+                เตรียมสภาพแวดล้อม
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                ติดตั้ง Node.js และ IDE ที่เหมาะสม เราจะแนะนำทุกขั้นตอน
+              </Typography>
+            </Box>
+            
+            <Box sx={{ textAlign: 'center' }}>
+              <Avatar sx={{ 
+                bgcolor: 'secondary.main', 
+                mx: 'auto', 
+                mb: 2, 
+                width: 64, 
+                height: 64,
+                fontSize: '1.5rem'
+              }}>
+                2️⃣
+              </Avatar>
+              <Typography variant="h6" sx={{ mb: 1 }}>
+                เรียนตามลำดับ
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                เริ่มจาก Next.js พื้นฐานก่อน แล้วไปต่อ Material-UI และ Prisma
+              </Typography>
+            </Box>
+            
+            <Box sx={{ textAlign: 'center' }}>
+              <Avatar sx={{ 
+                bgcolor: 'success.main', 
+                mx: 'auto', 
+                mb: 2, 
+                width: 64, 
+                height: 64,
+                fontSize: '1.5rem'
+              }}>
+                3️⃣
+              </Avatar>
+              <Typography variant="h6" sx={{ mb: 1 }}>
+                ฝึกทำโปรเจค
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                ลองสร้างแอปพลิเคชันจริงตามที่เรียน เพื่อฝึกฝนทักษะ
+              </Typography>
+            </Box>
+          </Box>
+        </Paper>
+
+        {/* FAQ Section for SEO */}
+        <Box component="section" sx={{ mb: 6 }}>
+          <Typography variant="h3" component="h2" textAlign="center" sx={{ mb: 4 }}>
+            คำถามที่พบบ่อย (FAQ)
+          </Typography>
+
+          <Box sx={{ maxWidth: '800px', mx: 'auto' }}>
+            <Paper sx={{ p: 3, mb: 2 }}>
+              <Typography variant="h6" sx={{ mb: 1 }}>
+                ต้องมีพื้นฐานการเขียนโปรแกรมมาก่อนไหม?
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                ไม่จำเป็น! แต่ถ้ามีจะดีมาก บทเรียนของเราเริ่มต้นจากพื้นฐาน อธิบายทุกขั้นตอนอย่างละเอียด 
+                แต่หากมีพื้นฐาน HTML, CSS และ JavaScript เล็กน้อยจะช่วยให้เข้าใจได้เร็วขึ้น
+              </Typography>
+            </Paper>
+
+            <Paper sx={{ p: 3, mb: 2 }}>
+              <Typography variant="h6" sx={{ mb: 1 }}>
+                ใช้เวลาเรียนนานแค่ไหน?
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                ขึ้นอยู่กับเวลาที่มี หากเรียนวันละ 1-2 ชั่วโมง ใช้เวลาประมาณ 2-3 สัปดาห์ 
+                จะสามารถเรียนจบและสร้างแอปพลิเคชันได้
+              </Typography>
+            </Paper>
+
+            <Paper sx={{ p: 3 }}>
+              <Typography variant="h6" sx={{ mb: 1 }}>
+                หลังเรียนจบแล้วสามารถทำอะไรได้บ้าง?
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                สามารถสร้างเว็บแอปพลิเคชันแบบ Full Stack ได้ เช่น เว็บร้านค้า, Blog, 
+                ระบบจัดการข้อมูล หรือแอปพลิเคชันอื่นๆ ตามความต้องการ
+              </Typography>
+            </Paper>
+
+            <Paper sx={{ p: 3 }}>
+              <Typography variant="h6" sx={{ mb: 1 }}>
+                มีค่าใช้จ่ายหรือไม่?
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                ไม่มีค่าใช้จ่ายเพิ่มเติม เรียนฟรีทั้งหมด เพียงมีคอมพิวเตอร์และอินเทอร์เน็ตก็สามารถเรียนรู้ได้ แต่ถ้าบริจาคค่า AI ให้ทางเราจะขอบคุณมากๆ 🤖
+                
+              </Typography>
+              <Link href="https://tmn.app.link/g9Y3k15pRTb">TRUE MONEY : https://tmn.app.link/g9Y3k15pRTb</Link>
+            </Paper>
+
+          </Box>
+        </Box>
+
+        {/* Call to Action */}
+        <Box component="section" sx={{ textAlign: 'center', py: 6, bgcolor: 'primary.light', borderRadius: 2, mb: 4 }}>
+          <Typography variant="h3" component="h2" sx={{ mb: 2, color: 'primary.dark' }}>
+            พร้อมเริ่มต้นเรียนรู้แล้วใช่ไหม?
+          </Typography>
+          <Typography variant="h6" sx={{ mb: 4, color: 'primary.dark', maxWidth: '600px', mx: 'auto' }}>
+            เริ่มต้นเรียน Next.js วันนี้ และสร้างเว็บแอปพลิเคชันแรกของคุณ!
+          </Typography>
+          <Button
+            component={Link}
+            href="/nextjs-basics"
+            variant="contained"
+            size="large"
+            startIcon={<School />}
+            sx={{ 
+              fontSize: '1.2rem', 
+              px: 6, 
+              py: 2,
+              bgcolor: 'primary.dark',
+              '&:hover': {
+                bgcolor: 'primary.main'
+              }
+            }}
+          >
+            เริ่มเรียน Next.js เลย!
+          </Button>
+        </Box>
+      </Container>
+    </>
   );
 }
