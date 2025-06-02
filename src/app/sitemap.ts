@@ -1,5 +1,9 @@
 import { MetadataRoute } from 'next'
 
+// กำหนดค่าสำหรับ static export
+export const dynamic = 'force-static'
+export const revalidate = false
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://nextjs-tutorial-thai.com'
   
