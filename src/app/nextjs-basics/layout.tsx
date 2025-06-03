@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'หลักสูตร Next.js 15 สำหรับมือใหม่ | เรียนฟรี',
     description: 'เรียนรู้ Next.js 15, React 19, TypeScript และ Prisma จากศูนย์สู่มืออาชีพ หลักสูตรฟรีสำหรับมือใหม่',
-    url: 'https://your-domain.com/nextjs-basics',
+    url: 'https://tutorial-nextjs-tau-one.vercel.app/nextjs-basics',
     siteName: 'Next.js Tutorial Thailand',
     images: [
       {

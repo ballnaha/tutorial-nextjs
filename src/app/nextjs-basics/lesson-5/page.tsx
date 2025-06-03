@@ -1,14 +1,9 @@
 'use client';
+import React from 'react';
 import {
-  Container,
-  Typography,
   Box,
-  Paper,
+  Typography,
   Alert,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   Accordion,
   AccordionSummary,
   AccordionDetails,
@@ -22,13 +17,13 @@ import {
   CardContent,
   Tabs,
   Tab,
-  Divider,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
+  Stack,
 } from '@mui/material';
 import {
   CheckCircle,
@@ -72,7 +67,7 @@ function CustomTabPanel(props: TabPanelProps) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      {value === index && <Box sx={{ p: { xs: 2, sm: 3 } }}>{children}</Box>}
     </div>
   );
 }
@@ -116,21 +111,21 @@ const cachingStrategies = [
     strategy: 'Server-side Rendering (SSR)',
     description: 'Generate ทุกครั้งที่ request',
     example: 'User dashboard, Real-time data',
-    icon: <Storage />,
+    icon: <CloudQueue />,
     color: 'info'
   },
   {
     strategy: 'Client-side Fetching',
     description: 'Fetch ใน browser หลัง hydration',
     example: 'Interactive data, User actions',
-    icon: <Storage />,
+    icon: <Web />,
     color: 'warning'
   },
   {
     strategy: 'Incremental Static Regeneration',
     description: 'Re-generate static pages เมื่อมีการเปลี่ยนแปลง',
     example: 'E-commerce, CMS content',
-    icon: <Storage />,
+    icon: <Refresh />,
     color: 'secondary'
   }
 ];
@@ -156,219 +151,397 @@ export default function Lesson5Page() {
   };
 
   return (
-    <Container maxWidth="lg">
-      {/* Header */}
-      <Box sx={{ py: 4 }}>
-        <Typography variant="h1" sx={{ mb: 2 }}>
+    <Box sx={{ 
+      minHeight: '100vh',
+      px: { xs: 2, sm: 3, md: 4 },
+      py: { xs: 2, sm: 3 },
+      maxWidth: '100vw',
+      overflow: 'hidden'
+    }}>
+      {/* Header Section */}
+      <Box sx={{ mb: { xs: 3, sm: 4 } }}>
+        <Typography 
+          variant="h2" 
+          component="h1"
+          sx={{ 
+            fontSize: { xs: '1.8rem', sm: '2.5rem', md: '3rem' },
+            fontWeight: 600,
+            mb: 2,
+            lineHeight: 1.2
+          }}
+        >
           📡 บทที่ 5: Data Fetching & API Routes
         </Typography>
-        <Typography variant="h5" color="text.secondary" sx={{ mb: 4 }}>
+        
+        <Typography 
+          variant="h6" 
+          sx={{ 
+            color: 'text.secondary', 
+            mb: 3,
+            fontSize: { xs: '1rem', sm: '1.1rem' },
+            lineHeight: 1.5
+          }}
+        >
           เรียนรู้การดึงข้อมูลและสร้าง API endpoints ใน Next.js 15+ App Router พร้อม React 19
         </Typography>
 
-        <Box sx={{ display: 'flex', gap: 2, mb: 4 }}>
-          <Chip label="30 นาที" color="primary" />
-          <Chip label="ปานกลาง" color="secondary" />
-          <Chip label="สำคัญมาก" color="error" />
-          <Chip label="Next.js 15" color="success" />
-        </Box>
+        <Stack 
+          direction="row" 
+          spacing={1} 
+          sx={{ 
+            flexWrap: 'wrap', 
+            gap: 1,
+            '& .MuiChip-root': {
+              fontSize: { xs: '0.75rem', sm: '0.8rem' }
+            }
+          }}
+        >
+          <Chip label="30 นาที" color="primary" size="small" />
+          <Chip label="ปานกลาง" color="secondary" size="small" />
+          <Chip label="สำคัญมาก" color="error" size="small" />
+          <Chip label="Next.js 15" color="success" size="small" />
+        </Stack>
       </Box>
 
       {/* Learning Objectives */}
-      <Paper sx={{ p: 3, mb: 4, bgcolor: 'primary.light', color: 'primary.contrastText' }}>
-        <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-          <Lightbulb /> วัตถุประสงค์การเรียนรู้
-        </Typography>
-        <List dense>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
-              <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="เข้าใจการ fetch ข้อมูลใน Server Components พร้อม React 19" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
-              <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="สามารถสร้าง API Routes ใน Next.js 15+ พร้อม async request APIs ได้" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
-              <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="เข้าใจ Enhanced Caching strategies ใน Next.js 15 (ไม่ cache by default)" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
-              <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="สามารถจัดการ Loading states และ Error handling ได้" />
-          </ListItem>
-        </List>
-      </Paper>
+      <Card sx={{ 
+        mb: { xs: 3, sm: 4 }, 
+        bgcolor: 'primary.light', 
+        color: 'primary.contrastText',
+        border: 'none',
+        boxShadow: 1
+      }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
+            <Lightbulb sx={{ fontSize: { xs: 20, sm: 24 } }} />
+            <Typography 
+              variant="h6" 
+              sx={{ 
+                fontSize: { xs: '1.1rem', sm: '1.25rem' },
+                fontWeight: 600
+              }}
+            >
+              วัตถุประสงค์การเรียนรู้
+            </Typography>
+          </Box>
+          
+          <Stack spacing={1}>
+            {[
+              'เข้าใจการ fetch ข้อมูลใน Server Components พร้อม React 19',
+              'สามารถสร้าง API Routes ใน Next.js 15+ พร้อม async request APIs ได้',
+              'เข้าใจ Enhanced Caching strategies ใน Next.js 15 (ไม่ cache by default)',
+              'รู้จัก Error Handling และ Loading States ที่ดีขึ้น'
+            ].map((objective, index) => (
+              <Box key={index} sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+                <CheckCircle sx={{ 
+                  fontSize: { xs: 16, sm: 20 }, 
+                  mt: 0.5,
+                  flexShrink: 0
+                }} />
+                <Typography 
+                  variant="body2" 
+                  sx={{ 
+                    fontSize: { xs: '0.85rem', sm: '0.9rem' },
+                    lineHeight: 1.4
+                  }}
+                >
+                  {objective}
+                </Typography>
+              </Box>
+            ))}
+          </Stack>
+        </CardContent>
+      </Card>
 
       {/* Introduction */}
-      <Paper sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
-          🤔 Data Fetching ใน Next.js 15 คืออะไร?
-        </Typography>
-        
-        <Typography variant="body1" sx={{ mb: 3, lineHeight: 1.7 }}>
-          <strong>Data Fetching</strong> หมายถึงการดึงข้อมูลจากแหล่งต่างๆ เช่น API, Database, หรือ File system 
-          โดย Next.js 15 มีการเปลี่ยนแปลงสำคัญในระบบ caching และ async request APIs ที่ทำให้การจัดการข้อมูลดีขึ้น
-        </Typography>
+      <Card sx={{ mb: { xs: 3, sm: 4 }, boxShadow: 1 }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+          <Typography 
+            variant="h4" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '1.5rem', sm: '2rem' },
+              fontWeight: 600
+            }}
+          >
+            🤔 Data Fetching ใน Next.js 15 คืออะไร?
+          </Typography>
+          
+          <Typography 
+            variant="body1" 
+            sx={{ 
+              mb: 3, 
+              lineHeight: 1.7,
+              fontSize: { xs: '0.95rem', sm: '1rem' }
+            }}
+          >
+            <strong>Data Fetching</strong> หมายถึงการดึงข้อมูลจากแหล่งต่างๆ เช่น API, Database, หรือ File system 
+            โดย Next.js 15 มีการเปลี่ยนแปลงสำคัญในระบบ caching และ async request APIs ที่ทำให้การจัดการข้อมูลดีขึ้น
+          </Typography>
 
-        <Alert severity="info" sx={{ mb: 4 }}>
-          <Typography variant="body2">
+          <Alert severity="info" sx={{ mb: 4, fontSize: { xs: '0.85rem', sm: '0.9rem' } }}>
             🎉 <strong>ใหม่ใน Next.js 15:</strong> ไม่ cache โดย default อีกต่อไป! 
             Async request APIs (cookies, headers, params) และ Enhanced caching control
-          </Typography>
-        </Alert>
+          </Alert>
 
-        <Alert severity="warning" sx={{ mb: 4 }}>
-          <Typography variant="body2">
+          <Alert severity="warning" sx={{ mb: 4, fontSize: { xs: '0.85rem', sm: '0.9rem' } }}>
             ⚠️ <strong>Breaking Changes ใน Next.js 15:</strong> API Routes ไม่ cache GET requests by default, 
             params เป็น async, และ fetch requests ไม่ cache by default
+          </Alert>
+
+          {/* Fetching Methods Comparison */}
+          <Typography 
+            variant="h5" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '1.3rem', sm: '1.5rem' },
+              fontWeight: 600
+            }}
+          >
+            🎯 วิธีการ Fetch ข้อมูลใน Next.js
           </Typography>
-        </Alert>
 
-        {/* Fetching Methods Comparison */}
-        <Typography variant="h5" sx={{ mb: 3 }}>
-          🎯 วิธีการ Fetch ข้อมูลใน Next.js
-        </Typography>
-
-        <Box sx={{ 
-          display: 'flex', 
-          flexDirection: { xs: 'column', md: 'row' }, 
-          gap: 3, 
-          mb: 4 
-        }}>
-          {fetchingMethods.map((method, index) => (
-            <Card key={index} sx={{ flex: 1 }}>
-              <CardContent>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-                  <Box sx={{ color: 'primary.main' }}>
-                    {method.icon}
-                  </Box>
-                  <Typography variant="h6">
-                    {method.method}
-                  </Typography>
-                </Box>
-                
-                <Typography variant="body2" sx={{ mb: 2 }}>
-                  {method.description}
-                </Typography>
-                
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                  <strong>ใช้เมื่อ:</strong> {method.when}
-                </Typography>
-                
-                <Divider sx={{ my: 1 }} />
-                
-                <Box sx={{ display: 'flex', gap: 2 }}>
-                  <Box sx={{ flex: 1 }}>
-                    <Typography variant="caption" color="success.main" sx={{ fontWeight: 'bold' }}>
-                      ข้อดี:
+          <Stack spacing={2} sx={{ mb: 4 }}>
+            {fetchingMethods.map((method, index) => (
+              <Card key={index} sx={{ boxShadow: 1 }}>
+                <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+                    <Box sx={{ color: 'primary.main' }}>
+                      {React.cloneElement(method.icon, { 
+                        sx: { fontSize: { xs: 20, sm: 24 } }
+                      })}
+                    </Box>
+                    <Typography 
+                      variant="h6"
+                      sx={{ fontSize: { xs: '1rem', sm: '1.1rem' } }}
+                    >
+                      {method.method}
                     </Typography>
-                    {method.pros.map((pro, i) => (
-                      <Typography key={i} variant="caption" display="block" color="success.main">
-                        • {pro}
-                      </Typography>
-                    ))}
                   </Box>
                   
-                  <Box sx={{ flex: 1 }}>
-                    <Typography variant="caption" color="error.main" sx={{ fontWeight: 'bold' }}>
-                      ข้อเสีย:
-                    </Typography>
-                    {method.cons.map((con, i) => (
-                      <Typography key={i} variant="caption" display="block" color="error.main">
-                        • {con}
+                  <Typography 
+                    variant="body2" 
+                    sx={{ 
+                      mb: 2,
+                      fontSize: { xs: '0.85rem', sm: '0.9rem' },
+                      lineHeight: 1.4
+                    }}
+                  >
+                    {method.description}
+                  </Typography>
+                  
+                  <Typography 
+                    variant="body2" 
+                    color="text.secondary" 
+                    sx={{ 
+                      mb: 2,
+                      fontSize: { xs: '0.8rem', sm: '0.85rem' }
+                    }}
+                  >
+                    <strong>ใช้เมื่อ:</strong> {method.when}
+                  </Typography>
+                  
+                  <Stack 
+                    direction={{ xs: 'column', sm: 'row' }} 
+                    spacing={1} 
+                    sx={{ mt: 2 }}
+                  >
+                    <Box sx={{ flex: 1 }}>
+                      <Typography 
+                        variant="caption" 
+                        color="success.main" 
+                        sx={{ 
+                          fontWeight: 'bold',
+                          fontSize: { xs: '0.75rem', sm: '0.8rem' }
+                        }}
+                      >
+                        ข้อดี:
                       </Typography>
-                    ))}
-                  </Box>
-                </Box>
-              </CardContent>
-            </Card>
-          ))}
-        </Box>
-      </Paper>
+                      {method.pros.map((pro, i) => (
+                        <Typography 
+                          key={i} 
+                          variant="caption" 
+                          display="block" 
+                          color="success.main"
+                          sx={{ fontSize: { xs: '0.7rem', sm: '0.75rem' } }}
+                        >
+                          • {pro}
+                        </Typography>
+                      ))}
+                    </Box>
+                    
+                    <Box sx={{ flex: 1 }}>
+                      <Typography 
+                        variant="caption" 
+                        color="error.main" 
+                        sx={{ 
+                          fontWeight: 'bold',
+                          fontSize: { xs: '0.75rem', sm: '0.8rem' }
+                        }}
+                      >
+                        ข้อเสีย:
+                      </Typography>
+                      {method.cons.map((con, i) => (
+                        <Typography 
+                          key={i} 
+                          variant="caption" 
+                          display="block" 
+                          color="error.main"
+                          sx={{ fontSize: { xs: '0.7rem', sm: '0.75rem' } }}
+                        >
+                          • {con}
+                        </Typography>
+                      ))}
+                    </Box>
+                  </Stack>
+                </CardContent>
+              </Card>
+            ))}
+          </Stack>
+        </CardContent>
+      </Card>
 
       {/* Caching Strategies */}
-      <Paper sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
-          🚀 Caching Strategies
-        </Typography>
+      <Card sx={{ mb: { xs: 3, sm: 4 }, boxShadow: 1 }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+          <Typography 
+            variant="h4" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '1.5rem', sm: '2rem' },
+              fontWeight: 600
+            }}
+          >
+            🚀 Caching Strategies
+          </Typography>
 
-        <Typography variant="body1" sx={{ mb: 3 }}>
-          Next.js มี caching strategies หลายแบบที่ช่วยเพิ่มประสิทธิภาพ
-        </Typography>
+          <Typography 
+            variant="body1" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '0.95rem', sm: '1rem' },
+              lineHeight: 1.6
+            }}
+          >
+            Next.js มี caching strategies หลายแบบที่ช่วยเพิ่มประสิทธิภาพ
+          </Typography>
 
-        <Box sx={{ 
-          display: 'flex', 
-          flexDirection: { xs: 'column', sm: 'row' }, 
-          gap: 2,
-          flexWrap: 'wrap',
-          mb: 4
-        }}>
-          {cachingStrategies.map((strategy, index) => (
-            <Box key={index} sx={{ flex: 1, minWidth: '250px' }}>
-              <Card sx={{ height: '100%' }}>
-                <CardContent>
+          <Stack spacing={2} sx={{ mb: 4 }}>
+            {cachingStrategies.map((strategy, index) => (
+              <Card key={index} sx={{ boxShadow: 1 }}>
+                <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
                     <Box sx={{ color: `${strategy.color}.main` }}>
-                      {strategy.icon}
+                      {React.cloneElement(strategy.icon, { 
+                        sx: { fontSize: { xs: 20, sm: 24 } }
+                      })}
                     </Box>
-                    <Typography variant="h6">
+                    <Typography 
+                      variant="h6"
+                      sx={{ fontSize: { xs: '1rem', sm: '1.1rem' } }}
+                    >
                       {strategy.strategy}
                     </Typography>
                   </Box>
-                  <Typography variant="body2" sx={{ mb: 2 }}>
+                  <Typography 
+                    variant="body2" 
+                    sx={{ 
+                      mb: 2,
+                      fontSize: { xs: '0.85rem', sm: '0.9rem' },
+                      lineHeight: 1.4
+                    }}
+                  >
                     {strategy.description}
                   </Typography>
                   <Chip 
                     label={strategy.example} 
                     color={strategy.color as any}
                     size="small" 
+                    sx={{ fontSize: { xs: '0.7rem', sm: '0.75rem' } }}
                   />
                 </CardContent>
               </Card>
-            </Box>
-          ))}
-        </Box>
+            ))}
+          </Stack>
 
-        <Alert severity="success" sx={{ mb: 3 }}>
-          <Typography variant="body2">
-            ✅ <strong>Performance Tip:</strong> Next.js จะ cache fetch requests โดยอัตโนมัติ 
+          <Alert severity="success" sx={{ mb: 3, fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>
+            ✅ <strong>Performance Tip:</strong> Next.js 15 มีระบบ caching ที่ยืดหยุ่นมากขึ้น 
             และสามารถกำหนด revalidate time ได้
-          </Typography>
-        </Alert>
-      </Paper>
+          </Alert>
+        </CardContent>
+      </Card>
 
       {/* Server Components Data Fetching */}
-      <Paper sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
-          🖥️ Server Components Data Fetching
-        </Typography>
+      <Card sx={{ mb: { xs: 3, sm: 4 }, boxShadow: 1 }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+          <Typography 
+            variant="h4" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '1.5rem', sm: '2rem' },
+              fontWeight: 600
+            }}
+          >
+            🖥️ Server Components Data Fetching
+          </Typography>
 
-        <Typography variant="body1" sx={{ mb: 3 }}>
-          ใน Next.js 13+ สามารถใช้ fetch โดยตรงใน Server Components ได้ โดยไม่ต้องใช้ getServerSideProps
-        </Typography>
+          <Typography 
+            variant="body1" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '0.95rem', sm: '1rem' },
+              lineHeight: 1.6
+            }}
+          >
+            ใน Next.js 13+ สามารถใช้ fetch โดยตรงใน Server Components ได้ โดยไม่ต้องใช้ getServerSideProps
+          </Typography>
 
-        <Accordion sx={{ mb: 2 }}>
-          <AccordionSummary expandIcon={<ExpandMore />}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <Storage color="success" />
-              <Typography variant="h6">Basic Server-side Fetching</Typography>
-            </Box>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography variant="body1" sx={{ mb: 2 }}>
-              ตัวอย่างการ fetch ข้อมูลพื้นฐานใน Server Component
-            </Typography>
-            
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-              <Typography variant="body2" component="pre">
+          <Stack spacing={1.5}>
+            <Accordion sx={{ boxShadow: 1 }}>
+              <AccordionSummary 
+                expandIcon={<ExpandMore />}
+                sx={{ 
+                  '& .MuiAccordionSummary-content': {
+                    margin: { xs: '8px 0', sm: '12px 0' }
+                  }
+                }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                  <Storage 
+                    color="success" 
+                    sx={{ fontSize: { xs: 18, sm: 20 } }}
+                  />
+                  <Typography 
+                    variant="h6"
+                    sx={{ fontSize: { xs: '1rem', sm: '1.1rem' } }}
+                  >
+                    Basic Server-side Fetching
+                  </Typography>
+                </Box>
+              </AccordionSummary>
+              <AccordionDetails sx={{ pt: 0 }}>
+                <Typography 
+                  variant="body1" 
+                  sx={{ 
+                    mb: 2,
+                    fontSize: { xs: '0.9rem', sm: '1rem' }
+                  }}
+                >
+                  ตัวอย่างการ fetch ข้อมูลพื้นฐานใน Server Component
+                </Typography>
+                
+                <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
+                  <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
+                    <Typography 
+                      component="pre" 
+                      sx={{ 
+                        fontFamily: 'monospace',
+                        fontSize: { xs: '0.7rem', sm: '0.8rem' },
+                        lineHeight: 1.4,
+                        margin: 0,
+                        overflow: 'auto'
+                      }}
+                    >
 {`// app/products/page.tsx
 async function ProductsPage() {
   // Fetch ข้อมูลบนเซิร์ฟเวอร์
@@ -393,221 +566,21 @@ async function ProductsPage() {
 }
 
 export default ProductsPage;`}
-              </Typography>
-            </Box>
+                    </Typography>
+                  </CardContent>
+                </Card>
 
-            <Alert severity="success">
-              <Typography variant="body2">
-                ✅ <strong>ข้อดี:</strong> ข้อมูลจะถูก render บนเซิร์ฟเวอร์ ทำให้ SEO ดีและโหลดเร็ว
-              </Typography>
-            </Alert>
-          </AccordionDetails>
-        </Accordion>
-
-        <Accordion sx={{ mb: 2 }}>
-          <AccordionSummary expandIcon={<ExpandMore />}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <Timer color="info" />
-              <Typography variant="h6">Caching และ Revalidation</Typography>
-            </Box>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography variant="body1" sx={{ mb: 2 }}>
-              การกำหนด cache และ revalidate time สำหรับ fetch requests
-            </Typography>
-            
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-              <Typography variant="body2" component="pre">
-{`// app/news/page.tsx
-async function NewsPage() {
-  // Cache เป็นเวลา 60 วินาที
-  const response = await fetch('https://api.example.com/news', {
-    next: { revalidate: 60 }
-  });
-  const news = await response.json();
-
-  return (
-    <div>
-      <h1>ข่าวสาร (อัพเดททุก 60 วินาที)</h1>
-      {news.map((item: any) => (
-        <article key={item.id}>
-          <h3>{item.title}</h3>
-          <p>{item.summary}</p>
-          <small>อัพเดท: {new Date(item.publishedAt).toLocaleDateString('th-TH')}</small>
-        </article>
-      ))}
-    </div>
-  );
-}
-
-// สำหรับข้อมูลแบบ Static (ไม่เปลี่ยนแปลง)
-async function StaticPage() {
-  const response = await fetch('https://api.example.com/config', {
-    cache: 'force-cache' // Cache ตลอดไป
-  });
-  const config = await response.json();
-
-  return <div>{/* render config */}</div>;
-}
-
-// สำหรับข้อมูลแบบ Dynamic (เปลี่ยนแปลงบ่อย)
-async function DynamicPage() {
-  const response = await fetch('https://api.example.com/live-data', {
-    cache: 'no-store' // ไม่ cache เลย
-  });
-  const data = await response.json();
-
-  return <div>{/* render real-time data */}</div>;
-}`}
-              </Typography>
-            </Box>
-
-            <Alert severity="info">
-              <Typography variant="body2">
-                💡 <strong>Revalidate Options:</strong> next.revalidate สำหรับ time-based, 
-                cache: 'no-store' สำหรับ real-time, cache: 'force-cache' สำหรับ static
-              </Typography>
-            </Alert>
-          </AccordionDetails>
-        </Accordion>
-
-        <Accordion sx={{ mb: 2 }}>
-          <AccordionSummary expandIcon={<ExpandMore />}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <Warning color="error" />
-              <Typography variant="h6">Error Handling</Typography>
-            </Box>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography variant="body1" sx={{ mb: 2 }}>
-              การจัดการ errors และ fallbacks ใน Server Components
-            </Typography>
-            
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-              <Typography variant="body2" component="pre">
-{`// app/products/page.tsx
-async function ProductsPage() {
-  try {
-    const response = await fetch('https://api.example.com/products');
-    
-    if (!response.ok) {
-      throw new Error(\`HTTP error! status: \${response.status}\`);
-    }
-    
-    const products = await response.json();
-
-    return (
-      <div>
-        <h1>สินค้าทั้งหมด ({products.length} รายการ)</h1>
-        {products.map((product: any) => (
-          <div key={product.id}>
-            <h3>{product.name}</h3>
-            <p>ราคา: {product.price} บาท</p>
-          </div>
-        ))}
-      </div>
-    );
-  } catch (error) {
-    console.error('Error fetching products:', error);
-    
-    return (
-      <div>
-        <h1>เกิดข้อผิดพลาด</h1>
-        <p>ไม่สามารถโหลดข้อมูลสินค้าได้ในขณะนี้</p>
-        <p>กรุณาลองใหม่อีกครั้ง</p>
-      </div>
-    );
-  }
-}
-
-// หรือใช้ error.tsx สำหรับ error boundary
-export default ProductsPage;`}
-              </Typography>
-            </Box>
-
-            <Alert severity="warning">
-              <Typography variant="body2">
-                ⚠️ <strong>สำคัญ:</strong> สำหรับ production ควรสร้าง error.tsx ใน route เพื่อจัดการ errors อย่างสวยงาม
-              </Typography>
-            </Alert>
-          </AccordionDetails>
-        </Accordion>
-
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMore />}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <DataObject color="warning" />
-              <Typography variant="h6">Multiple Data Sources</Typography>
-            </Box>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography variant="body1" sx={{ mb: 2 }}>
-              การดึงข้อมูลจากหลายแหล่งพร้อมกัน
-            </Typography>
-            
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-              <Typography variant="body2" component="pre">
-{`// app/dashboard/page.tsx
-async function DashboardPage() {
-  // Fetch หลาย API พร้อมกัน
-  const [postsResponse, usersResponse, commentsResponse] = await Promise.all([
-    fetch('https://jsonplaceholder.typicode.com/posts'),
-    fetch('https://jsonplaceholder.typicode.com/users'), 
-    fetch('https://jsonplaceholder.typicode.com/comments')
-  ]);
-
-  const [posts, users, comments] = await Promise.all([
-    postsResponse.json(),
-    usersResponse.json(),
-    commentsResponse.json()
-  ]);
-
-  return (
-    <div>
-      <h1>Dashboard</h1>
-      
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '20px' }}>
-        <div>
-          <h2>Posts ({posts.length})</h2>
-          {posts.slice(0, 3).map((post: any) => (
-            <div key={post.id}>{post.title}</div>
-          ))}
-        </div>
-        
-        <div>
-          <h2>Users ({users.length})</h2>
-          {users.slice(0, 3).map((user: any) => (
-            <div key={user.id}>{user.name}</div>
-          ))}
-        </div>
-        
-        <div>
-          <h2>Comments ({comments.length})</h2>
-          {comments.slice(0, 3).map((comment: any) => (
-            <div key={comment.id}>{comment.name}</div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export default DashboardPage;`}
-              </Typography>
-            </Box>
-
-            <Alert severity="success">
-              <Typography variant="body2">
-                ✅ <strong>Performance Tip:</strong> ใช้ Promise.all() เพื่อ fetch หลาย APIs พร้อมกัน
-                แทนการ fetch ทีละตัว
-              </Typography>
-            </Alert>
-          </AccordionDetails>
-        </Accordion>
-      </Paper>
+                <Alert severity="success" sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>
+                  ✅ <strong>ข้อดี:</strong> ข้อมูลจะถูก render บนเซิร์ฟเวอร์ ทำให้ SEO ดีและโหลดเร็ว
+                </Alert>
+              </AccordionDetails>
+            </Accordion>
+          </Stack>
+        </CardContent>
+      </Card>
 
       {/* API Routes */}
-      <Paper sx={{ p: 4, mb: 4 }}>
+      <Card sx={{ p: 4, mb: 4 }}>
         <Typography variant="h4" sx={{ mb: 3 }}>
           🚀 API Routes
         </Typography>
@@ -975,10 +948,10 @@ export async function GET(request: NextRequest) {
             </Alert>
           </AccordionDetails>
         </Accordion>
-      </Paper>
+      </Card>
 
       {/* Client Components Data Fetching */}
-      <Paper sx={{ p: 4, mb: 4 }}>
+      <Card sx={{ p: 4, mb: 4 }}>
         <Typography variant="h4" sx={{ mb: 3 }}>
           💻 Client Components Data Fetching
         </Typography>
@@ -1306,10 +1279,10 @@ export default function TodoManager() {
             </Alert>
           </AccordionDetails>
         </Accordion>
-      </Paper>
+      </Card>
 
       {/* Hands-on Practice */}
-      <Paper sx={{ p: 4, mb: 4 }}>
+      <Card sx={{ p: 4, mb: 4 }}>
         <Typography variant="h4" sx={{ mb: 3 }}>
           ✋ ฝึกปฏิบัติ: สร้าง Data Fetching System
         </Typography>
@@ -1486,9 +1459,7 @@ export default function UsersPage() {
               </Box>
 
               <Alert severity="info" sx={{ mb: 2 }}>
-                <Typography variant="body2">
-                  💡 ใช้ Suspense เพื่อแสดง loading state ขณะ fetch ข้อมูล
-                </Typography>
+                💡 ใช้ Suspense เพื่อแสดง loading state ขณะ fetch ข้อมูล
               </Alert>
 
               <Button variant="contained" onClick={handleNext} sx={{ mt: 1, mr: 1 }}>
@@ -1693,7 +1664,7 @@ export default function AddUserForm() {
         </Stepper>
 
         {activeStep === 3 && (
-          <Paper sx={{ p: 3, mt: 3, bgcolor: 'success.light' }}>
+          <Card sx={{ p: 3, mt: 3, bgcolor: 'success.light' }}>
             <Typography variant="h6" sx={{ mb: 2 }}>
               🎉 ยินดีด้วย! คุณสร้าง Data Fetching System แล้ว
             </Typography>
@@ -1703,12 +1674,12 @@ export default function AddUserForm() {
             <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
               ลองใหม่
             </Button>
-          </Paper>
+          </Card>
         )}
-      </Paper>
+      </Card>
 
       {/* Performance Tips */}
-      <Paper sx={{ p: 4, mb: 4 }}>
+      <Card sx={{ p: 4, mb: 4 }}>
         <Typography variant="h4" sx={{ mb: 3 }}>
           ⚡ Performance Tips
         </Typography>
@@ -1871,115 +1842,141 @@ function ClientComponent() {
             </Typography>
           </Alert>
         </CustomTabPanel>
-      </Paper>
+      </Card>
 
       {/* Best Practices */}
-      <Paper sx={{ p: 4, mb: 4, bgcolor: 'warning.light' }}>
-        <Typography variant="h5" sx={{ mb: 2, color: 'warning.dark' }}>
-          💡 Best Practices สำคัญ
-        </Typography>
-        <List>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="ใช้ Server Components สำหรับ initial data loading"
-              secondary="เพื่อ SEO และ performance ที่ดี"
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="ใช้ API Routes เพื่อซ่อน sensitive data"
-              secondary="เช่น API keys, database credentials"
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="ใช้ appropriate caching strategies"
-              secondary="force-cache สำหรับ static data, revalidate สำหรับ time-based updates"
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="เสมอต้องมี error handling"
-              secondary="ใช้ try-catch, error boundaries และ fallback UIs"
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="ใช้ TypeScript interfaces สำหรับ data types"
-              secondary="เพื่อ type safety และ better developer experience"
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="ใช้ loading states และ Suspense"
-              secondary="เพื่อ user experience ที่ดี"
-            />
-          </ListItem>
-        </List>
-      </Paper>
-
-      {/* Next Steps */}
-      <Paper sx={{ p: 4, bgcolor: 'success.light', color: 'success.dark' }}>
-        <Typography variant="h5" sx={{ mb: 2 }}>
-          🎯 ยินดีด้วย! คุณเรียนจบบทที่ 5 แล้ว
-        </Typography>
-        <Typography variant="body1" sx={{ mb: 3 }}>
-          เยี่ยมมาก! ตอนนี้คุณเข้าใจ Data Fetching และ API Routes แล้ว 
-          พร้อมสำหรับการเรียนรู้การใช้ Prisma สำหรับจัดการฐานข้อมูลในบทถัดไป
-        </Typography>
-        
-        <Alert severity="info" sx={{ mb: 3 }}>
-          <Typography variant="body2">
-            💡 <strong>บทถัดไป:</strong> เรียนรู้การใช้ Prisma สำหรับจัดการฐานข้อมูลอย่างมีประสิทธิภาพ
+      <Card sx={{ 
+        mb: { xs: 3, sm: 4 }, 
+        bgcolor: 'warning.light',
+        boxShadow: 1
+      }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+          <Typography 
+            variant="h5" 
+            sx={{ 
+              mb: 2, 
+              color: 'warning.dark',
+              fontSize: { xs: '1.3rem', sm: '1.5rem' },
+              fontWeight: 600
+            }}
+          >
+            💡 Best Practices สำคัญ
           </Typography>
-        </Alert>
-      </Paper>
+          
+          <Stack spacing={1.5}>
+            {[
+              'ใช้ Server Components สำหรับ initial data loading เพื่อ SEO และ performance ที่ดี',
+              'ใช้ API Routes เพื่อซ่อน sensitive data เช่น API keys, database credentials',
+              'ใช้ appropriate caching strategies: force-cache สำหรับ static data, revalidate สำหรับ time-based updates',
+              'เสมอต้องมี error handling: ใช้ try-catch, error boundaries และ fallback UIs',
+              'ใช้ TypeScript interfaces สำหรับ data types เพื่อ type safety และ better developer experience',
+              'ใช้ loading states และ Suspense เพื่อ user experience ที่ดี'
+            ].map((practice, index) => (
+              <Box key={index} sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+                <CheckCircle 
+                  color="success" 
+                  sx={{ 
+                    fontSize: { xs: 16, sm: 20 }, 
+                    mt: 0.5,
+                    flexShrink: 0
+                  }} 
+                />
+                <Typography 
+                  variant="body2" 
+                  sx={{ 
+                    fontSize: { xs: '0.85rem', sm: '0.9rem' },
+                    lineHeight: 1.4
+                  }}
+                >
+                  {practice}
+                </Typography>
+              </Box>
+            ))}
+          </Stack>
+        </CardContent>
+      </Card>
+
+      {/* Summary */}
+      <Card sx={{ 
+        mb: { xs: 3, sm: 4 }, 
+        bgcolor: 'success.light', 
+        color: 'success.dark',
+        boxShadow: 1
+      }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+          <Typography 
+            variant="h5" 
+            sx={{ 
+              mb: 2,
+              fontSize: { xs: '1.3rem', sm: '1.5rem' },
+              fontWeight: 600
+            }}
+          >
+            🎯 ยินดีด้วย! คุณเรียนจบบทที่ 5 แล้ว
+          </Typography>
+          
+          <Typography 
+            variant="body1" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '0.9rem', sm: '1rem' },
+              lineHeight: 1.5
+            }}
+          >
+            เยี่ยมมาก! ตอนนี้คุณเข้าใจ Data Fetching และ API Routes ใน Next.js 15 แล้ว 
+            พร้อมสำหรับการเรียนรู้เรื่อง Layouts และ Templates ในบทถัดไป
+          </Typography>
+          
+          <Alert 
+            severity="info" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '0.8rem', sm: '0.85rem' }
+            }}
+          >
+            💡 <strong>บทถัดไป:</strong> เรียนรู้เรื่อง Layouts, Templates และ Nested Layouts 
+            ใน Next.js 15 สำหรับสร้าง UI structure ที่ยืดหยุ่น
+          </Alert>
+        </CardContent>
+      </Card>
 
       {/* Navigation */}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 6 }}>
+      <Box sx={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center',
+        flexDirection: { xs: 'column', sm: 'row' },
+        gap: { xs: 2, sm: 0 }
+      }}>
         <Button
           startIcon={<ArrowBack />}
           component={Link}
           href="/nextjs-basics/lesson-4"
           variant="outlined"
+          size="small"
+          sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
         >
-          บทที่ 4: Link และ Navigation
+          บทที่ 4
         </Button>
         
         <Chip 
-          label="5 / 16"
+          label="5 / 18"
           color="primary"
           variant="outlined"
+          size="small"
         />
-        
+
         <Button
           endIcon={<ArrowForward />}
           component={Link}
           href="/nextjs-basics/lesson-6"
           variant="contained"
-          color="primary"
+          size="small"
+          sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
         >
-          บทที่ 6: Prisma & Database
+          บทถัดไป
         </Button>
       </Box>
-    </Container>
+    </Box>
   );
 } 

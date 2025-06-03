@@ -29,7 +29,7 @@ import { usePathname } from 'next/navigation';
 
 const menuItems = [
   { text: 'หน้าหลัก', icon: <Dashboard />, href: '/', description: 'หน้าแรกของเว็บไซต์' },
-  { text: 'Next.js พื้นฐาน', icon: <Web />, href: '/nextjs-basics', description: '16 บทเรียน Next.js 15' },
+  { text: 'Next.js พื้นฐาน', icon: <Web />, href: '/nextjs-basics', description: '18 บทเรียน Next.js 15' },
   { text: 'Material-UI', icon: <School />, href: '/mui-tutorial', description: '8 บทเรียน MUI' },
   { text: 'Prisma & MySQL', icon: <Storage />, href: '/prisma-tutorial', description: '12 บทเรียน Database' },
 ];
@@ -58,13 +58,11 @@ export function Navbar() {
   };
 
   const handleMenuItemClick = (): void => {
-    if (mounted && isMobile) {
-      setMobileOpen(false);
-    }
+    setMobileOpen(false);
   };
 
   const handleLogoClick = (): void => {
-    if (mounted && isMobile && mobileOpen) {
+    if (mobileOpen) {
       setMobileOpen(false);
     }
   };
@@ -140,69 +138,35 @@ export function Navbar() {
     </Box>
   );
 
-  // Show loading state until component is mounted to prevent hydration mismatch
-  if (!mounted) {
-    return (
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="sticky" elevation={1}>
-          <Toolbar>
-            <Typography
-              variant="h6"
-              component={Link}
-              href="/"
-              sx={{
-                flexGrow: 1,
-                textDecoration: 'none',
-                color: 'inherit',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 1,
-                fontWeight: 600,
-                '&:hover': {
-                  opacity: 0.8,
-                  textDecoration: 'none',
-                },
-                transition: 'opacity 0.2s ease',
-              }}
-            >
-              <School />
-              <Box component="span">
-                Next.js Tutorial ไทย
-              </Box>
-            </Typography>
-          </Toolbar>
-        </AppBar>
-      </Box>
-    );
-  }
-
+  // Always render the navbar to prevent hydration issues
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="sticky" elevation={1}>
         <Toolbar>
-          {isMobile && (
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ 
-                mr: 2,
-                '&:focus': {
-                  outline: 'none',
-                },
-                '&:active': {
-                  outline: 'none',
-                  border: 'none',
-                },
-                border: 'none',
+          {/* Mobile Menu Button - Always show on mobile */}
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ 
+              mr: 2,
+              display: { xs: 'block', md: 'none' },
+              '&:focus': {
                 outline: 'none',
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
-          )}
+              },
+              '&:active': {
+                outline: 'none',
+                border: 'none',
+              },
+              border: 'none',
+              outline: 'none',
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
           
+          {/* Logo */}
           <Typography
             variant="h6"
             component={Link}
@@ -242,73 +206,72 @@ export function Navbar() {
             </Box>
           </Typography>
 
-          {!isMobile && (
-            <Box sx={{ display: 'flex', gap: 0.5 }}>
-              {menuItems.map((item) => {
-                const active = isActive(item.href);
-                return (
-                  <Button
-                    key={item.text}
-                    color="inherit"
-                    component={Link}
-                    href={item.href}
-                    sx={{
-                      borderRadius: 1,
-                      px: 2,
-                      py: 1,
-                      fontWeight: active ? 600 : 400,
-                      backgroundColor: active ? 'rgba(255,255,255,0.1)' : 'transparent',
-                      '&:hover': {
-                        backgroundColor: 'rgba(255,255,255,0.1)',
-                        textDecoration: 'none',
-                      },
-                      '&:focus': {
-                        outline: 'none',
-                        backgroundColor: 'rgba(255,255,255,0.1)',
-                      },
-                      '&:active': {
-                        outline: 'none',
-                        border: 'none',
-                      },
-                      transition: 'background-color 0.2s ease',
+          {/* Desktop Menu - Always show on desktop */}
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 0.5 }}>
+            {menuItems.map((item) => {
+              const active = isActive(item.href);
+              return (
+                <Button
+                  key={item.text}
+                  color="inherit"
+                  component={Link}
+                  href={item.href}
+                  sx={{
+                    borderRadius: 1,
+                    px: 2,
+                    py: 1,
+                    fontWeight: active ? 600 : 400,
+                    backgroundColor: active ? 'rgba(255,255,255,0.1)' : 'transparent',
+                    '&:hover': {
+                      backgroundColor: 'rgba(255,255,255,0.1)',
                       textDecoration: 'none',
-                      border: 'none',
+                    },
+                    '&:focus': {
                       outline: 'none',
-                    }}
-                  >
-                    {item.text}
-                  </Button>
-                );
-              })}
-            </Box>
-          )}
+                      backgroundColor: 'rgba(255,255,255,0.1)',
+                    },
+                    '&:active': {
+                      outline: 'none',
+                      border: 'none',
+                    },
+                    transition: 'background-color 0.2s ease',
+                    textDecoration: 'none',
+                    border: 'none',
+                    outline: 'none',
+                  }}
+                >
+                  {item.text}
+                </Button>
+              );
+            })}
+          </Box>
         </Toolbar>
       </AppBar>
 
-      {isMobile && (
-        <Drawer
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true,
-          }}
-          sx={{
-            '& .MuiDrawer-paper': {
-              boxSizing: 'border-box',
-              width: 280,
-            },
-            '& .MuiBackdrop-root': {
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            },
-          }}
-          SlideProps={{
-            direction: 'right',
-          }}
-        >
-          {drawer}
-        </Drawer>
-      )}
+      {/* Mobile Drawer - Always render but control visibility */}
+      <Drawer
+        variant="temporary"
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        ModalProps={{
+          keepMounted: true, // Better open performance on mobile
+        }}
+        sx={{
+          display: { xs: 'block', md: 'none' },
+          '& .MuiDrawer-paper': {
+            boxSizing: 'border-box',
+            width: 280,
+          },
+          '& .MuiBackdrop-root': {
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          },
+        }}
+        SlideProps={{
+          direction: 'right',
+        }}
+      >
+        {drawer}
+      </Drawer>
     </Box>
   );
 } 

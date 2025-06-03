@@ -537,29 +537,66 @@ export default function NextJSBasicsPage() {
           </Box>
 
           {/* Available Lessons */}
-          <Box id="course-content" sx={{ mb: 8 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 4 }}>
+          <Box id="course-content" sx={{ mb: { xs: 6, sm: 8 } }}>
+            <Box sx={{ 
+              display: 'flex', 
+              alignItems: { xs: 'flex-start', sm: 'center' },
+              justifyContent: 'space-between', 
+              flexDirection: { xs: 'column', md: 'row' },
+              gap: { xs: 2, md: 0 },
+              mb: { xs: 3, sm: 4 }
+            }}>
               <Box>
-                <Typography variant="h3" sx={{ fontWeight: 700, mb: 1 }}>
+                <Typography 
+                  variant="h3" 
+                  sx={{ 
+                    fontWeight: 700, 
+                    mb: 1,
+                    fontSize: { xs: '1.8rem', sm: '2rem', md: '2rem' }
+                  }}
+                >
                   📚 บทเรียนที่พร้อมใช้งาน
                 </Typography>
-                <Typography variant="h6" color="text.secondary">
+                <Typography 
+                  variant="h6" 
+                  color="text.secondary"
+                  sx={{ 
+                    fontSize: { xs: '1rem', sm: '1.1rem', md: '1.25rem' },
+                    lineHeight: 1.4
+                  }}
+                >
                   {availableLessons} บทเรียน • เริ่มเรียนได้ทันที • อัพเดตเนื้อหาสม่ำเสมอ
                 </Typography>
               </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              <Box sx={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: { xs: 1, sm: 2 },
+                flexDirection: { xs: 'column', sm: 'row' },
+                width: { xs: '100%', md: 'auto' }
+              }}>
                 <Chip 
                   icon={<CheckCircle />}
                   label={`${availableLessons}/${totalLessons} พร้อมใช้งาน`}
                   color="success"
                   variant="outlined"
-                  sx={{ fontWeight: 600 }}
+                  size="small"
+                  sx={{ 
+                    fontWeight: 600,
+                    fontSize: { xs: '0.75rem', sm: '0.8rem' },
+                    width: { xs: '100%', sm: 'auto' }
+                  }}
                 />
                 <Chip 
                   label={`${Math.round(totalTime / 60)} ชม. ${totalTime % 60} นาที`}
                   color="primary"
                   variant="outlined"
-                  sx={{ fontWeight: 600 }}
+                  size="small"
+                  sx={{ 
+                    fontWeight: 600,
+                    fontSize: { xs: '0.75rem', sm: '0.8rem' },
+                    width: { xs: '100%', sm: 'auto' }
+                  }}
                 />
               </Box>
             </Box>
@@ -567,48 +604,128 @@ export default function NextJSBasicsPage() {
             {/* SEO Content for Lessons */}
             <Box sx={{ 
               bgcolor: 'primary.50', 
-              p: 3, 
+              p: { xs: 2, sm: 3 }, 
               borderRadius: 2, 
-              mb: 4,
+              mb: { xs: 3, sm: 4 },
               border: '1px solid',
               borderColor: 'primary.100'
             }}>
-              <Typography variant="h6" sx={{ mb: 2, color: 'primary.main', fontWeight: 600 }}>
+              <Typography 
+                variant="h6" 
+                sx={{ 
+                  mb: 2, 
+                  color: 'primary.main', 
+                  fontWeight: 600,
+                  fontSize: { xs: '1.1rem', sm: '1.25rem' }
+                }}
+              >
                 🎯 เนื้อหาหลักสูตรที่คุณจะได้เรียนรู้
               </Typography>
               <Box sx={{ 
                 display: 'grid', 
                 gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, 
-                gap: 2 
+                gap: { xs: 2, sm: 2 }
               }}>
                 <Box>
-                  <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>📱 Frontend Development:</Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography 
+                    variant="body2" 
+                    sx={{ 
+                      fontWeight: 600, 
+                      mb: 1,
+                      fontSize: { xs: '0.875rem', sm: '0.9rem' }
+                    }}
+                  >
+                    📱 Frontend Development:
+                  </Typography>
+                  <Typography 
+                    variant="body2" 
+                    color="text.secondary"
+                    sx={{ 
+                      fontSize: { xs: '0.8rem', sm: '0.875rem' },
+                      lineHeight: 1.4
+                    }}
+                  >
                     Next.js 15, React 19, TypeScript, MUI v6, React Hook Form, State Management
                   </Typography>
                 </Box>
                 <Box>
-                  <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>🗄️ Backend Development:</Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography 
+                    variant="body2" 
+                    sx={{ 
+                      fontWeight: 600, 
+                      mb: 1,
+                      fontSize: { xs: '0.875rem', sm: '0.9rem' }
+                    }}
+                  >
+                    🗄️ Backend Development:
+                  </Typography>
+                  <Typography 
+                    variant="body2" 
+                    color="text.secondary"
+                    sx={{ 
+                      fontSize: { xs: '0.8rem', sm: '0.875rem' },
+                      lineHeight: 1.4
+                    }}
+                  >
                     API Routes, Prisma 6.8, Database, Authentication, Middleware, Security
                   </Typography>
                 </Box>
                 <Box>
-                  <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>🛠️ Tools & Libraries:</Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography 
+                    variant="body2" 
+                    sx={{ 
+                      fontWeight: 600, 
+                      mb: 1,
+                      fontSize: { xs: '0.875rem', sm: '0.9rem' }
+                    }}
+                  >
+                    🛠️ Tools & Libraries:
+                  </Typography>
+                  <Typography 
+                    variant="body2" 
+                    color="text.secondary"
+                    sx={{ 
+                      fontSize: { xs: '0.8rem', sm: '0.875rem' },
+                      lineHeight: 1.4
+                    }}
+                  >
                     Zod Validation, Zustand, Testing, Performance, Deployment
                   </Typography>
                 </Box>
                 <Box>
-                  <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>🎯 เหมาะสำหรับ:</Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography 
+                    variant="body2" 
+                    sx={{ 
+                      fontWeight: 600, 
+                      mb: 1,
+                      fontSize: { xs: '0.875rem', sm: '0.9rem' }
+                    }}
+                  >
+                    🎯 เหมาะสำหรับ:
+                  </Typography>
+                  <Typography 
+                    variant="body2" 
+                    color="text.secondary"
+                    sx={{ 
+                      fontSize: { xs: '0.8rem', sm: '0.875rem' },
+                      lineHeight: 1.4
+                    }}
+                  >
                     มือใหม่หัดเขียนโปรแกรม, นักเรียน, นักศึกษา, นักพัฒนาที่ต้องการอัพสกิล
                   </Typography>
                 </Box>
               </Box>
             </Box>
             
-            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' }, gap: 3 }}>
+            <Box sx={{ 
+              display: 'grid', 
+              gridTemplateColumns: { 
+                xs: '1fr', 
+                sm: 'repeat(2, 1fr)', 
+                lg: 'repeat(3, 1fr)' 
+              }, 
+              gap: { xs: 2, sm: 3 }
+            }}>
               {lessons.map((lesson) => (
                 <Card 
                   key={lesson.id}
@@ -622,7 +739,8 @@ export default function NextJSBasicsPage() {
                     position: 'relative',
                     overflow: 'hidden',
                     '&:hover': {
-                      boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
+                      boxShadow: { xs: '0 4px 12px rgba(0,0,0,0.1)', sm: '0 8px 24px rgba(0,0,0,0.08)' },
+                      transform: { xs: 'translateY(-2px)', sm: 'translateY(-4px)' }
                     },
                     '&::before': {
                       content: '""',
@@ -636,49 +754,111 @@ export default function NextJSBasicsPage() {
                     }
                   }}
                 >
-                  <CardContent sx={{ p: 3, height: '100%', display: 'flex', flexDirection: 'column' }}>
-                    <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 2 }}>
+                  <CardContent sx={{ 
+                    p: { xs: 2, sm: 3 }, 
+                    height: '100%', 
+                    display: 'flex', 
+                    flexDirection: 'column' 
+                  }}>
+                    <Box sx={{ 
+                      display: 'flex', 
+                      alignItems: 'flex-start', 
+                      mb: { xs: 1.5, sm: 2 },
+                      gap: { xs: 1, sm: 2 }
+                    }}>
                       <Avatar 
                         sx={{ 
                           bgcolor: 'grey.100', 
                           color: 'text.primary',
-                          width: 48,
-                          height: 48,
-                          fontSize: '1.5rem',
-                          mr: 2
+                          width: { xs: 40, sm: 48 },
+                          height: { xs: 40, sm: 48 },
+                          fontSize: { xs: '1.2rem', sm: '1.5rem' },
+                          flexShrink: 0
                         }}
                       >
                         {lesson.emoji}
                       </Avatar>
-                      <Box sx={{ flex: 1 }}>
-                        <Typography variant="h6" sx={{ fontWeight: 600, mb: 0.5, lineHeight: 1.3 }}>
+                      <Box sx={{ flex: 1, minWidth: 0 }}>
+                        <Typography 
+                          variant="h6" 
+                          sx={{ 
+                            fontWeight: 600, 
+                            mb: 0.5, 
+                            lineHeight: 1.3,
+                            fontSize: { xs: '1rem', sm: '1.1rem' }
+                          }}
+                        >
                           บทที่ {lesson.id}: {lesson.title}
                         </Typography>
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <Box sx={{ 
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          gap: 1,
+                          flexWrap: 'wrap'
+                        }}>
                           <Chip 
                             label={lesson.level} 
                             size="small"
                             color={getLevelColor(lesson.level) as any}
                             variant="outlined"
+                            sx={{ 
+                              fontSize: { xs: '0.7rem', sm: '0.75rem' },
+                              height: { xs: 20, sm: 24 }
+                            }}
                           />
-                          <Box sx={{ display: 'flex', alignItems: 'center', color: 'text.secondary' }}>
-                            <Schedule sx={{ fontSize: 14, mr: 0.5 }} />
-                            <Typography variant="caption">{lesson.duration}</Typography>
+                          <Box sx={{ 
+                            display: 'flex', 
+                            alignItems: 'center', 
+                            color: 'text.secondary' 
+                          }}>
+                            <Schedule sx={{ fontSize: { xs: 12, sm: 14 }, mr: 0.5 }} />
+                            <Typography 
+                              variant="caption"
+                              sx={{ fontSize: { xs: '0.7rem', sm: '0.75rem' } }}
+                            >
+                              {lesson.duration}
+                            </Typography>
                           </Box>
                         </Box>
                       </Box>
                     </Box>
                     
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2, flex: 1, lineHeight: 1.5 }}>
+                    <Typography 
+                      variant="body2" 
+                      color="text.secondary" 
+                      sx={{ 
+                        mb: { xs: 1.5, sm: 2 }, 
+                        flex: 1, 
+                        lineHeight: 1.5,
+                        fontSize: { xs: '0.8rem', sm: '0.875rem' },
+                        display: '-webkit-box',
+                        WebkitLineClamp: { xs: 2, sm: 3 },
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden'
+                      }}
+                    >
                       {lesson.description}
                     </Typography>
                     
-                    <Box sx={{ mb: 2 }}>
-                      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
-                        <Typography variant="caption" color="text.secondary">
+                    <Box sx={{ mb: { xs: 1.5, sm: 2 } }}>
+                      <Box sx={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'space-between', 
+                        mb: 1 
+                      }}>
+                        <Typography 
+                          variant="caption" 
+                          color="text.secondary"
+                          sx={{ fontSize: { xs: '0.7rem', sm: '0.75rem' } }}
+                        >
                           ความยาก
                         </Typography>
-                        <Typography variant="caption" color="text.secondary">
+                        <Typography 
+                          variant="caption" 
+                          color="text.secondary"
+                          sx={{ fontSize: { xs: '0.7rem', sm: '0.75rem' } }}
+                        >
                           {getLevelProgress(lesson.level)}%
                         </Typography>
                       </Box>
@@ -686,7 +866,7 @@ export default function NextJSBasicsPage() {
                         variant="determinate" 
                         value={getLevelProgress(lesson.level)}
                         sx={{
-                          height: 4,
+                          height: { xs: 3, sm: 4 },
                           borderRadius: 2,
                           bgcolor: 'grey.200',
                           '& .MuiLinearProgress-bar': {
@@ -698,7 +878,11 @@ export default function NextJSBasicsPage() {
                       />
                     </Box>
                     
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                    <Box sx={{ 
+                      display: 'flex', 
+                      flexWrap: 'wrap', 
+                      gap: { xs: 0.3, sm: 0.5 }
+                    }}>
                       {lesson.topics.slice(0, 3).map((topic, index) => (
                         <Chip 
                           key={index}
@@ -706,8 +890,8 @@ export default function NextJSBasicsPage() {
                           size="small" 
                           variant="outlined"
                           sx={{ 
-                            fontSize: '0.7rem',
-                            height: 24,
+                            fontSize: { xs: '0.6rem', sm: '0.7rem' },
+                            height: { xs: 20, sm: 24 },
                             bgcolor: 'grey.50',
                           }}
                         />
@@ -718,8 +902,8 @@ export default function NextJSBasicsPage() {
                           size="small" 
                           variant="outlined"
                           sx={{ 
-                            fontSize: '0.7rem',
-                            height: 24,
+                            fontSize: { xs: '0.6rem', sm: '0.7rem' },
+                            height: { xs: 20, sm: 24 },
                             bgcolor: 'grey.50',
                           }}
                         />

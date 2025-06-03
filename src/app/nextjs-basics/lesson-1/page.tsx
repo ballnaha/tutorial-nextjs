@@ -1,8 +1,7 @@
 'use client';
 import {
-  Container,
-  Typography,
   Box,
+  Typography,
   Paper,
   Alert,
   Stepper,
@@ -18,14 +17,14 @@ import {
   AccordionSummary,
   AccordionDetails,
   Chip,
-  Divider,
+  Stack,
+  Card,
+  CardContent,
 } from '@mui/material';
 import {
   CheckCircle,
-  Code,
   Terminal,
   Folder,
-  PlayArrow,
   ExpandMore,
   Lightbulb,
   Warning,
@@ -122,264 +121,504 @@ export default function Lesson1Page() {
   };
 
   return (
-    <Container maxWidth="lg">
-      {/* Header */}
-      <Box sx={{ py: 4 }}>
-        <Typography variant="h1" sx={{ mb: 2 }}>
+    <Box sx={{ 
+      minHeight: '100vh',
+      px: { xs: 2, sm: 3, md: 4 },
+      py: { xs: 2, sm: 3 },
+      maxWidth: '100vw',
+      overflow: 'hidden'
+    }}>
+      {/* Header Section */}
+      <Box sx={{ mb: { xs: 3, sm: 4 } }}>
+        <Typography 
+          variant="h2" 
+          component="h1"
+          sx={{ 
+            fontSize: { xs: '1.8rem', sm: '2.5rem', md: '3rem' },
+            fontWeight: 600,
+            mb: 2,
+            lineHeight: 1.2
+          }}
+        >
           🚀 บทที่ 1: เริ่มต้นกับ Next.js
         </Typography>
-        <Typography variant="h5" color="text.secondary" sx={{ mb: 4 }}>
+        
+        <Typography 
+          variant="h6" 
+          sx={{ 
+            color: 'text.secondary', 
+            mb: 3,
+            fontSize: { xs: '1rem', sm: '1.1rem' },
+            lineHeight: 1.5
+          }}
+        >
           ทำความรู้จักกับ Next.js และการติดตั้งโปรเจคแรกของคุณ
         </Typography>
 
-        <Box sx={{ display: 'flex', gap: 2, mb: 4 }}>
-          <Chip label="20 นาที" color="primary" />
-          <Chip label="เริ่มต้น" color="secondary" />
-          <Chip label="บังคับ" color="error" />
-        </Box>
+        <Stack 
+          direction="row" 
+          spacing={1} 
+          sx={{ 
+            flexWrap: 'wrap', 
+            gap: 1,
+            '& .MuiChip-root': {
+              fontSize: { xs: '0.75rem', sm: '0.8rem' }
+            }
+          }}
+        >
+          <Chip label="45 นาที" color="primary" size="small" />
+          <Chip label="เริ่มต้น" color="secondary" size="small" />
+          <Chip label="บังคับ" color="error" size="small" />
+        </Stack>
       </Box>
 
       {/* Learning Objectives */}
-      <Paper sx={{ p: 3, mb: 4, bgcolor: 'primary.light', color: 'primary.contrastText' }}>
-        <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-          <Lightbulb /> วัตถุประสงค์การเรียนรู้
-        </Typography>
-        <List dense>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
-              <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="เข้าใจว่า Next.js คืออะไรและแตกต่างจาก React อย่างไร" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
-              <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="สามารถติดตั้งและสร้างโปรเจค Next.js ใหม่ได้" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
-              <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="เข้าใจโครงสร้างไฟล์และโฟลเดอร์ของ Next.js" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
-              <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="รู้จักฟีเจอร์หลักๆ ของ Next.js" />
-          </ListItem>
-        </List>
-      </Paper>
+      <Card sx={{ 
+        mb: { xs: 3, sm: 4 }, 
+        bgcolor: 'primary.light', 
+        color: 'primary.contrastText',
+        border: 'none',
+        boxShadow: 1
+      }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
+            <Lightbulb sx={{ fontSize: { xs: 20, sm: 24 } }} />
+            <Typography 
+              variant="h6" 
+              sx={{ 
+                fontSize: { xs: '1.1rem', sm: '1.25rem' },
+                fontWeight: 600
+              }}
+            >
+              วัตถุประสงค์การเรียนรู้
+            </Typography>
+          </Box>
+          
+          <Stack spacing={1}>
+            {[
+              'เข้าใจว่า Next.js คืออะไรและแตกต่างจาก React อย่างไร',
+              'สามารถติดตั้งและสร้างโปรเจค Next.js ใหม่ได้',
+              'เข้าใจโครงสร้างไฟล์และโฟลเดอร์ของ Next.js',
+              'รู้จักฟีเจอร์หลักๆ ของ Next.js'
+            ].map((objective, index) => (
+              <Box key={index} sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+                <CheckCircle sx={{ 
+                  fontSize: { xs: 16, sm: 20 }, 
+                  mt: 0.5,
+                  flexShrink: 0
+                }} />
+                <Typography 
+                  variant="body2" 
+                  sx={{ 
+                    fontSize: { xs: '0.85rem', sm: '0.9rem' },
+                    lineHeight: 1.4
+                  }}
+                >
+                  {objective}
+                </Typography>
+              </Box>
+            ))}
+          </Stack>
+        </CardContent>
+      </Card>
 
       {/* What is Next.js */}
-      <Paper sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
-          🤔 Next.js คืออะไร?
-        </Typography>
-        
-        <Typography variant="body1" sx={{ mb: 3, lineHeight: 1.7 }}>
-          <strong>Next.js</strong> เป็น React Framework ที่ถูกพัฒนาโดย Vercel เพื่อช่วยให้การสร้างเว็บแอปพลิเคชันด้วย React 
-          ง่ายและมีประสิทธิภาพมากขึ้น โดย Next.js มาพร้อมกับฟีเจอร์ที่จำเป็นสำหรับการ production ทั้งหมด
-        </Typography>
-
-        <Alert severity="info" sx={{ mb: 3 }}>
-          <Typography variant="body2">
-            🎉 <strong>Next.js 15 ใหม่!</strong> เวอร์ชันล่าสุดมาพร้อม React 19, Turbopack (stable), 
-            enhanced caching system และ performance improvements มากมาย
+      <Card sx={{ mb: { xs: 3, sm: 4 }, boxShadow: 1 }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+          <Typography 
+            variant="h4" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '1.5rem', sm: '2rem' },
+              fontWeight: 600
+            }}
+          >
+            🤔 Next.js คืออะไร?
           </Typography>
-        </Alert>
-
-        <Alert severity="success" sx={{ mb: 3 }}>
-          <Typography variant="body2">
-            💡 <strong>เปรียบเทียบง่ายๆ:</strong> หาก React เป็นเหมือน "เครื่องมือสำหรับสร้างบ้าน" 
-            แล้ว Next.js เป็นเหมือน "บ้านสำเร็จรูปที่มีฟีเจอร์ครบครัน" พร้อมใช้งานได้ทันที
+          
+          <Typography 
+            variant="body1" 
+            sx={{ 
+              mb: 3, 
+              lineHeight: 1.7,
+              fontSize: { xs: '0.95rem', sm: '1rem' }
+            }}
+          >
+            <strong>Next.js</strong> เป็น React Framework ที่ถูกพัฒนาโดย Vercel เพื่อช่วยให้การสร้างเว็บแอปพลิเคชันด้วย React 
+            ง่ายและมีประสิทธิภาพมากขึ้น โดย Next.js มาพร้อมกับฟีเจอร์ที่จำเป็นสำหรับการ production ทั้งหมด
           </Typography>
-        </Alert>
 
-        <Typography variant="h6" sx={{ mb: 2 }}>
-          ความแตกต่างหลักระหว่าง React และ Next.js 15:
-        </Typography>
+          <Stack spacing={2} sx={{ mb: 3 }}>
+            <Alert severity="info" sx={{ fontSize: { xs: '0.85rem', sm: '0.9rem' } }}>
+              🎉 <strong>Next.js 15 ใหม่!</strong> เวอร์ชันล่าสุดมาพร้อม React 19, Turbopack (stable), 
+              enhanced caching system และ performance improvements มากมาย
+            </Alert>
 
-        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 3, mb: 4 }}>
-          <Paper sx={{ p: 3, flex: 1, bgcolor: 'grey.50' }}>
-            <Typography variant="h6" sx={{ mb: 2, color: 'primary.main' }}>
-              ⚛️ React (Library)
-            </Typography>
-            <List dense>
-              <ListItem sx={{ py: 0 }}>
-                <ListItemText primary="• ต้องตั้งค่าเองทุกอย่าง" />
-              </ListItem>
-              <ListItem sx={{ py: 0 }}>
-                <ListItemText primary="• Client-side rendering เท่านั้น" />
-              </ListItem>
-              <ListItem sx={{ py: 0 }}>
-                <ListItemText primary="• ต้องติดตั้ง routing เพิ่ม" />
-              </ListItem>
-              <ListItem sx={{ py: 0 }}>
-                <ListItemText primary="• ไม่มี SEO optimization" />
-              </ListItem>
-              <ListItem sx={{ py: 0 }}>
-                <ListItemText primary="• ต้องจัดการ bundling เอง" />
-              </ListItem>
-            </List>
-          </Paper>
+            <Alert severity="success" sx={{ fontSize: { xs: '0.85rem', sm: '0.9rem' } }}>
+              💡 <strong>เปรียบเทียบง่ายๆ:</strong> หาก React เป็นเหมือน "เครื่องมือสำหรับสร้างบ้าน" 
+              แล้ว Next.js เป็นเหมือน "บ้านสำเร็จรูปที่มีฟีเจอร์ครบครัน" พร้อมใช้งานได้ทันที
+            </Alert>
+          </Stack>
 
-          <Paper sx={{ p: 3, flex: 1, bgcolor: 'success.light', color: 'success.contrastText' }}>
-            <Typography variant="h6" sx={{ mb: 2 }}>
-              ⚡ Next.js 15 (Framework)
-            </Typography>
-            <List dense>
-              <ListItem sx={{ py: 0 }}>
-                <ListItemText primary="• มาพร้อมการตั้งค่าเบื้องต้น" />
-              </ListItem>
-              <ListItem sx={{ py: 0 }}>
-                <ListItemText primary="• SSR, SSG, CSR ในตัว" />
-              </ListItem>
-              <ListItem sx={{ py: 0 }}>
-                <ListItemText primary="• File-based routing ง่าย" />
-              </ListItem>
-              <ListItem sx={{ py: 0 }}>
-                <ListItemText primary="• SEO-friendly ตั้งแต่แรก" />
-              </ListItem>
-              <ListItem sx={{ py: 0 }}>
-                <ListItemText primary="• Turbopack (เร็วกว่า Webpack 96%)" />
-              </ListItem>
-              <ListItem sx={{ py: 0 }}>
-                <ListItemText primary="• React 19 พร้อมใช้" />
-              </ListItem>
-            </List>
-          </Paper>
-        </Box>
+          <Typography 
+            variant="h6" 
+            sx={{ 
+              mb: 2,
+              fontSize: { xs: '1.1rem', sm: '1.25rem' },
+              fontWeight: 600
+            }}
+          >
+            ความแตกต่างหลักระหว่าง React และ Next.js 15:
+          </Typography>
 
-        {/* Features Grid */}
-        <Typography variant="h6" sx={{ mb: 3 }}>
-          🌟 ฟีเจอร์เด่นของ Next.js:
-        </Typography>
-        
-        <Box sx={{ 
-          display: 'flex', 
-          flexDirection: { xs: 'column', sm: 'row' }, 
-          gap: 2,
-          flexWrap: 'wrap'
-        }}>
-          {features.map((feature, index) => (
-            <Paper key={index} sx={{ p: 2, flex: 1, minWidth: '250px' }}>
-              <Typography variant="h6" sx={{ mb: 1 }}>
-                {feature.icon} {feature.title}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {feature.description}
-              </Typography>
-            </Paper>
-          ))}
-        </Box>
-      </Paper>
+          <Stack 
+            direction={{ xs: 'column', md: 'row' }} 
+            spacing={2} 
+            sx={{ mb: 4 }}
+          >
+            <Card sx={{ flex: 1, bgcolor: 'grey.50', boxShadow: 1 }}>
+              <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+                <Typography 
+                  variant="h6" 
+                  sx={{ 
+                    mb: 2, 
+                    color: 'primary.main',
+                    fontSize: { xs: '1rem', sm: '1.1rem' }
+                  }}
+                >
+                  ⚛️ React (Library)
+                </Typography>
+                <Stack spacing={0.5}>
+                  {[
+                    'ต้องตั้งค่าเองทุกอย่าง',
+                    'Client-side rendering เท่านั้น',
+                    'ต้องติดตั้ง routing เพิ่ม',
+                    'ไม่มี SEO optimization',
+                    'ต้องจัดการ bundling เอง'
+                  ].map((item, index) => (
+                    <Typography 
+                      key={index}
+                      variant="body2" 
+                      sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}
+                    >
+                      • {item}
+                    </Typography>
+                  ))}
+                </Stack>
+              </CardContent>
+            </Card>
+
+            <Card sx={{ 
+              flex: 1, 
+              bgcolor: 'success.light', 
+              color: 'success.contrastText',
+              boxShadow: 1
+            }}>
+              <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+                <Typography 
+                  variant="h6" 
+                  sx={{ 
+                    mb: 2,
+                    fontSize: { xs: '1rem', sm: '1.1rem' }
+                  }}
+                >
+                  ⚡ Next.js 15 (Framework)
+                </Typography>
+                <Stack spacing={0.5}>
+                  {[
+                    'มาพร้อมการตั้งค่าเบื้องต้น',
+                    'SSR, SSG, CSR ในตัว',
+                    'File-based routing ง่าย',
+                    'SEO-friendly ตั้งแต่แรก',
+                    'Turbopack (เร็วกว่า Webpack 96%)',
+                    'React 19 พร้อมใช้'
+                  ].map((item, index) => (
+                    <Typography 
+                      key={index}
+                      variant="body2" 
+                      sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}
+                    >
+                      • {item}
+                    </Typography>
+                  ))}
+                </Stack>
+              </CardContent>
+            </Card>
+          </Stack>
+
+          {/* Features */}
+          <Typography 
+            variant="h6" 
+            sx={{ 
+              mb: 2,
+              fontSize: { xs: '1.1rem', sm: '1.25rem' },
+              fontWeight: 600
+            }}
+          >
+            🌟 ฟีเจอร์เด่นของ Next.js:
+          </Typography>
+          
+          <Stack spacing={1.5}>
+            {features.map((feature, index) => (
+              <Card key={index} sx={{ boxShadow: 1 }}>
+                <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
+                  <Typography 
+                    variant="subtitle1" 
+                    sx={{ 
+                      mb: 1,
+                      fontSize: { xs: '0.95rem', sm: '1rem' },
+                      fontWeight: 600
+                    }}
+                  >
+                    {feature.icon} {feature.title}
+                  </Typography>
+                  <Typography 
+                    variant="body2" 
+                    color="text.secondary"
+                    sx={{ 
+                      fontSize: { xs: '0.8rem', sm: '0.85rem' },
+                      lineHeight: 1.4
+                    }}
+                  >
+                    {feature.description}
+                  </Typography>
+                </CardContent>
+              </Card>
+            ))}
+          </Stack>
+        </CardContent>
+      </Card>
 
       {/* Installation */}
-      <Paper sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
-          💻 การติดตั้ง Next.js
-        </Typography>
-
-        <Alert severity="warning" sx={{ mb: 3 }}>
-          <Typography variant="body2">
-            <Warning sx={{ mr: 1, verticalAlign: 'middle' }} />
-            <strong>ข้อกำหนดเบื้องต้น:</strong> ต้องมี Node.js เวอร์ชัน 18.18.0 หรือใหม่กว่า
+      <Card sx={{ mb: { xs: 3, sm: 4 }, boxShadow: 1 }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+          <Typography 
+            variant="h4" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '1.5rem', sm: '2rem' },
+              fontWeight: 600
+            }}
+          >
+            💻 การติดตั้ง Next.js
           </Typography>
-        </Alert>
 
-        <Stepper activeStep={activeStep} orientation="vertical">
-          {installationSteps.map((step, index) => (
-            <Step key={step.label}>
-              <StepLabel>
-                <Typography variant="h6">{step.label}</Typography>
-              </StepLabel>
-              <StepContent>
-                <Typography variant="body1" sx={{ mb: 2 }}>
-                  {step.description}
+          <Alert 
+            severity="warning" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '0.85rem', sm: '0.9rem' }
+            }}
+          >
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Warning sx={{ fontSize: { xs: 16, sm: 20 } }} />
+              <Typography variant="body2">
+                <strong>ข้อกำหนดเบื้องต้น:</strong> ต้องมี Node.js เวอร์ชัน 18.18.0 หรือใหม่กว่า
+              </Typography>
+            </Box>
+          </Alert>
+
+          <Stepper 
+            activeStep={activeStep} 
+            orientation="vertical"
+            sx={{
+              '& .MuiStepLabel-label': {
+                fontSize: { xs: '0.9rem', sm: '1rem' }
+              }
+            }}
+          >
+            {installationSteps.map((step, index) => (
+              <Step key={step.label}>
+                <StepLabel>
+                  <Typography 
+                    variant="h6"
+                    sx={{ fontSize: { xs: '1rem', sm: '1.1rem' } }}
+                  >
+                    {step.label}
+                  </Typography>
+                </StepLabel>
+                <StepContent>
+                  <Typography 
+                    variant="body1" 
+                    sx={{ 
+                      mb: 2,
+                      fontSize: { xs: '0.9rem', sm: '1rem' },
+                      lineHeight: 1.5
+                    }}
+                  >
+                    {step.description}
+                  </Typography>
+                  
+                  <Card sx={{ 
+                    mb: 2, 
+                    boxShadow: 1
+                  }} 
+                    className="code-block"
+                  >
+                    <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                        <Terminal sx={{ fontSize: { xs: 14, sm: 16 } }} />
+                        <Typography 
+                          variant="body2"
+                          sx={{ fontSize: { xs: '0.75rem', sm: '0.8rem' } }}
+                        >
+                          คำสั่ง:
+                        </Typography>
+                      </Box>
+                      <Typography 
+                        variant="body2" 
+                        sx={{ 
+                          fontFamily: 'monospace',
+                          fontSize: { xs: '0.8rem', sm: '0.9rem' },
+                          wordBreak: 'break-all'
+                        }}
+                      >
+                        $ {step.command}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+
+                  <Alert 
+                    severity="success" 
+                    sx={{ 
+                      mb: 2,
+                      fontSize: { xs: '0.8rem', sm: '0.85rem' }
+                    }}
+                  >
+                    <Typography variant="body2">
+                      <strong>ผลลัพธ์ที่คาดหวัง:</strong> {step.expectedOutput}
+                    </Typography>
+                  </Alert>
+
+                  <Stack direction="row" spacing={1} sx={{ mb: 1 }}>
+                    <Button
+                      variant="contained"
+                      onClick={handleNext}
+                      size="small"
+                      disabled={index === installationSteps.length - 1}
+                      sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
+                    >
+                      {index === installationSteps.length - 1 ? 'เสร็จสิ้น' : 'ถัดไป'}
+                    </Button>
+                    <Button
+                      disabled={index === 0}
+                      onClick={handleBack}
+                      size="small"
+                      sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
+                    >
+                      ย้อนกลับ
+                    </Button>
+                  </Stack>
+                </StepContent>
+              </Step>
+            ))}
+          </Stepper>
+
+          {activeStep === installationSteps.length && (
+            <Card sx={{ mt: 3, bgcolor: 'success.light', boxShadow: 1 }}>
+              <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+                <Typography 
+                  variant="h6" 
+                  sx={{ 
+                    mb: 2,
+                    fontSize: { xs: '1.1rem', sm: '1.25rem' },
+                    fontWeight: 600
+                  }}
+                >
+                  🎉 ยินดีด้วย! คุณติดตั้ง Next.js 15 สำเร็จแล้ว
                 </Typography>
                 
-                <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-                    <Terminal sx={{ fontSize: 16 }} />
-                    <Typography variant="body2">คำสั่ง:</Typography>
-                  </Box>
-                  <Typography variant="body2" sx={{ fontFamily: 'monospace' }}>
-                    $ {step.command}
-                  </Typography>
-                </Box>
-
-                <Alert severity="success" sx={{ mb: 2 }}>
-                  <Typography variant="body2">
-                    <strong>ผลลัพธ์ที่คาดหวัง:</strong> {step.expectedOutput}
-                  </Typography>
+                <Typography 
+                  variant="body1" 
+                  sx={{ 
+                    mb: 2,
+                    fontSize: { xs: '0.9rem', sm: '1rem' },
+                    lineHeight: 1.5
+                  }}
+                >
+                  ตอนนี้คุณสามารถเปิดเบราว์เซอร์แล้วไปที่{' '}
+                  <Box 
+                    component="code" 
+                    sx={{ 
+                      bgcolor: 'rgba(0,0,0,0.1)',
+                      px: 1,
+                      py: 0.5,
+                      borderRadius: 0.5,
+                      fontSize: { xs: '0.8rem', sm: '0.9rem' },
+                      fontFamily: 'monospace'
+                    }}
+                  >
+                    http://localhost:3000
+                  </Box>{' '}
+                  เพื่อดูเว็บไซต์แรกของคุณพร้อม Next.js 15 และ React 19
+                </Typography>
+                
+                <Alert 
+                  severity="info" 
+                  sx={{ 
+                    mb: 2,
+                    fontSize: { xs: '0.8rem', sm: '0.85rem' }
+                  }}
+                >
+                  💡 <strong>Turbopack Tips:</strong> หากต้องการใช้ Turbopack เพิ่มเติม สามารถรันด้วย{' '}
+                  <code>npm run dev --turbo</code> หรือเพิ่ม <code>--turbo</code> flag
                 </Alert>
-
-                <Box sx={{ mb: 1 }}>
-                  <Button
-                    variant="contained"
-                    onClick={handleNext}
-                    sx={{ mt: 1, mr: 1 }}
-                    disabled={index === installationSteps.length - 1}
-                  >
-                    {index === installationSteps.length - 1 ? 'เสร็จสิ้น' : 'ถัดไป'}
-                  </Button>
-                  <Button
-                    disabled={index === 0}
-                    onClick={handleBack}
-                    sx={{ mt: 1, mr: 1 }}
-                  >
-                    ย้อนกลับ
-                  </Button>
-                </Box>
-              </StepContent>
-            </Step>
-          ))}
-        </Stepper>
-
-        {activeStep === installationSteps.length && (
-          <Paper sx={{ p: 3, mt: 3, bgcolor: 'success.light' }}>
-            <Typography variant="h6" sx={{ mb: 2 }}>
-              🎉 ยินดีด้วย! คุณติดตั้ง Next.js 15 สำเร็จแล้ว
-            </Typography>
-            <Typography variant="body1" sx={{ mb: 2 }}>
-              ตอนนี้คุณสามารถเปิดเบราว์เซอร์แล้วไปที่ <code>http://localhost:3000</code> 
-              เพื่อดูเว็บไซต์แรกของคุณพร้อม Next.js 15 และ React 19
-            </Typography>
-            
-            <Alert severity="info" sx={{ mb: 2 }}>
-              <Typography variant="body2">
-                💡 <strong>Turbopack Tips:</strong> หากต้องการใช้ Turbopack เพิ่มเติม สามารถรันด้วย 
-                <code> npm run dev --turbo</code> หรือเพิ่ม <code>--turbo</code> flag
-              </Typography>
-            </Alert>
-            
-            <Typography variant="body2" sx={{ mb: 2, color: 'text.secondary' }}>
-              ฟีเจอร์ใหม่ใน Next.js 15 ที่คุณจะได้เรียนรู้:
-              • React 19 Server Components • Enhanced Caching • Static Route Indicator 
-              • Improved Error Handling • และอื่นๆ อีกมากมาย
-            </Typography>
-            
-            <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
-              เริ่มใหม่
-            </Button>
-          </Paper>
-        )}
-      </Paper>
+                
+                <Button 
+                  onClick={handleReset} 
+                  size="small"
+                  sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
+                >
+                  เริ่มใหม่
+                </Button>
+              </CardContent>
+            </Card>
+          )}
+        </CardContent>
+      </Card>
 
       {/* Project Structure */}
-      <Paper sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
-          📁 โครงสร้างโปรเจค Next.js
-        </Typography>
+      <Card sx={{ mb: { xs: 3, sm: 4 }, boxShadow: 1 }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+          <Typography 
+            variant="h4" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '1.5rem', sm: '2rem' },
+              fontWeight: 600
+            }}
+          >
+            📁 โครงสร้างโปรเจค Next.js
+          </Typography>
 
-        <Typography variant="body1" sx={{ mb: 3 }}>
-          หลังจากสร้างโปรเจคเสร็จแล้ว คุณจะพบโครงสร้างไฟล์และโฟลเดอร์ดังนี้:
-        </Typography>
+          <Typography 
+            variant="body1" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '0.9rem', sm: '1rem' },
+              lineHeight: 1.5
+            }}
+          >
+            หลังจากสร้างโปรเจคเสร็จแล้ว คุณจะพบโครงสร้างไฟล์และโฟลเดอร์ดังนี้:
+          </Typography>
 
-        <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 3 }}>
-          <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', color: '#f8f8f2', fontSize: '0.9rem' }}>
+          <Card sx={{ 
+            mb: 3, 
+            boxShadow: 1
+          }}
+            className="code-block"
+          >
+            <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
+              <Typography 
+                component="pre" 
+                sx={{ 
+                  fontFamily: 'monospace', 
+                  fontSize: { xs: '0.7rem', sm: '0.8rem' },
+                  lineHeight: 1.4,
+                  margin: 0,
+                  overflow: 'auto'
+                }}
+              >
 {`my-nextjs-app/
 ├── app/
 │   ├── globals.css
@@ -392,72 +631,134 @@ export default function Lesson1Page() {
 ├── package.json
 ├── tailwind.config.js
 └── tsconfig.json`}
-          </Typography>
-        </Box>
-
-        {projectStructure.map((item, index) => (
-          <Accordion key={index} sx={{ mb: 1 }}>
-            <AccordionSummary expandIcon={<ExpandMore />}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Folder color="primary" />
-                <Typography variant="subtitle1" sx={{ fontFamily: 'monospace' }}>
-                  {item.path}
-                </Typography>
-              </Box>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography variant="body2">
-                {item.description}
               </Typography>
-            </AccordionDetails>
-          </Accordion>
-        ))}
-      </Paper>
+            </CardContent>
+          </Card>
+
+          <Stack spacing={1}>
+            {projectStructure.map((item, index) => (
+              <Accordion key={index} sx={{ boxShadow: 1 }}>
+                <AccordionSummary 
+                  expandIcon={<ExpandMore />}
+                  sx={{ 
+                    '& .MuiAccordionSummary-content': {
+                      margin: { xs: '8px 0', sm: '12px 0' }
+                    }
+                  }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Folder 
+                      color="primary" 
+                      sx={{ fontSize: { xs: 18, sm: 20 } }} 
+                    />
+                    <Typography 
+                      variant="subtitle1" 
+                      sx={{ 
+                        fontFamily: 'monospace',
+                        fontSize: { xs: '0.85rem', sm: '0.95rem' }
+                      }}
+                    >
+                      {item.path}
+                    </Typography>
+                  </Box>
+                </AccordionSummary>
+                <AccordionDetails sx={{ pt: 0 }}>
+                  <Typography 
+                    variant="body2"
+                    sx={{ 
+                      fontSize: { xs: '0.8rem', sm: '0.85rem' },
+                      lineHeight: 1.4
+                    }}
+                  >
+                    {item.description}
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
+            ))}
+          </Stack>
+        </CardContent>
+      </Card>
 
       {/* Next Steps */}
-      <Paper sx={{ p: 4, bgcolor: 'success.light', color: 'success.dark' }}>
-        <Typography variant="h5" sx={{ mb: 2 }}>
-          🎯 ยินดีด้วย! คุณเรียนจบบทที่ 1 แล้ว
-        </Typography>
-        <Typography variant="body1" sx={{ mb: 3 }}>
-          ตอนนี้คุณรู้จัก Next.js 15 และติดตั้งเรียบร้อยแล้ว! 
-          พร้อมสำหรับการเรียนรู้เรื่อง File-based Routing ในบทถัดไป
-        </Typography>
-        
-        <Alert severity="info" sx={{ mb: 3 }}>
-          <Typography variant="body2">
-            💡 <strong>บทถัดไป:</strong> เรียนรู้ File-based Routing ซึ่งเป็นหนึ่งในฟีเจอร์ที่ทำให้ Next.js พิเศษ
+      <Card sx={{ 
+        mb: { xs: 3, sm: 4 }, 
+        bgcolor: 'success.light', 
+        color: 'success.dark',
+        boxShadow: 1
+      }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+          <Typography 
+            variant="h5" 
+            sx={{ 
+              mb: 2,
+              fontSize: { xs: '1.3rem', sm: '1.5rem' },
+              fontWeight: 600
+            }}
+          >
+            🎯 ยินดีด้วย! คุณเรียนจบบทที่ 1 แล้ว
           </Typography>
-        </Alert>
-      </Paper>
+          
+          <Typography 
+            variant="body1" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '0.9rem', sm: '1rem' },
+              lineHeight: 1.5
+            }}
+          >
+            ตอนนี้คุณรู้จัก Next.js 15 และติดตั้งเรียบร้อยแล้ว! 
+            พร้อมสำหรับการเรียนรู้เรื่อง File-based Routing ในบทถัดไป
+          </Typography>
+          
+          <Alert 
+            severity="info" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '0.8rem', sm: '0.85rem' }
+            }}
+          >
+            💡 <strong>บทถัดไป:</strong> เรียนรู้ File-based Routing ซึ่งเป็นหนึ่งในฟีเจอร์ที่ทำให้ Next.js พิเศษ
+          </Alert>
+        </CardContent>
+      </Card>
 
       {/* Navigation */}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 6 }}>
+      <Box sx={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center',
+        flexDirection: { xs: 'column', sm: 'row' },
+        gap: { xs: 2, sm: 0 }
+      }}>
         <Button
           startIcon={<ArrowBack />}
           component={Link}
           href="/nextjs-basics"
           variant="outlined"
+          size="small"
+          sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
         >
           หน้าหลักบทเรียน
         </Button>
         
         <Chip 
-          label="1 / 16"
+          label="1 / 18"
           color="primary"
           variant="outlined"
+          size="small"
         />
-        
+
         <Button
           endIcon={<ArrowForward />}
           component={Link}
           href="/nextjs-basics/lesson-2"
           variant="contained"
-          color="primary"
+          size="small"
+          sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
         >
-          บทที่ 2: File-based Routing
+          บทถัดไป
         </Button>
       </Box>
-    </Container>
+    </Box>
   );
 } 

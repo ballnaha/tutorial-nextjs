@@ -1,8 +1,8 @@
 'use client';
+import React from 'react';
 import {
-  Container,
-  Typography,
   Box,
+  Typography,
   Paper,
   Alert,
   List,
@@ -13,8 +13,6 @@ import {
   AccordionSummary,
   AccordionDetails,
   Chip,
-  Divider,
-  Grid,
   Button,
   Stepper,
   Step,
@@ -22,7 +20,6 @@ import {
   StepContent,
   Card,
   CardContent,
-  CardActions,
   Table,
   TableBody,
   TableCell,
@@ -31,6 +28,7 @@ import {
   TableRow,
   Tabs,
   Tab,
+  Stack,
 } from '@mui/material';
 import {
   CheckCircle,
@@ -75,7 +73,7 @@ function CustomTabPanel(props: TabPanelProps) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      {value === index && <Box sx={{ p: { xs: 2, sm: 3 } }}>{children}</Box>}
     </div>
   );
 }
@@ -246,96 +244,204 @@ export default function Lesson2Page() {
   };
 
   return (
-    <Container maxWidth="lg">
-      {/* Header */}
-      <Box sx={{ py: 4 }}>
-        <Typography variant="h1" sx={{ mb: 2 }}>
+    <Box sx={{ 
+      minHeight: '100vh',
+      px: { xs: 2, sm: 3, md: 4 },
+      py: { xs: 2, sm: 3 },
+      maxWidth: '100vw',
+      overflow: 'hidden'
+    }}>
+      {/* Header Section */}
+      <Box sx={{ mb: { xs: 3, sm: 4 } }}>
+        <Typography 
+          variant="h2" 
+          component="h1"
+          sx={{ 
+            fontSize: { xs: '1.8rem', sm: '2.5rem', md: '3rem' },
+            fontWeight: 600,
+            mb: 2,
+            lineHeight: 1.2
+          }}
+        >
           📁 บทที่ 2: File-based Routing
         </Typography>
-        <Typography variant="h5" color="text.secondary" sx={{ mb: 4 }}>
+        
+        <Typography 
+          variant="h6" 
+          sx={{ 
+            color: 'text.secondary', 
+            mb: 3,
+            fontSize: { xs: '1rem', sm: '1.1rem' },
+            lineHeight: 1.5
+          }}
+        >
           เรียนรู้ระบบการนำทางที่ใช้ไฟล์และโฟลเดอร์ในการสร้าง routes
         </Typography>
 
-        <Box sx={{ display: 'flex', gap: 2, mb: 4 }}>
-          <Chip label="25 นาที" color="primary" />
-          <Chip label="เริ่มต้น" color="secondary" />
-          <Chip label="สำคัญ" color="warning" />
-        </Box>
+        <Stack 
+          direction="row" 
+          spacing={1} 
+          sx={{ 
+            flexWrap: 'wrap', 
+            gap: 1,
+            '& .MuiChip-root': {
+              fontSize: { xs: '0.75rem', sm: '0.8rem' }
+            }
+          }}
+        >
+          <Chip label="30 นาที" color="primary" size="small" />
+          <Chip label="เริ่มต้น" color="secondary" size="small" />
+          <Chip label="สำคัญ" color="warning" size="small" />
+        </Stack>
       </Box>
 
       {/* Learning Objectives */}
-      <Paper sx={{ p: 3, mb: 4, bgcolor: 'primary.light', color: 'primary.contrastText' }}>
-        <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-          <Lightbulb /> วัตถุประสงค์การเรียนรู้
-        </Typography>
-        <List dense>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
-              <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="เข้าใจความแตกต่างระหว่าง Pages Router และ App Router" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
-              <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="สามารถสร้าง Static Routes และ Dynamic Routes ได้" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
-              <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="รู้จักการใช้ Route Groups และ Special Files" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
-              <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="เข้าใจโครงสร้าง Nested Routes และ Catch-all Routes" />
-          </ListItem>
-        </List>
-      </Paper>
+      <Card sx={{ 
+        mb: { xs: 3, sm: 4 }, 
+        bgcolor: 'primary.light', 
+        color: 'primary.contrastText',
+        border: 'none',
+        boxShadow: 1
+      }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
+            <Lightbulb sx={{ fontSize: { xs: 20, sm: 24 } }} />
+            <Typography 
+              variant="h6" 
+              sx={{ 
+                fontSize: { xs: '1.1rem', sm: '1.25rem' },
+                fontWeight: 600
+              }}
+            >
+              วัตถุประสงค์การเรียนรู้
+            </Typography>
+          </Box>
+          
+          <Stack spacing={1}>
+            {[
+              'เข้าใจความแตกต่างระหว่าง Pages Router และ App Router',
+              'สามารถสร้าง Static Routes และ Dynamic Routes ได้',
+              'รู้จักการใช้ Route Groups และ Special Files',
+              'เข้าใจโครงสร้าง Nested Routes และ Catch-all Routes'
+            ].map((objective, index) => (
+              <Box key={index} sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+                <CheckCircle sx={{ 
+                  fontSize: { xs: 16, sm: 20 }, 
+                  mt: 0.5,
+                  flexShrink: 0
+                }} />
+                <Typography 
+                  variant="body2" 
+                  sx={{ 
+                    fontSize: { xs: '0.85rem', sm: '0.9rem' },
+                    lineHeight: 1.4
+                  }}
+                >
+                  {objective}
+                </Typography>
+              </Box>
+            ))}
+          </Stack>
+        </CardContent>
+      </Card>
 
       {/* What is File-based Routing */}
-      <Paper sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
-          🤔 File-based Routing คืออะไร?
-        </Typography>
-        
-        <Typography variant="body1" sx={{ mb: 3, lineHeight: 1.7 }}>
-          <strong>File-based Routing</strong> เป็นระบบการสร้าง routes โดยใช้โครงสร้างไฟล์และโฟลเดอร์ 
-          แทนการเขียนการตั้งค่า routing แบบ manual ทำให้การจัดการ routes ง่ายและเป็นระเบียบมากขึ้น
-        </Typography>
+      <Card sx={{ mb: { xs: 3, sm: 4 }, boxShadow: 1 }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+          <Typography 
+            variant="h4" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '1.5rem', sm: '2rem' },
+              fontWeight: 600
+            }}
+          >
+            🤔 File-based Routing คืออะไร?
+          </Typography>
+          
+          <Typography 
+            variant="body1" 
+            sx={{ 
+              mb: 3, 
+              lineHeight: 1.7,
+              fontSize: { xs: '0.95rem', sm: '1rem' }
+            }}
+          >
+            <strong>File-based Routing</strong> เป็นระบบการสร้าง routes โดยใช้โครงสร้างไฟล์และโฟลเดอร์ 
+            แทนการเขียนการตั้งค่า routing แบบ manual ทำให้การจัดการ routes ง่ายและเป็นระเบียบมากขึ้น
+          </Typography>
 
-        <Alert severity="info" sx={{ mb: 3 }}>
-          <Typography variant="body2">
+          <Alert severity="info" sx={{ mb: 3, fontSize: { xs: '0.85rem', sm: '0.9rem' } }}>
             💡 <strong>ข้อดี:</strong> ไม่ต้องเขียน routing config แยก, โครงสร้างชัดเจน, 
             แยกแยะหน้าต่างๆ ได้ง่าย, และ IDE สามารถ autocomplete path ได้
+          </Alert>
+
+          {/* Pages Router vs App Router Comparison */}
+          <Typography 
+            variant="h5" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '1.3rem', sm: '1.5rem' },
+              fontWeight: 600
+            }}
+          >
+            🔄 Pages Router vs App Router
           </Typography>
-        </Alert>
 
-        {/* Pages Router vs App Router Comparison */}
-        <Typography variant="h5" sx={{ mb: 3 }}>
-          🔄 Pages Router vs App Router
-        </Typography>
+          <Tabs 
+            value={tabValue} 
+            onChange={handleTabChange} 
+            sx={{ 
+              mb: 3,
+              '& .MuiTab-root': {
+                fontSize: { xs: '0.8rem', sm: '0.9rem' },
+                minWidth: { xs: 'auto', sm: 120 },
+                px: { xs: 1, sm: 2 }
+              }
+            }}
+            variant="scrollable"
+            scrollButtons="auto"
+          >
+            <Tab label="Pages Router (เก่า)" />
+            <Tab label="App Router (ใหม่)" />
+            <Tab label="เปรียบเทียบ" />
+          </Tabs>
 
-        <Tabs value={tabValue} onChange={handleTabChange} sx={{ mb: 3 }}>
-          <Tab label="Pages Router (เก่า)" />
-          <Tab label="App Router (ใหม่)" />
-          <Tab label="เปรียบเทียบ" />
-        </Tabs>
-
-        <CustomTabPanel value={tabValue} index={0}>
-          <Paper sx={{ p: 3, bgcolor: 'grey.50' }}>
-            <Typography variant="h6" sx={{ mb: 2, color: 'warning.main' }}>
-              📂 Pages Router (Next.js 12 และเก่ากว่า)
-            </Typography>
-            <Typography variant="body2" sx={{ mb: 2 }}>
-              ใช้โฟลเดอร์ `pages/` และไฟล์แต่ละไฟล์เป็น route
-            </Typography>
-            
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-              <Typography variant="body2" component="pre">
+          <CustomTabPanel value={tabValue} index={0}>
+            <Card sx={{ bgcolor: 'grey.50', boxShadow: 1 }}>
+              <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+                <Typography 
+                  variant="h6" 
+                  sx={{ 
+                    mb: 2, 
+                    color: 'warning.main',
+                    fontSize: { xs: '1rem', sm: '1.1rem' }
+                  }}
+                >
+                  📂 Pages Router (Next.js 12 และเก่ากว่า)
+                </Typography>
+                <Typography 
+                  variant="body2" 
+                  sx={{ 
+                    mb: 2,
+                    fontSize: { xs: '0.85rem', sm: '0.9rem' }
+                  }}
+                >
+                  ใช้โฟลเดอร์ `pages/` และไฟล์แต่ละไฟล์เป็น route
+                </Typography>
+                
+                <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
+                  <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
+                    <Typography 
+                      component="pre" 
+                      sx={{ 
+                        fontFamily: 'monospace',
+                        fontSize: { xs: '0.7rem', sm: '0.8rem' },
+                        lineHeight: 1.4,
+                        margin: 0,
+                        overflow: 'auto'
+                      }}
+                    >
 {`pages/
 ├── index.js        → /
 ├── about.js        → /about  
@@ -344,28 +450,52 @@ export default function Lesson2Page() {
 │   └── [slug].js   → /blog/:slug
 └── api/
     └── users.js    → /api/users`}
-              </Typography>
-            </Box>
+                    </Typography>
+                  </CardContent>
+                </Card>
 
-            <Alert severity="warning">
-              <Typography variant="body2">
-                ⚠️ Pages Router ยังคงใช้ได้ แต่ App Router เป็น default ใน Next.js 13+
-              </Typography>
-            </Alert>
-          </Paper>
-        </CustomTabPanel>
+                <Alert severity="warning" sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>
+                  ⚠️ Pages Router ยังคงใช้ได้ แต่ App Router เป็น default ใน Next.js 13+
+                </Alert>
+              </CardContent>
+            </Card>
+          </CustomTabPanel>
 
-        <CustomTabPanel value={tabValue} index={1}>
-          <Paper sx={{ p: 3, bgcolor: 'success.light' }}>
-            <Typography variant="h6" sx={{ mb: 2, color: 'success.dark' }}>
-              🎯 App Router (Next.js 13+)
-            </Typography>
-            <Typography variant="body2" sx={{ mb: 2 }}>
-              ใช้โฟลเดอร์ `app/` และไฟล์ `page.tsx` เป็น route
-            </Typography>
-            
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-              <Typography variant="body2" component="pre">
+          <CustomTabPanel value={tabValue} index={1}>
+            <Card sx={{ bgcolor: 'success.light', boxShadow: 1 }}>
+              <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+                <Typography 
+                  variant="h6" 
+                  sx={{ 
+                    mb: 2, 
+                    color: 'success.dark',
+                    fontSize: { xs: '1rem', sm: '1.1rem' }
+                  }}
+                >
+                  🎯 App Router (Next.js 13+)
+                </Typography>
+                <Typography 
+                  variant="body2" 
+                  sx={{ 
+                    mb: 2,
+                    fontSize: { xs: '0.85rem', sm: '0.9rem' }
+                  }}
+                >
+                  ใช้โฟลเดอร์ `app/` และไฟล์ `page.tsx` เป็น route
+                </Typography>
+                
+                <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
+                  <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
+                    <Typography 
+                      component="pre" 
+                      sx={{ 
+                        fontFamily: 'monospace',
+                        fontSize: { xs: '0.7rem', sm: '0.8rem' },
+                        lineHeight: 1.4,
+                        margin: 0,
+                        overflow: 'auto'
+                      }}
+                    >
 {`app/
 ├── page.tsx           → /
 ├── about/
@@ -377,209 +507,374 @@ export default function Lesson2Page() {
 └── api/
     └── users/
         └── route.ts   → /api/users`}
-              </Typography>
-            </Box>
+                    </Typography>
+                  </CardContent>
+                </Card>
 
-            <Alert severity="success">
-              <Typography variant="body2">
-                ✅ App Router รองรับ Server Components, Streaming, และฟีเจอร์ใหม่ๆ
-              </Typography>
-            </Alert>
-          </Paper>
-        </CustomTabPanel>
+                <Alert severity="success" sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>
+                  ✅ App Router รองรับ Server Components, Streaming, และฟีเจอร์ใหม่ๆ
+                </Alert>
+              </CardContent>
+            </Card>
+          </CustomTabPanel>
 
-        <CustomTabPanel value={tabValue} index={2}>
-          <TableContainer component={Paper}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell><strong>คุณสมบัติ</strong></TableCell>
-                  <TableCell><strong>Pages Router</strong></TableCell>
-                  <TableCell><strong>App Router</strong></TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                <TableRow>
-                  <TableCell>โฟลเดอร์หลัก</TableCell>
-                  <TableCell>pages/</TableCell>
-                  <TableCell>app/</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>ไฟล์ route</TableCell>
-                  <TableCell>index.js, about.js</TableCell>
-                  <TableCell>page.tsx</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Layout</TableCell>
-                  <TableCell>_app.js, _document.js</TableCell>
-                  <TableCell>layout.tsx</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>API Routes</TableCell>
-                  <TableCell>pages/api/</TableCell>
-                  <TableCell>app/api/.../route.ts</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Server Components</TableCell>
-                  <TableCell>❌</TableCell>
-                  <TableCell>✅ (default)</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Streaming</TableCell>
-                  <TableCell>❌</TableCell>
-                  <TableCell>✅</TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </CustomTabPanel>
-      </Paper>
+          <CustomTabPanel value={tabValue} index={2}>
+            <Card sx={{ boxShadow: 1 }}>
+              <TableContainer>
+                <Table size="small">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
+                        <strong>คุณสมบัติ</strong>
+                      </TableCell>
+                      <TableCell sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
+                        <strong>Pages Router</strong>
+                      </TableCell>
+                      <TableCell sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
+                        <strong>App Router</strong>
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.85rem' } }}>
+                        โฟลเดอร์หลัก
+                      </TableCell>
+                      <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.85rem' } }}>
+                        pages/
+                      </TableCell>
+                      <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.85rem' } }}>
+                        app/
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.85rem' } }}>
+                        ไฟล์หน้าเว็บ
+                      </TableCell>
+                      <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.85rem' } }}>
+                        index.js, about.js
+                      </TableCell>
+                      <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.85rem' } }}>
+                        page.tsx
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.85rem' } }}>
+                        Server Components
+                      </TableCell>
+                      <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.85rem' } }}>
+                        ไม่รองรับ
+                      </TableCell>
+                      <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.85rem' } }}>
+                        รองรับเต็มรูปแบบ
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.85rem' } }}>
+                        Layout ซ้อนกัน
+                      </TableCell>
+                      <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.85rem' } }}>
+                        ยาก
+                      </TableCell>
+                      <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.85rem' } }}>
+                        ง่าย
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.85rem' } }}>
+                        Loading/Error UI
+                      </TableCell>
+                      <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.85rem' } }}>
+                        Manual
+                      </TableCell>
+                      <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.85rem' } }}>
+                        Built-in
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Card>
+          </CustomTabPanel>
+        </CardContent>
+      </Card>
 
       {/* Route Types */}
-      <Paper sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
-          🛣️ ประเภทของ Routes
-        </Typography>
+      <Card sx={{ mb: { xs: 3, sm: 4 }, boxShadow: 1 }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+          <Typography 
+            variant="h4" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '1.5rem', sm: '2rem' },
+              fontWeight: 600
+            }}
+          >
+            🛣️ ประเภทของ Routes
+          </Typography>
 
-        {routingExamples.map((example, index) => (
-          <Accordion key={index} sx={{ mb: 2 }}>
-            <AccordionSummary expandIcon={<ExpandMore />}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, width: '100%' }}>
-                <Route color="primary" />
-                <Box sx={{ flex: 1 }}>
-                  <Typography variant="h6">{example.type}</Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {example.path} → {example.url}
+          <Stack spacing={1.5}>
+            {routingExamples.map((example, index) => (
+              <Accordion key={index} sx={{ boxShadow: 1 }}>
+                <AccordionSummary 
+                  expandIcon={<ExpandMore />}
+                  sx={{ 
+                    '& .MuiAccordionSummary-content': {
+                      margin: { xs: '8px 0', sm: '12px 0' }
+                    }
+                  }}
+                >
+                  <Stack 
+                    direction={{ xs: 'column', sm: 'row' }} 
+                    spacing={1}
+                    sx={{ width: '100%', alignItems: { xs: 'flex-start', sm: 'center' } }}
+                  >
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Route color="primary" sx={{ fontSize: { xs: 18, sm: 20 } }} />
+                      <Typography 
+                        variant="h6"
+                        sx={{ fontSize: { xs: '1rem', sm: '1.1rem' } }}
+                      >
+                        {example.type}
+                      </Typography>
+                    </Box>
+                    <Box sx={{ flex: 1 }}>
+                      <Typography 
+                        variant="body2" 
+                        color="text.secondary"
+                        sx={{ 
+                          fontFamily: 'monospace',
+                          fontSize: { xs: '0.75rem', sm: '0.85rem' }
+                        }}
+                      >
+                        {example.path} → {example.url}
+                      </Typography>
+                    </Box>
+                    <Chip 
+                      label={example.type.split(' ')[0]} 
+                      size="small" 
+                      color={
+                        example.type.includes('Dynamic') ? 'warning' :
+                        example.type.includes('Nested') ? 'info' :
+                        example.type.includes('Catch') ? 'error' : 'primary'
+                      }
+                      sx={{ fontSize: { xs: '0.7rem', sm: '0.75rem' } }}
+                    />
+                  </Stack>
+                </AccordionSummary>
+                <AccordionDetails sx={{ pt: 0 }}>
+                  <Typography 
+                    variant="body1" 
+                    sx={{ 
+                      mb: 2,
+                      fontSize: { xs: '0.9rem', sm: '1rem' },
+                      lineHeight: 1.5
+                    }}
+                  >
+                    {example.description}
                   </Typography>
-                </Box>
-                <Chip 
-                  label={example.type.split(' ')[0]} 
-                  size="small" 
-                  color={
-                    example.type.includes('Dynamic') ? 'warning' :
-                    example.type.includes('Nested') ? 'info' :
-                    example.type.includes('Catch') ? 'error' : 'primary'
-                  }
-                />
-              </Box>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography variant="body1" sx={{ mb: 2 }}>
-                {example.description}
-              </Typography>
-              
-              <Box className="code-block" sx={{ p: 2, fontFamily: 'monospace' }}>
-                <Typography variant="body2" component="pre">
-                  {example.code}
-                </Typography>
-              </Box>
-            </AccordionDetails>
-          </Accordion>
-        ))}
-      </Paper>
+                  
+                  <Card className="code-block" sx={{ boxShadow: 1 }}>
+                    <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
+                      <Typography 
+                        component="pre" 
+                        sx={{ 
+                          fontFamily: 'monospace',
+                          fontSize: { xs: '0.7rem', sm: '0.8rem' },
+                          lineHeight: 1.4,
+                          margin: 0,
+                          overflow: 'auto'
+                        }}
+                      >
+                        {example.code}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </AccordionDetails>
+              </Accordion>
+            ))}
+          </Stack>
+        </CardContent>
+      </Card>
 
       {/* Route Groups */}
-      <Paper sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
-          📦 Route Groups
-        </Typography>
-        
-        <Typography variant="body1" sx={{ mb: 3 }}>
-          Route Groups ช่วยให้เราจัดกลุ่ม routes โดยไม่ส่งผลต่อ URL structure 
-          โดยใช้วงเล็บ () ครอบชื่อโฟลเดอร์
-        </Typography>
+      <Card sx={{ mb: { xs: 3, sm: 4 }, boxShadow: 1 }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+          <Typography 
+            variant="h4" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '1.5rem', sm: '2rem' },
+              fontWeight: 600
+            }}
+          >
+            📦 Route Groups
+          </Typography>
+          
+          <Typography 
+            variant="body1" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '0.95rem', sm: '1rem' },
+              lineHeight: 1.6
+            }}
+          >
+            Route Groups ช่วยให้เราจัดกลุ่ม routes โดยไม่ส่งผลต่อ URL structure 
+            โดยใช้วงเล็บ () ครอบชื่อโฟลเดอร์
+          </Typography>
 
-        <Alert severity="info" sx={{ mb: 3 }}>
-          <Typography variant="body2">
+          <Alert severity="info" sx={{ mb: 3, fontSize: { xs: '0.85rem', sm: '0.9rem' } }}>
             💡 <strong>ประโยชน์:</strong> จัดระเบียบโค้ด, แยก layout ตามกลุ่ม, 
             และสามารถมี layout ต่างกันในแต่ละกลุ่ม
-          </Typography>
-        </Alert>
+          </Alert>
 
-        <Box sx={{ 
-          display: 'flex', 
-          flexDirection: { xs: 'column', md: 'row' }, 
-          gap: 3,
-          flexWrap: 'wrap'
-        }}>
-          {routeGroups.map((group, index) => (
-            <Box key={index} sx={{ flex: 1, minWidth: '300px' }}>
-              <Card sx={{ height: '100%' }}>
-                <CardContent>
-                  <Typography variant="h6" sx={{ mb: 2, color: 'primary.main' }}>
+          <Stack spacing={2}>
+            {routeGroups.map((group, index) => (
+              <Card key={index} sx={{ boxShadow: 1 }}>
+                <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+                  <Typography 
+                    variant="h6" 
+                    sx={{ 
+                      mb: 2, 
+                      color: 'primary.main',
+                      fontSize: { xs: '1rem', sm: '1.1rem' }
+                    }}
+                  >
                     {group.name}
                   </Typography>
-                  <Typography variant="body2" sx={{ mb: 2 }}>
+                  <Typography 
+                    variant="body2" 
+                    sx={{ 
+                      mb: 2,
+                      fontSize: { xs: '0.85rem', sm: '0.9rem' },
+                      lineHeight: 1.4
+                    }}
+                  >
                     {group.description}
                   </Typography>
                   
-                  <Box sx={{ bgcolor: 'grey.50', p: 2, borderRadius: 1 }}>
-                    {group.structure.map((item, i) => (
-                      <Typography key={i} variant="body2" sx={{ fontFamily: 'monospace', mb: 0.5 }}>
-                        {item}
-                      </Typography>
-                    ))}
-                  </Box>
+                  <Card sx={{ bgcolor: 'grey.50', boxShadow: 0 }}>
+                    <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
+                      <Stack spacing={0.5}>
+                        {group.structure.map((item, i) => (
+                          <Typography 
+                            key={i} 
+                            variant="body2" 
+                            sx={{ 
+                              fontFamily: 'monospace',
+                              fontSize: { xs: '0.75rem', sm: '0.85rem' }
+                            }}
+                          >
+                            {item}
+                          </Typography>
+                        ))}
+                      </Stack>
+                    </CardContent>
+                  </Card>
                 </CardContent>
               </Card>
-            </Box>
-          ))}
-        </Box>
-      </Paper>
+            ))}
+          </Stack>
+        </CardContent>
+      </Card>
 
       {/* Special Files */}
-      <Paper sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
-          📄 Special Files
-        </Typography>
-        
-        <Typography variant="body1" sx={{ mb: 3 }}>
-          App Router มีไฟล์พิเศษที่มีหน้าที่เฉพาะ ช่วยให้เราสร้าง UX ที่ดีขึ้น
-        </Typography>
-
-        <Box sx={{ 
-          display: 'flex', 
-          flexDirection: { xs: 'column', sm: 'row' }, 
-          gap: 2,
-          flexWrap: 'wrap'
-        }}>
-          {specialFiles.map((file, index) => (
-            <Box key={index} sx={{ flex: 1, minWidth: '200px' }}>
-              <Paper sx={{ p: 3, textAlign: 'center', height: '100%' }}>
-                <Box sx={{ color: `${file.color}.main`, mb: 2 }}>
-                  {file.icon}
-                </Box>
-                <Typography variant="h6" sx={{ mb: 1, fontFamily: 'monospace' }}>
-                  {file.file}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {file.description}
-                </Typography>
-              </Paper>
-            </Box>
-          ))}
-        </Box>
-
-        <Alert severity="warning" sx={{ mt: 3 }}>
-          <Typography variant="body2">
-            ⚠️ <strong>หมายเหตุ:</strong> ไฟล์เหล่านี้จะถูกใช้โดยอัตโนมัติ 
-            เมื่อ Next.js ตรวจพบในโฟลเดอร์ route
+      <Card sx={{ mb: { xs: 3, sm: 4 }, boxShadow: 1 }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+          <Typography 
+            variant="h4" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '1.5rem', sm: '2rem' },
+              fontWeight: 600
+            }}
+          >
+            📄 Special Files
           </Typography>
-        </Alert>
-      </Paper>
+          
+          <Typography 
+            variant="body1" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '0.95rem', sm: '1rem' },
+              lineHeight: 1.6
+            }}
+          >
+            App Router มีไฟล์พิเศษที่มีหน้าที่เฉพาะ ช่วยให้เราสร้าง UX ที่ดีขึ้น
+          </Typography>
+
+          <Stack spacing={1.5}>
+            {specialFiles.map((file, index) => (
+              <Card key={index} sx={{ boxShadow: 1 }}>
+                <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1 }}>
+                    {React.cloneElement(file.icon, { 
+                      color: file.color as any,
+                      sx: { fontSize: { xs: 20, sm: 24 } }
+                    })}
+                    <Typography 
+                      variant="h6" 
+                      sx={{ 
+                        fontFamily: 'monospace',
+                        fontSize: { xs: '0.95rem', sm: '1rem' }
+                      }}
+                    >
+                      {file.file}
+                    </Typography>
+                  </Box>
+                  <Typography 
+                    variant="body2"
+                    sx={{ 
+                      fontSize: { xs: '0.85rem', sm: '0.9rem' },
+                      lineHeight: 1.4
+                    }}
+                  >
+                    {file.description}
+                  </Typography>
+                </CardContent>
+              </Card>
+            ))}
+          </Stack>
+        </CardContent>
+      </Card>
 
       {/* Practical Example */}
-      <Paper sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
-          🛠️ ตัวอย่างการใช้งานจริง
-        </Typography>
-        
-        <Typography variant="body1" sx={{ mb: 3 }}>
-          มาลองสร้างโครงสร้าง routes สำหรับเว็บไซต์ e-commerce กัน
-        </Typography>
+      <Card sx={{ mb: { xs: 3, sm: 4 }, boxShadow: 1 }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+          <Typography 
+            variant="h4" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '1.5rem', sm: '2rem' },
+              fontWeight: 600
+            }}
+          >
+            🛠️ ตัวอย่างการใช้งานจริง
+          </Typography>
+          
+          <Typography 
+            variant="body1" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '0.95rem', sm: '1rem' },
+              lineHeight: 1.6
+            }}
+          >
+            มาลองสร้างโครงสร้าง routes สำหรับเว็บไซต์ e-commerce กัน
+          </Typography>
 
-        <Box className="code-block" sx={{ p: 3, borderRadius: 1, fontFamily: 'monospace', mb: 3 }}>
-          <Typography variant="body2" component="pre">
+          <Card className="code-block" sx={{ mb: 3, boxShadow: 1 }}>
+            <CardContent sx={{ p: { xs: 1.5, sm: 2, md: 3 } }}>
+              <Typography 
+                component="pre" 
+                sx={{ 
+                  fontFamily: 'monospace',
+                  fontSize: { xs: '0.65rem', sm: '0.75rem', md: '0.8rem' },
+                  lineHeight: 1.4,
+                  margin: 0,
+                  overflow: 'auto'
+                }}
+              >
 {`app/
 ├── (marketing)/
 │   ├── layout.tsx        # Layout สำหรับ marketing pages
@@ -608,69 +903,135 @@ export default function Lesson2Page() {
     │   └── route.ts      # API สำหรับสินค้า
     └── auth/
         └── route.ts      # API สำหรับ authentication`}
-          </Typography>
-        </Box>
-
-        <Typography variant="h6" sx={{ mb: 2 }}>
-          💡 ข้อดีของโครงสร้างนี้:
-        </Typography>
-        <List>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText primary="แยก layout ตามประเภทหน้า (marketing, shop, auth)" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText primary="โครงสร้างชัดเจน เข้าใจง่าย" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText primary="สามารถปรับแต่ง layout แต่ละกลุ่มได้อิสระ" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText primary="รองรับ nested routes ที่ซับซ้อน" />
-          </ListItem>
-        </List>
-      </Paper>
-
-      {/* Hands-on Practice */}
-      <Paper sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
-          ✋ ฝึกปฏิบัติ: สร้าง Routes
-        </Typography>
-        
-        <Typography variant="body1" sx={{ mb: 3 }}>
-          ลองทำตามขั้นตอนนี้เพื่อสร้าง routes ต่างๆ ในโปรเจค Next.js ของคุณ
-        </Typography>
-
-        <Stepper activeStep={activeStep} orientation="vertical">
-          <Step>
-            <StepLabel>
-              <Typography variant="h6">สร้าง Static Route</Typography>
-            </StepLabel>
-            <StepContent>
-              <Typography variant="body1" sx={{ mb: 2 }}>
-                สร้างหน้า About โดยการสร้างโฟลเดอร์และไฟล์ดังนี้:
               </Typography>
-              
-              <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-                <Typography variant="body2">
-                  $ mkdir -p app/about<br/>
-                  $ touch app/about/page.tsx
+            </CardContent>
+          </Card>
+
+          <Typography 
+            variant="h6" 
+            sx={{ 
+              mb: 2,
+              fontSize: { xs: '1.1rem', sm: '1.25rem' },
+              fontWeight: 600
+            }}
+          >
+            💡 ข้อดีของโครงสร้างนี้:
+          </Typography>
+          
+          <Stack spacing={1}>
+            {[
+              'แยก layout ตามประเภทหน้า (marketing, shop, auth)',
+              'โครงสร้างชัดเจน เข้าใจง่าย',
+              'สามารถปรับแต่ง layout แต่ละกลุ่มได้อิสระ',
+              'รองรับ nested routes ที่ซับซ้อน'
+            ].map((benefit, index) => (
+              <Box key={index} sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+                <CheckCircle 
+                  color="success" 
+                  sx={{ 
+                    fontSize: { xs: 16, sm: 20 }, 
+                    mt: 0.5,
+                    flexShrink: 0
+                  }} 
+                />
+                <Typography 
+                  variant="body2" 
+                  sx={{ 
+                    fontSize: { xs: '0.85rem', sm: '0.9rem' },
+                    lineHeight: 1.4
+                  }}
+                >
+                  {benefit}
                 </Typography>
               </Box>
+            ))}
+          </Stack>
+        </CardContent>
+      </Card>
 
-              <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-                <Typography variant="body2" component="pre">
+      {/* Hands-on Practice */}
+      <Card sx={{ mb: { xs: 3, sm: 4 }, boxShadow: 1 }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+          <Typography 
+            variant="h4" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '1.5rem', sm: '2rem' },
+              fontWeight: 600
+            }}
+          >
+            ✋ ฝึกปฏิบัติ: สร้าง Routes
+          </Typography>
+          
+          <Typography 
+            variant="body1" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '0.95rem', sm: '1rem' },
+              lineHeight: 1.6
+            }}
+          >
+            ลองทำตามขั้นตอนนี้เพื่อสร้าง routes ต่างๆ ในโปรเจค Next.js ของคุณ
+          </Typography>
+
+          <Stepper 
+            activeStep={activeStep} 
+            orientation="vertical"
+            sx={{
+              '& .MuiStepLabel-label': {
+                fontSize: { xs: '0.9rem', sm: '1rem' }
+              }
+            }}
+          >
+            <Step>
+              <StepLabel>
+                <Typography 
+                  variant="h6"
+                  sx={{ fontSize: { xs: '1rem', sm: '1.1rem' } }}
+                >
+                  สร้าง Static Route
+                </Typography>
+              </StepLabel>
+              <StepContent>
+                <Typography 
+                  variant="body1" 
+                  sx={{ 
+                    mb: 2,
+                    fontSize: { xs: '0.9rem', sm: '1rem' },
+                    lineHeight: 1.5
+                  }}
+                >
+                  สร้างหน้า About โดยการสร้างโฟลเดอร์และไฟล์ดังนี้:
+                </Typography>
+                
+                <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
+                  <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
+                    <Typography 
+                      variant="body2"
+                      sx={{ 
+                        fontFamily: 'monospace',
+                        fontSize: { xs: '0.8rem', sm: '0.9rem' },
+                        wordBreak: 'break-all'
+                      }}
+                    >
+                      $ mkdir -p app/about<br/>
+                      $ touch app/about/page.tsx
+                    </Typography>
+                  </CardContent>
+                </Card>
+
+                <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
+                  <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
+                    <Typography 
+                      component="pre" 
+                      sx={{ 
+                        fontFamily: 'monospace',
+                        fontSize: { xs: '0.7rem', sm: '0.8rem' },
+                        lineHeight: 1.4,
+                        margin: 0,
+                        overflow: 'auto'
+                      }}
+                    >
 {`// app/about/page.tsx
 export default function AboutPage() {
   return (
@@ -680,39 +1041,78 @@ export default function AboutPage() {
     </div>
   );
 }`}
-                </Typography>
-              </Box>
+                    </Typography>
+                  </CardContent>
+                </Card>
 
-              <Alert severity="success" sx={{ mb: 2 }}>
-                <Typography variant="body2">
+                <Alert severity="success" sx={{ mb: 2, fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>
                   ✅ ตอนนี้คุณสามารถเข้าถึงหน้านี้ได้ที่ http://localhost:3000/about
+                </Alert>
+
+                <Button 
+                  variant="contained" 
+                  onClick={handleNext} 
+                  size="small"
+                  sx={{ 
+                    mt: 1, 
+                    mr: 1,
+                    fontSize: { xs: '0.8rem', sm: '0.9rem' }
+                  }}
+                >
+                  ถัดไป
+                </Button>
+              </StepContent>
+            </Step>
+
+            <Step>
+              <StepLabel>
+                <Typography 
+                  variant="h6"
+                  sx={{ fontSize: { xs: '1rem', sm: '1.1rem' } }}
+                >
+                  สร้าง Dynamic Route
                 </Typography>
-              </Alert>
-
-              <Button variant="contained" onClick={handleNext} sx={{ mt: 1, mr: 1 }}>
-                ถัดไป
-              </Button>
-            </StepContent>
-          </Step>
-
-          <Step>
-            <StepLabel>
-              <Typography variant="h6">สร้าง Dynamic Route</Typography>
-            </StepLabel>
-            <StepContent>
-              <Typography variant="body1" sx={{ mb: 2 }}>
-                สร้างหน้าบทความที่รับพารามิเตอร์ slug:
-              </Typography>
-              
-              <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-                <Typography variant="body2">
-                  $ mkdir -p app/blog/[slug]<br/>
-                  $ touch app/blog/[slug]/page.tsx
+              </StepLabel>
+              <StepContent>
+                <Typography 
+                  variant="body1" 
+                  sx={{ 
+                    mb: 2,
+                    fontSize: { xs: '0.9rem', sm: '1rem' },
+                    lineHeight: 1.5
+                  }}
+                >
+                  สร้างหน้าบทความที่รับพารามิเตอร์ slug:
                 </Typography>
-              </Box>
+                
+                <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
+                  <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
+                    <Typography 
+                      variant="body2"
+                      sx={{ 
+                        fontFamily: 'monospace',
+                        fontSize: { xs: '0.8rem', sm: '0.9rem' },
+                        wordBreak: 'break-all'
+                      }}
+                    >
+                      $ mkdir -p app/blog/[slug]<br/>
+                      $ touch app/blog/[slug]/page.tsx
+                    </Typography>
+                  </CardContent>
+                </Card>
 
-              <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-                <Typography variant="body2" component="pre">
+                <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
+                  <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
+                    <Typography 
+                      component="pre" 
+                      sx={{ 
+                        fontFamily: 'monospace',
+                        fontSize: { xs: '0.7rem', sm: '0.8rem' },
+                        lineHeight: 1.4,
+                        margin: 0,
+                        overflow: 'auto'
+                      }}
+                    >
 {`// app/blog/[slug]/page.tsx
 interface Props {
   params: Promise<{ slug: string }>;
@@ -728,43 +1128,84 @@ export default async function BlogPost({ params }: Props) {
     </div>
   );
 }`}
-                </Typography>
-              </Box>
+                    </Typography>
+                  </CardContent>
+                </Card>
 
-              <Alert severity="info" sx={{ mb: 2 }}>
-                <Typography variant="body2">
+                <Alert severity="info" sx={{ mb: 2, fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>
                   💡 ลองเข้าไป /blog/my-first-post หรือ /blog/learning-nextjs
+                </Alert>
+
+                <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
+                  <Button 
+                    variant="contained" 
+                    onClick={handleNext} 
+                    size="small"
+                    sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
+                  >
+                    ถัดไป
+                  </Button>
+                  <Button 
+                    onClick={handleBack} 
+                    size="small"
+                    sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
+                  >
+                    ย้อนกลับ
+                  </Button>
+                </Stack>
+              </StepContent>
+            </Step>
+
+            <Step>
+              <StepLabel>
+                <Typography 
+                  variant="h6"
+                  sx={{ fontSize: { xs: '1rem', sm: '1.1rem' } }}
+                >
+                  สร้าง Route Group
                 </Typography>
-              </Alert>
-
-              <Button variant="contained" onClick={handleNext} sx={{ mt: 1, mr: 1 }}>
-                ถัดไป
-              </Button>
-              <Button onClick={handleBack} sx={{ mt: 1, mr: 1 }}>
-                ย้อนกลับ
-              </Button>
-            </StepContent>
-          </Step>
-
-          <Step>
-            <StepLabel>
-              <Typography variant="h6">สร้าง Route Group</Typography>
-            </StepLabel>
-            <StepContent>
-              <Typography variant="body1" sx={{ mb: 2 }}>
-                สร้าง Route Group สำหรับหน้า dashboard:
-              </Typography>
-              
-              <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-                <Typography variant="body2">
-                  $ mkdir -p app/(dashboard)/admin<br/>
-                  $ touch app/(dashboard)/layout.tsx<br/>
-                  $ touch app/(dashboard)/admin/page.tsx
+              </StepLabel>
+              <StepContent>
+                <Typography 
+                  variant="body1" 
+                  sx={{ 
+                    mb: 2,
+                    fontSize: { xs: '0.9rem', sm: '1rem' },
+                    lineHeight: 1.5
+                  }}
+                >
+                  สร้าง Route Group สำหรับหน้า dashboard:
                 </Typography>
-              </Box>
+                
+                <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
+                  <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
+                    <Typography 
+                      variant="body2"
+                      sx={{ 
+                        fontFamily: 'monospace',
+                        fontSize: { xs: '0.75rem', sm: '0.85rem' },
+                        wordBreak: 'break-all'
+                      }}
+                    >
+                      $ mkdir -p app/(dashboard)/admin<br/>
+                      $ touch app/(dashboard)/layout.tsx<br/>
+                      $ touch app/(dashboard)/admin/page.tsx
+                    </Typography>
+                  </CardContent>
+                </Card>
 
-              <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-                <Typography variant="body2" component="pre">
+                <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
+                  <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
+                    <Typography 
+                      component="pre" 
+                      sx={{ 
+                        fontFamily: 'monospace',
+                        fontSize: { xs: '0.7rem', sm: '0.8rem' },
+                        lineHeight: 1.4,
+                        margin: 0,
+                        overflow: 'auto'
+                      }}
+                    >
 {`// app/(dashboard)/layout.tsx
 export default function DashboardLayout({
   children,
@@ -778,129 +1219,154 @@ export default function DashboardLayout({
     </div>
   );
 }`}
+                    </Typography>
+                  </CardContent>
+                </Card>
+
+                <Alert severity="success" sx={{ mb: 2, fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>
+                  ✅ URL จะเป็น /admin (ไม่มี /dashboard ใน URL)
+                </Alert>
+
+                <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
+                  <Button 
+                    variant="contained" 
+                    onClick={handleNext} 
+                    size="small"
+                    sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
+                  >
+                    เสร็จสิ้น
+                  </Button>
+                  <Button 
+                    onClick={handleBack} 
+                    size="small"
+                    sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
+                  >
+                    ย้อนกลับ
+                  </Button>
+                </Stack>
+              </StepContent>
+            </Step>
+          </Stepper>
+
+          {activeStep === 3 && (
+            <Card sx={{ mt: 3, bgcolor: 'success.light', boxShadow: 1 }}>
+              <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+                <Typography 
+                  variant="h6" 
+                  sx={{ 
+                    mb: 2,
+                    fontSize: { xs: '1.1rem', sm: '1.25rem' },
+                    fontWeight: 600
+                  }}
+                >
+                  🎉 ยินดีด้วย! คุณเรียนรู้ File-based Routing แล้ว
                 </Typography>
-              </Box>
-
-              <Alert severity="success" sx={{ mb: 2 }}>
-                <Typography variant="body2">
-                  ✅ หน้า /admin จะใช้ layout พิเศษสำหรับ dashboard
+                
+                <Typography 
+                  variant="body1" 
+                  sx={{ 
+                    mb: 2,
+                    fontSize: { xs: '0.9rem', sm: '1rem' },
+                    lineHeight: 1.5
+                  }}
+                >
+                  ตอนนี้คุณรู้วิธีสร้าง routes แบบต่างๆ แล้ว! ลองไปทดลองสร้าง routes ใหม่ๆ ดู
                 </Typography>
-              </Alert>
+                
+                <Button 
+                  onClick={handleReset} 
+                  size="small"
+                  sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
+                >
+                  เริ่มใหม่
+                </Button>
+              </CardContent>
+            </Card>
+          )}
+        </CardContent>
+      </Card>
 
-              <Button variant="contained" onClick={handleNext} sx={{ mt: 1, mr: 1 }}>
-                เสร็จสิ้น
-              </Button>
-              <Button onClick={handleBack} sx={{ mt: 1, mr: 1 }}>
-                ย้อนกลับ
-              </Button>
-            </StepContent>
-          </Step>
-        </Stepper>
-
-        {activeStep === 3 && (
-          <Paper sx={{ p: 3, mt: 3, bgcolor: 'success.light' }}>
-            <Typography variant="h6" sx={{ mb: 2 }}>
-              🎉 ยินดีด้วย! คุณเรียนรู้ File-based Routing แล้ว
-            </Typography>
-            <Typography variant="body1" sx={{ mb: 2 }}>
-              ตอนนี้คุณสามารถสร้าง routes แบบต่างๆ ได้แล้ว และเข้าใจโครงสร้างของ App Router
-            </Typography>
-            <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
-              ลองใหม่
-            </Button>
-          </Paper>
-        )}
-      </Paper>
-
-      {/* Best Practices */}
-      <Paper sx={{ p: 4, mb: 4, bgcolor: 'warning.light' }}>
-        <Typography variant="h5" sx={{ mb: 2, color: 'warning.dark' }}>
-          💡 Best Practices
-        </Typography>
-        <List>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="ใช้ Route Groups เพื่อจัดระเบียบโค้ด"
-              secondary="แยกกลุ่ม routes ตามหน้าที่ เช่น (marketing), (dashboard), (auth)"
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="ตั้งชื่อโฟลเดอร์ให้สื่อความหมาย"
-              secondary="ใช้ชื่อที่อธิบายหน้าที่ชัดเจน เช่น products, user-profile"
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="ใช้ TypeScript สำหรับ props"
-              secondary="กำหนด type ให้ params และ searchParams เพื่อ type safety"
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="สร้าง error.tsx และ loading.tsx"
-              secondary="เพื่อให้ UX ดีขึ้นเมื่อเกิดข้อผิดพลาดหรือกำลังโหลด"
-            />
-          </ListItem>
-        </List>
-      </Paper>
-
-      {/* Next Steps */}
-      <Paper sx={{ p: 4, bgcolor: 'success.light', color: 'success.dark' }}>
-        <Typography variant="h5" sx={{ mb: 2 }}>
-          🎯 ยินดีด้วย! คุณเรียนจบบทที่ 2 แล้ว
-        </Typography>
-        <Typography variant="body1" sx={{ mb: 3 }}>
-          ตอนนี้คุณเข้าใจ File-based Routing แล้ว! 
-          พร้อมสำหรับการเรียนรู้เรื่อง Server Components vs Client Components ในบทถัดไป
-        </Typography>
-        
-        <Alert severity="info" sx={{ mb: 3 }}>
-          <Typography variant="body2">
-            💡 <strong>บทถัดไป:</strong> เรียนรู้ Server Components vs Client Components ซึ่งเป็นฟีเจอร์ใหม่ที่สำคัญของ Next.js 13+
+      {/* Summary */}
+      <Card sx={{ 
+        mb: { xs: 3, sm: 4 }, 
+        bgcolor: 'success.light', 
+        color: 'success.dark',
+        boxShadow: 1
+      }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+          <Typography 
+            variant="h5" 
+            sx={{ 
+              mb: 2,
+              fontSize: { xs: '1.3rem', sm: '1.5rem' },
+              fontWeight: 600
+            }}
+          >
+            🎯 สรุปบทเรียน
           </Typography>
-        </Alert>
-      </Paper>
+          
+          <Typography 
+            variant="body1" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '0.9rem', sm: '1rem' },
+              lineHeight: 1.5
+            }}
+          >
+            ในบทนี้คุณได้เรียนรู้ File-based Routing ซึ่งเป็นหัวใจสำคัญของ Next.js 
+            ที่ทำให้การจัดการ routes ง่ายและมีระเบียบ
+          </Typography>
+          
+          <Alert 
+            severity="info" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '0.8rem', sm: '0.85rem' }
+            }}
+          >
+            💡 <strong>บทถัดไป:</strong> เรียนรู้เรื่อง Server Components และ Client Components 
+            ซึ่งเป็นฟีเจอร์สำคัญของ Next.js 13+
+          </Alert>
+        </CardContent>
+      </Card>
 
       {/* Navigation */}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 6 }}>
+      <Box sx={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center',
+        flexDirection: { xs: 'column', sm: 'row' },
+        gap: { xs: 2, sm: 0 }
+      }}>
         <Button
           startIcon={<ArrowBack />}
           component={Link}
           href="/nextjs-basics/lesson-1"
           variant="outlined"
+          size="small"
+          sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
         >
-          บทที่ 1: เริ่มต้นกับ Next.js
+          บทที่ 1
         </Button>
         
         <Chip 
-          label="2 / 16"
+          label="2 / 18"
           color="primary"
           variant="outlined"
+          size="small"
         />
-        
+
         <Button
           endIcon={<ArrowForward />}
           component={Link}
           href="/nextjs-basics/lesson-3"
           variant="contained"
-          color="primary"
+          size="small"
+          sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
         >
-          บทที่ 3: Server vs Client Components
+          บทถัดไป
         </Button>
       </Box>
-    </Container>
+    </Box>
   );
 } 

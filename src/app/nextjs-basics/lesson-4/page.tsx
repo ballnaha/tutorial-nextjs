@@ -1,14 +1,9 @@
 'use client';
+import React from 'react';
 import {
-  Container,
-  Typography,
   Box,
-  Paper,
+  Typography,
   Alert,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   Accordion,
   AccordionSummary,
   AccordionDetails,
@@ -28,7 +23,11 @@ import {
   TableRow,
   Tabs,
   Tab,
-  Divider,
+  Stack,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
 } from '@mui/material';
 import {
   CheckCircle,
@@ -68,7 +67,7 @@ function CustomTabPanel(props: TabPanelProps) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      {value === index && <Box sx={{ p: { xs: 2, sm: 3 } }}>{children}</Box>}
     </div>
   );
 }
@@ -166,178 +165,317 @@ export default function Lesson4Page() {
   };
 
   return (
-    <Container maxWidth="lg">
-      {/* Header */}
-      <Box sx={{ py: 4 }}>
-        <Typography variant="h1" sx={{ mb: 2 }}>
+    <Box sx={{ 
+      minHeight: '100vh',
+      px: { xs: 2, sm: 3, md: 4 },
+      py: { xs: 2, sm: 3 },
+      maxWidth: '100vw',
+      overflow: 'hidden'
+    }}>
+      {/* Header Section */}
+      <Box sx={{ mb: { xs: 3, sm: 4 } }}>
+        <Typography 
+          variant="h2" 
+          component="h1"
+          sx={{ 
+            fontSize: { xs: '1.8rem', sm: '2.5rem', md: '3rem' },
+            fontWeight: 600,
+            mb: 2,
+            lineHeight: 1.2
+          }}
+        >
           🔗 บทที่ 4: Link และ Navigation
         </Typography>
-        <Typography variant="h5" color="text.secondary" sx={{ mb: 4 }}>
-          เรียนรู้การนำทางระหว่างหน้าด้วย Next.js Link component และ navigation hooks
+        
+        <Typography 
+          variant="h6" 
+          sx={{ 
+            color: 'text.secondary', 
+            mb: 3,
+            fontSize: { xs: '1rem', sm: '1.1rem' },
+            lineHeight: 1.5
+          }}
+        >
+          เรียนรู้การนำทางระหว่างหน้าด้วย Next.js Link component และ navigation hooks ใน Next.js 15
         </Typography>
 
-        <Box sx={{ display: 'flex', gap: 2, mb: 4 }}>
-          <Chip label="15 นาที" color="primary" />
-          <Chip label="เริ่มต้น" color="secondary" />
-          <Chip label="จำเป็น" color="warning" />
-        </Box>
+        <Stack 
+          direction="row" 
+          spacing={1} 
+          sx={{ 
+            flexWrap: 'wrap', 
+            gap: 1,
+            '& .MuiChip-root': {
+              fontSize: { xs: '0.75rem', sm: '0.8rem' }
+            }
+          }}
+        >
+          <Chip label="20 นาที" color="primary" size="small" />
+          <Chip label="เริ่มต้น" color="secondary" size="small" />
+          <Chip label="จำเป็น" color="warning" size="small" />
+        </Stack>
       </Box>
 
       {/* Learning Objectives */}
-      <Paper sx={{ p: 3, mb: 4, bgcolor: 'primary.light', color: 'primary.contrastText' }}>
-        <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-          <Lightbulb /> วัตถุประสงค์การเรียนรู้
-        </Typography>
-        <List dense>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
-              <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="เข้าใจการทำงานของ Next.js Link component" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
-              <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="สามารถใช้ useRouter และ usePathname hooks ได้" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
-              <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="เข้าใจ Programmatic Navigation" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
-              <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="สามารถสร้าง active states สำหรับ navigation ได้" />
-          </ListItem>
-        </List>
-      </Paper>
+      <Card sx={{ 
+        mb: { xs: 3, sm: 4 }, 
+        bgcolor: 'primary.light', 
+        color: 'primary.contrastText',
+        border: 'none',
+        boxShadow: 1
+      }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
+            <Lightbulb sx={{ fontSize: { xs: 20, sm: 24 } }} />
+            <Typography 
+              variant="h6" 
+              sx={{ 
+                fontSize: { xs: '1.1rem', sm: '1.25rem' },
+                fontWeight: 600
+              }}
+            >
+              วัตถุประสงค์การเรียนรู้
+            </Typography>
+          </Box>
+          
+          <Stack spacing={1}>
+            {[
+              'เข้าใจการทำงานของ Next.js Link component ใน Next.js 15',
+              'รู้จักความแตกต่างระหว่าง Link และ <a> tag ปกติ',
+              'สามารถใช้ navigation hooks สำหรับจัดการ routing',
+              'เข้าใจ prefetching และ fresh data behavior ใน Next.js 15'
+            ].map((objective, index) => (
+              <Box key={index} sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+                <CheckCircle sx={{ 
+                  fontSize: { xs: 16, sm: 20 }, 
+                  mt: 0.5,
+                  flexShrink: 0
+                }} />
+                <Typography 
+                  variant="body2" 
+                  sx={{ 
+                    fontSize: { xs: '0.85rem', sm: '0.9rem' },
+                    lineHeight: 1.4
+                  }}
+                >
+                  {objective}
+                </Typography>
+              </Box>
+            ))}
+          </Stack>
+        </CardContent>
+      </Card>
 
       {/* Introduction */}
-      <Paper sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
-          🤔 Navigation ใน Next.js คืออะไร?
-        </Typography>
-        
-        <Typography variant="body1" sx={{ mb: 3, lineHeight: 1.7 }}>
-          <strong>Navigation</strong> ใน Next.js หมายถึงการเปลี่ยนหน้าเว็บไปมาระหว่าง routes ต่างๆ 
-          โดย Next.js มี built-in components และ hooks ที่ทำให้การนำทางเร็วและ efficient มากขึ้น
-        </Typography>
-
-        <Alert severity="info" sx={{ mb: 3 }}>
-          <Typography variant="body2">
-            💡 <strong>ข้อดี:</strong> Next.js ใช้ client-side navigation ทำให้เปลี่ยนหน้าเร็ว 
-            และมี features เช่น prefetching ที่ช่วยปรับปรุง performance
+      <Card sx={{ mb: { xs: 3, sm: 4 }, boxShadow: 1 }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+          <Typography 
+            variant="h4" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '1.5rem', sm: '2rem' },
+              fontWeight: 600
+            }}
+          >
+            🤔 Navigation ใน Next.js คืออะไร?
           </Typography>
-        </Alert>
+          
+          <Typography 
+            variant="body1" 
+            sx={{ 
+              mb: 3, 
+              lineHeight: 1.7,
+              fontSize: { xs: '0.95rem', sm: '1rem' }
+            }}
+          >
+            <strong>Navigation ใน Next.js</strong> หมายถึงการเปลี่ยนหน้าระหว่าง routes ต่างๆ โดยไม่ต้องโหลดหน้าเว็บใหม่ทั้งหมด 
+            ทำให้การใช้งานเร็วและลื่นไหลมากขึ้น พร้อมกับ fresh data ใน Next.js 15
+          </Typography>
 
-        {/* Comparison */}
-        <Typography variant="h5" sx={{ mb: 3 }}>
-          ⚡ เปรียบเทียบ Traditional vs Next.js Navigation
-        </Typography>
+          <Alert severity="info" sx={{ mb: 3, fontSize: { xs: '0.85rem', sm: '0.9rem' } }}>
+            💡 <strong>สำคัญ:</strong> ใน Next.js 15 navigation จะได้ fresh data โดย default 
+            แต่ยังคงได้ประโยชน์จาก client-side navigation และ prefetching
+          </Alert>
 
-        <TableContainer component={Paper} sx={{ mb: 4 }}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell><strong>คุณสมบัติ</strong></TableCell>
-                <TableCell><strong>Traditional HTML</strong></TableCell>
-                <TableCell><strong>Next.js</strong></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {navigationComparison.map((item, index) => (
-                <TableRow key={index}>
-                  <TableCell>{item.feature}</TableCell>
-                  <TableCell>
-                    <Chip 
-                      label={item.traditional} 
-                      color={item.tradColor as any}
-                      size="small" 
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <Chip 
-                      label={item.nextjs} 
-                      color={item.nextColor as any}
-                      size="small" 
-                    />
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Paper>
+          {/* Comparison */}
+          <Typography 
+            variant="h5" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '1.3rem', sm: '1.5rem' },
+              fontWeight: 600
+            }}
+          >
+            ⚡ เปรียบเทียบ Traditional vs Next.js Navigation
+          </Typography>
+
+          <Card sx={{ boxShadow: 1 }}>
+            <TableContainer>
+              <Table size="small">
+                <TableHead>
+                  <TableRow>
+                    <TableCell sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
+                      <strong>คุณสมบัติ</strong>
+                    </TableCell>
+                    <TableCell sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
+                      <strong>Traditional HTML</strong>
+                    </TableCell>
+                    <TableCell sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
+                      <strong>Next.js</strong>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {navigationComparison.map((item, index) => (
+                    <TableRow key={index}>
+                      <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.85rem' } }}>
+                        {item.feature}
+                      </TableCell>
+                      <TableCell>
+                        <Chip 
+                          label={item.traditional} 
+                          color={item.tradColor as any}
+                          size="small" 
+                          sx={{ fontSize: { xs: '0.7rem', sm: '0.75rem' } }}
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <Chip 
+                          label={item.nextjs} 
+                          color={item.nextColor as any}
+                          size="small" 
+                          sx={{ fontSize: { xs: '0.7rem', sm: '0.75rem' } }}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Card>
+        </CardContent>
+      </Card>
 
       {/* Link Component Features */}
-      <Paper sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
-          🌟 ฟีเจอร์ของ Next.js Link
-        </Typography>
+      <Card sx={{ mb: { xs: 3, sm: 4 }, boxShadow: 1 }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+          <Typography 
+            variant="h4" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '1.5rem', sm: '2rem' },
+              fontWeight: 600
+            }}
+          >
+            🌟 ฟีเจอร์ของ Next.js Link
+          </Typography>
 
-        <Box sx={{ 
-          display: 'flex', 
-          flexDirection: { xs: 'column', sm: 'row' }, 
-          gap: 2,
-          flexWrap: 'wrap',
-          mb: 4
-        }}>
-          {linkFeatures.map((feature, index) => (
-            <Box key={index} sx={{ flex: 1, minWidth: '250px' }}>
-              <Card sx={{ height: '100%' }}>
-                <CardContent>
+          <Stack spacing={2} sx={{ mb: 4 }}>
+            {linkFeatures.map((feature, index) => (
+              <Card key={index} sx={{ boxShadow: 1 }}>
+                <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
                     <Box sx={{ color: 'primary.main' }}>
-                      {feature.icon}
+                      {React.cloneElement(feature.icon, { 
+                        sx: { fontSize: { xs: 20, sm: 24 } }
+                      })}
                     </Box>
-                    <Typography variant="h6">
+                    <Typography 
+                      variant="h6"
+                      sx={{ fontSize: { xs: '1rem', sm: '1.1rem' } }}
+                    >
                       {feature.title}
                     </Typography>
                   </Box>
-                  <Typography variant="body2" sx={{ mb: 2 }}>
+                  <Typography 
+                    variant="body2" 
+                    sx={{ 
+                      mb: 2,
+                      fontSize: { xs: '0.85rem', sm: '0.9rem' },
+                      lineHeight: 1.4
+                    }}
+                  >
                     {feature.description}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography 
+                    variant="body2" 
+                    color="text.secondary"
+                    sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}
+                  >
                     <strong>ตัวอย่าง:</strong> {feature.example}
                   </Typography>
                 </CardContent>
               </Card>
-            </Box>
-          ))}
-        </Box>
+            ))}
+          </Stack>
 
-        <Alert severity="success" sx={{ mb: 3 }}>
-          <Typography variant="body2">
+          <Alert severity="success" sx={{ mb: 3, fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>
             ✅ <strong>Performance Tip:</strong> Next.js จะ prefetch routes โดยอัตโนมัติ 
             เมื่อ Link component ปรากฏใน viewport (มองเห็นได้บนหน้าจอ)
-          </Typography>
-        </Alert>
-      </Paper>
+          </Alert>
+        </CardContent>
+      </Card>
 
       {/* Basic Link Usage */}
-      <Paper sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
-          📖 การใช้ Link Component
-        </Typography>
+      <Card sx={{ mb: { xs: 3, sm: 4 }, boxShadow: 1 }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+          <Typography 
+            variant="h4" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '1.5rem', sm: '2rem' },
+              fontWeight: 600
+            }}
+          >
+            📖 การใช้ Link Component
+          </Typography>
 
-        <Accordion sx={{ mb: 2 }}>
-          <AccordionSummary expandIcon={<ExpandMore />}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <LinkIcon color="primary" />
-              <Typography variant="h6">การใช้งานพื้นฐาน</Typography>
-            </Box>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography variant="body1" sx={{ mb: 2 }}>
-              ตัวอย่างการใช้ Link component แบบง่ายๆ
-            </Typography>
-            
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-              <Typography variant="body2" component="pre">
+          <Stack spacing={1.5}>
+            <Accordion sx={{ boxShadow: 1 }}>
+              <AccordionSummary 
+                expandIcon={<ExpandMore />}
+                sx={{ 
+                  '& .MuiAccordionSummary-content': {
+                    margin: { xs: '8px 0', sm: '12px 0' }
+                  }
+                }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                  <LinkIcon 
+                    color="primary" 
+                    sx={{ fontSize: { xs: 18, sm: 20 } }}
+                  />
+                  <Typography 
+                    variant="h6"
+                    sx={{ fontSize: { xs: '1rem', sm: '1.1rem' } }}
+                  >
+                    การใช้งานพื้นฐาน
+                  </Typography>
+                </Box>
+              </AccordionSummary>
+              <AccordionDetails sx={{ pt: 0 }}>
+                <Typography 
+                  variant="body1" 
+                  sx={{ 
+                    mb: 2,
+                    fontSize: { xs: '0.9rem', sm: '1rem' }
+                  }}
+                >
+                  ตัวอย่างการใช้ Link component แบบง่ายๆ
+                </Typography>
+                
+                <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
+                  <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
+                    <Typography 
+                      component="pre" 
+                      sx={{ 
+                        fontFamily: 'monospace',
+                        fontSize: { xs: '0.7rem', sm: '0.8rem' },
+                        lineHeight: 1.4,
+                        margin: 0,
+                        overflow: 'auto'
+                      }}
+                    >
 {`// app/components/Navigation.tsx
 import Link from 'next/link';
 
@@ -361,31 +499,61 @@ export default function Navigation() {
     </nav>
   );
 }`}
-              </Typography>
-            </Box>
+                    </Typography>
+                  </CardContent>
+                </Card>
 
-            <Alert severity="info">
-              <Typography variant="body2">
-                💡 Link component จะสร้าง &lt;a&gt; tag โดยอัตโนมัติ และจัดการ client-side navigation
-              </Typography>
-            </Alert>
-          </AccordionDetails>
-        </Accordion>
+                <Alert severity="info" sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>
+                  💡 Link component จะสร้าง &lt;a&gt; tag โดยอัตโนมัติ และจัดการ client-side navigation
+                </Alert>
+              </AccordionDetails>
+            </Accordion>
 
-        <Accordion sx={{ mb: 2 }}>
-          <AccordionSummary expandIcon={<ExpandMore />}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <ArrowForward color="success" />
-              <Typography variant="h6">Dynamic Routes</Typography>
-            </Box>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography variant="body1" sx={{ mb: 2 }}>
-              การใช้ Link กับ dynamic routes และการส่งพารามิเตอร์
-            </Typography>
-            
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-              <Typography variant="body2" component="pre">
+            <Accordion sx={{ boxShadow: 1 }}>
+              <AccordionSummary 
+                expandIcon={<ExpandMore />}
+                sx={{ 
+                  '& .MuiAccordionSummary-content': {
+                    margin: { xs: '8px 0', sm: '12px 0' }
+                  }
+                }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                  <ArrowForward 
+                    color="success" 
+                    sx={{ fontSize: { xs: 18, sm: 20 } }}
+                  />
+                  <Typography 
+                    variant="h6"
+                    sx={{ fontSize: { xs: '1rem', sm: '1.1rem' } }}
+                  >
+                    Dynamic Routes
+                  </Typography>
+                </Box>
+              </AccordionSummary>
+              <AccordionDetails sx={{ pt: 0 }}>
+                <Typography 
+                  variant="body1" 
+                  sx={{ 
+                    mb: 2,
+                    fontSize: { xs: '0.9rem', sm: '1rem' }
+                  }}
+                >
+                  การใช้ Link กับ dynamic routes และการส่งพารามิเตอร์
+                </Typography>
+                
+                <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
+                  <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
+                    <Typography 
+                      component="pre" 
+                      sx={{ 
+                        fontFamily: 'monospace',
+                        fontSize: { xs: '0.7rem', sm: '0.8rem' },
+                        lineHeight: 1.4,
+                        margin: 0,
+                        overflow: 'auto'
+                      }}
+                    >
 {`// app/components/ProductList.tsx
 import Link from 'next/link';
 
@@ -408,95 +576,26 @@ export default function ProductList({ products }: { products: Product[] }) {
           <Link href={\`/products/\${product.id}\`}>
             ดูรายละเอียด
           </Link>
-          
-          {/* ใช้ object format */}
-          <Link 
-            href={{
-              pathname: '/products/[id]',
-              query: { id: product.id }
-            }}
-          >
-            ดูรายละเอียด (แบบ object)
-          </Link>
         </div>
       ))}
     </div>
   );
 }`}
-              </Typography>
-            </Box>
+                    </Typography>
+                  </CardContent>
+                </Card>
 
-            <Alert severity="success">
-              <Typography variant="body2">
-                ✅ สามารถใช้ template literal หรือ object format ก็ได้
-              </Typography>
-            </Alert>
-          </AccordionDetails>
-        </Accordion>
-
-        <Accordion sx={{ mb: 2 }}>
-          <AccordionSummary expandIcon={<ExpandMore />}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <RouteOutlined color="warning" />
-              <Typography variant="h6">Link Properties</Typography>
-            </Box>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography variant="body1" sx={{ mb: 2 }}>
-              Properties ต่างๆ ที่สามารถใช้กับ Link component
-            </Typography>
-            
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-              <Typography variant="body2" component="pre">
-{`import Link from 'next/link';
-
-export default function AdvancedLinks() {
-  return (
-    <div>
-      {/* ปิด prefetching */}
-      <Link href="/heavy-page" prefetch={false}>
-        หน้าที่ไม่ต้อง prefetch
-      </Link>
-
-      {/* เปิดหน้าใหม่ */}
-      <Link href="/external" target="_blank" rel="noopener noreferrer">
-        เปิดหน้าใหม่
-      </Link>
-
-      {/* Replace แทน push */}
-      <Link href="/login" replace>
-        Login (replace history)
-      </Link>
-
-      {/* Scroll to top */}
-      <Link href="/products" scroll={false}>
-        ไปหน้าสินค้า (ไม่ scroll ขึ้นบน)
-      </Link>
-
-      {/* Custom className */}
-      <Link 
-        href="/about" 
-        className="text-blue-500 hover:text-blue-700"
-      >
-        เกี่ยวกับเรา
-      </Link>
-    </div>
-  );
-}`}
-              </Typography>
-            </Box>
-
-            <Alert severity="warning">
-              <Typography variant="body2">
-                ⚠️ prefetch={false} ใช้เมื่อไม่ต้องการให้ prefetch (เช่น หน้าที่มีข้อมูลเยอะ)
-              </Typography>
-            </Alert>
-          </AccordionDetails>
-        </Accordion>
-      </Paper>
+                <Alert severity="success" sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>
+                  ✅ สามารถใช้ template literal สำหรับ dynamic routes ได้ง่าย
+                </Alert>
+              </AccordionDetails>
+            </Accordion>
+          </Stack>
+        </CardContent>
+      </Card>
 
       {/* useRouter Hook */}
-      <Paper sx={{ p: 4, mb: 4 }}>
+      <Card sx={{ p: 4, mb: 4 }}>
         <Typography variant="h4" sx={{ mb: 3 }}>
           🔧 useRouter Hook
         </Typography>
@@ -612,10 +711,10 @@ export default function LoginForm() {
             </Box>
           </AccordionDetails>
         </Accordion>
-      </Paper>
+      </Card>
 
       {/* usePathname Hook */}
-      <Paper sx={{ p: 4, mb: 4 }}>
+      <Card sx={{ p: 4, mb: 4 }}>
         <Typography variant="h4" sx={{ mb: 3 }}>
           📍 usePathname Hook
         </Typography>
@@ -754,314 +853,380 @@ export default function AdvancedNavigation() {
             </Box>
           </AccordionDetails>
         </Accordion>
-      </Paper>
+      </Card>
 
       {/* Hands-on Practice */}
-      <Paper sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
-          ✋ ฝึกปฏิบัติ: สร้าง Navigation System
-        </Typography>
-        
-        <Typography variant="body1" sx={{ mb: 3 }}>
-          ลองสร้าง navigation system ที่สมบูรณ์ตามขั้นตอนนี้
-        </Typography>
-
-        <Stepper activeStep={activeStep} orientation="vertical">
-          <Step>
-            <StepLabel>
-              <Typography variant="h6">สร้าง Navigation Component</Typography>
-            </StepLabel>
-            <StepContent>
-              <Typography variant="body1" sx={{ mb: 2 }}>
-                สร้าง navigation bar ที่มี active states
-              </Typography>
-              
-              <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-                <Typography variant="body2">
-                  $ mkdir -p app/components/navigation<br/>
-                  $ touch app/components/navigation/Navbar.tsx
-                </Typography>
-              </Box>
-
-              <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-                <Typography variant="body2" component="pre">
-{`// app/components/navigation/Navbar.tsx
-'use client';
-
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Box, AppBar, Toolbar, Button } from '@mui/material';
-
-const navItems = [
-  { href: '/', label: 'หน้าแรก' },
-  { href: '/about', label: 'เกี่ยวกับเรา' },
-  { href: '/products', label: 'สินค้า' },
-  { href: '/blog', label: 'บล็อก' },
-  { href: '/contact', label: 'ติดต่อเรา' }
-];
-
-export default function Navbar() {
-  const pathname = usePathname();
-
-  return (
-    <AppBar position="static">
-      <Toolbar>
-        <Box sx={{ display: 'flex', gap: 2 }}>
-          {navItems.map((item) => {
-            const isActive = pathname === item.href || 
-              (item.href !== '/' && pathname.startsWith(item.href));
-            
-            return (
-              <Button
-                key={item.href}
-                component={Link}
-                href={item.href}
-                sx={{
-                  color: 'white',
-                  backgroundColor: isActive ? 'rgba(255,255,255,0.2)' : 'transparent',
-                  '&:hover': {
-                    backgroundColor: 'rgba(255,255,255,0.1)'
-                  }
-                }}
-              >
-                {item.label}
-              </Button>
-            );
-          })}
-        </Box>
-      </Toolbar>
-    </AppBar>
-  );
-}`}
-                </Typography>
-              </Box>
-
-              <Alert severity="success" sx={{ mb: 2 }}>
-                <Typography variant="body2">
-                  ✅ นำ component นี้ไปใส่ใน layout.tsx เพื่อแสดงทุกหน้า
-                </Typography>
-              </Alert>
-
-              <Button variant="contained" onClick={handleNext} sx={{ mt: 1, mr: 1 }}>
-                ถัดไป
-              </Button>
-            </StepContent>
-          </Step>
-
-          <Step>
-            <StepLabel>
-              <Typography variant="h6">สร้าง Breadcrumbs Component</Typography>
-            </StepLabel>
-            <StepContent>
-              <Typography variant="body1" sx={{ mb: 2 }}>
-                สร้าง breadcrumbs ที่อัพเดตตาม current path
-              </Typography>
-              
-              <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-                <Typography variant="body2">
-                  $ touch app/components/navigation/Breadcrumbs.tsx
-                </Typography>
-              </Box>
-
-              <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-                <Typography variant="body2" component="pre">
-{`// app/components/navigation/Breadcrumbs.tsx
-'use client';
-
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Breadcrumbs as MUIBreadcrumbs, Typography } from '@mui/material';
-import { Home } from '@mui/icons-material';
-
-const pathNames: Record<string, string> = {
-  '': 'หน้าแรก',
-  'about': 'เกี่ยวกับเรา',
-  'products': 'สินค้า',
-  'blog': 'บล็อก',
-  'contact': 'ติดต่อเรา'
-};
-
-export default function Breadcrumbs() {
-  const pathname = usePathname();
-  const segments = pathname.split('/').filter(Boolean);
-
-  if (pathname === '/') return null;
-
-  return (
-    <MUIBreadcrumbs sx={{ py: 2 }}>
-      <Link href="/" style={{ display: 'flex', alignItems: 'center' }}>
-        <Home sx={{ mr: 0.5 }} fontSize="inherit" />
-        หน้าแรก
-      </Link>
-      
-      {segments.map((segment, index) => {
-        const path = '/' + segments.slice(0, index + 1).join('/');
-        const isLast = index === segments.length - 1;
-        const displayName = pathNames[segment] || segment;
-
-        return isLast ? (
-          <Typography key={path} color="text.primary">
-            {displayName}
+      <Card sx={{ mb: { xs: 3, sm: 4 }, boxShadow: 1 }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+          <Typography 
+            variant="h4" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '1.5rem', sm: '2rem' },
+              fontWeight: 600
+            }}
+          >
+            ✋ ฝึกปฏิบัติ: สร้าง Navigation System
           </Typography>
-        ) : (
-          <Link key={path} href={path}>
-            {displayName}
-          </Link>
-        );
-      })}
-    </MUIBreadcrumbs>
+          
+          <Typography 
+            variant="body1" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '0.95rem', sm: '1rem' },
+              lineHeight: 1.6
+            }}
+          >
+            ลองทำตามขั้นตอนนี้เพื่อสร้าง navigation system ที่สมบูรณ์
+          </Typography>
+
+          <Stepper 
+            activeStep={activeStep} 
+            orientation="vertical"
+            sx={{
+              '& .MuiStepLabel-label': {
+                fontSize: { xs: '0.9rem', sm: '1rem' }
+              }
+            }}
+          >
+            <Step>
+              <StepLabel>
+                <Typography 
+                  variant="h6"
+                  sx={{ fontSize: { xs: '1rem', sm: '1.1rem' } }}
+                >
+                  สร้าง Basic Navigation
+                </Typography>
+              </StepLabel>
+              <StepContent>
+                <Typography 
+                  variant="body1" 
+                  sx={{ 
+                    mb: 2,
+                    fontSize: { xs: '0.9rem', sm: '1rem' },
+                    lineHeight: 1.5
+                  }}
+                >
+                  สร้าง navigation component พื้นฐาน:
+                </Typography>
+                
+                <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
+                  <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
+                    <Typography 
+                      component="pre"
+                      sx={{ 
+                        fontFamily: 'monospace',
+                        fontSize: { xs: '0.7rem', sm: '0.8rem' },
+                        lineHeight: 1.4,
+                        margin: 0,
+                        overflow: 'auto'
+                      }}
+                    >
+{`// app/components/Navigation.tsx
+'use client';
+import Link from 'next/link';
+
+export default function Navigation() {
+  return (
+    <nav style={{ padding: '1rem', borderBottom: '1px solid #eee' }}>
+      <ul style={{ display: 'flex', gap: '1rem', listStyle: 'none' }}>
+        <li><Link href="/">หน้าแรก</Link></li>
+        <li><Link href="/about">เกี่ยวกับ</Link></li>
+        <li><Link href="/products">สินค้า</Link></li>
+        <li><Link href="/contact">ติดต่อ</Link></li>
+      </ul>
+    </nav>
   );
 }`}
+                    </Typography>
+                  </CardContent>
+                </Card>
+
+                <Button 
+                  variant="contained" 
+                  onClick={handleNext} 
+                  size="small"
+                  sx={{ 
+                    mt: 1, 
+                    mr: 1,
+                    fontSize: { xs: '0.8rem', sm: '0.9rem' }
+                  }}
+                >
+                  ถัดไป
+                </Button>
+              </StepContent>
+            </Step>
+
+            <Step>
+              <StepLabel>
+                <Typography 
+                  variant="h6"
+                  sx={{ fontSize: { xs: '1rem', sm: '1.1rem' } }}
+                >
+                  เพิ่ม Active States
                 </Typography>
-              </Box>
-
-              <Alert severity="info" sx={{ mb: 2 }}>
-                <Typography variant="body2">
-                  💡 ใช้ pathNames object เพื่อแปลง URL segments เป็นชื่อที่อ่านง่าย
+              </StepLabel>
+              <StepContent>
+                <Typography 
+                  variant="body1" 
+                  sx={{ 
+                    mb: 2,
+                    fontSize: { xs: '0.9rem', sm: '1rem' },
+                    lineHeight: 1.5
+                  }}
+                >
+                  เพิ่ม active states เพื่อแสดงหน้าปัจจุบัน:
                 </Typography>
-              </Alert>
-
-              <Button variant="contained" onClick={handleNext} sx={{ mt: 1, mr: 1 }}>
-                ถัดไป
-              </Button>
-              <Button onClick={handleBack} sx={{ mt: 1, mr: 1 }}>
-                ย้อนกลับ
-              </Button>
-            </StepContent>
-          </Step>
-
-          <Step>
-            <StepLabel>
-              <Typography variant="h6">สร้าง Navigation Actions</Typography>
-            </StepLabel>
-            <StepContent>
-              <Typography variant="body1" sx={{ mb: 2 }}>
-                สร้าง component ที่ใช้ useRouter สำหรับ programmatic navigation
-              </Typography>
-              
-              <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-                <Typography variant="body2">
-                  $ touch app/components/navigation/NavigationActions.tsx
-                </Typography>
-              </Box>
-
-              <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-                <Typography variant="body2" component="pre">
-{`// app/components/navigation/NavigationActions.tsx
+                
+                <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
+                  <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
+                    <Typography 
+                      component="pre"
+                      sx={{ 
+                        fontFamily: 'monospace',
+                        fontSize: { xs: '0.7rem', sm: '0.8rem' },
+                        lineHeight: 1.4,
+                        margin: 0,
+                        overflow: 'auto'
+                      }}
+                    >
+{`// app/components/Navigation.tsx
 'use client';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
+export default function Navigation() {
+  const pathname = usePathname();
+
+  return (
+    <nav style={{ padding: '1rem', borderBottom: '1px solid #eee' }}>
+      <ul style={{ display: 'flex', gap: '1rem', listStyle: 'none' }}>
+        <li>
+          <Link 
+            href="/" 
+            style={{ 
+              color: pathname === '/' ? 'blue' : 'black',
+              fontWeight: pathname === '/' ? 'bold' : 'normal'
+            }}
+          >
+            หน้าแรก
+          </Link>
+        </li>
+        {/* เพิ่ม active state สำหรับลิงก์อื่นๆ */}
+      </ul>
+    </nav>
+  );
+}`}
+                    </Typography>
+                  </CardContent>
+                </Card>
+
+                <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
+                  <Button 
+                    variant="contained" 
+                    onClick={handleNext} 
+                    size="small"
+                    sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
+                  >
+                    ถัดไป
+                  </Button>
+                  <Button 
+                    onClick={handleBack} 
+                    size="small"
+                    sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
+                  >
+                    ย้อนกลับ
+                  </Button>
+                </Stack>
+              </StepContent>
+            </Step>
+
+            <Step>
+              <StepLabel>
+                <Typography 
+                  variant="h6"
+                  sx={{ fontSize: { xs: '1rem', sm: '1.1rem' } }}
+                >
+                  เพิ่ม Programmatic Navigation
+                </Typography>
+              </StepLabel>
+              <StepContent>
+                <Typography 
+                  variant="body1" 
+                  sx={{ 
+                    mb: 2,
+                    fontSize: { xs: '0.9rem', sm: '1rem' },
+                    lineHeight: 1.5
+                  }}
+                >
+                  เพิ่มปุ่มสำหรับ navigation แบบ programmatic:
+                </Typography>
+                
+                <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
+                  <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
+                    <Typography 
+                      component="pre"
+                      sx={{ 
+                        fontFamily: 'monospace',
+                        fontSize: { xs: '0.7rem', sm: '0.8rem' },
+                        lineHeight: 1.4,
+                        margin: 0,
+                        overflow: 'auto'
+                      }}
+                    >
+{`// app/components/NavigationButtons.tsx
+'use client';
 import { useRouter } from 'next/navigation';
-import { Button, ButtonGroup, Paper } from '@mui/material';
-import { 
-  ArrowBack, 
-  ArrowForward, 
-  Home, 
-  Refresh 
-} from '@mui/icons-material';
 
-export default function NavigationActions() {
+export default function NavigationButtons() {
   const router = useRouter();
 
   return (
-    <Paper sx={{ p: 2, m: 2 }}>
-      <ButtonGroup variant="outlined" aria-label="navigation actions">
-        <Button
-          startIcon={<ArrowBack />}
-          onClick={() => router.back()}
-        >
-          ย้อนกลับ
-        </Button>
-        
-        <Button
-          startIcon={<ArrowForward />}
-          onClick={() => router.forward()}
-        >
-          ถัดไป
-        </Button>
-        
-        <Button
-          startIcon={<Home />}
-          onClick={() => router.push('/')}
-        >
-          หน้าแรก
-        </Button>
-        
-        <Button
-          startIcon={<Refresh />}
-          onClick={() => router.refresh()}
-        >
-          รีเฟรช
-        </Button>
-      </ButtonGroup>
-      
-      {/* Quick Navigation */}
-      <ButtonGroup variant="contained" sx={{ ml: 2 }}>
-        <Button onClick={() => router.push('/products')}>
-          สินค้า
-        </Button>
-        <Button onClick={() => router.push('/about')}>
-          เกี่ยวกับเรา
-        </Button>
-        <Button onClick={() => router.push('/contact')}>
-          ติดต่อเรา
-        </Button>
-      </ButtonGroup>
-    </Paper>
+    <div style={{ padding: '1rem', display: 'flex', gap: '0.5rem' }}>
+      <button onClick={() => router.push('/')}>
+        หน้าแรก
+      </button>
+      <button onClick={() => router.push('/about')}>
+        เกี่ยวกับเรา
+      </button>
+      <button onClick={() => router.push('/contact')}>
+        ติดต่อเรา
+      </button>
+    </div>
   );
 }`}
-                </Typography>
-              </Box>
+                    </Typography>
+                  </CardContent>
+                </Card>
 
-              <Alert severity="success" sx={{ mb: 2 }}>
-                <Typography variant="body2">
+                <Alert severity="success" sx={{ mb: 2, fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>
                   ✅ ตอนนี้คุณมี navigation system ที่สมบูรณ์แล้ว!
+                </Alert>
+
+                <Button 
+                  variant="contained" 
+                  onClick={handleNext} 
+                  size="small"
+                  sx={{ 
+                    mt: 1, 
+                    mr: 1,
+                    fontSize: { xs: '0.8rem', sm: '0.9rem' }
+                  }}
+                >
+                  เสร็จสิ้น
+                </Button>
+                <Button 
+                  onClick={handleBack} 
+                  size="small"
+                  sx={{ 
+                    mt: 1, 
+                    mr: 1,
+                    fontSize: { xs: '0.8rem', sm: '0.9rem' }
+                  }}
+                >
+                  ย้อนกลับ
+                </Button>
+              </StepContent>
+            </Step>
+          </Stepper>
+
+          {activeStep === 3 && (
+            <Card sx={{ mt: 3, bgcolor: 'success.light', boxShadow: 1 }}>
+              <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+                <Typography 
+                  variant="h6" 
+                  sx={{ 
+                    mb: 2,
+                    fontSize: { xs: '1.1rem', sm: '1.25rem' },
+                    fontWeight: 600
+                  }}
+                >
+                  🎉 ยินดีด้วย! คุณสร้าง Navigation System แล้ว
                 </Typography>
-              </Alert>
-
-              <Button variant="contained" onClick={handleNext} sx={{ mt: 1, mr: 1 }}>
-                เสร็จสิ้น
-              </Button>
-              <Button onClick={handleBack} sx={{ mt: 1, mr: 1 }}>
-                ย้อนกลับ
-              </Button>
-            </StepContent>
-          </Step>
-        </Stepper>
-
-        {activeStep === 3 && (
-          <Paper sx={{ p: 3, mt: 3, bgcolor: 'success.light' }}>
-            <Typography variant="h6" sx={{ mb: 2 }}>
-              🎉 ยินดีด้วย! คุณสร้าง Navigation System แล้ว
-            </Typography>
-            <Typography variant="body1" sx={{ mb: 2 }}>
-              ตอนนี้คุณมี navigation ที่สมบูรณ์ รวมถึง active states, breadcrumbs และ programmatic navigation
-            </Typography>
-            <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
-              ลองใหม่
-            </Button>
-          </Paper>
-        )}
-      </Paper>
+                <Typography 
+                  variant="body1" 
+                  sx={{ 
+                    mb: 2,
+                    fontSize: { xs: '0.9rem', sm: '1rem' },
+                    lineHeight: 1.5
+                  }}
+                >
+                  ตอนนี้คุณมี navigation ที่สมบูรณ์ รวมถึง active states และ programmatic navigation
+                </Typography>
+                <Button 
+                  onClick={handleReset} 
+                  size="small"
+                  sx={{ 
+                    mt: 1, 
+                    mr: 1,
+                    fontSize: { xs: '0.8rem', sm: '0.9rem' }
+                  }}
+                >
+                  ลองใหม่
+                </Button>
+              </CardContent>
+            </Card>
+          )}
+        </CardContent>
+      </Card>
 
       {/* Performance Tips */}
-      <Paper sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
-          ⚡ Performance และ Advanced Tips
-        </Typography>
-
-        <Tabs value={tabValue} onChange={handleTabChange} sx={{ mb: 3 }}>
-          <Tab label="Prefetching" />
-          <Tab label="Loading States" />
-          <Tab label="Error Handling" />
-        </Tabs>
-
-        <CustomTabPanel value={tabValue} index={0}>
-          <Typography variant="h6" sx={{ mb: 2, color: 'success.main' }}>
-            🚀 Prefetching Strategies
+      <Card sx={{ mb: { xs: 3, sm: 4 }, boxShadow: 1 }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+          <Typography 
+            variant="h4" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '1.5rem', sm: '2rem' },
+              fontWeight: 600
+            }}
+          >
+            ⚡ Performance และ Advanced Tips
           </Typography>
-          
-          <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-            <Typography variant="body2" component="pre">
+
+          <Tabs 
+            value={tabValue} 
+            onChange={handleTabChange} 
+            sx={{ 
+              mb: 3,
+              '& .MuiTab-root': {
+                fontSize: { xs: '0.8rem', sm: '0.9rem' },
+                minWidth: { xs: 'auto', sm: 120 },
+                px: { xs: 1, sm: 2 }
+              }
+            }}
+            variant="scrollable"
+            scrollButtons="auto"
+          >
+            <Tab label="Prefetching" />
+            <Tab label="Loading States" />
+            <Tab label="Error Handling" />
+          </Tabs>
+
+          <CustomTabPanel value={tabValue} index={0}>
+            <Typography 
+              variant="h6" 
+              sx={{ 
+                mb: 2, 
+                color: 'success.main',
+                fontSize: { xs: '1.1rem', sm: '1.25rem' }
+              }}
+            >
+              🚀 Prefetching Strategies
+            </Typography>
+            
+            <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
+              <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
+                <Typography 
+                  component="pre"
+                  sx={{ 
+                    fontFamily: 'monospace',
+                    fontSize: { xs: '0.7rem', sm: '0.8rem' },
+                    lineHeight: 1.4,
+                    margin: 0,
+                    overflow: 'auto'
+                  }}
+                >
 {`// การควบคุม prefetching
 <Link href="/products" prefetch={false}>
   หน้าสินค้า (ไม่ prefetch)
@@ -1081,23 +1246,39 @@ export default function NavigationActions() {
     Dashboard
   </Link>
 )}`}
-            </Typography>
-          </Box>
+                </Typography>
+              </CardContent>
+            </Card>
 
-          <Alert severity="info">
-            <Typography variant="body2">
+            <Alert severity="info" sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>
               💡 <strong>การใช้งาน:</strong> ปิด prefetch สำหรับหน้าที่มีข้อมูลเยอะ หรือต้องการ authentication
-            </Typography>
-          </Alert>
-        </CustomTabPanel>
+            </Alert>
+          </CustomTabPanel>
 
-        <CustomTabPanel value={tabValue} index={1}>
-          <Typography variant="h6" sx={{ mb: 2, color: 'info.main' }}>
-            ⏳ Loading States
-          </Typography>
-          
-          <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-            <Typography variant="body2" component="pre">
+          <CustomTabPanel value={tabValue} index={1}>
+            <Typography 
+              variant="h6" 
+              sx={{ 
+                mb: 2, 
+                color: 'info.main',
+                fontSize: { xs: '1.1rem', sm: '1.25rem' }
+              }}
+            >
+              ⏳ Loading States
+            </Typography>
+            
+            <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
+              <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
+                <Typography 
+                  component="pre"
+                  sx={{ 
+                    fontFamily: 'monospace',
+                    fontSize: { xs: '0.7rem', sm: '0.8rem' },
+                    lineHeight: 1.4,
+                    margin: 0,
+                    overflow: 'auto'
+                  }}
+                >
 {`'use client';
 import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
@@ -1125,23 +1306,39 @@ export default function NavigationWithLoading() {
     </div>
   );
 }`}
-            </Typography>
-          </Box>
+                </Typography>
+              </CardContent>
+            </Card>
 
-          <Alert severity="warning">
-            <Typography variant="body2">
+            <Alert severity="warning" sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>
               ⚠️ ใช้ useTransition เพื่อจัดการ loading states ระหว่างการเปลี่ยนหน้า
-            </Typography>
-          </Alert>
-        </CustomTabPanel>
+            </Alert>
+          </CustomTabPanel>
 
-        <CustomTabPanel value={tabValue} index={2}>
-          <Typography variant="h6" sx={{ mb: 2, color: 'error.main' }}>
-            🛠️ Error Handling
-          </Typography>
-          
-          <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-            <Typography variant="body2" component="pre">
+          <CustomTabPanel value={tabValue} index={2}>
+            <Typography 
+              variant="h6" 
+              sx={{ 
+                mb: 2, 
+                color: 'error.main',
+                fontSize: { xs: '1.1rem', sm: '1.25rem' }
+              }}
+            >
+              🛠️ Error Handling
+            </Typography>
+            
+            <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
+              <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
+                <Typography 
+                  component="pre"
+                  sx={{ 
+                    fontFamily: 'monospace',
+                    fontSize: { xs: '0.7rem', sm: '0.8rem' },
+                    lineHeight: 1.4,
+                    margin: 0,
+                    overflow: 'auto'
+                  }}
+                >
 {`'use client';
 import { useRouter } from 'next/navigation';
 
@@ -1170,124 +1367,150 @@ export default function SafeNavigation() {
     </div>
   );
 }`}
-            </Typography>
-          </Box>
+                </Typography>
+              </CardContent>
+            </Card>
 
-          <Alert severity="error">
-            <Typography variant="body2">
+            <Alert severity="error" sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>
               ❌ เสมอต้อง validate URLs และจัดการ errors ที่อาจเกิดขึ้น
-            </Typography>
-          </Alert>
-        </CustomTabPanel>
-      </Paper>
+            </Alert>
+          </CustomTabPanel>
+        </CardContent>
+      </Card>
 
       {/* Best Practices */}
-      <Paper sx={{ p: 4, mb: 4, bgcolor: 'warning.light' }}>
-        <Typography variant="h5" sx={{ mb: 2, color: 'warning.dark' }}>
-          💡 Best Practices สำคัญ
-        </Typography>
-        <List>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="ใช้ Link component แทน <a> tag"
-              secondary="ให้ Next.js จัดการ client-side navigation และ prefetching"
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="ใช้ absolute paths สำหรับ internal links"
-              secondary="เริ่มต้นด้วย / เสมอ เช่น /products แทน products"
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="ระวังการใช้ prefetch={false}"
-              secondary="ใช้เฉพาะเมื่อจำเป็น เพราะจะลด performance"
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="ใช้ usePathname สำหรับ active states"
-              secondary="แทนการใช้ window.location ที่ไม่ optimal"
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="ใช้ router.replace() สำหรับ redirects"
-              secondary="เมื่อไม่ต้องการให้ user กลับไปหน้าเก่าได้"
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="จัดการ loading states อย่างเหมาะสม"
-              secondary="ใช้ useTransition หรือ loading.tsx สำหรับ UX ที่ดี"
-            />
-          </ListItem>
-        </List>
-      </Paper>
-
-      {/* Next Steps */}
-      <Paper sx={{ p: 4, bgcolor: 'success.light', color: 'success.dark' }}>
-        <Typography variant="h5" sx={{ mb: 2 }}>
-          🎯 ยินดีด้วย! คุณเรียนจบบทที่ 4 แล้ว
-        </Typography>
-        <Typography variant="body1" sx={{ mb: 3 }}>
-          ยอดเยี่ยม! ตอนนี้คุณเข้าใจการทำ Navigation ใน Next.js แล้ว 
-          พร้อมสำหรับการเรียนรู้เรื่อง Data Fetching และ API Routes ในบทถัดไป
-        </Typography>
-        
-        <Alert severity="info" sx={{ mb: 3 }}>
-          <Typography variant="body2">
-            💡 <strong>บทถัดไป:</strong> เรียนรู้ Data Fetching และ API Routes เพื่อจัดการข้อมูลในแอปพลิเคชัน
+      <Card sx={{ 
+        mb: { xs: 3, sm: 4 }, 
+        bgcolor: 'warning.light',
+        boxShadow: 1
+      }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+          <Typography 
+            variant="h5" 
+            sx={{ 
+              mb: 2, 
+              color: 'warning.dark',
+              fontSize: { xs: '1.3rem', sm: '1.5rem' },
+              fontWeight: 600
+            }}
+          >
+            💡 Best Practices สำคัญ
           </Typography>
-        </Alert>
-      </Paper>
+          
+          <Stack spacing={1.5}>
+            {[
+              'ใช้ Link component แทน <a> tag เพื่อให้ Next.js จัดการ client-side navigation',
+              'ใช้ absolute paths สำหรับ internal links (เริ่มต้นด้วย /)',
+              'ระวังการใช้ prefetch={false} เพราะจะลด performance',
+              'ใช้ usePathname สำหรับ active states แทน window.location',
+              'ใช้ router.replace() สำหรับ redirects ที่ไม่ต้องการ back navigation',
+              'จัดการ loading states ด้วย useTransition หรือ loading.tsx'
+            ].map((practice, index) => (
+              <Box key={index} sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+                <CheckCircle 
+                  color="success" 
+                  sx={{ 
+                    fontSize: { xs: 16, sm: 20 }, 
+                    mt: 0.5,
+                    flexShrink: 0
+                  }} 
+                />
+                <Typography 
+                  variant="body2" 
+                  sx={{ 
+                    fontSize: { xs: '0.85rem', sm: '0.9rem' },
+                    lineHeight: 1.4
+                  }}
+                >
+                  {practice}
+                </Typography>
+              </Box>
+            ))}
+          </Stack>
+        </CardContent>
+      </Card>
+
+      {/* Summary */}
+      <Card sx={{ 
+        mb: { xs: 3, sm: 4 }, 
+        bgcolor: 'success.light', 
+        color: 'success.dark',
+        boxShadow: 1
+      }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+          <Typography 
+            variant="h5" 
+            sx={{ 
+              mb: 2,
+              fontSize: { xs: '1.3rem', sm: '1.5rem' },
+              fontWeight: 600
+            }}
+          >
+            🎯 ยินดีด้วย! คุณเรียนจบบทที่ 4 แล้ว
+          </Typography>
+          
+          <Typography 
+            variant="body1" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '0.9rem', sm: '1rem' },
+              lineHeight: 1.5
+            }}
+          >
+            ตอนนี้คุณเข้าใจการใช้ Link component และ navigation hooks ใน Next.js 15 แล้ว! 
+            พร้อมสำหรับการเรียนรู้เรื่อง Layouts และ Templates ในบทถัดไป
+          </Typography>
+          
+          <Alert 
+            severity="info" 
+            sx={{ 
+              mb: 3,
+              fontSize: { xs: '0.8rem', sm: '0.85rem' }
+            }}
+          >
+            💡 <strong>บทถัดไป:</strong> เรียนรู้เรื่อง Layouts, Templates และ Nested Layouts 
+            ใน Next.js 15 สำหรับสร้าง UI structure ที่ยืดหยุ่น
+          </Alert>
+        </CardContent>
+      </Card>
 
       {/* Navigation */}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 6 }}>
+      <Box sx={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center',
+        flexDirection: { xs: 'column', sm: 'row' },
+        gap: { xs: 2, sm: 0 }
+      }}>
         <Button
           startIcon={<ArrowBack />}
           component={Link}
           href="/nextjs-basics/lesson-3"
           variant="outlined"
+          size="small"
+          sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
         >
-          บทที่ 3: Server vs Client Components
+          บทที่ 3
         </Button>
         
         <Chip 
-          label="4 / 16"
+          label="4 / 18"
           color="primary"
           variant="outlined"
+          size="small"
         />
-        
+
         <Button
           endIcon={<ArrowForward />}
           component={Link}
           href="/nextjs-basics/lesson-5"
           variant="contained"
-          color="primary"
+          size="small"
+          sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
         >
-          บทที่ 5: Data Fetching & API Routes
+          บทถัดไป
         </Button>
       </Box>
-    </Container>
+    </Box>
   );
 } 
