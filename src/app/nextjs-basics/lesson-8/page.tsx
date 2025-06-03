@@ -377,248 +377,227 @@ export default function Lesson8Page() {
   };
 
   return (
-    <Container maxWidth="lg">
+    <Box sx={{
+      minHeight: '100vh',
+      maxWidth: '100vw',
+      px: { xs: 2, sm: 3, md: 4 },
+      py: { xs: 2, sm: 3 },
+      overflow: 'hidden',
+    }}>
       {/* Header */}
-      <Box sx={{ py: 4 }}>
-        <Typography variant="h1" sx={{ mb: 2 }}>
+      <Box sx={{ mb: { xs: 3, sm: 4 } }}>
+        <Typography
+          variant="h2"
+          component="h1"
+          sx={{
+            fontSize: { xs: '1.8rem', sm: '2.5rem', md: '3rem' },
+            fontWeight: 600,
+            mb: 2,
+            lineHeight: 1.2,
+          }}
+        >
           🛡️ บทที่ 8: Zod Validation
         </Typography>
-        <Typography variant="h5" color="text.secondary" sx={{ mb: 4 }}>
-          เรียนรู้การใช้ Zod สำหรับ schema validation และ type safety ใน Next.js 15 
-          พร้อมตัวอย่างการใช้งานจริงที่ครอบคลุม
+        <Typography
+          variant="h6"
+          sx={{
+            color: 'text.secondary',
+            mb: 3,
+            fontSize: { xs: '1rem', sm: '1.1rem' },
+            lineHeight: 1.5,
+          }}
+        >
+          เรียนรู้การใช้ Zod สำหรับ schema validation และ type safety ใน Next.js 15 พร้อมตัวอย่างการใช้งานจริงที่ครอบคลุม
         </Typography>
-
-        <Box sx={{ display: 'flex', gap: 2, mb: 4 }}>
-          <Chip label="60 นาที" color="primary" />
-          <Chip label="ปานกลาง-ขั้นสูง" color="warning" />
-          <Chip label="สำคัญมาก" color="error" />
-          <Chip label="Type Safety" color="success" />
-          <Chip label="Production Ready" color="info" />
-        </Box>
+        <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', gap: 1, '& .MuiChip-root': { fontSize: { xs: '0.75rem', sm: '0.8rem' } } }}>
+          <Chip label="60 นาที" color="primary" size="small" />
+          <Chip label="ปานกลาง-ขั้นสูง" color="warning" size="small" />
+          <Chip label="สำคัญมาก" color="error" size="small" />
+          <Chip label="Type Safety" color="success" size="small" />
+          <Chip label="Production Ready" color="info" size="small" />
+        </Stack>
       </Box>
 
       {/* Learning Objectives */}
-      <Paper sx={{ p: 3, mb: 4, bgcolor: 'primary.light', color: 'primary.contrastText' }}>
-        <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-          <Lightbulb /> วัตถุประสงค์การเรียนรู้
-        </Typography>
-        <List dense>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
+      <Card sx={{ mb: { xs: 3, sm: 4 }, bgcolor: 'primary.light', color: 'primary.contrastText', border: 'none', boxShadow: 1 }}>
+        <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
+            <Lightbulb sx={{ fontSize: { xs: 20, sm: 24 } }} />
+            <Typography variant="h6" sx={{ fontSize: { xs: '1.1rem', sm: '1.25rem' }, fontWeight: 600 }}>
+              วัตถุประสงค์การเรียนรู้
+            </Typography>
+          </Box>
+          <Stack spacing={1}>
+            <Stack direction="row" spacing={1} alignItems="center">
               <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="เข้าใจหลักการและความสำคัญของ runtime validation" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
+              <Typography variant="body1" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>เข้าใจหลักการและความสำคัญของ runtime validation</Typography>
+            </Stack>
+            <Stack direction="row" spacing={1} alignItems="center">
               <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="สร้าง schemas สำหรับ validation ทุกประเภทข้อมูล" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
+              <Typography variant="body1" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>สร้าง schemas สำหรับ validation ทุกประเภทข้อมูล</Typography>
+            </Stack>
+            <Stack direction="row" spacing={1} alignItems="center">
               <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="ใช้ Zod กับ forms, API routes และ environment variables" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
+              <Typography variant="body1" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>ใช้ Zod กับ forms, API routes และ environment variables</Typography>
+            </Stack>
+            <Stack direction="row" spacing={1} alignItems="center">
               <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="จัดการ error handling และสร้าง custom validation" />
-          </ListItem>
-        </List>
-      </Paper>
+              <Typography variant="body1" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>จัดการ error handling และสร้าง custom validation</Typography>
+            </Stack>
+          </Stack>
+        </CardContent>
+      </Card>
 
       {/* What is Zod */}
-      <Paper sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
+      <Card sx={{ p: { xs: 2, sm: 3, md: 4 }, mb: { xs: 3, sm: 4 }, boxShadow: 1 }}>
+        <Typography variant="h4" sx={{ mb: 3, fontSize: { xs: '1.5rem', sm: '2rem' }, fontWeight: 600 }}>
           🤔 Zod คืออะไร และทำไมถึงสำคัญ?
         </Typography>
-        
-        <Typography variant="body1" sx={{ mb: 3, lineHeight: 1.8 }}>
-          <strong>Zod</strong> เป็น TypeScript-first schema validation library ที่ช่วยให้เราสามารถกำหนด schema 
-          และตรวจสอบข้อมูลได้อย่างปลอดภัยทั้งตอน compile time และ runtime พร้อมทั้งสร้าง TypeScript types อัตโนมัติ
+        <Typography variant="body1" sx={{ mb: 3, lineHeight: 1.8, fontSize: { xs: '0.95rem', sm: '1rem' } }}>
+          <strong>Zod</strong> เป็น TypeScript-first schema validation library ที่ช่วยให้เราสามารถกำหนด schema และตรวจสอบข้อมูลได้อย่างปลอดภัยทั้งตอน compile time และ runtime พร้อมทั้งสร้าง TypeScript types อัตโนมัติ
         </Typography>
-
-        <Alert severity="warning" sx={{ mb: 3 }}>
+        <Alert severity="warning" sx={{ mb: 3, fontSize: { xs: '0.85rem', sm: '0.9rem' } }}>
           <Typography variant="body2">
             <Warning sx={{ mr: 1, verticalAlign: 'middle' }} />
-            <strong>ปัญหาที่ Zod แก้ไข:</strong> TypeScript ตรวจสอบ types เฉพาะตอน compile time เท่านั้น 
-            แต่ข้อมูลจาก API, user input, หรือ external sources อาจไม่ตรงกับ types ที่เรากำหนด
+            <strong>ปัญหาที่ Zod แก้ไข:</strong> TypeScript ตรวจสอบ types เฉพาะตอน compile time เท่านั้น แต่ข้อมูลจาก API, user input, หรือ external sources อาจไม่ตรงกับ types ที่เรากำหนด
           </Typography>
         </Alert>
-
-        {/* Features Grid */}
-        <Typography variant="h6" sx={{ mb: 3 }}>
+        <Typography variant="h6" sx={{ mb: 3, fontWeight: 600 }}>
           🌟 ฟีเจอร์เด่นของ Zod:
         </Typography>
-        
-        <Box sx={{ 
-          display: 'grid', 
-          gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, 
-          gap: 2,
-          mb: 4
-        }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 2, mb: 4 }}>
           {zodFeatures.map((feature, index) => (
             <Card key={index} sx={{ height: '100%' }}>
               <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-                  <Box sx={{ color: `${feature.color}.main` }}>
-                    {feature.icon}
-                  </Box>
-                  <Typography variant="h6">
-                    {feature.title}
-                  </Typography>
+                  <Box sx={{ color: `${feature.color}.main` }}>{feature.icon}</Box>
+                  <Typography variant="h6" sx={{ fontWeight: 600, fontSize: { xs: '1rem', sm: '1.1rem' } }}>{feature.title}</Typography>
                 </Box>
-                <Typography variant="body2">
-                  {feature.description}
-                </Typography>
+                <Typography variant="body2" sx={{ fontSize: { xs: '0.85rem', sm: '0.9rem' } }}>{feature.description}</Typography>
               </CardContent>
             </Card>
           ))}
         </Box>
-
-        {/* Installation */}
-        <Typography variant="h6" sx={{ mb: 2 }}>
+        <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
           📦 การติดตั้ง Zod:
         </Typography>
-
-        <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 3 }}>
-          <Typography variant="body2">
-            $ npm install zod
-          </Typography>
+        <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 3, bgcolor: 'grey.50', fontSize: { xs: '0.85rem', sm: '0.9rem' } }}>
+          <Typography variant="body2">$ npm install zod</Typography>
         </Box>
-
-        <Alert severity="success">
+        <Alert severity="success" sx={{ fontSize: { xs: '0.85rem', sm: '0.9rem' } }}>
           <Typography variant="body2">
             ✅ <strong>Zero Dependencies:</strong> Zod ไม่มี dependencies อื่นๆ และมีขนาดเพียง 2.8kb gzipped
           </Typography>
         </Alert>
-      </Paper>
+      </Card>
 
       {/* Form Validation */}
-      <Paper sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
+      <Card sx={{ p: { xs: 2, sm: 3, md: 4 }, mb: { xs: 3, sm: 4 }, boxShadow: 1 }}>
+        <Typography variant="h4" sx={{ mb: 3, fontWeight: 600, fontSize: { xs: '1.5rem', sm: '2rem' } }}>
           📝 Form Validation with Interactive Demos
         </Typography>
-
-        <Typography variant="body1" sx={{ mb: 3 }}>
+        <Typography variant="body1" sx={{ mb: 3, fontSize: { xs: '0.95rem', sm: '1rem' } }}>
           เรียนรู้การใช้ Zod กับ React forms พร้อมตัวอย่างที่ทำงานได้จริง
         </Typography>
-
-        {/* Simple Registration Form Demo */}
         <Card sx={{ mb: 4 }}>
           <CardContent>
-            <Typography variant="h6" sx={{ mb: 3, color: 'primary.main' }}>
+            <Typography variant="h6" sx={{ mb: 3, color: 'primary.main', fontWeight: 600, fontSize: { xs: '1.1rem', sm: '1.25rem' } }}>
               🎯 Registration Form Demo
             </Typography>
-            
             <SimpleFormDemo />
           </CardContent>
         </Card>
-
-        {/* Advanced Form with Complex Validation */}
         <Card sx={{ mb: 4 }}>
           <CardContent>
-            <Typography variant="h6" sx={{ mb: 3, color: 'secondary.main' }}>
+            <Typography variant="h6" sx={{ mb: 3, color: 'secondary.main', fontWeight: 600, fontSize: { xs: '1.1rem', sm: '1.25rem' } }}>
               🔧 Advanced Form with Cross-field Validation
             </Typography>
-            
             <AdvancedFormDemo />
           </CardContent>
         </Card>
-      </Paper>
+      </Card>
 
       {/* Best Practices */}
-      <Paper sx={{ p: 4, mb: 4, bgcolor: 'success.light' }}>
-        <Typography variant="h5" sx={{ mb: 2, color: 'success.dark' }}>
+      <Card sx={{ p: { xs: 2, sm: 3, md: 4 }, mb: { xs: 3, sm: 4 }, bgcolor: 'success.light', boxShadow: 1 }}>
+        <Typography variant="h5" sx={{ mb: 2, color: 'success.dark', fontWeight: 600, fontSize: { xs: '1.3rem', sm: '1.5rem' } }}>
           💡 Best Practices สำหรับ Zod
         </Typography>
-        <List>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="แยก schemas ออกเป็นไฟล์แยก"
-              secondary="จัดเก็บ schemas ในโฟลเดอร์ schemas/ เพื่อความเป็นระเบียบ"
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="ใช้ descriptive error messages"
-              secondary="เขียน error messages ที่เข้าใจง่ายและเป็นภาษาท้องถิ่น"
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="Validate ข้อมูลทุกจุดที่รับจากภายนอก"
-              secondary="API routes, form inputs, environment variables"
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="ใช้ safeParse สำหรับ non-critical validations"
-              secondary="หลีกเลี่ยงการ throw errors โดยไม่จำเป็น"
-            />
-          </ListItem>
-        </List>
-      </Paper>
+        <Stack spacing={1.5}>
+          <Stack direction="row" spacing={1} alignItems="flex-start">
+            <CheckCircle color="success" sx={{ fontSize: { xs: 16, sm: 20 }, mt: 0.5, flexShrink: 0 }} />
+            <Box>
+              <Typography variant="body1" sx={{ fontWeight: 600, fontSize: { xs: '0.9rem', sm: '1rem' } }}>แยก schemas ออกเป็นไฟล์แยก</Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>จัดเก็บ schemas ในโฟลเดอร์ schemas/ เพื่อความเป็นระเบียบ</Typography>
+            </Box>
+          </Stack>
+          <Stack direction="row" spacing={1} alignItems="flex-start">
+            <CheckCircle color="success" sx={{ fontSize: { xs: 16, sm: 20 }, mt: 0.5, flexShrink: 0 }} />
+            <Box>
+              <Typography variant="body1" sx={{ fontWeight: 600, fontSize: { xs: '0.9rem', sm: '1rem' } }}>ใช้ descriptive error messages</Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>เขียน error messages ที่เข้าใจง่ายและเป็นภาษาท้องถิ่น</Typography>
+            </Box>
+          </Stack>
+          <Stack direction="row" spacing={1} alignItems="flex-start">
+            <CheckCircle color="success" sx={{ fontSize: { xs: 16, sm: 20 }, mt: 0.5, flexShrink: 0 }} />
+            <Box>
+              <Typography variant="body1" sx={{ fontWeight: 600, fontSize: { xs: '0.9rem', sm: '1rem' } }}>Validate ข้อมูลทุกจุดที่รับจากภายนอก</Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>API routes, form inputs, environment variables</Typography>
+            </Box>
+          </Stack>
+          <Stack direction="row" spacing={1} alignItems="flex-start">
+            <CheckCircle color="success" sx={{ fontSize: { xs: 16, sm: 20 }, mt: 0.5, flexShrink: 0 }} />
+            <Box>
+              <Typography variant="body1" sx={{ fontWeight: 600, fontSize: { xs: '0.9rem', sm: '1rem' } }}>ใช้ safeParse สำหรับ non-critical validations</Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>หลีกเลี่ยงการ throw errors โดยไม่จำเป็น</Typography>
+            </Box>
+          </Stack>
+        </Stack>
+      </Card>
 
-      {/* Navigation */}
-      <Paper sx={{ p: 4, bgcolor: 'success.light', color: 'success.dark' }}>
-        <Typography variant="h5" sx={{ mb: 2 }}>
+      {/* Success Message */}
+      <Card sx={{ p: { xs: 2, sm: 3, md: 4 }, bgcolor: 'success.light', color: 'success.dark', mb: { xs: 3, sm: 4 }, boxShadow: 1 }}>
+        <Typography variant="h5" sx={{ mb: 2, fontSize: { xs: '1.3rem', sm: '1.5rem' }, fontWeight: 600 }}>
           🎯 ยินดีด้วย! คุณเรียนจบบทที่ 8 แล้ว
         </Typography>
-        <Typography variant="body1" sx={{ mb: 3 }}>
+        <Typography variant="body1" sx={{ mb: 3, fontSize: { xs: '0.9rem', sm: '1rem' }, lineHeight: 1.6 }}>
           ตอนนี้คุณสามารถใช้ Zod เพื่อสร้างแอปพลิเคชันที่ปลอดภัยและเชื่อถือได้แล้ว
           พร้อมสำหรับการเรียนรู้ Tailwind CSS ในบทถัดไป
         </Typography>
-        
-        <Alert severity="info" sx={{ mb: 3 }}>
-          <Typography variant="body2">
+        <Alert severity="info" sx={{ mb: 3, bgcolor: 'info.50', border: '1px solid', borderColor: 'info.200' }}>
+          <Typography variant="body2" sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>
             💡 <strong>บทถัดไป:</strong> เรียนรู้ Tailwind CSS เพื่อสร้าง UI ที่สวยงามและ responsive
           </Typography>
         </Alert>
-      </Paper>
+      </Card>
 
       {/* Navigation */}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 6 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: { xs: 4, sm: 6 }, flexDirection: { xs: 'column', sm: 'row' }, gap: { xs: 2, sm: 0 } }}>
         <Button
           startIcon={<ArrowBack />}
           component={Link}
           href="/nextjs-basics/lesson-7"
           variant="outlined"
+          sx={{ fontSize: { xs: '0.85rem', sm: '0.9rem' }, order: { xs: 2, sm: 1 } }}
         >
           บทที่ 7: React Hooks
         </Button>
-        
-        <Chip 
-          label="8 / 16"
+        <Chip
+          label="8 / 18"
           color="primary"
           variant="outlined"
+          sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' }, order: { xs: 1, sm: 2 } }}
         />
-        
         <Button
           endIcon={<ArrowForward />}
           component={Link}
           href="/nextjs-basics/lesson-9"
           variant="contained"
           color="primary"
+          sx={{ fontSize: { xs: '0.85rem', sm: '0.9rem' }, order: { xs: 3, sm: 3 } }}
         >
-          บทที่ 9: Tailwind CSS
+          บทถัดไป
         </Button>
       </Box>
-    </Container>
+    </Box>
   );
 } 

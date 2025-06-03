@@ -48,6 +48,8 @@ import {
   Psychology,
   Engineering,
   Settings,
+  Search,
+  Assessment,
 } from '@mui/icons-material';
 import Link from 'next/link';
 import { useState } from 'react';

@@ -47,6 +47,8 @@ import {
   Settings,
   Language,
   DataObject,
+  AccessibilityNew,
+  Assessment,
 } from '@mui/icons-material';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -352,6 +354,216 @@ export default function Lesson17Page() {
   };
 
   return (
+    <Box sx={{
+      minHeight: '100vh',
+      maxWidth: '100vw',
+      px: { xs: 2, sm: 3, md: 4 },
+      py: { xs: 2, sm: 3 },
+      overflow: 'hidden',
+    }}>
+      {/* Header */}
+      <Box sx={{ mb: { xs: 3, sm: 4 } }}>
+        <Button
+          startIcon={<ArrowBack />}
+          component={Link}
+          href="/nextjs-basics"
+          sx={{ mb: 2, fontSize: { xs: '0.85rem', sm: '0.9rem' } }}
+        >
+          กลับไปหน้าหลัก
+        </Button>
+        <Typography variant="h2" component="h1" sx={{ fontSize: { xs: '1.8rem', sm: '2.5rem', md: '3rem' }, fontWeight: 600, mb: 2, lineHeight: 1.2, display: 'flex', alignItems: 'center', gap: 2 }}>
+          <AccessibilityNew color="primary" sx={{ fontSize: { xs: '2.2rem', sm: '3rem' } }} />
+          บทที่ 17: Accessibility
+        </Typography>
+        <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', gap: 1, mb: 3, '& .MuiChip-root': { fontSize: { xs: '0.75rem', sm: '0.8rem' } } }}>
+          <Chip icon={<AccessibilityNew />} label="A11y" color="primary" size="small" />
+          <Chip icon={<Build />} label="Tools" color="secondary" size="small" />
+          <Chip icon={<Assessment />} label="Analyze" color="info" size="small" />
+          <Chip icon={<Code />} label="Best Practice" color="success" size="small" />
+        </Stack>
+        <Alert severity="info" sx={{ mb: 3, fontSize: { xs: '0.85rem', sm: '0.9rem' } }}>
+          <Typography variant="body2">
+            ⏱️ <strong>ระยะเวลา:</strong> 40 นาที | 
+            📊 <strong>ระดับ:</strong> ปานกลาง | 
+            🎯 <strong>เป้าหมาย:</strong> เรียนรู้ Accessibility & Best Practices ใน Next.js
+          </Typography>
+        </Alert>
+      </Box>
+
+      {/* Tabs */}
+      <Paper sx={{ mb: { xs: 3, sm: 4 } }}>
+        <Tabs
+          value={activeTab}
+          onChange={handleTabChange}
+          variant="scrollable"
+          scrollButtons="auto"
+          sx={{ borderBottom: 1, borderColor: 'divider' }}
+        >
+          <Tab label="♿ A11y" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }} />
+          <Tab label="🔧 Tools" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }} />
+          <Tab label="📊 Analyze" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }} />
+          <Tab label="💡 Best Practice" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }} />
+        </Tabs>
+      </Paper>
+
+      {/* Tab Panels */}
+      <TabPanel value={activeTab} index={0}>
+        <Typography variant="h3" sx={{ mb: 3 }}>♿ A11y</Typography>
+        
+        <Typography variant="body1" sx={{ mb: 3 }}>
+          Accessibility (A11y) คือการออกแบบเว็บไซต์ให้สามารถเข้าถึงได้ด้วยทุกวิธีที่มีความสะดวกสำหรับผู้ที่มีความพิการ
+        </Typography>
+
+        <Typography variant="h5" sx={{ mb: 2 }}>🎯 หลักการพื้นฐานของ A11y</Typography>
+        
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 3, mb: 4 }}>
+          <Box sx={{ flex: 1 }}>
+            <Card>
+              <CardContent>
+                <Typography variant="h6" sx={{ mb: 2, color: 'primary.main' }}>
+                  📝 หลักการพื้นฐานของ A11y
+                </Typography>
+                <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1, mb: 2 }}>
+                  <Typography variant="body2" component="pre" className="code-block" sx={{ p: 2 }}>
+{`1. ความสะดวกสำหรับผู้ที่มีความพิการ
+2. ความสะดวกสำหรับผู้ที่ใช้อุปกรณ์พกพิกัด
+3. ความสะดวกสำหรับผู้ที่ใช้ภาษาต่างชาติ
+4. ความสะดวกสำหรับผู้ที่ใช้อุปกรณ์พกพิกัด
+5. ความสะดวกสำหรับผู้ที่ใช้อุปกรณ์พกพิกัด`}
+                  </Typography>
+                </Box>
+              </CardContent>
+            </Card>
+          </Box>
+
+          <Box sx={{ flex: 1 }}>
+            <Card>
+              <CardContent>
+                <Typography variant="h6" sx={{ mb: 2, color: 'secondary.main' }}>
+                  🔀 วิธีการพื้นฐานในการออกแบบ A11y
+                </Typography>
+                <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1, mb: 2 }}>
+                  <Typography variant="body2" component="pre" className="code-block" sx={{ p: 2 }}>
+{`1. ใช้คำอธิบายสิ่งที่มีความสำคัญ
+2. ใช้รูปภาพแทนข้อความ
+3. ใช้ปุ่มกดสำหรับการดำเนินการ
+4. ใช้รูปภาพแทนข้อความ
+5. ใช้รูปภาพแทนข้อความ`}
+                  </Typography>
+                </Box>
+              </CardContent>
+            </Card>
+          </Box>
+        </Box>
+      </TabPanel>
+
+      <TabPanel value={activeTab} index={1}>
+        <Typography variant="h3" sx={{ mb: 3 }}>🔧 Tools</Typography>
+        
+        <Typography variant="body1" sx={{ mb: 3 }}>
+          เครื่องมือที่สามารถช่วยในการทำให้เว็บไซต์มีความสะดวกสำหรับผู้ที่มีความพิการ
+        </Typography>
+
+        <Typography variant="h5" sx={{ mb: 2 }}>🎯 หลักการพื้นฐานของการออกแบบ A11y</Typography>
+        
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 3, mb: 4 }}>
+          <Box sx={{ flex: 1 }}>
+            <Card>
+              <CardContent>
+                <Typography variant="h6" sx={{ mb: 2, color: 'primary.main' }}>
+                  📝 หลักการพื้นฐานของการออกแบบ A11y
+                </Typography>
+                <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1, mb: 2 }}>
+                  <Typography variant="body2" component="pre" className="code-block" sx={{ p: 2 }}>
+{`1. ใช้คำอธิบายสิ่งที่มีความสำคัญ
+2. ใช้รูปภาพแทนข้อความ
+3. ใช้ปุ่มกดสำหรับการดำเนินการ
+4. ใช้รูปภาพแทนข้อความ
+5. ใช้รูปภาพแทนข้อความ`}
+                  </Typography>
+                </Box>
+              </CardContent>
+            </Card>
+          </Box>
+
+          <Box sx={{ flex: 1 }}>
+            <Card>
+              <CardContent>
+                <Typography variant="h6" sx={{ mb: 2, color: 'secondary.main' }}>
+                  🔀 วิธีการพื้นฐานในการออกแบบ A11y
+                </Typography>
+                <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1, mb: 2 }}>
+                  <Typography variant="body2" component="pre" className="code-block" sx={{ p: 2 }}>
+{`1. ใช้คำอธิบายสิ่งที่มีความสำคัญ
+2. ใช้รูปภาพแทนข้อความ
+3. ใช้ปุ่มกดสำหรับการดำเนินการ
+4. ใช้รูปภาพแทนข้อความ
+5. ใช้รูปภาพแทนข้อความ`}
+                  </Typography>
+                </Box>
+              </CardContent>
+            </Card>
+          </Box>
+        </Box>
+      </TabPanel>
+
+      <TabPanel value={activeTab} index={2}>
+        <Typography variant="h3" sx={{ mb: 3 }}>📊 Analyze</Typography>
+        
+        <Typography variant="body1" sx={{ mb: 3 }}>
+          การวิเคราะห์เว็บไซต์เพื่อตรวจสอบความสะดวกสำหรับผู้ที่มีความพิการ
+        </Typography>
+
+        <Typography variant="h5" sx={{ mb: 2 }}>🎯 หลักการพื้นฐานของการออกแบบ A11y</Typography>
+        
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 3, mb: 4 }}>
+          <Box sx={{ flex: 1 }}>
+            <Card>
+              <CardContent>
+                <Typography variant="h6" sx={{ mb: 2, color: 'primary.main' }}>
+                  📝 หลักการพื้นฐานของการออกแบบ A11y
+                </Typography>
+                <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1, mb: 2 }}>
+                  <Typography variant="body2" component="pre" className="code-block" sx={{ p: 2 }}>
+{`1. ใช้คำอธิบายสิ่งที่มีความสำคัญ
+2. ใช้รูปภาพแทนข้อความ
+3. ใช้ปุ่มกดสำหรับการดำเนินการ
+4. ใช้รูปภาพแทนข้อความ
+5. ใช้รูปภาพแทนข้อความ`}
+                  </Typography>
+                </Box>
+              </CardContent>
+            </Card>
+          </Box>
+
+          <Box sx={{ flex: 1 }}>
+            <Card>
+              <CardContent>
+                <Typography variant="h6" sx={{ mb: 2, color: 'secondary.main' }}>
+                  🔀 วิธีการพื้นฐานในการออกแบบ A11y
+                </Typography>
+                <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1, mb: 2 }}>
+                  <Typography variant="body2" component="pre" className="code-block" sx={{ p: 2 }}>
+{`1. ใช้คำอธิบายสิ่งที่มีความสำคัญ
+2. ใช้รูปภาพแทนข้อความ
+3. ใช้ปุ่มกดสำหรับการดำเนินการ
+4. ใช้รูปภาพแทนข้อความ
+5. ใช้รูปภาพแทนข้อความ`}
+                  </Typography>
+                </Box>
+              </CardContent>
+            </Card>
+          </Box>
+        </Box>
+      </TabPanel>
+
+      <TabPanel value={activeTab} index={3}>
+        <Typography variant="h3" sx={{ mb: 3 }}>💡 Best Practice</Typography>
+        
+        <Typography variant="body1" sx={{ mb: 3 }}>
+          การปฏิบัติตามหลักการพื้นฐานของ Accessibility เพื่อสร้างเว็บไซต์ที่มีความสะดวกสำหรับผู้ที่มีความพิการ
+        </Typography>
+
     <Container maxWidth="lg">
       <Box sx={{ py: 4 }}>
         {/* Header */}

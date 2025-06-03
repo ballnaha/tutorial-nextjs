@@ -43,6 +43,8 @@ import {
   DataObject,
   Memory,
   Star,
+  EmojiEvents,
+  Assessment,
 } from '@mui/icons-material';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -472,194 +474,75 @@ export default function Lesson18Page() {
   };
 
   return (
-    <Container maxWidth="lg">
-      <Box sx={{ py: 4 }}>
-        {/* Header */}
-        <Box sx={{ mb: 4 }}>
-          <Button
-            startIcon={<ArrowBack />}
-            component={Link}
-            href="/nextjs-basics"
-            sx={{ mb: 2 }}
-          >
-            กลับไปหน้าหลัก
-          </Button>
-          
-          <Typography variant="h1" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Functions color="primary" sx={{ fontSize: '3rem' }} />
-            บทที่ 18: Functions & Constants อย่างละเอียด
+    <Box sx={{
+      minHeight: '100vh',
+      maxWidth: '100vw',
+      px: { xs: 2, sm: 3, md: 4 },
+      py: { xs: 2, sm: 3 },
+      overflow: 'hidden',
+    }}>
+      {/* Header */}
+      <Box sx={{ mb: { xs: 3, sm: 4 } }}>
+        <Button
+          startIcon={<ArrowBack />}
+          component={Link}
+          href="/nextjs-basics"
+          sx={{ mb: 2, fontSize: { xs: '0.85rem', sm: '0.9rem' } }}
+        >
+          กลับไปหน้าหลัก
+        </Button>
+        <Typography variant="h2" component="h1" sx={{ fontSize: { xs: '1.8rem', sm: '2.5rem', md: '3rem' }, fontWeight: 600, mb: 2, lineHeight: 1.2, display: 'flex', alignItems: 'center', gap: 2 }}>
+          <EmojiEvents color="primary" sx={{ fontSize: { xs: '2.2rem', sm: '3rem' } }} />
+          บทที่ 18: Next Steps
+        </Typography>
+        <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', gap: 1, mb: 3, '& .MuiChip-root': { fontSize: { xs: '0.75rem', sm: '0.8rem' } } }}>
+          <Chip icon={<EmojiEvents />} label="Next" color="primary" size="small" />
+          <Chip icon={<Build />} label="Tools" color="secondary" size="small" />
+          <Chip icon={<Assessment />} label="Analyze" color="info" size="small" />
+          <Chip icon={<Code />} label="Best Practice" color="success" size="small" />
+        </Stack>
+        <Alert severity="info" sx={{ mb: 3, fontSize: { xs: '0.85rem', sm: '0.9rem' } }}>
+          <Typography variant="body2">
+            ⏱️ <strong>ระยะเวลา:</strong> 40 นาที | 
+            📊 <strong>ระดับ:</strong> ปานกลาง | 
+            🎯 <strong>เป้าหมาย:</strong> ก้าวต่อไปหลังจบ Next.js Tutorial
           </Typography>
-          
-          <Typography variant="h5" color="text.secondary" sx={{ mb: 3 }}>
-            เรียนรู้การเขียน Functions และการใช้ Constants 
-            ใน JavaScript/TypeScript อย่างถูกต้องและมีประสิทธิภาพ! ⚡
-          </Typography>
-          
-          <Box sx={{ display: 'flex', gap: 2, mb: 3, flexWrap: 'wrap' }}>
-            <Chip icon={<Functions />} label="Functions" color="primary" />
-            <Chip icon={<Memory />} label="Constants" color="secondary" />
-            <Chip icon={<Code />} label="Arrow Functions" color="success" />
-            <Chip icon={<Engineering />} label="Scope" color="warning" />
-            <Chip icon={<Speed />} label="Performance" color="error" />
-          </Box>
-          
-          <Alert severity="info" sx={{ mb: 3 }}>
-            <Typography variant="body2">
-              🎯 <strong>เป้าหมายของบทเรียนนี้:</strong> เข้าใจ Functions และ Constants อย่างลึกซึ้ง
-              <br />
-              ⏱️ <strong>ระยะเวลา:</strong> 45 นาที | 
-              📊 <strong>ระดับ:</strong> พื้นฐานที่สำคัญ
-            </Typography>
-          </Alert>
+        </Alert>
+      </Box>
 
-          {/* What are Functions */}
-          <Paper sx={{ p: 3, mb: 4, bgcolor: 'primary.50', border: '2px solid', borderColor: 'primary.200' }}>
-            <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Lightbulb color="primary" /> 🤔 Functions & Constants คืออะไร?
-            </Typography>
-            
-            <Typography variant="body1" sx={{ mb: 2 }}>
-              ลองนึกภาพว่าคุณเป็น <strong>เชฟในครัว</strong>:
-            </Typography>
+      {/* Tabs */}
+      <Paper sx={{ mb: { xs: 3, sm: 4 } }}>
+        <Tabs
+          value={activeTab}
+          onChange={handleTabChange}
+          variant="scrollable"
+          scrollButtons="auto"
+          sx={{ borderBottom: 1, borderColor: 'divider' }}
+        >
+          <Tab label="🚀 Next Steps" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }} />
+          <Tab label="🔧 Tools" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }} />
+          <Tab label="📊 Analyze" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }} />
+          <Tab label="💡 Best Practice" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }} />
+        </Tabs>
+      </Paper>
 
-            <Box sx={{ pl: 2, borderLeft: '3px solid', borderColor: 'primary.main', mb: 2 }}>
-              <Typography variant="body2" sx={{ mb: 1 }}>
-                • 👨‍🍳 <strong>Functions:</strong> สูตรอาหารที่ทำซ้ำได้ (รับวัตถุดิบ → ปรุง → ได้อาหาร)
-              </Typography>
-              <Typography variant="body2" sx={{ mb: 1 }}>
-                • 📋 <strong>Constants:</strong> ส่วนผสมที่ไม่เปลี่ยน (เกลือ = เกลือ เสมอ)
-              </Typography>
-              <Typography variant="body2" sx={{ mb: 1 }}>
-                • 🔄 <strong>Variables:</strong> ส่วนผสมที่เปลี่ยนได้ (น้ำตาลมากน้อยตามใจ)
-              </Typography>
-              <Typography variant="body2">
-                • 🏠 <strong>Scope:</strong> ขอบเขตครัว (ใครเข้าห้องไหนได้บ้าง)
-              </Typography>
-            </Box>
+      {/* Tab Panels */}
+      <TabPanel value={activeTab} index={0}>
+        <Typography variant="h3" sx={{ mb: 3 }}>⚡ Function Types</Typography>
+        
+        <Typography variant="body1" sx={{ mb: 3 }}>
+          เรียนรู้ Functions ทุกแบบที่ใช้ใน JavaScript และ TypeScript
+        </Typography>
 
-            <Alert severity="success" sx={{ mt: 2 }}>
-              <Typography variant="body2">
-                ✨ <strong>ผลลัพธ์:</strong> โค้ดที่ใช้ซ้ำได้, จัดการง่าย, และมีประสิทธิภาพ!
-              </Typography>
-            </Alert>
-          </Paper>
-        </Box>
-
-        {/* Learning Objectives */}
-        <Paper sx={{ p: 3, mb: 4 }}>
-          <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-            <CheckCircle color="primary" /> 🎯 เมื่อเรียนจบบทนี้ คุณจะสามารถ:
-          </Typography>
-          
-          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 4 }}>
-            <Box sx={{ flex: 1 }}>
-              <List dense>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
-                  <ListItemText 
-                    primary="เขียน Functions ทุกแบบ" 
-                    secondary="Regular, Arrow, Async, Higher-Order"
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
-                  <ListItemText 
-                    primary="จัดการ Constants ถูกต้อง" 
-                    secondary="Primitive, Object, Enum Constants"
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
-                  <ListItemText 
-                    primary="เข้าใจ Scope & Hoisting" 
-                    secondary="Global, Function, Block Scope"
-                  />
-                </ListItem>
-              </List>
-            </Box>
-            
-            <Box sx={{ flex: 1 }}>
-              <List dense>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
-                  <ListItemText 
-                    primary="ใช้ Modern JavaScript" 
-                    secondary="ES6+, Destructuring, Spread"
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
-                  <ListItemText 
-                    primary="Performance Optimization" 
-                    secondary="Memoization, Pure Functions"
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
-                  <ListItemText 
-                    primary="Best Practices" 
-                    secondary="Clean Code, Naming, Testing"
-                  />
-                </ListItem>
-              </List>
-            </Box>
-          </Box>
-        </Paper>
-
-        {/* Tabs */}
-        <Box sx={{ width: '100%' }}>
-          <Tabs 
-            value={activeTab} 
-            onChange={handleTabChange}
-            variant="scrollable"
-            scrollButtons="auto"
-            sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}
-          >
-            <Tab 
-              label="⚡ Function Types" 
-              icon={<Functions />}
-              iconPosition="start"
-            />
-            <Tab 
-              label="📊 Constants & Scope" 
-              icon={<Memory />}
-              iconPosition="start"
-            />
-            <Tab 
-              label="🚀 Advanced Functions" 
-              icon={<Psychology />}
-              iconPosition="start"
-            />
-            <Tab 
-              label="⚛️ React Functions" 
-              icon={<Code />}
-              iconPosition="start"
-            />
-            <Tab 
-              label="🎮 ทดลองใช้งาน" 
-              icon={<PlayArrow />}
-              iconPosition="start"
-            />
-          </Tabs>
-        </Box>
-
-        {/* Tab 1: Function Types */}
-        <TabPanel value={activeTab} index={0}>
-          <Typography variant="h3" sx={{ mb: 3 }}>⚡ Function Types</Typography>
-          
-          <Typography variant="body1" sx={{ mb: 3 }}>
-            เรียนรู้ Functions ทุกแบบที่ใช้ใน JavaScript และ TypeScript
-          </Typography>
-
-          <Typography variant="h5" sx={{ mb: 2 }}>🎯 การประกาศ Functions</Typography>
-          
-          <Accordion sx={{ mb: 2 }}>
-            <AccordionSummary expandIcon={<ExpandMore />}>
-              <Typography variant="h6">📝 Function Declaration</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1, mb: 2 }}>
-                <Typography variant="body2" component="pre" className="code-block" sx={{ p: 2 }}>
+        <Typography variant="h5" sx={{ mb: 2 }}>🎯 การประกาศ Functions</Typography>
+        
+        <Accordion sx={{ mb: 2 }}>
+          <AccordionSummary expandIcon={<ExpandMore />}>
+            <Typography variant="h6">📝 Function Declaration</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1, mb: 2 }}>
+              <Typography variant="body2" component="pre" className="code-block" sx={{ p: 2 }}>
 {`// Function Declaration (มี hoisting)
 function calculateArea(width, height) {
   return width * height;
@@ -682,23 +565,23 @@ const factorial = function fact(n) {
 calculateArea(5, 3); // 15
 calculatePerimeter(5, 3); // 16
 factorial(5); // 120`}
-                </Typography>
-              </Box>
-              <Alert severity="info">
-                <Typography variant="body2">
-                  💡 Function Declaration มี hoisting ทำให้เรียกใช้ก่อนประกาศได้
-                </Typography>
-              </Alert>
-            </AccordionDetails>
-          </Accordion>
+              </Typography>
+            </Box>
+            <Alert severity="info">
+              <Typography variant="body2">
+                💡 Function Declaration มี hoisting ทำให้เรียกใช้ก่อนประกาศได้
+              </Typography>
+            </Alert>
+          </AccordionDetails>
+        </Accordion>
 
-          <Accordion sx={{ mb: 2 }}>
-            <AccordionSummary expandIcon={<ExpandMore />}>
-              <Typography variant="h6">🏹 Arrow Functions</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1, mb: 2 }}>
-                <Typography variant="body2" component="pre" className="code-block" sx={{ p: 2 }}>
+        <Accordion sx={{ mb: 2 }}>
+          <AccordionSummary expandIcon={<ExpandMore />}>
+            <Typography variant="h6">🏹 Arrow Functions</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1, mb: 2 }}>
+              <Typography variant="body2" component="pre" className="code-block" sx={{ p: 2 }}>
 {`// Arrow Function แบบสั้น
 const add = (a, b) => a + b;
 const square = x => x * x; // parameter เดียวไม่ต้องมีวงเล็บ
@@ -728,32 +611,31 @@ const sum = numbers.reduce((acc, n) => acc + n, 0);
 console.log(doubled); // [2, 4, 6, 8, 10]
 console.log(evens); // [2, 4]
 console.log(sum); // 15`}
-                </Typography>
-              </Box>
-              <Alert severity="success">
-                <Typography variant="body2">
-                  ✅ Arrow Functions สั้น กระชับ และไม่มี this binding
-                </Typography>
-              </Alert>
-            </AccordionDetails>
-          </Accordion>
-        </TabPanel>
+              </Typography>
+            </Box>
+            <Alert severity="success">
+              <Typography variant="body2">
+                ✅ Arrow Functions สั้น กระชับ และไม่มี this binding
+              </Typography>
+            </Alert>
+          </AccordionDetails>
+        </Accordion>
+      </TabPanel>
 
-        {/* Tab 2: Constants & Scope */}
-        <TabPanel value={activeTab} index={1}>
-          <Typography variant="h3" sx={{ mb: 3 }}>📊 Constants & Scope</Typography>
-          
-          <Typography variant="h5" sx={{ mb: 2 }}>🔒 const vs let vs var</Typography>
+      <TabPanel value={activeTab} index={1}>
+        <Typography variant="h3" sx={{ mb: 3 }}>📊 Constants & Scope</Typography>
+        
+        <Typography variant="h5" sx={{ mb: 2 }}>🔒 const vs let vs var</Typography>
 
-          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 3, mb: 4 }}>
-            <Box sx={{ flex: 1 }}>
-              <Card>
-                <CardContent>
-                  <Typography variant="h6" sx={{ mb: 2, color: 'success.main' }}>
-                    🟢 const (แนะนำ)
-                  </Typography>
-                  <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1, mb: 2 }}>
-                    <Typography variant="body2" component="pre" className="code-block" sx={{ p: 2 }}>
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 3, mb: 4 }}>
+          <Box sx={{ flex: 1 }}>
+            <Card>
+              <CardContent>
+                <Typography variant="h6" sx={{ mb: 2, color: 'success.main' }}>
+                  🟢 const (แนะนำ)
+                </Typography>
+                <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1, mb: 2 }}>
+                  <Typography variant="body2" component="pre" className="code-block" sx={{ p: 2 }}>
 {`// ค่าคงที่ - ไม่สามารถ reassign
 const PI = 3.14159;
 const APP_NAME = 'My App';
@@ -774,23 +656,23 @@ if (true) {
   console.log(blockVar); // ✅
 }
 // console.log(blockVar); // ❌ Error!`}
-                    </Typography>
-                  </Box>
-                  <Alert severity="success" sx={{ fontSize: '0.8rem' }}>
-                    ✅ ใช้เป็นค่าเริ่มต้น, ป้องกัน reassign
-                  </Alert>
-                </CardContent>
-              </Card>
-            </Box>
-
-            <Box sx={{ flex: 1 }}>
-              <Card>
-                <CardContent>
-                  <Typography variant="h6" sx={{ mb: 2, color: 'warning.main' }}>
-                    🟡 let (เมื่อต้องเปลี่ยนค่า)
                   </Typography>
-                  <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1, mb: 2 }}>
-                    <Typography variant="body2" component="pre" className="code-block" sx={{ p: 2 }}>
+                </Box>
+                <Alert severity="success" sx={{ fontSize: '0.8rem' }}>
+                  ✅ ใช้เป็นค่าเริ่มต้น, ป้องกัน reassign
+                </Alert>
+              </CardContent>
+            </Card>
+          </Box>
+
+          <Box sx={{ flex: 1 }}>
+            <Card>
+              <CardContent>
+                <Typography variant="h6" sx={{ mb: 2, color: 'warning.main' }}>
+                  🟡 let (เมื่อต้องเปลี่ยนค่า)
+                </Typography>
+                <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1, mb: 2 }}>
+                  <Typography variant="body2" component="pre" className="code-block" sx={{ p: 2 }}>
 {`// ตัวแปรที่เปลี่ยนค่าได้
 let counter = 0;
 let userName = 'guest';
@@ -814,20 +696,20 @@ if (user.isActive) {
 } else {
   status = 'inactive';
 }`}
-                    </Typography>
-                  </Box>
-                  <Alert severity="warning" sx={{ fontSize: '0.8rem' }}>
-                    ⚠️ ใช้เมื่อจำเป็นต้องเปลี่ยนค่า
-                  </Alert>
-                </CardContent>
-              </Card>
-            </Box>
+                  </Typography>
+                </Box>
+                <Alert severity="warning" sx={{ fontSize: '0.8rem' }}>
+                  ⚠️ ใช้เมื่อจำเป็นต้องเปลี่ยนค่า
+                </Alert>
+              </CardContent>
+            </Card>
           </Box>
+        </Box>
 
-          <Typography variant="h5" sx={{ mb: 2 }}>🌍 Scope Examples</Typography>
-          
-          <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1, mb: 3 }}>
-            <Typography variant="body2" component="pre" className="code-block" sx={{ p: 2 }}>
+        <Typography variant="h5" sx={{ mb: 2 }}>🌍 Scope Examples</Typography>
+        
+        <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1, mb: 3 }}>
+          <Typography variant="body2" component="pre" className="code-block" sx={{ p: 2 }}>
 {`// Global Scope
 const GLOBAL_CONFIG = { theme: 'dark', lang: 'th' };
 
@@ -869,18 +751,17 @@ const counter = createCounter();
 console.log(counter.getValue()); // 0
 counter.increment();
 console.log(counter.getValue()); // 1`}
-            </Typography>
-          </Box>
-        </TabPanel>
+          </Typography>
+        </Box>
+      </TabPanel>
 
-        {/* Tab 3: Advanced Functions */}
-        <TabPanel value={activeTab} index={2}>
-          <Typography variant="h3" sx={{ mb: 3 }}>🚀 Advanced Functions</Typography>
-          
-          <Typography variant="h5" sx={{ mb: 2 }}>🔄 Higher-Order Functions</Typography>
+      <TabPanel value={activeTab} index={2}>
+        <Typography variant="h3" sx={{ mb: 3 }}>🚀 Advanced Functions</Typography>
+        
+        <Typography variant="h5" sx={{ mb: 2 }}>🔄 Higher-Order Functions</Typography>
 
-          <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1, mb: 3 }}>
-            <Typography variant="body2" component="pre" className="code-block" sx={{ p: 2 }}>
+        <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1, mb: 3 }}>
+          <Typography variant="body2" component="pre" className="code-block" sx={{ p: 2 }}>
 {`// Function ที่รับ function เป็น parameter
 function withLogging(fn) {
   return function(...args) {
@@ -917,13 +798,13 @@ const triple = multiply(3);
 
 double(5); // 10
 triple(5); // 15`}
-            </Typography>
-          </Box>
+          </Typography>
+        </Box>
 
-          <Typography variant="h5" sx={{ mb: 2 }}>⚡ Async Functions</Typography>
+        <Typography variant="h5" sx={{ mb: 2 }}>⚡ Async Functions</Typography>
 
-          <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1, mb: 3 }}>
-            <Typography variant="body2" component="pre" className="code-block" sx={{ p: 2 }}>
+        <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1, mb: 3 }}>
+          <Typography variant="body2" component="pre" className="code-block" sx={{ p: 2 }}>
 {`// Basic Async Function
 async function fetchUserData(userId) {
   try {
@@ -972,18 +853,17 @@ async function safeApiCall(url) {
     return { error: error.message, data: null };
   }
 }`}
-            </Typography>
-          </Box>
-        </TabPanel>
+          </Typography>
+        </Box>
+      </TabPanel>
 
-        {/* Tab 4: React Functions */}
-        <TabPanel value={activeTab} index={3}>
-          <Typography variant="h3" sx={{ mb: 3 }}>⚛️ React Functions</Typography>
-          
-          <Typography variant="h5" sx={{ mb: 2 }}>🎣 Function Components & Hooks</Typography>
+      <TabPanel value={activeTab} index={3}>
+        <Typography variant="h3" sx={{ mb: 3 }}>⚛️ React Functions</Typography>
+        
+        <Typography variant="h5" sx={{ mb: 2 }}>🎣 Function Components & Hooks</Typography>
 
-          <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1, mb: 3 }}>
-            <Typography variant="body2" component="pre" className="code-block">
+        <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1, mb: 3 }}>
+          <Typography variant="body2" component="pre" className="code-block">
 {`// Function Component
 function UserProfile({ user, onUpdate }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -1059,52 +939,51 @@ function useApi(url) {
 
   return { data, loading, error, refetch };
 }`}
-            </Typography>
-          </Box>
-        </TabPanel>
-
-        {/* Tab 5: Interactive Demo */}
-        <TabPanel value={activeTab} index={4}>
-          <Typography variant="h3" sx={{ mb: 3 }}>🎮 ทดลองใช้งาน</Typography>
-          
-          <Typography variant="body1" sx={{ mb: 3 }}>
-            ทดลองใช้ Functions และ Constants ด้วยตัวอย่างที่หลากหลาย
           </Typography>
-
-          <Stack spacing={4}>
-            <FunctionDemo />
-            <ConstantDemo />
-          </Stack>
-        </TabPanel>
-
-        {/* Navigation */}
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 6 }}>
-          <Button
-            startIcon={<ArrowBack />}
-            component={Link}
-            href="/nextjs-basics/lesson-17"
-            variant="outlined"
-          >
-            บทที่ 17: TypeScript & Interface
-          </Button>
-          
-          <Chip 
-            label="18 / 18"
-            color="success"
-            variant="filled"
-          />
-          
-          <Button
-            endIcon={<Star />}
-            component={Link}
-            href="/nextjs-basics"
-            variant="contained"
-            color="success"
-          >
-            เสร็จสมบูรณ์!
-          </Button>
         </Box>
+      </TabPanel>
+
+      <TabPanel value={activeTab} index={4}>
+        <Typography variant="h3" sx={{ mb: 3 }}>🎮 ทดลองใช้งาน</Typography>
+        
+        <Typography variant="body1" sx={{ mb: 3 }}>
+          ทดลองใช้ Functions และ Constants ด้วยตัวอย่างที่หลากหลาย
+        </Typography>
+
+        <Stack spacing={4}>
+          <FunctionDemo />
+          <ConstantDemo />
+        </Stack>
+      </TabPanel>
+
+      {/* Navigation */}
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: { xs: 4, sm: 6 }, flexDirection: { xs: 'column', sm: 'row' }, gap: { xs: 2, sm: 0 } }}>
+        <Button
+          startIcon={<ArrowBack />}
+          component={Link}
+          href="/nextjs-basics/lesson-17"
+          variant="outlined"
+          sx={{ fontSize: { xs: '0.85rem', sm: '0.9rem' }, order: { xs: 2, sm: 1 } }}
+        >
+          บทที่ 17: Accessibility
+        </Button>
+        <Chip
+          label="18 / 18"
+          color="primary"
+          variant="outlined"
+          sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' }, order: { xs: 1, sm: 2 } }}
+        />
+        <Button
+          endIcon={<ArrowForward />}
+          component={Link}
+          href="/nextjs-basics"
+          variant="contained"
+          color="primary"
+          sx={{ fontSize: { xs: '0.85rem', sm: '0.9rem' }, order: { xs: 3, sm: 3 } }}
+        >
+          กลับไปหน้าหลัก
+        </Button>
       </Box>
-    </Container>
+    </Box>
   );
 } 

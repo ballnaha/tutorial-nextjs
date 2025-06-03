@@ -29,7 +29,7 @@ export function DonationBalloon() {
 
   // QR Code URL สำหรับบริจาค (ใช้ QR Code generator API)
   const donationText = "ขอบคุณสำหรับการสนับสนุน Next.js Tutorial ไทย! 🙏";
-  const qrCodeUrl = `myqr.png`;
+  const qrCodeUrl = `myqr-1.webp`;
 
   return (
     <>

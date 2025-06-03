@@ -84,163 +84,165 @@ export default function Lesson9Page() {
   ];
 
   return (
-    <Container maxWidth="lg">
-      <Box sx={{ py: 4 }}>
-        {/* Header */}
-        <Box sx={{ mb: 4 }}>
-          <Button
-            startIcon={<ArrowBack />}
-            component={Link}
-            href="/nextjs-basics"
-            sx={{ mb: 2 }}
-          >
-            กลับไปหน้าหลัก
-          </Button>
-          
-          <Typography variant="h1" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Security color="primary" sx={{ fontSize: '3rem' }} />
-            บทที่ 9: Authentication & Authorization
+    <Box sx={{
+      minHeight: '100vh',
+      maxWidth: '100vw',
+      px: { xs: 2, sm: 3, md: 4 },
+      py: { xs: 2, sm: 3 },
+      overflow: 'hidden',
+    }}>
+      {/* Header */}
+      <Box sx={{ mb: { xs: 3, sm: 4 } }}>
+        <Button
+          startIcon={<ArrowBack />}
+          component={Link}
+          href="/nextjs-basics"
+          sx={{ mb: 2, fontSize: { xs: '0.85rem', sm: '0.9rem' } }}
+        >
+          กลับไปหน้าหลัก
+        </Button>
+        <Typography variant="h2" component="h1" sx={{ fontSize: { xs: '1.8rem', sm: '2.5rem', md: '3rem' }, fontWeight: 600, mb: 2, lineHeight: 1.2, display: 'flex', alignItems: 'center', gap: 2 }}>
+          <Security color="primary" sx={{ fontSize: { xs: '2.2rem', sm: '3rem' } }} />
+          บทที่ 9: Authentication & Authorization
+        </Typography>
+        <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', gap: 1, mb: 3, '& .MuiChip-root': { fontSize: { xs: '0.75rem', sm: '0.8rem' } } }}>
+          <Chip icon={<Key />} label="NextAuth.js" color="primary" size="small" />
+          <Chip icon={<Shield />} label="JWT Tokens" color="secondary" size="small" />
+          <Chip icon={<Lock />} label="Session Management" color="info" size="small" />
+          <Chip icon={<AccountCircle />} label="Protected Routes" color="success" size="small" />
+        </Stack>
+        <Alert severity="info" sx={{ mb: 3, fontSize: { xs: '0.85rem', sm: '0.9rem' } }}>
+          <Typography variant="body2">
+            ⏱️ <strong>ระยะเวลา:</strong> 60 นาที | 
+            📊 <strong>ระดับ:</strong> ขั้นสูง | 
+            🎯 <strong>เป้าหมาย:</strong> เรียนรู้การสร้างระบบ authentication และ authorization ที่ปลอดภัย
           </Typography>
-          
-          <Box sx={{ display: 'flex', gap: 2, mb: 3, flexWrap: 'wrap' }}>
-            <Chip icon={<Key />} label="NextAuth.js" color="primary" />
-            <Chip icon={<Shield />} label="JWT Tokens" color="secondary" />
-            <Chip icon={<Lock />} label="Session Management" color="info" />
-            <Chip icon={<AccountCircle />} label="Protected Routes" color="success" />
-          </Box>
-          
-          <Alert severity="info" sx={{ mb: 3 }}>
-            <Typography variant="body2">
-              ⏱️ <strong>ระยะเวลา:</strong> 60 นาที | 
-              📊 <strong>ระดับ:</strong> ขั้นสูง | 
-              🎯 <strong>เป้าหมาย:</strong> เรียนรู้การสร้างระบบ authentication และ authorization ที่ปลอดภัย
-            </Typography>
-          </Alert>
+        </Alert>
+      </Box>
+
+      {/* Tabs */}
+      <Paper sx={{ mb: { xs: 3, sm: 4 } }}>
+        <Tabs
+          value={activeTab}
+          onChange={handleTabChange}
+          variant="scrollable"
+          scrollButtons="auto"
+          sx={{ borderBottom: 1, borderColor: 'divider' }}
+        >
+          <Tab label="🏁 เริ่มต้น" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }} />
+          <Tab label="🔑 NextAuth.js" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }} />
+          <Tab label="🎫 JWT Tokens" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }} />
+          <Tab label="🔐 Session Management" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }} />
+          <Tab label="🛡️ Protected Routes" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }} />
+          <Tab label="💡 Best Practices" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }} />
+          <Tab label="🚀 Demo" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }} />
+        </Tabs>
+      </Paper>
+
+      {/* Tab Panels */}
+      <TabPanel value={activeTab} index={0}>
+        <Typography variant="h3" sx={{ mb: 3 }}>🏁 Authentication vs Authorization</Typography>
+        
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 3, mb: 4 }}>
+          <Card>
+            <CardContent>
+              <Typography variant="h5" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+                <Login color="primary" />
+                Authentication (การยืนยันตัวตน)
+              </Typography>
+              <Typography variant="body1" sx={{ mb: 2 }}>
+                การตรวจสอบว่าผู้ใช้เป็นใครจริงๆ
+              </Typography>
+              <List dense>
+                <ListItem>
+                  <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
+                  <ListItemText primary="Login/Register" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
+                  <ListItemText primary="OAuth (Google, GitHub)" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
+                  <ListItemText primary="JWT Tokens" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
+                  <ListItemText primary="Session Management" />
+                </ListItem>
+              </List>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent>
+              <Typography variant="h5" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+                <Shield color="warning" />
+                Authorization (การอนุญาต)
+              </Typography>
+              <Typography variant="body1" sx={{ mb: 2 }}>
+                การตรวจสอบว่าผู้ใช้มีสิทธิ์ทำอะไรได้บ้าง
+              </Typography>
+              <List dense>
+                <ListItem>
+                  <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
+                  <ListItemText primary="Role-based Access (Admin, User)" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
+                  <ListItemText primary="Permission-based Access" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
+                  <ListItemText primary="Protected API Routes" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
+                  <ListItemText primary="Middleware Protection" />
+                </ListItem>
+              </List>
+            </CardContent>
+          </Card>
         </Box>
 
-        {/* Tabs */}
-        <Paper sx={{ mb: 4 }}>
-          <Tabs 
-            value={activeTab} 
-            onChange={handleTabChange}
-            variant="scrollable"
-            scrollButtons="auto"
-            sx={{ borderBottom: 1, borderColor: 'divider' }}
-          >
-            <Tab label="🏁 เริ่มต้น" />
-            <Tab label="🔑 NextAuth.js" />
-            <Tab label="🎫 JWT Tokens" />
-            <Tab label="🔐 Session Management" />
-            <Tab label="🛡️ Protected Routes" />
-            <Tab label="💡 Best Practices" />
-            <Tab label="🚀 Demo" />
-          </Tabs>
+        <Alert severity="warning" sx={{ mb: 3 }}>
+          <Typography variant="body2">
+            <strong>สำคัญ:</strong> การรักษาความปลอดภัยต้องทำทั้ง Frontend และ Backend 
+            เพราะ Frontend สามารถถูก bypass ได้ง่าย
+          </Typography>
+        </Alert>
+      </TabPanel>
+
+      <TabPanel value={activeTab} index={1}>
+        <Typography variant="h3" sx={{ mb: 3 }}>🔑 NextAuth.js Setup</Typography>
+        
+        <Typography variant="h5" sx={{ mb: 2 }}>1. การติดตั้ง</Typography>
+        <Paper sx={{ p: 2, bgcolor: 'grey.100', mb: 3 }}>
+          <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
+            <Typography variant="body2">
+              $ npm install next-auth
+            </Typography>
+          </Box>
         </Paper>
 
-        {/* Tab Panels */}
-        <TabPanel value={activeTab} index={0}>
-          <Typography variant="h3" sx={{ mb: 3 }}>🏁 Authentication vs Authorization</Typography>
-          
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 3, mb: 4 }}>
-            <Card>
-              <CardContent>
-                <Typography variant="h5" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <Login color="primary" />
-                  Authentication (การยืนยันตัวตน)
-                </Typography>
-                <Typography variant="body1" sx={{ mb: 2 }}>
-                  การตรวจสอบว่าผู้ใช้เป็นใครจริงๆ
-                </Typography>
-                <List dense>
-                  <ListItem>
-                    <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
-                    <ListItemText primary="Login/Register" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
-                    <ListItemText primary="OAuth (Google, GitHub)" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
-                    <ListItemText primary="JWT Tokens" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
-                    <ListItemText primary="Session Management" />
-                  </ListItem>
-                </List>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent>
-                <Typography variant="h5" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <Shield color="warning" />
-                  Authorization (การอนุญาต)
-                </Typography>
-                <Typography variant="body1" sx={{ mb: 2 }}>
-                  การตรวจสอบว่าผู้ใช้มีสิทธิ์ทำอะไรได้บ้าง
-                </Typography>
-                <List dense>
-                  <ListItem>
-                    <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
-                    <ListItemText primary="Role-based Access (Admin, User)" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
-                    <ListItemText primary="Permission-based Access" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
-                    <ListItemText primary="Protected API Routes" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
-                    <ListItemText primary="Middleware Protection" />
-                  </ListItem>
-                </List>
-              </CardContent>
-            </Card>
-          </Box>
-
-          <Alert severity="warning" sx={{ mb: 3 }}>
-            <Typography variant="body2">
-              <strong>สำคัญ:</strong> การรักษาความปลอดภัยต้องทำทั้ง Frontend และ Backend 
-              เพราะ Frontend สามารถถูก bypass ได้ง่าย
-            </Typography>
-          </Alert>
-        </TabPanel>
-
-        <TabPanel value={activeTab} index={1}>
-          <Typography variant="h3" sx={{ mb: 3 }}>🔑 NextAuth.js Setup</Typography>
-          
-          <Typography variant="h5" sx={{ mb: 2 }}>1. การติดตั้ง</Typography>
-          <Paper sx={{ p: 2, bgcolor: 'grey.100', mb: 3 }}>
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-              <Typography variant="body2">
-                $ npm install next-auth
-              </Typography>
-            </Box>
-          </Paper>
-
-          <Typography variant="h5" sx={{ mb: 2 }}>2. Environment Variables</Typography>
-          <Paper sx={{ p: 2, bgcolor: 'grey.100', mb: 3 }}>
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-              <Typography variant="body2" component="pre">
+        <Typography variant="h5" sx={{ mb: 2 }}>2. Environment Variables</Typography>
+        <Paper sx={{ p: 2, bgcolor: 'grey.100', mb: 3 }}>
+          <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
+            <Typography variant="body2" component="pre">
 {`// .env.local
 NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET=your-secret-key
 
 GOOGLE_CLIENT_ID=your-google-client-id
 GOOGLE_CLIENT_SECRET=your-google-client-secret`}
-              </Typography>
-            </Box>
-          </Paper>
+            </Typography>
+          </Box>
+        </Paper>
 
-          <Typography variant="h5" sx={{ mb: 2 }}>3. การตั้งค่า NextAuth.js</Typography>
-          <Paper sx={{ p: 2, bgcolor: 'grey.100', mb: 3 }}>
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-              <Typography variant="body2" component="pre">
+        <Typography variant="h5" sx={{ mb: 2 }}>3. การตั้งค่า NextAuth.js</Typography>
+        <Paper sx={{ p: 2, bgcolor: 'grey.100', mb: 3 }}>
+          <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
+            <Typography variant="body2" component="pre">
 {`// app/api/auth/[...nextauth]/route.ts
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
@@ -296,13 +298,13 @@ const handler = NextAuth({
 });
 
 export { handler as GET, handler as POST };`}
-              </Typography>
-            </Box>
-          </Paper>
+            </Typography>
+          </Box>
+        </Paper>
 
-          <Typography variant="h5" sx={{ mb: 2 }}>4. Session Provider</Typography>
-          <Paper sx={{ p: 2, bgcolor: 'grey.100', mb: 3 }}>
-            <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace' }}>
+        <Typography variant="h5" sx={{ mb: 2 }}>4. Session Provider</Typography>
+        <Paper sx={{ p: 2, bgcolor: 'grey.100', mb: 3 }}>
+          <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace' }}>
 {`// app/providers.tsx
 'use client'
 import { SessionProvider } from 'next-auth/react'
@@ -327,46 +329,46 @@ export default function RootLayout({
     </html>
   )
 }`}
-            </Typography>
-          </Paper>
-        </TabPanel>
-
-        <TabPanel value={activeTab} index={2}>
-          <Typography variant="h3" sx={{ mb: 3 }}>🎫 JWT Tokens</Typography>
-          
-          <Typography variant="h5" sx={{ mb: 2 }}>JWT คืออะไร?</Typography>
-          <Typography variant="body1" sx={{ mb: 3 }}>
-            JSON Web Token (JWT) เป็นมาตรฐานสำหรับการส่งข้อมูลอย่างปลอดภัยระหว่าง parties 
-            ประกอบด้วย 3 ส่วน: Header, Payload, และ Signature
           </Typography>
+        </Paper>
+      </TabPanel>
 
-          <Card sx={{ mb: 3 }}>
-            <CardContent>
-              <Typography variant="h6" sx={{ mb: 2 }}>โครงสร้าง JWT Token</Typography>
-              <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-                <Typography variant="body2" sx={{ fontFamily: 'monospace', color: 'error.main' }}>
-                  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
-                </Typography>
-                <Typography variant="caption" color="error">Header (Algorithm & Token Type)</Typography>
-              </Box>
-              <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-                <Typography variant="body2" sx={{ fontFamily: 'monospace', color: 'warning.main' }}>
-                  eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ
-                </Typography>
-                <Typography variant="caption" color="warning.main">Payload (Claims/Data)</Typography>
-              </Box>
-              <Box className="code-block" sx={{ p: 2, borderRadius: 1 }}>
-                <Typography variant="body2" sx={{ fontFamily: 'monospace', color: 'success.main' }}>
-                  SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
-                </Typography>
-                <Typography variant="caption" color="success.main">Signature (Verification)</Typography>
-              </Box>
-            </CardContent>
-          </Card>
+      <TabPanel value={activeTab} index={2}>
+        <Typography variant="h3" sx={{ mb: 3 }}>🎫 JWT Tokens</Typography>
+        
+        <Typography variant="h5" sx={{ mb: 2 }}>JWT คืออะไร?</Typography>
+        <Typography variant="body1" sx={{ mb: 3 }}>
+          JSON Web Token (JWT) เป็นมาตรฐานสำหรับการส่งข้อมูลอย่างปลอดภัยระหว่าง parties 
+          ประกอบด้วย 3 ส่วน: Header, Payload, และ Signature
+        </Typography>
 
-          <Typography variant="h5" sx={{ mb: 2 }}>การใช้งาน JWT ใน Next.js</Typography>
-          <Paper sx={{ p: 2, bgcolor: 'grey.100', mb: 3 }}>
-            <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.8rem' }}>
+        <Card sx={{ mb: 3 }}>
+          <CardContent>
+            <Typography variant="h6" sx={{ mb: 2 }}>โครงสร้าง JWT Token</Typography>
+            <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
+              <Typography variant="body2" sx={{ fontFamily: 'monospace', color: 'error.main' }}>
+                eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+              </Typography>
+              <Typography variant="caption" color="error">Header (Algorithm & Token Type)</Typography>
+            </Box>
+            <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
+              <Typography variant="body2" sx={{ fontFamily: 'monospace', color: 'warning.main' }}>
+                eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ
+              </Typography>
+              <Typography variant="caption" color="warning.main">Payload (Claims/Data)</Typography>
+            </Box>
+            <Box className="code-block" sx={{ p: 2, borderRadius: 1 }}>
+              <Typography variant="body2" sx={{ fontFamily: 'monospace', color: 'success.main' }}>
+                SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+              </Typography>
+              <Typography variant="caption" color="success.main">Signature (Verification)</Typography>
+            </Box>
+          </CardContent>
+        </Card>
+
+        <Typography variant="h5" sx={{ mb: 2 }}>การใช้งาน JWT ใน Next.js</Typography>
+        <Paper sx={{ p: 2, bgcolor: 'grey.100', mb: 3 }}>
+          <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.8rem' }}>
 {`// lib/jwt.ts
 import jwt from 'jsonwebtoken'
 
@@ -406,23 +408,23 @@ export async function validateToken(request: Request) {
   
   return payload
 }`}
-            </Typography>
-          </Paper>
+          </Typography>
+        </Paper>
 
-          <Alert severity="info" sx={{ mb: 3 }}>
-            <Typography variant="body2">
-              <strong>Best Practice:</strong> ใช้ Access Token (อายุสั้น) สำหรับการเข้าถึงข้อมูล 
-              และ Refresh Token (อายุยาว) สำหรับการต่ออายุ token
-            </Typography>
-          </Alert>
-        </TabPanel>
+        <Alert severity="info" sx={{ mb: 3 }}>
+          <Typography variant="body2">
+            <strong>Best Practice:</strong> ใช้ Access Token (อายุสั้น) สำหรับการเข้าถึงข้อมูล 
+            และ Refresh Token (อายุยาว) สำหรับการต่ออายุ token
+          </Typography>
+        </Alert>
+      </TabPanel>
 
-        <TabPanel value={activeTab} index={3}>
-          <Typography variant="h3" sx={{ mb: 3 }}>🔐 Session Management</Typography>
-          
-          <Typography variant="h5" sx={{ mb: 2 }}>การใช้งาน useSession Hook</Typography>
-          <Paper sx={{ p: 2, bgcolor: 'grey.100', mb: 3 }}>
-            <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.8rem' }}>
+      <TabPanel value={activeTab} index={3}>
+        <Typography variant="h3" sx={{ mb: 3 }}>🔐 Session Management</Typography>
+        
+        <Typography variant="h5" sx={{ mb: 2 }}>การใช้งาน useSession Hook</Typography>
+        <Paper sx={{ p: 2, bgcolor: 'grey.100', mb: 3 }}>
+          <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.8rem' }}>
 {`// components/UserProfile.tsx
 'use client';
 import { useSession, signIn, signOut } from 'next-auth/react';
@@ -455,12 +457,12 @@ export default function SessionDemo() {
     </div>
   );
 }`}
-            </Typography>
-          </Paper>
+          </Typography>
+        </Paper>
 
-          <Typography variant="h5" sx={{ mb: 2 }}>Server-side Session Handling</Typography>
-          <Paper sx={{ p: 2, bgcolor: 'grey.100', mb: 3 }}>
-            <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.8rem' }}>
+        <Typography variant="h5" sx={{ mb: 2 }}>Server-side Session Handling</Typography>
+        <Paper sx={{ p: 2, bgcolor: 'grey.100', mb: 3 }}>
+          <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.8rem' }}>
 {`// Server Component
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
@@ -493,12 +495,12 @@ export async function GET(request: Request) {
   // Protected API logic here
   return Response.json({ message: 'Success' })
 }`}
-            </Typography>
-          </Paper>
+          </Typography>
+        </Paper>
 
-          <Typography variant="h5" sx={{ mb: 2 }}>Custom Session Store</Typography>
-          <Paper sx={{ p: 2, bgcolor: 'grey.100', mb: 3 }}>
-            <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.8rem' }}>
+        <Typography variant="h5" sx={{ mb: 2 }}>Custom Session Store</Typography>
+        <Paper sx={{ p: 2, bgcolor: 'grey.100', mb: 3 }}>
+          <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.8rem' }}>
 {`// lib/session.ts
 import { prisma } from './prisma'
 
@@ -530,16 +532,16 @@ export async function deleteSession(sessionToken: string) {
     where: { sessionToken },
   })
 }`}
-            </Typography>
-          </Paper>
-        </TabPanel>
+          </Typography>
+        </Paper>
+      </TabPanel>
 
-        <TabPanel value={activeTab} index={4}>
-          <Typography variant="h3" sx={{ mb: 3 }}>🛡️ Protected Routes</Typography>
-          
-          <Typography variant="h5" sx={{ mb: 2 }}>Middleware Protection</Typography>
-          <Paper sx={{ p: 2, bgcolor: 'grey.100', mb: 3 }}>
-            <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.8rem' }}>
+      <TabPanel value={activeTab} index={4}>
+        <Typography variant="h3" sx={{ mb: 3 }}>🛡️ Protected Routes</Typography>
+        
+        <Typography variant="h5" sx={{ mb: 2 }}>Middleware Protection</Typography>
+        <Paper sx={{ p: 2, bgcolor: 'grey.100', mb: 3 }}>
+          <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.8rem' }}>
 {`// middleware.ts
 import { withAuth } from 'next-auth/middleware'
 
@@ -570,12 +572,12 @@ export default withAuth(
 export const config = {
   matcher: ['/dashboard/:path*', '/admin/:path*', '/api/protected/:path*']
 }`}
-            </Typography>
-          </Paper>
+          </Typography>
+        </Paper>
 
-          <Typography variant="h5" sx={{ mb: 2 }}>Component-level Protection</Typography>
-          <Paper sx={{ p: 2, bgcolor: 'grey.100', mb: 3 }}>
-            <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.8rem' }}>
+        <Typography variant="h5" sx={{ mb: 2 }}>Component-level Protection</Typography>
+        <Paper sx={{ p: 2, bgcolor: 'grey.100', mb: 3 }}>
+          <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.8rem' }}>
 {`// components/ProtectedComponent.tsx
 'use client';
 import { useSession } from 'next-auth/react';
@@ -613,12 +615,12 @@ function AdminPanel() {
     </ProtectedComponent>
   );
 }`}
-            </Typography>
-          </Paper>
+          </Typography>
+        </Paper>
 
-          <Typography variant="h5" sx={{ mb: 2 }}>HOC Pattern</Typography>
-          <Paper sx={{ p: 2, bgcolor: 'grey.100', mb: 3 }}>
-            <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.8rem' }}>
+        <Typography variant="h5" sx={{ mb: 2 }}>HOC Pattern</Typography>
+        <Paper sx={{ p: 2, bgcolor: 'grey.100', mb: 3 }}>
+          <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '0.8rem' }}>
 {`// utils/withAuth.tsx
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
@@ -649,82 +651,82 @@ const AdminPage = withAuth(
   },
   'admin'
 );`}
-            </Typography>
-          </Paper>
-        </TabPanel>
+          </Typography>
+        </Paper>
+      </TabPanel>
 
-        <TabPanel value={activeTab} index={5}>
-          <Typography variant="h3" sx={{ mb: 3 }}>💡 Security Best Practices</Typography>
-          
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 3, mb: 4 }}>
-            <Card>
-              <CardContent>
-                <Typography variant="h6" sx={{ mb: 2, color: 'success.main' }}>✅ ควรทำ</Typography>
-                <List dense>
-                  <ListItem>
-                    <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
-                    <ListItemText primary="ใช้ HTTPS ในทุกสถานการณ์" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
-                    <ListItemText primary="Hash passwords ด้วย bcrypt" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
-                    <ListItemText primary="ใช้ secure cookies" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
-                    <ListItemText primary="Validate inputs ทั้ง client & server" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
-                    <ListItemText primary="ตั้ง token expiration ที่เหมาะสม" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
-                    <ListItemText primary="ใช้ CSRF protection" />
-                  </ListItem>
-                </List>
-              </CardContent>
-            </Card>
+      <TabPanel value={activeTab} index={5}>
+        <Typography variant="h3" sx={{ mb: 3 }}>💡 Security Best Practices</Typography>
+        
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 3, mb: 4 }}>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" sx={{ mb: 2, color: 'success.main' }}>✅ ควรทำ</Typography>
+              <List dense>
+                <ListItem>
+                  <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
+                  <ListItemText primary="ใช้ HTTPS ในทุกสถานการณ์" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
+                  <ListItemText primary="Hash passwords ด้วย bcrypt" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
+                  <ListItemText primary="ใช้ secure cookies" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
+                  <ListItemText primary="Validate inputs ทั้ง client & server" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
+                  <ListItemText primary="ตั้ง token expiration ที่เหมาะสม" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
+                  <ListItemText primary="ใช้ CSRF protection" />
+                </ListItem>
+              </List>
+            </CardContent>
+          </Card>
 
-            <Card>
-              <CardContent>
-                <Typography variant="h6" sx={{ mb: 2, color: 'error.main' }}>❌ ไม่ควรทำ</Typography>
-                <List dense>
-                  <ListItem>
-                    <ListItemIcon><CheckCircle color="error" sx={{ fontSize: 20 }} /></ListItemIcon>
-                    <ListItemText primary="เก็บ sensitive data ใน localStorage" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemIcon><CheckCircle color="error" sx={{ fontSize: 20 }} /></ListItemIcon>
-                    <ListItemText primary="ส่ง passwords ใน URL parameters" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemIcon><CheckCircle color="error" sx={{ fontSize: 20 }} /></ListItemIcon>
-                    <ListItemText primary="Trust client-side validation เพียงอย่างเดียว" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemIcon><CheckCircle color="error" sx={{ fontSize: 20 }} /></ListItemIcon>
-                    <ListItemText primary="ใช้ tokens ที่ไม่มีวันหมดอายุ" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemIcon><CheckCircle color="error" sx={{ fontSize: 20 }} /></ListItemIcon>
-                    <ListItemText primary="Log sensitive information" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemIcon><CheckCircle color="error" sx={{ fontSize: 20 }} /></ListItemIcon>
-                    <ListItemText primary="ใช้ weak secrets/keys" />
-                  </ListItem>
-                </List>
-              </CardContent>
-            </Card>
-          </Box>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" sx={{ mb: 2, color: 'error.main' }}>❌ ไม่ควรทำ</Typography>
+              <List dense>
+                <ListItem>
+                  <ListItemIcon><CheckCircle color="error" sx={{ fontSize: 20 }} /></ListItemIcon>
+                  <ListItemText primary="เก็บ sensitive data ใน localStorage" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon><CheckCircle color="error" sx={{ fontSize: 20 }} /></ListItemIcon>
+                  <ListItemText primary="ส่ง passwords ใน URL parameters" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon><CheckCircle color="error" sx={{ fontSize: 20 }} /></ListItemIcon>
+                  <ListItemText primary="Trust client-side validation เพียงอย่างเดียว" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon><CheckCircle color="error" sx={{ fontSize: 20 }} /></ListItemIcon>
+                  <ListItemText primary="ใช้ tokens ที่ไม่มีวันหมดอายุ" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon><CheckCircle color="error" sx={{ fontSize: 20 }} /></ListItemIcon>
+                  <ListItemText primary="Log sensitive information" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon><CheckCircle color="error" sx={{ fontSize: 20 }} /></ListItemIcon>
+                  <ListItemText primary="ใช้ weak secrets/keys" />
+                </ListItem>
+              </List>
+            </CardContent>
+          </Card>
+        </Box>
 
-          <Typography variant="h5" sx={{ mb: 2 }}>Environment Security</Typography>
-          <Paper sx={{ p: 2, bgcolor: 'grey.100', mb: 3 }}>
-            <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace' }}>
+        <Typography variant="h5" sx={{ mb: 2 }}>Environment Security</Typography>
+        <Paper sx={{ p: 2, bgcolor: 'grey.100', mb: 3 }}>
+          <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace' }}>
 {`// .env.local (Never commit to git!)
 NEXTAUTH_SECRET=super-secret-key-at-least-32-characters
 JWT_SECRET=another-super-secret-key-for-jwt-signing
@@ -736,141 +738,141 @@ JWT_SECRET=your-jwt-secret
 DATABASE_URL=your-database-url
 GOOGLE_CLIENT_ID=your-google-client-id
 GOOGLE_CLIENT_SECRET=your-google-client-secret`}
-            </Typography>
-          </Paper>
-
-          <Alert severity="error" sx={{ mb: 3 }}>
-            <Typography variant="body2">
-              <strong>สำคัญมาก:</strong> อย่า commit .env files ที่มี secrets จริงลง git repository!
-              ใช้ .env.example เป็น template แทน
-            </Typography>
-          </Alert>
-        </TabPanel>
-
-        <TabPanel value={activeTab} index={6}>
-          <Typography variant="h3" sx={{ mb: 3 }}>🚀 Interactive Demo</Typography>
-          
-          <Card sx={{ mb: 4 }}>
-            <CardContent>
-              <Typography variant="h5" sx={{ mb: 3 }}>Login Demo</Typography>
-              
-              <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 3 }}>
-                <Box>
-                  <Typography variant="h6" sx={{ mb: 2 }}>OAuth Providers</Typography>
-                  <Stack spacing={2}>
-                    {authProviders.map((provider) => (
-                      <Button
-                        key={provider.name}
-                        variant="outlined"
-                        fullWidth
-                        startIcon={<span>{provider.icon}</span>}
-                        onClick={() => alert(`จำลองการ login ด้วย ${provider.name}`)}
-                        sx={{ 
-                          borderColor: provider.color,
-                          color: provider.color,
-                          '&:hover': {
-                            bgcolor: `${provider.color}10`,
-                            borderColor: provider.color,
-                          }
-                        }}
-                      >
-                        Continue with {provider.name}
-                      </Button>
-                    ))}
-                  </Stack>
-                </Box>
-
-                <Box>
-                  <Typography variant="h6" sx={{ mb: 2 }}>Session Status</Typography>
-                  <Card variant="outlined">
-                    <CardContent>
-                      <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                        <AccountCircle 
-                          sx={{ 
-                            fontSize: 40, 
-                            mr: 2, 
-                            color: isLoggedIn ? 'success.main' : 'grey.400' 
-                          }} 
-                        />
-                        <Box>
-                          <Typography variant="h6">
-                            {isLoggedIn ? 'John Doe' : 'Not logged in'}
-                          </Typography>
-                          <Typography variant="body2" color="text.secondary">
-                            {isLoggedIn ? 'john@example.com' : 'Please sign in'}
-                          </Typography>
-                        </Box>
-                      </Box>
-                      
-                      <Button
-                        variant={isLoggedIn ? 'outlined' : 'contained'}
-                        color={isLoggedIn ? 'error' : 'primary'}
-                        startIcon={isLoggedIn ? <Logout /> : <Login />}
-                        onClick={() => setIsLoggedIn(!isLoggedIn)}
-                        fullWidth
-                      >
-                        {isLoggedIn ? 'Sign Out' : 'Sign In'}
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </Box>
-              </Box>
-            </CardContent>
-          </Card>
-
-          <Alert severity="success" sx={{ mb: 3 }}>
-            <Typography variant="body2">
-              <strong>ยินดีด้วย!</strong> คุณได้เรียนรู้การสร้างระบบ Authentication & Authorization แล้ว
-              ตอนนี้คุณสามารถสร้างแอปที่ปลอดภัยและมีการจัดการผู้ใช้ได้แล้ว! 🎉
-            </Typography>
-          </Alert>
-        </TabPanel>
-
-        {/* Navigation */}
-        <Paper sx={{ p: 4, bgcolor: 'success.light', color: 'success.dark' }}>
-          <Typography variant="h5" sx={{ mb: 2 }}>
-            🎯 ยินดีด้วย! คุณเรียนจบบทที่ 9 แล้ว
           </Typography>
-          <Typography variant="body1" sx={{ mb: 3 }}>
-            ตอนนี้คุณสามารถสร้างระบบ Authentication & Authorization ที่ปลอดภัยได้แล้ว
-            พร้อมสำหรับการเรียนรู้ State Management ในบทถัดไป
-          </Typography>
-          
-          <Alert severity="info" sx={{ mb: 3 }}>
-            <Typography variant="body2">
-              💡 <strong>บทถัดไป:</strong> เรียนรู้ State Management เพื่อจัดการ state ในแอปพลิเคชันขนาดใหญ่
-            </Typography>
-          </Alert>
         </Paper>
 
-        {/* Navigation */}
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 6 }}>
-          <Button
-            startIcon={<ArrowBack />}
-            component={Link}
-            href="/nextjs-basics/lesson-8"
-            variant="outlined"
-          >
-            บทที่ 8: Zod Validation
-          </Button>
-          
-          <Chip 
-            label="9 / 16"
-            color="primary"
-            variant="outlined"
-          />
-          
-          <Button
-            endIcon={<ArrowForward />}
-            component={Link}
-            href="/nextjs-basics/lesson-10"
-            variant="contained"
-            color="primary"
-          >
-            บทที่ 10: State Management
-          </Button>
-        </Box>
+        <Alert severity="error" sx={{ mb: 3 }}>
+          <Typography variant="body2">
+            <strong>สำคัญมาก:</strong> อย่า commit .env files ที่มี secrets จริงลง git repository!
+            ใช้ .env.example เป็น template แทน
+          </Typography>
+        </Alert>
+      </TabPanel>
+
+      <TabPanel value={activeTab} index={6}>
+        <Typography variant="h3" sx={{ mb: 3 }}>🚀 Interactive Demo</Typography>
+        
+        <Card sx={{ mb: 4 }}>
+          <CardContent>
+            <Typography variant="h5" sx={{ mb: 3 }}>Login Demo</Typography>
+            
+            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 3 }}>
+              <Box>
+                <Typography variant="h6" sx={{ mb: 2 }}>OAuth Providers</Typography>
+                <Stack spacing={2}>
+                  {authProviders.map((provider) => (
+                    <Button
+                      key={provider.name}
+                      variant="outlined"
+                      fullWidth
+                      startIcon={<span>{provider.icon}</span>}
+                      onClick={() => alert(`จำลองการ login ด้วย ${provider.name}`)}
+                      sx={{ 
+                        borderColor: provider.color,
+                        color: provider.color,
+                        '&:hover': {
+                          bgcolor: `${provider.color}10`,
+                          borderColor: provider.color,
+                        }
+                      }}
+                    >
+                      Continue with {provider.name}
+                    </Button>
+                  ))}
+                </Stack>
+              </Box>
+
+              <Box>
+                <Typography variant="h6" sx={{ mb: 2 }}>Session Status</Typography>
+                <Card variant="outlined">
+                  <CardContent>
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                      <AccountCircle 
+                        sx={{ 
+                          fontSize: 40, 
+                          mr: 2, 
+                          color: isLoggedIn ? 'success.main' : 'grey.400' 
+                        }} 
+                      />
+                      <Box>
+                        <Typography variant="h6">
+                          {isLoggedIn ? 'John Doe' : 'Not logged in'}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          {isLoggedIn ? 'john@example.com' : 'Please sign in'}
+                        </Typography>
+                      </Box>
+                    </Box>
+                    
+                    <Button
+                      variant={isLoggedIn ? 'outlined' : 'contained'}
+                      color={isLoggedIn ? 'error' : 'primary'}
+                      startIcon={isLoggedIn ? <Logout /> : <Login />}
+                      onClick={() => setIsLoggedIn(!isLoggedIn)}
+                      fullWidth
+                    >
+                      {isLoggedIn ? 'Sign Out' : 'Sign In'}
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Box>
+            </Box>
+          </CardContent>
+        </Card>
+
+        <Alert severity="success" sx={{ mb: 3 }}>
+          <Typography variant="body2">
+            <strong>ยินดีด้วย!</strong> คุณได้เรียนรู้การสร้างระบบ Authentication & Authorization แล้ว
+            ตอนนี้คุณสามารถสร้างแอปที่ปลอดภัยและมีการจัดการผู้ใช้ได้แล้ว! 🎉
+          </Typography>
+        </Alert>
+      </TabPanel>
+
+      {/* Navigation Section */}
+      <Paper sx={{ p: { xs: 2, sm: 4 }, bgcolor: 'success.light', color: 'success.dark', mt: { xs: 4, sm: 6 } }}>
+        <Typography variant="h5" sx={{ mb: 2, fontSize: { xs: '1.3rem', sm: '1.5rem' }, fontWeight: 600 }}>
+          🎯 ยินดีด้วย! คุณเรียนจบบทที่ 9 แล้ว
+        </Typography>
+        <Typography variant="body1" sx={{ mb: 3, fontSize: { xs: '0.9rem', sm: '1rem' }, lineHeight: 1.6 }}>
+          ตอนนี้คุณสามารถสร้างระบบ Authentication & Authorization ที่ปลอดภัยได้แล้ว
+          พร้อมสำหรับการเรียนรู้ State Management ในบทถัดไป
+        </Typography>
+        
+        <Alert severity="info" sx={{ mb: 3, bgcolor: 'info.50', border: '1px solid', borderColor: 'info.200', fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>
+          <Typography variant="body2">
+            💡 <strong>บทถัดไป:</strong> เรียนรู้ State Management เพื่อจัดการ state ในแอปพลิเคชันขนาดใหญ่
+          </Typography>
+        </Alert>
+      </Paper>
+
+      {/* Navigation Buttons */}
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: { xs: 4, sm: 6 }, flexDirection: { xs: 'column', sm: 'row' }, gap: { xs: 2, sm: 0 } }}>
+        <Button
+          startIcon={<ArrowBack />}
+          component={Link}
+          href="/nextjs-basics/lesson-8"
+          variant="outlined"
+          sx={{ fontSize: { xs: '0.85rem', sm: '0.9rem' }, order: { xs: 2, sm: 1 } }}
+        >
+          บทที่ 8: Zod Validation
+        </Button>
+        <Chip
+          label="9 / 18"
+          color="primary"
+          variant="outlined"
+          sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' }, order: { xs: 1, sm: 2 } }}
+        />
+        <Button
+          endIcon={<ArrowForward />}
+          component={Link}
+          href="/nextjs-basics/lesson-10"
+          variant="contained"
+          color="primary"
+          sx={{ fontSize: { xs: '0.85rem', sm: '0.9rem' }, order: { xs: 3, sm: 3 } }}
+        >
+          บทที่ 10: State Management
+        </Button>
       </Box>
-    </Container>
+    </Box>
   );
 } 

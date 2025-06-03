@@ -1,14 +1,9 @@
 'use client';
+import React from 'react';
 import {
-  Container,
-  Typography,
   Box,
-  Paper,
+  Typography,
   Alert,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   Accordion,
   AccordionSummary,
   AccordionDetails,
@@ -18,12 +13,11 @@ import {
   CardContent,
   Tabs,
   Tab,
-  Divider,
-  Grid,
   Switch,
   FormControlLabel,
   TextField,
   CircularProgress,
+  Stack,
 } from '@mui/material';
 import {
   CheckCircle,
@@ -63,7 +57,7 @@ function CustomTabPanel(props: TabPanelProps) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      {value === index && <Box sx={{ p: { xs: 2, sm: 3 } }}>{children}</Box>}
     </div>
   );
 }
@@ -101,24 +95,51 @@ function CounterDemo() {
   const [step, setStep] = useState(1);
 
   return (
-    <Card>
-      <CardContent>
-        <Typography variant="h6" sx={{ mb: 2 }}>
+    <Card sx={{ height: '100%' }}>
+      <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+        <Typography 
+          variant="h6" 
+          sx={{ 
+            mb: 2,
+            fontSize: { xs: '1rem', sm: '1.1rem' }
+          }}
+        >
           🔢 Counter Demo
         </Typography>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-          <Typography variant="h4">{count}</Typography>
-          <Box>
+        <Box sx={{ 
+          display: 'flex', 
+          flexDirection: { xs: 'column', sm: 'row' },
+          alignItems: { xs: 'stretch', sm: 'center' }, 
+          gap: 2, 
+          mb: 2 
+        }}>
+          <Typography 
+            variant="h4"
+            sx={{ 
+              fontSize: { xs: '2rem', sm: '2.5rem' },
+              textAlign: { xs: 'center', sm: 'left' }
+            }}
+          >
+            {count}
+          </Typography>
+          <Box sx={{ 
+            display: 'flex', 
+            gap: 1,
+            justifyContent: { xs: 'center', sm: 'flex-start' }
+          }}>
             <Button 
               variant="contained" 
               onClick={() => setCount(count + step)}
-              sx={{ mr: 1 }}
+              size="small"
+              sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
             >
               +{step}
             </Button>
             <Button 
               variant="outlined" 
               onClick={() => setCount(count - step)}
+              size="small"
+              sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
             >
               -{step}
             </Button>
@@ -130,6 +151,12 @@ function CounterDemo() {
           value={step}
           onChange={(e) => setStep(Number(e.target.value))}
           size="small"
+          fullWidth
+          sx={{
+            '& .MuiInputBase-input': {
+              fontSize: { xs: '0.9rem', sm: '1rem' }
+            }
+          }}
         />
       </CardContent>
     </Card>
@@ -162,24 +189,50 @@ function TimerDemo() {
   };
 
   return (
-    <Card>
-      <CardContent>
-        <Typography variant="h6" sx={{ mb: 2 }}>
+    <Card sx={{ height: '100%' }}>
+      <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+        <Typography 
+          variant="h6" 
+          sx={{ 
+            mb: 2,
+            fontSize: { xs: '1rem', sm: '1.1rem' }
+          }}
+        >
           ⏱️ Timer Demo
         </Typography>
-        <Typography variant="h3" sx={{ mb: 2, fontFamily: 'monospace' }}>
+        <Typography 
+          variant="h3" 
+          sx={{ 
+            mb: 2, 
+            fontFamily: 'monospace',
+            textAlign: 'center',
+            fontSize: { xs: '2rem', sm: '3rem' }
+          }}
+        >
           {String(Math.floor(seconds / 60)).padStart(2, '0')}:
           {String(seconds % 60).padStart(2, '0')}
         </Typography>
-        <Box sx={{ display: 'flex', gap: 1 }}>
+        <Box sx={{ 
+          display: 'flex', 
+          gap: 1,
+          justifyContent: 'center',
+          flexWrap: 'wrap'
+        }}>
           <Button 
             variant="contained" 
             onClick={() => setIsRunning(!isRunning)}
             color={isRunning ? 'secondary' : 'primary'}
+            size="small"
+            sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
           >
             {isRunning ? 'Pause' : 'Start'}
           </Button>
-          <Button variant="outlined" onClick={reset}>
+          <Button 
+            variant="outlined" 
+            onClick={reset}
+            size="small"
+            sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
+          >
             Reset
           </Button>
         </Box>
@@ -198,9 +251,14 @@ function FetchDemo() {
     setError(null);
     
     try {
-      const response = await fetch('https://jsonplaceholder.typicode.com/users?_limit=3');
-      const data = await response.json();
-      setUsers(data);
+      // Mock API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      const mockUsers = [
+        { id: 1, name: 'John Doe', email: 'john@example.com' },
+        { id: 2, name: 'Jane Smith', email: 'jane@example.com' },
+        { id: 3, name: 'Bob Johnson', email: 'bob@example.com' },
+      ];
+      setUsers(mockUsers);
     } catch (err) {
       setError('Failed to fetch users');
     } finally {
@@ -208,21 +266,22 @@ function FetchDemo() {
     }
   };
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-
   return (
-    <Card>
-      <CardContent>
-        <Typography variant="h6" sx={{ mb: 2 }}>
-          👥 Fetch Demo
+    <Card sx={{ height: '100%' }}>
+      <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+        <Typography 
+          variant="h6" 
+          sx={{ 
+            mb: 2,
+            fontSize: { xs: '1rem', sm: '1.1rem' }
+          }}
+        >
+          📡 Fetch Demo
         </Typography>
         
         {loading && (
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-            <CircularProgress size={20} />
-            <Typography>Loading users...</Typography>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+            <CircularProgress size={24} />
           </Box>
         )}
         
@@ -232,23 +291,49 @@ function FetchDemo() {
           </Alert>
         )}
         
-        <List dense>
+        {users.length > 0 && !loading && (
+          <Stack spacing={1} sx={{ mb: 2 }}>
           {users.map(user => (
-            <ListItem key={user.id}>
-              <ListItemText 
-                primary={user.name} 
-                secondary={user.email}
-              />
-            </ListItem>
+              <Box 
+                key={user.id}
+                sx={{ 
+                  p: { xs: 1, sm: 1.5 },
+                  border: '1px solid',
+                  borderColor: 'grey.200',
+                  borderRadius: 1,
+                  bgcolor: 'grey.50'
+                }}
+              >
+                <Typography 
+                  variant="body2" 
+                  sx={{ 
+                    fontWeight: 600,
+                    fontSize: { xs: '0.8rem', sm: '0.9rem' }
+                  }}
+                >
+                  {user.name}
+                </Typography>
+                <Typography 
+                  variant="caption" 
+                  color="text.secondary"
+                  sx={{ fontSize: { xs: '0.7rem', sm: '0.75rem' } }}
+                >
+                  {user.email}
+                </Typography>
+              </Box>
           ))}
-        </List>
+          </Stack>
+        )}
         
         <Button 
-          variant="outlined" 
+          variant="contained" 
           onClick={fetchUsers}
           disabled={loading}
+          fullWidth
+          size="small"
+          sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
         >
-          Refresh
+          Fetch Users
         </Button>
       </CardContent>
     </Card>
@@ -263,166 +348,293 @@ export default function Lesson7Page() {
   };
 
   return (
-    <Container maxWidth="lg">
+    <Box 
+      sx={{ 
+        minHeight: '100vh',
+        maxWidth: '100vw',
+        px: { xs: 2, sm: 3, md: 4 },
+        py: { xs: 2, sm: 3 }
+      }}
+    >
       {/* Header */}
-      <Box sx={{ py: 4 }}>
-        <Typography variant="h1" sx={{ mb: 2 }}>
-          🪝 บทที่ 7: React Hooks (useState & useEffect)
+      <Box sx={{ py: { xs: 2, sm: 4 } }}>
+        <Typography 
+          variant="h3" 
+          component="h1" 
+          sx={{ 
+            mb: 2, 
+            fontWeight: 600,
+            fontSize: { xs: '1.8rem', sm: '2.5rem', md: '3rem' }
+          }}
+        >
+          บทที่ 7: React Hooks (useState & useEffect)
         </Typography>
-        <Typography variant="h5" color="text.secondary" sx={{ mb: 4 }}>
-          เรียนรู้การใช้ React Hooks สำหรับการจัดการ state และ side effects ใน Next.js 15
+        <Typography 
+          variant="h6" 
+          color="text.secondary" 
+          sx={{ 
+            lineHeight: 1.6,
+            fontSize: { xs: '1rem', sm: '1.1rem', md: '1.25rem' }
+          }}
+        >
+          เรียนรู้การใช้งาน React Hooks สำหรับจัดการ state และ side effects ใน Next.js 15
         </Typography>
-
-        <Box sx={{ display: 'flex', gap: 2, mb: 4 }}>
-          <Chip label="35 นาที" color="primary" />
-          <Chip label="ปานกลาง" color="secondary" />
-          <Chip label="สำคัญ" color="warning" />
-          <Chip label="Interactive" color="success" />
-        </Box>
       </Box>
 
       {/* Learning Objectives */}
-      <Paper sx={{ p: 3, mb: 4, bgcolor: 'primary.light', color: 'primary.contrastText' }}>
-        <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+      <Card sx={{ 
+        p: { xs: 2, sm: 3, md: 4 }, 
+        mb: { xs: 3, sm: 4 }, 
+        bgcolor: 'primary.light', 
+        color: 'primary.contrastText',
+        boxShadow: 1 
+      }}>
+        <Typography 
+          variant="h6" 
+          sx={{ 
+            mb: 2, 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: 1,
+            fontSize: { xs: '1.1rem', sm: '1.25rem' }
+          }}
+        >
           <Lightbulb /> วัตถุประสงค์การเรียนรู้
         </Typography>
-        <List dense>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
-              <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="เข้าใจการใช้ useState สำหรับจัดการ state" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
-              <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="เข้าใจการใช้ useEffect สำหรับ side effects" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
-              <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="เรียนรู้ dependency arrays และการ cleanup" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
-              <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="สร้าง interactive components ด้วย hooks" />
-          </ListItem>
-        </List>
-      </Paper>
+        <Stack spacing={1.5}>
+          <Stack direction="row" spacing={1} alignItems="center">
+            <CheckCircle sx={{ fontSize: { xs: 16, sm: 20 } }} />
+            <Typography 
+              variant="body1"
+              sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}
+            >
+              เข้าใจการใช้ useState สำหรับจัดการ state
+            </Typography>
+          </Stack>
+          <Stack direction="row" spacing={1} alignItems="center">
+            <CheckCircle sx={{ fontSize: { xs: 16, sm: 20 } }} />
+            <Typography 
+              variant="body1"
+              sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}
+            >
+              เข้าใจการใช้ useEffect สำหรับ side effects
+            </Typography>
+          </Stack>
+          <Stack direction="row" spacing={1} alignItems="center">
+            <CheckCircle sx={{ fontSize: { xs: 16, sm: 20 } }} />
+            <Typography 
+              variant="body1"
+              sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}
+            >
+              เรียนรู้ dependency arrays และการ cleanup
+            </Typography>
+          </Stack>
+          <Stack direction="row" spacing={1} alignItems="center">
+            <CheckCircle sx={{ fontSize: { xs: 16, sm: 20 } }} />
+            <Typography 
+              variant="body1"
+              sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}
+            >
+              สร้าง interactive components ด้วย hooks
+            </Typography>
+          </Stack>
+        </Stack>
+      </Card>
 
       {/* What are React Hooks */}
-      <Paper sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
+      <Card sx={{ 
+        p: { xs: 2, sm: 3, md: 4 }, 
+        mb: { xs: 3, sm: 4 },
+        boxShadow: 1
+      }}>
+        <Typography 
+          variant="h4" 
+          sx={{ 
+            mb: 3,
+            fontSize: { xs: '1.5rem', sm: '2rem' },
+            fontWeight: 600
+          }}
+        >
           🤔 React Hooks คืออะไร?
         </Typography>
         
-        <Typography variant="body1" sx={{ mb: 3, lineHeight: 1.7 }}>
-          <strong>React Hooks</strong> เป็นฟังก์ชันพิเศษที่ให้เราสามารถใช้ React features เช่น state และ lifecycle methods 
-          ใน functional components ได้ โดยไม่ต้องเขียน class components
-        </Typography>
-
-        <Alert severity="info" sx={{ mb: 3 }}>
-          <Typography variant="body2">
-            💡 <strong>Next.js 15 + React 19:</strong> Hooks ยังคงเป็นวิธีหลักในการจัดการ state และ side effects 
-            พร้อมกับ Server Components และ Client Components
-          </Typography>
-        </Alert>
-
-        {/* Features Grid */}
-        <Typography variant="h6" sx={{ mb: 3 }}>
-          🌟 ฟีเจอร์เด่นของ React Hooks:
+        <Typography 
+          variant="body1" 
+          sx={{ 
+            mb: 3, 
+            lineHeight: 1.7,
+            fontSize: { xs: '0.95rem', sm: '1rem' }
+          }}
+        >
+          <strong>React Hooks</strong> คือ functions พิเศษที่ให้เราใช้ React features ต่างๆ ได้ใน functional components 
+          เช่น state management, lifecycle methods, และอื่นๆ โดยไม่ต้องเขียน class components
         </Typography>
         
         <Box sx={{ 
           display: 'grid', 
-          gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, 
-          gap: 3 
+          gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, 
+          gap: { xs: 2, sm: 3 }, 
+          mb: 3 
         }}>
           {hookFeatures.map((feature, index) => (
-            <Card key={index} sx={{ height: '100%' }}>
-              <CardContent>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-                  <Box sx={{ color: `${feature.color}.main` }}>
+            <Card 
+              key={index} 
+              sx={{ 
+                p: { xs: 2, sm: 3 }, 
+                border: '1px solid', 
+                borderColor: 'grey.200',
+                transition: 'transform 0.2s ease',
+                '&:hover': {
+                  transform: 'translateY(-2px)',
+                  boxShadow: 2
+                }
+              }}
+            >
+              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                <Box sx={{ 
+                  mr: 2, 
+                  color: `${feature.color}.main`,
+                  fontSize: { xs: 20, sm: 24 }
+                }}>
                     {feature.icon}
                   </Box>
-                  <Typography variant="h6">
+                <Typography 
+                  variant="h6" 
+                  sx={{ 
+                    fontWeight: 600,
+                    fontSize: { xs: '1rem', sm: '1.1rem' }
+                  }}
+                >
                     {feature.title}
                   </Typography>
                 </Box>
-                <Typography variant="body2">
+              <Typography 
+                variant="body2" 
+                color="text.secondary"
+                sx={{ 
+                  lineHeight: 1.5,
+                  fontSize: { xs: '0.85rem', sm: '0.9rem' }
+                }}
+              >
                   {feature.description}
                 </Typography>
-              </CardContent>
             </Card>
           ))}
         </Box>
 
-        {/* Rules of Hooks */}
-        <Typography variant="h6" sx={{ mb: 2 }}>
-          📜 กฎของ Hooks:
-        </Typography>
-
-        <Alert severity="warning" sx={{ mb: 3 }}>
-          <Typography variant="body2" sx={{ mb: 1, fontWeight: 'bold' }}>
+        <Alert 
+          severity="warning" 
+          sx={{ 
+            mt: 3,
+            fontSize: { xs: '0.85rem', sm: '0.9rem' }
+          }}
+        >
+          <Typography 
+            variant="body2" 
+            sx={{ 
+              fontWeight: 600, 
+              mb: 1,
+              fontSize: { xs: '0.9rem', sm: '1rem' }
+            }}
+          >
             ⚠️ กฎสำคัญที่ต้องจำ:
           </Typography>
-          <List dense>
-            <ListItem>
-              <ListItemText primary="1. เรียก Hooks ใน top level ของ function เท่านั้น (ไม่ใส่ใน loops, conditions, nested functions)" />
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="2. เรียก Hooks ใน React functions เท่านั้น (components หรือ custom hooks)" />
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="3. ใช้ 'use client' directive สำหรับ Client Components ใน Next.js 15" />
-            </ListItem>
-          </List>
+          <Stack spacing={1}>
+            <Typography 
+              variant="body2"
+              sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}
+            >
+              1. เรียก Hooks ใน top level ของ function เท่านั้น (ไม่ใส่ใน loops, conditions, nested functions)
+            </Typography>
+            <Typography 
+              variant="body2"
+              sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}
+            >
+              2. เรียก Hooks ใน React functions เท่านั้น (components หรือ custom hooks)
+            </Typography>
+            <Typography 
+              variant="body2"
+              sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}
+            >
+              3. ใช้ 'use client' directive สำหรับ Client Components ใน Next.js 15
+            </Typography>
+          </Stack>
         </Alert>
-      </Paper>
+      </Card>
 
       {/* useState Hook */}
-      <Paper sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
+      <Card sx={{ 
+        p: { xs: 2, sm: 3, md: 4 }, 
+        mb: { xs: 3, sm: 4 },
+        boxShadow: 1
+      }}>
+        <Typography 
+          variant="h4" 
+          sx={{ 
+            mb: 3,
+            fontSize: { xs: '1.5rem', sm: '2rem' },
+            fontWeight: 600
+          }}
+        >
           📦 useState Hook
         </Typography>
 
-        <Typography variant="body1" sx={{ mb: 3 }}>
-          <code>useState</code> เป็น Hook ที่ใช้สำหรับเพิ่ม state ให้กับ functional components
+        <Typography 
+          variant="body1" 
+          sx={{ 
+            mb: 3, 
+            lineHeight: 1.7,
+            fontSize: { xs: '0.95rem', sm: '1rem' }
+          }}
+        >
+          <strong>useState</strong> เป็น Hook สำหรับจัดการ state ใน functional components 
+          ช่วยให้เราสามารถเก็บและอัพเดตข้อมูลได้
         </Typography>
 
-        <Tabs value={tabValue} onChange={handleTabChange} sx={{ mb: 3 }}>
-          <Tab label="Basic Usage" />
-          <Tab label="Multiple States" />
-          <Tab label="Object State" />
-          <Tab label="Array State" />
+        <Tabs 
+          value={tabValue} 
+          onChange={handleTabChange} 
+          variant="scrollable"
+          scrollButtons="auto"
+          sx={{ 
+            mb: 3,
+            '& .MuiTab-root': {
+              fontSize: { xs: '0.8rem', sm: '0.9rem' },
+              minWidth: { xs: 120, sm: 160 }
+            }
+          }}
+        >
+          <Tab label="🎯 พื้นฐาน" />
+          <Tab label="📊 Demo" />
+          <Tab label="🔄 เทคนิค" />
         </Tabs>
 
         <CustomTabPanel value={tabValue} index={0}>
-          <Typography variant="h6" sx={{ mb: 2, color: 'primary.main' }}>
-            📝 Basic useState Usage
-          </Typography>
-          
-          <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 3 }}>
+          <Box className="code-block" sx={{ 
+            p: { xs: 2, sm: 3 }, 
+            borderRadius: 1, 
+            fontFamily: 'monospace', 
+            mb: 3,
+            bgcolor: 'grey.50',
+            fontSize: { xs: '0.8rem', sm: '0.9rem' },
+            overflow: 'auto'
+          }}>
             <Typography variant="body2" component="pre">
 {`'use client';
 import { useState } from 'react';
 
 export default function Counter() {
-  // useState hook สำหรับจัดการ state
+  // ประกาศ state variable ชื่อ 'count' เริ่มต้นที่ 0
   const [count, setCount] = useState(0);
 
   return (
     <div>
-      <h2>ตัวนับ: {count}</h2>
+      <h2>Count: {count}</h2>
       <button onClick={() => setCount(count + 1)}>
-        เพิ่ม (+1)
+        เพิ่ม
       </button>
       <button onClick={() => setCount(count - 1)}>
-        ลด (-1)
+        ลด
       </button>
       <button onClick={() => setCount(0)}>
         รีเซ็ต
@@ -433,702 +645,536 @@ export default function Counter() {
             </Typography>
           </Box>
 
-          <Alert severity="info" sx={{ mb: 2 }}>
-            <Typography variant="body2">
-              💡 <strong>useState</strong> returns array: [currentState, setterFunction]
+          <Alert 
+            severity="info" 
+            sx={{ 
+              mb: 2,
+              fontSize: { xs: '0.85rem', sm: '0.9rem' }
+            }}
+          >
+            <Typography 
+              variant="body2"
+              sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}
+            >
+              💡 <strong>useState</strong> คืนค่า array ที่มี 2 elements: [value, setter] 
+              ใช้ array destructuring เพื่อเข้าถึง
             </Typography>
           </Alert>
-
-          <CounterDemo />
         </CustomTabPanel>
 
         <CustomTabPanel value={tabValue} index={1}>
-          <Typography variant="h6" sx={{ mb: 2, color: 'secondary.main' }}>
-            🔢 Multiple State Variables
-          </Typography>
-          
-          <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 3 }}>
-            <Typography variant="body2" component="pre">
-{`'use client';
-import { useState } from 'react';
-
-export default function UserForm() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [age, setAge] = useState(0);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitted(true);
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="number"
-        placeholder="Age"
-        value={age}
-        onChange={(e) => setAge(Number(e.target.value))}
-      />
-      <button type="submit">Submit</button>
-      
-      {isSubmitted && (
-        <div>
-          <h3>Submitted Data:</h3>
-          <p>Name: {name}</p>
-          <p>Email: {email}</p>
-          <p>Age: {age}</p>
-        </div>
-      )}
-    </form>
-  );
-}`}
-            </Typography>
+          <Box sx={{ 
+            display: 'grid', 
+            gridTemplateColumns: { xs: '1fr', lg: 'repeat(2, 1fr)' }, 
+            gap: { xs: 2, sm: 3 } 
+          }}>
+            <CounterDemo />
+            <TimerDemo />
           </Box>
-
-          <Alert severity="success">
-            <Typography variant="body2">
-              ✅ <strong>Best Practice:</strong> แยก state variables ให้เป็นอิสระจากกัน
-            </Typography>
-          </Alert>
         </CustomTabPanel>
 
         <CustomTabPanel value={tabValue} index={2}>
-          <Typography variant="h6" sx={{ mb: 2, color: 'info.main' }}>
-            📋 Object State
+          <Typography 
+            variant="h6" 
+            sx={{ 
+              mb: 2,
+              fontSize: { xs: '1.1rem', sm: '1.25rem' }
+            }}
+          >
+            🔄 เทคนิคขั้นสูง
           </Typography>
           
-          <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 3 }}>
+          <Box className="code-block" sx={{ 
+            p: { xs: 2, sm: 3 }, 
+            borderRadius: 1, 
+            fontFamily: 'monospace', 
+            mb: 3,
+            bgcolor: 'grey.50',
+            fontSize: { xs: '0.8rem', sm: '0.9rem' },
+            overflow: 'auto'
+          }}>
             <Typography variant="body2" component="pre">
-{`'use client';
-import { useState } from 'react';
+{`// ✅ Functional Updates
+const [count, setCount] = useState(0);
 
-interface User {
-  name: string;
-  email: string;
-  age: number;
-}
+// ใช้ function เพื่อป้องกัน stale closure
+const increment = () => {
+  setCount(prevCount => prevCount + 1);
+};
 
-export default function UserProfile() {
-  const [user, setUser] = useState<User>({
+// ✅ Object State
+const [user, setUser] = useState({
     name: '',
     email: '',
     age: 0
   });
 
-  const updateUser = (field: keyof User, value: string | number) => {
+const updateName = (newName) => {
     setUser(prevUser => ({
-      ...prevUser,  // Spread เพื่อรักษา properties อื่นๆ
-      [field]: value
+    ...prevUser,  // spread existing properties
+    name: newName // update only name
     }));
   };
 
-  return (
-    <div>
-      <input
-        type="text"
-        placeholder="Name"
-        value={user.name}
-        onChange={(e) => updateUser('name', e.target.value)}
-      />
-      <input
-        type="email"
-        placeholder="Email"
-        value={user.email}
-        onChange={(e) => updateUser('email', e.target.value)}
-      />
-      <input
-        type="number"
-        placeholder="Age"
-        value={user.age}
-        onChange={(e) => updateUser('age', Number(e.target.value))}
-      />
-      
-      <div>
-        <h3>Current User:</h3>
-        <pre>{JSON.stringify(user, null, 2)}</pre>
-      </div>
-    </div>
+// ✅ Array State
+const [items, setItems] = useState([]);
+
+const addItem = (newItem) => {
+  setItems(prevItems => [...prevItems, newItem]);
+  };
+
+const removeItem = (id) => {
+  setItems(prevItems => 
+    prevItems.filter(item => item.id !== id)
   );
-}`}
+};`}
             </Typography>
           </Box>
-
-          <Alert severity="warning">
-            <Typography variant="body2">
-              ⚠️ <strong>สำคัญ:</strong> ต้องใช้ spread operator (...) เพื่อสร้าง object ใหม่
-            </Typography>
-          </Alert>
         </CustomTabPanel>
-
-        <CustomTabPanel value={tabValue} index={3}>
-          <Typography variant="h6" sx={{ mb: 2, color: 'warning.main' }}>
-            📚 Array State
-          </Typography>
-          
-          <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 3 }}>
-            <Typography variant="body2" component="pre">
-{`'use client';
-import { useState } from 'react';
-
-export default function TodoList() {
-  const [todos, setTodos] = useState<string[]>([]);
-  const [inputValue, setInputValue] = useState('');
-
-  const addTodo = () => {
-    if (inputValue.trim()) {
-      setTodos(prevTodos => [...prevTodos, inputValue]);
-      setInputValue('');
-    }
-  };
-
-  const removeTodo = (index: number) => {
-    setTodos(prevTodos => prevTodos.filter((_, i) => i !== index));
-  };
-
-  const clearAll = () => {
-    setTodos([]);
-  };
-
-  return (
-    <div>
-      <div>
-        <input
-          type="text"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          placeholder="Add new todo"
-        />
-        <button onClick={addTodo}>Add</button>
-        <button onClick={clearAll}>Clear All</button>
-      </div>
-      
-      <ul>
-        {todos.map((todo, index) => (
-          <li key={index}>
-            {todo}
-            <button onClick={() => removeTodo(index)}>Remove</button>
-          </li>
-        ))}
-      </ul>
-      
-      <p>Total todos: {todos.length}</p>
-    </div>
-  );
-}`}
-            </Typography>
-          </Box>
-
-          <Alert severity="info">
-            <Typography variant="body2">
-              💡 <strong>Array Methods:</strong> ใช้ filter, map, spread operator สำหรับ immutable updates
-            </Typography>
-          </Alert>
-        </CustomTabPanel>
-      </Paper>
+      </Card>
 
       {/* useEffect Hook */}
-      <Paper sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
+      <Card sx={{ 
+        p: { xs: 2, sm: 3, md: 4 }, 
+        mb: { xs: 3, sm: 4 },
+        boxShadow: 1
+      }}>
+        <Typography 
+          variant="h4" 
+          sx={{ 
+            mb: 3,
+            fontSize: { xs: '1.5rem', sm: '2rem' },
+            fontWeight: 600
+          }}
+        >
           ⚡ useEffect Hook
         </Typography>
 
-        <Typography variant="body1" sx={{ mb: 3 }}>
-          <code>useEffect</code> ใช้สำหรับจัดการ side effects เช่น API calls, subscriptions, DOM manipulation
+        <Typography 
+          variant="body1" 
+          sx={{ 
+            mb: 3, 
+            lineHeight: 1.7,
+            fontSize: { xs: '0.95rem', sm: '1rem' }
+          }}
+        >
+          <strong>useEffect</strong> เป็น Hook สำหรับจัดการ side effects เช่น API calls, 
+          subscriptions, หรือการเปลี่ยนแปลง DOM หลังจากที่ component render
         </Typography>
 
-        <Accordion sx={{ mb: 2 }}>
+        <Accordion sx={{ mb: 3 }}>
           <AccordionSummary expandIcon={<ExpandMore />}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <Timer color="primary" />
-              <Typography variant="h6">Basic useEffect</Typography>
-            </Box>
+            <Typography 
+              variant="h6"
+              sx={{ fontSize: { xs: '1rem', sm: '1.1rem' } }}
+            >
+              🎯 รูปแบบการใช้งาน useEffect
+            </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography variant="body1" sx={{ mb: 2 }}>
-              useEffect พื้นฐาน - รันทุกครั้งที่ component render
-            </Typography>
-            
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 2 }}>
-              <Typography variant="body2" component="pre">
-{`'use client';
-import { useState, useEffect } from 'react';
-
-export default function BasicEffect() {
-  const [count, setCount] = useState(0);
-
-  // รันทุกครั้งที่ component render
-  useEffect(() => {
-    document.title = \`Count: \${count}\`;
-  });
-
-  // รันเฉพาะครั้งแรก (component mount)
-  useEffect(() => {
-    console.log('Component mounted');
-  }, []); // Empty dependency array
-
-  // รันเมื่อ count เปลี่ยน
-  useEffect(() => {
-    console.log(\`Count changed to: \${count}\`);
-  }, [count]); // count ใน dependency array
-
-  return (
-    <div>
-      <p>Count: {count}</p>
-      <button onClick={() => setCount(count + 1)}>
-        Increment
-      </button>
-    </div>
-  );
-}`}
-              </Typography>
-            </Box>
-
-            <Alert severity="info">
-              <Typography variant="body2">
-                💡 <strong>Dependency Array:</strong> [] = รันครั้งเดียว, [value] = รันเมื่อ value เปลี่ยน, ไม่มี = รันทุกครั้ง
-              </Typography>
-            </Alert>
-
-            <TimerDemo />
-          </AccordionDetails>
-        </Accordion>
-
-        <Accordion sx={{ mb: 2 }}>
-          <AccordionSummary expandIcon={<ExpandMore />}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <Refresh color="secondary" />
-              <Typography variant="h6">API Calls with useEffect</Typography>
-            </Box>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography variant="body1" sx={{ mb: 2 }}>
-              การใช้ useEffect สำหรับดึงข้อมูลจาก API
-            </Typography>
-            
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 2 }}>
-              <Typography variant="body2" component="pre">
-{`'use client';
-import { useState, useEffect } from 'react';
-
-interface User {
-  id: number;
-  name: string;
-  email: string;
-}
-
-export default function UserList() {
-  const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch('/api/users');
-        
-        if (!response.ok) {
-          throw new Error('Failed to fetch users');
-        }
-        
-        const userData = await response.json();
-        setUsers(userData);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUsers();
-  }, []); // รันครั้งเดียวเมื่อ component mount
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-
-  return (
-    <ul>
-      {users.map(user => (
-        <li key={user.id}>
-          {user.name} - {user.email}
-        </li>
-      ))}
-    </ul>
-  );
-}`}
-              </Typography>
-            </Box>
-
-            <Alert severity="success">
-              <Typography variant="body2">
-                ✅ <strong>Best Practice:</strong> จัดการ loading และ error states เสมอ
-              </Typography>
-            </Alert>
-
-            <FetchDemo />
-          </AccordionDetails>
-        </Accordion>
-
-        <Accordion sx={{ mb: 2 }}>
-          <AccordionSummary expandIcon={<ExpandMore />}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <BugReport color="warning" />
-              <Typography variant="h6">Cleanup Functions</Typography>
-            </Box>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography variant="body1" sx={{ mb: 2 }}>
-              การทำความสะอาด (cleanup) เพื่อป้องกัน memory leaks
-            </Typography>
-            
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 2 }}>
-              <Typography variant="body2" component="pre">
-{`'use client';
-import { useState, useEffect } from 'react';
-
-export default function Timer() {
-  const [seconds, setSeconds] = useState(0);
-  const [isActive, setIsActive] = useState(false);
-
-  useEffect(() => {
-    let interval: NodeJS.Timeout | null = null;
-
-    if (isActive) {
-      interval = setInterval(() => {
-        setSeconds(seconds => seconds + 1);
-      }, 1000);
-    } else if (!isActive && seconds !== 0) {
-      if (interval) clearInterval(interval);
-    }
-
-    // Cleanup function
-    return () => {
-      if (interval) clearInterval(interval);
-    };
-  }, [isActive, seconds]);
-
-  // Cleanup when component unmounts
-  useEffect(() => {
-    return () => {
-      console.log('Component will unmount');
-    };
-  }, []);
-
-  const toggle = () => {
-    setIsActive(!isActive);
-  };
-
-  const reset = () => {
-    setSeconds(0);
-    setIsActive(false);
-  };
-
-  return (
-    <div>
-      <div>{seconds}s</div>
-      <button onClick={toggle}>
-        {isActive ? 'Pause' : 'Start'}
-      </button>
-      <button onClick={reset}>Reset</button>
-    </div>
-  );
-}`}
-              </Typography>
-            </Box>
-
-            <Alert severity="warning">
-              <Typography variant="body2">
-                ⚠️ <strong>สำคัญ:</strong> ทำ cleanup เสมอเพื่อป้องกัน memory leaks
-              </Typography>
-            </Alert>
-          </AccordionDetails>
-        </Accordion>
-      </Paper>
-
-      {/* Common Patterns */}
-      <Paper sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
-          🎯 Common Patterns & Best Practices
-        </Typography>
-
         <Box sx={{ 
           display: 'grid', 
-          gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, 
-          gap: 3 
+              gridTemplateColumns: { xs: '1fr', lg: 'repeat(2, 1fr)' }, 
+              gap: { xs: 2, sm: 3 } 
         }}>
-          <Card sx={{ height: '100%' }}>
+              <Card>
             <CardContent>
-              <Typography variant="h6" sx={{ mb: 2, color: 'primary.main' }}>
-                💡 Custom Hooks
+                  <Typography 
+                    variant="h6" 
+                    sx={{ 
+                      mb: 2, 
+                      color: 'primary.main',
+                      fontSize: { xs: '1rem', sm: '1.1rem' }
+                    }}
+                  >
+                    🔄 Run Every Render
               </Typography>
-              <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 2 }}>
+                  <Box className="code-block" sx={{ 
+                    p: { xs: 1.5, sm: 2 }, 
+                    borderRadius: 1, 
+                    fontFamily: 'monospace',
+                    bgcolor: 'grey.50',
+                    fontSize: { xs: '0.75rem', sm: '0.8rem' },
+                    overflow: 'auto'
+                  }}>
                 <Typography variant="body2" component="pre">
-{`// hooks/useCounter.ts
-import { useState } from 'react';
-
-export function useCounter(initialValue = 0) {
-  const [count, setCount] = useState(initialValue);
-
-  const increment = () => setCount(count + 1);
-  const decrement = () => setCount(count - 1);
-  const reset = () => setCount(initialValue);
-
-  return {
-    count,
-    increment,
-    decrement,
-    reset
-  };
-}
-
-// Usage
-export default function Counter() {
-  const { count, increment, decrement, reset } = useCounter(0);
-
-  return (
-    <div>
-      <p>Count: {count}</p>
-      <button onClick={increment}>+</button>
-      <button onClick={decrement}>-</button>
-      <button onClick={reset}>Reset</button>
-    </div>
-  );
-}`}
+{`useEffect(() => {
+  console.log('Rendered');
+});`}
                 </Typography>
               </Box>
             </CardContent>
           </Card>
 
-          <Card sx={{ height: '100%' }}>
+              <Card>
             <CardContent>
-              <Typography variant="h6" sx={{ mb: 2, color: 'secondary.main' }}>
-                🔄 Async useEffect
+                  <Typography 
+                    variant="h6" 
+                    sx={{ 
+                      mb: 2, 
+                      color: 'success.main',
+                      fontSize: { xs: '1rem', sm: '1.1rem' }
+                    }}
+                  >
+                    🎬 Run Once (Mount)
               </Typography>
-              <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 2 }}>
+                  <Box className="code-block" sx={{ 
+                    p: { xs: 1.5, sm: 2 }, 
+                    borderRadius: 1, 
+                    fontFamily: 'monospace',
+                    bgcolor: 'grey.50',
+                    fontSize: { xs: '0.75rem', sm: '0.8rem' },
+                    overflow: 'auto'
+                  }}>
                 <Typography variant="body2" component="pre">
-{`// ❌ ไม่ถูกต้อง
-useEffect(async () => {
-  const data = await fetchData();
-  setData(data);
-}, []);
-
-// ✅ ถูกต้อง
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const response = await fetch('/api/data');
-      const data = await response.json();
-      setData(data);
-    } catch (error) {
-      setError(error);
-    }
-  };
-
+{`useEffect(() => {
   fetchData();
+}, []); // empty dependency`}
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
+
+              <Card>
+            <CardContent>
+                  <Typography 
+                    variant="h6" 
+                    sx={{ 
+                      mb: 2, 
+                      color: 'warning.main',
+                      fontSize: { xs: '1rem', sm: '1.1rem' }
+                    }}
+                  >
+                    👀 Watch Dependencies
+              </Typography>
+                  <Box className="code-block" sx={{ 
+                    p: { xs: 1.5, sm: 2 }, 
+                    borderRadius: 1, 
+                    fontFamily: 'monospace',
+                    bgcolor: 'grey.50',
+                    fontSize: { xs: '0.75rem', sm: '0.8rem' },
+                    overflow: 'auto'
+                  }}>
+                <Typography variant="body2" component="pre">
+{`useEffect(() => {
+  updateTitle(count);
+}, [count]); // watch count`}
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
+
+              <Card>
+            <CardContent>
+                  <Typography 
+                    variant="h6" 
+                    sx={{ 
+                      mb: 2, 
+                      color: 'error.main',
+                      fontSize: { xs: '1rem', sm: '1.1rem' }
+                    }}
+                  >
+                    🧹 Cleanup Function
+              </Typography>
+                  <Box className="code-block" sx={{ 
+                    p: { xs: 1.5, sm: 2 }, 
+                    borderRadius: 1, 
+                    fontFamily: 'monospace',
+                    bgcolor: 'grey.50',
+                    fontSize: { xs: '0.75rem', sm: '0.8rem' },
+                    overflow: 'auto'
+                  }}>
+                <Typography variant="body2" component="pre">
+{`useEffect(() => {
+  const timer = setInterval(...);
+  return () => clearInterval(timer);
 }, []);`}
                 </Typography>
               </Box>
             </CardContent>
           </Card>
-
-          <Card sx={{ height: '100%' }}>
-            <CardContent>
-              <Typography variant="h6" sx={{ mb: 2, color: 'info.main' }}>
-                🎛️ Conditional Effects
-              </Typography>
-              <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 2 }}>
-                <Typography variant="body2" component="pre">
-{`export default function ConditionalEffect() {
-  const [user, setUser] = useState(null);
-  const [posts, setPosts] = useState([]);
-
-  // รันเมื่อมี user เท่านั้น
-  useEffect(() => {
-    if (user) {
-      fetch(\`/api/users/\${user.id}/posts\`)
-        .then(res => res.json())
-        .then(setPosts);
-    }
-  }, [user]);
-
-  return (
-    <div>
-      {user && (
-        <div>
-          <h2>{user.name}</h2>
-          <ul>
-            {posts.map(post => (
-              <li key={post.id}>{post.title}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </div>
-  );
-}`}
-                </Typography>
-              </Box>
-            </CardContent>
-          </Card>
-
-          <Card sx={{ height: '100%' }}>
-            <CardContent>
-              <Typography variant="h6" sx={{ mb: 2, color: 'success.main' }}>
-                📱 Event Listeners
-              </Typography>
-              <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 2 }}>
-                <Typography variant="body2" component="pre">
-{`export default function WindowSize() {
-  const [windowSize, setWindowSize] = useState({
-    width: 0,
-    height: 0
-  });
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight
-      });
-    };
-
-    // Set initial size
-    handleResize();
-
-    // Add event listener
-    window.addEventListener('resize', handleResize);
-
-    // Cleanup
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []); // empty dependency - run once
-
-  return (
-    <div>
-      <h2>ขนาดหน้าต่างเบราว์เซอร์</h2>
-      <p>ความกว้าง: {windowSize.width}px</p>
-      <p>ความสูง: {windowSize.height}px</p>
-      <p>ลองปรับขนาดหน้าต่างดู!</p>
-    </div>
-  );
-}`}
-                </Typography>
-              </Box>
-            </CardContent>
-          </Card>
         </Box>
-      </Paper>
+          </AccordionDetails>
+        </Accordion>
+
+        {/* Demo with useEffect */}
+        <Box sx={{ 
+          display: 'grid', 
+          gridTemplateColumns: { xs: '1fr', lg: 'repeat(3, 1fr)' }, 
+          gap: { xs: 2, sm: 3 } 
+        }}>
+          <FetchDemo />
+        </Box>
+      </Card>
 
       {/* Best Practices */}
-      <Paper sx={{ p: 4, mb: 4, bgcolor: 'warning.light' }}>
-        <Typography variant="h5" sx={{ mb: 2, color: 'warning.dark' }}>
+      <Card sx={{ 
+        p: { xs: 2, sm: 3, md: 4 }, 
+        mb: { xs: 3, sm: 4 }, 
+        bgcolor: 'warning.light',
+        boxShadow: 1
+      }}>
+        <Typography 
+          variant="h5" 
+          sx={{ 
+            mb: 2, 
+            color: 'warning.dark',
+            fontSize: { xs: '1.3rem', sm: '1.5rem' },
+            fontWeight: 600
+          }}
+        >
           💡 Best Practices สำหรับ React Hooks
         </Typography>
-        <List>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="ใช้ TypeScript"
-              secondary="กำหนด types สำหรับ state และ props เพื่อ type safety"
+        <Stack spacing={1.5}>
+          <Stack direction="row" spacing={1} alignItems="flex-start">
+            <CheckCircle 
+              color="success" 
+              sx={{ 
+                fontSize: { xs: 16, sm: 20 },
+                mt: 0.5,
+                flexShrink: 0
+              }} 
             />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="แยก state ให้เหมาะสม"
-              secondary="ไม่ควรรวม state ที่ไม่เกี่ยวข้องกันในตัวแปรเดียว"
+            <Box>
+              <Typography 
+                variant="body1"
+                sx={{ 
+                  fontWeight: 600,
+                  fontSize: { xs: '0.9rem', sm: '1rem' }
+                }}
+              >
+                ใช้ TypeScript
+              </Typography>
+              <Typography 
+                variant="body2" 
+                color="text.secondary"
+                sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}
+              >
+                กำหนด types สำหรับ state และ props เพื่อ type safety
+              </Typography>
+            </Box>
+          </Stack>
+          <Stack direction="row" spacing={1} alignItems="flex-start">
+            <CheckCircle 
+              color="success" 
+              sx={{ 
+                fontSize: { xs: 16, sm: 20 },
+                mt: 0.5,
+                flexShrink: 0
+              }} 
             />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="ระวัง dependency arrays"
-              secondary="ใส่ dependencies ครบถ้วนเพื่อป้องกัน bugs"
+            <Box>
+              <Typography 
+                variant="body1"
+                sx={{ 
+                  fontWeight: 600,
+                  fontSize: { xs: '0.9rem', sm: '1rem' }
+                }}
+              >
+                แยก state ให้เหมาะสม
+              </Typography>
+              <Typography 
+                variant="body2" 
+                color="text.secondary"
+                sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}
+              >
+                ไม่ควรรวม state ที่ไม่เกี่ยวข้องกันในตัวแปรเดียว
+              </Typography>
+            </Box>
+          </Stack>
+          <Stack direction="row" spacing={1} alignItems="flex-start">
+            <CheckCircle 
+              color="success" 
+              sx={{ 
+                fontSize: { xs: 16, sm: 20 },
+                mt: 0.5,
+                flexShrink: 0
+              }} 
             />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="ทำ cleanup เสมอ"
-              secondary="cleanup intervals, event listeners, subscriptions"
+            <Box>
+              <Typography 
+                variant="body1"
+                sx={{ 
+                  fontWeight: 600,
+                  fontSize: { xs: '0.9rem', sm: '1rem' }
+                }}
+              >
+                ระวัง dependency arrays
+              </Typography>
+              <Typography 
+                variant="body2" 
+                color="text.secondary"
+                sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}
+              >
+                ใส่ dependencies ครบถ้วนเพื่อป้องกัน bugs
+              </Typography>
+            </Box>
+          </Stack>
+          <Stack direction="row" spacing={1} alignItems="flex-start">
+            <CheckCircle 
+              color="success" 
+              sx={{ 
+                fontSize: { xs: 16, sm: 20 },
+                mt: 0.5,
+                flexShrink: 0
+              }} 
             />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="สร้าง Custom Hooks"
-              secondary="แยก logic ที่ใช้ซ้ำออกมาเป็น custom hooks"
+            <Box>
+              <Typography 
+                variant="body1"
+                sx={{ 
+                  fontWeight: 600,
+                  fontSize: { xs: '0.9rem', sm: '1rem' }
+                }}
+              >
+                ทำ cleanup เสมอ
+              </Typography>
+              <Typography 
+                variant="body2" 
+                color="text.secondary"
+                sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}
+              >
+                cleanup intervals, event listeners, subscriptions
+              </Typography>
+            </Box>
+          </Stack>
+          <Stack direction="row" spacing={1} alignItems="flex-start">
+            <CheckCircle 
+              color="success" 
+              sx={{ 
+                fontSize: { xs: 16, sm: 20 },
+                mt: 0.5,
+                flexShrink: 0
+              }} 
             />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <CheckCircle color="success" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="ใช้ 'use client' ใน Next.js 15"
-              secondary="ระบุ Client Components เมื่อใช้ hooks"
+            <Box>
+              <Typography 
+                variant="body1"
+                sx={{ 
+                  fontWeight: 600,
+                  fontSize: { xs: '0.9rem', sm: '1rem' }
+                }}
+              >
+                สร้าง Custom Hooks
+              </Typography>
+              <Typography 
+                variant="body2" 
+                color="text.secondary"
+                sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}
+              >
+                แยก logic ที่ใช้ซ้ำออกมาเป็น custom hooks
+              </Typography>
+            </Box>
+          </Stack>
+          <Stack direction="row" spacing={1} alignItems="flex-start">
+            <CheckCircle 
+              color="success" 
+              sx={{ 
+                fontSize: { xs: 16, sm: 20 },
+                mt: 0.5,
+                flexShrink: 0
+              }} 
             />
-          </ListItem>
-        </List>
-      </Paper>
+            <Box>
+              <Typography 
+                variant="body1"
+                sx={{ 
+                  fontWeight: 600,
+                  fontSize: { xs: '0.9rem', sm: '1rem' }
+                }}
+              >
+                ใช้ 'use client' ใน Next.js 15
+              </Typography>
+              <Typography 
+                variant="body2" 
+                color="text.secondary"
+                sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}
+              >
+                ระบุ Client Components เมื่อใช้ hooks
+              </Typography>
+            </Box>
+          </Stack>
+        </Stack>
+      </Card>
 
-      {/* Navigation */}
-      <Paper sx={{ p: 4, bgcolor: 'success.light', color: 'success.dark' }}>
-        <Typography variant="h5" sx={{ mb: 2 }}>
+      {/* Success Message */}
+      <Card sx={{ 
+        p: { xs: 2, sm: 3, md: 4 }, 
+        bgcolor: 'success.light', 
+        color: 'success.dark',
+        mb: { xs: 3, sm: 4 },
+        boxShadow: 1
+      }}>
+        <Typography 
+          variant="h5" 
+          sx={{ 
+            mb: 2,
+            fontSize: { xs: '1.3rem', sm: '1.5rem' },
+            fontWeight: 600
+          }}
+        >
           🎯 ยินดีด้วย! คุณเรียนจบบทที่ 7 แล้ว
         </Typography>
-        <Typography variant="body1" sx={{ mb: 3 }}>
+        <Typography 
+          variant="body1" 
+          sx={{ 
+            mb: 3,
+            fontSize: { xs: '0.9rem', sm: '1rem' },
+            lineHeight: 1.6
+          }}
+        >
           ตอนนี้คุณสามารถใช้ useState และ useEffect เพื่อสร้าง interactive components ได้แล้ว
           พร้อมสำหรับการเรียนรู้ Zod Validation ในบทถัดไป
         </Typography>
         
-        <Alert severity="info" sx={{ mb: 3 }}>
-          <Typography variant="body2">
+        <Alert 
+          severity="info" 
+          sx={{ 
+            mb: 3,
+            bgcolor: 'info.50',
+            border: '1px solid',
+            borderColor: 'info.200'
+          }}
+        >
+          <Typography 
+            variant="body2"
+            sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}
+          >
             💡 <strong>บทถัดไป:</strong> เรียนรู้ Zod Validation เพื่อตรวจสอบข้อมูลอย่างปลอดภัย
           </Typography>
         </Alert>
-      </Paper>
+      </Card>
 
       {/* Navigation */}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 6 }}>
+      <Box sx={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center', 
+        mt: { xs: 4, sm: 6 },
+        flexDirection: { xs: 'column', sm: 'row' },
+        gap: { xs: 2, sm: 0 }
+      }}>
         <Button
           startIcon={<ArrowBack />}
           component={Link}
           href="/nextjs-basics/lesson-6"
           variant="outlined"
+          sx={{ 
+            fontSize: { xs: '0.85rem', sm: '0.9rem' },
+            order: { xs: 2, sm: 1 }
+          }}
         >
           บทที่ 6: Prisma & Database
         </Button>
         
         <Chip 
-          label="7 / 16"
+          label="7 / 18"
           color="primary"
           variant="outlined"
+          sx={{ 
+            fontSize: { xs: '0.8rem', sm: '0.85rem' },
+            order: { xs: 1, sm: 2 }
+          }}
         />
         
         <Button
@@ -1137,10 +1183,14 @@ useEffect(() => {
           href="/nextjs-basics/lesson-8"
           variant="contained"
           color="primary"
+          sx={{ 
+            fontSize: { xs: '0.85rem', sm: '0.9rem' },
+            order: { xs: 3, sm: 3 }
+          }}
         >
           บทที่ 8: Zod Validation
         </Button>
       </Box>
-    </Container>
+    </Box>
   );
 } 

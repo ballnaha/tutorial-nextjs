@@ -408,145 +408,66 @@ export default function Lesson11Page() {
   };
 
   return (
-    <Container maxWidth="lg">
+    <Box sx={{
+      minHeight: '100vh',
+      maxWidth: '100vw',
+      px: { xs: 2, sm: 3, md: 4 },
+      py: { xs: 2, sm: 3 },
+      overflow: 'hidden',
+    }}>
       {/* Header */}
-      <Box sx={{ py: 4 }}>
-        <Typography variant="h1" sx={{ mb: 2 }}>
-          📝 บทที่ 11: Forms & React Hook Form
+      <Box sx={{ mb: { xs: 3, sm: 4 } }}>
+        <Button
+          startIcon={<ArrowBack />}
+          component={Link}
+          href="/nextjs-basics"
+          sx={{ mb: 2, fontSize: { xs: '0.85rem', sm: '0.9rem' } }}
+        >
+          กลับไปหน้าหลัก
+        </Button>
+        <Typography variant="h2" component="h1" sx={{ fontSize: { xs: '1.8rem', sm: '2.5rem', md: '3rem' }, fontWeight: 600, mb: 2, lineHeight: 1.2, display: 'flex', alignItems: 'center', gap: 2 }}>
+          <Code color="primary" sx={{ fontSize: { xs: '2.2rem', sm: '3rem' } }} />
+          บทที่ 11: React Hook Form
         </Typography>
-        <Typography variant="h5" color="text.secondary" sx={{ mb: 4 }}>
-          เรียนรู้การสร้างฟอร์มที่มีประสิทธิภาพด้วย React Hook Form และ Zod validation 
-          พร้อมเทคนิคขั้นสูงสำหรับการจัดการฟอร์มใน Next.js 15
-        </Typography>
-
-        <Box sx={{ display: 'flex', gap: 2, mb: 4 }}>
-          <Chip label="50 นาที" color="primary" />
-          <Chip label="ปานกลาง" color="warning" />
-          <Chip label="Interactive" color="success" />
-          <Chip label="Production Ready" color="info" />
-        </Box>
-      </Box>
-
-      {/* Learning Objectives */}
-      <Paper sx={{ p: 3, mb: 4, bgcolor: 'primary.light', color: 'primary.contrastText' }}>
-        <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-          <Lightbulb /> วัตถุประสงค์การเรียนรู้
-        </Typography>
-        <List dense>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
-              <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="เข้าใจหลักการทำงานของ React Hook Form" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
-              <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="สร้างฟอร์มที่มี validation ด้วย Zod" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
-              <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="จัดการ dynamic forms และ nested fields" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon sx={{ color: 'inherit' }}>
-              <CheckCircle />
-            </ListItemIcon>
-            <ListItemText primary="อัพโหลดไฟล์และการ optimize performance" />
-          </ListItem>
-        </List>
-      </Paper>
-
-      {/* What is React Hook Form */}
-      <Paper sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
-          🤔 React Hook Form คืออะไร?
-        </Typography>
-        
-        <Typography variant="body1" sx={{ mb: 3, lineHeight: 1.8 }}>
-          <strong>React Hook Form</strong> เป็น library สำหรับจัดการฟอร์มใน React ที่เน้น performance และ developer experience 
-          โดยใช้ uncontrolled components และ minimal re-renders เพื่อให้ฟอร์มทำงานได้รวดเร็วแม้กับข้อมูลจำนวนมาก
-        </Typography>
-
-        <Alert severity="info" sx={{ mb: 3 }}>
+        <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', gap: 1, mb: 3, '& .MuiChip-root': { fontSize: { xs: '0.75rem', sm: '0.8rem' } } }}>
+          <Chip icon={<Speed />} label="Minimal Re-renders" color="primary" size="small" />
+          <Chip icon={<Security />} label="Easy Validation" color="secondary" size="small" />
+          <Chip icon={<Build />} label="TypeScript" color="info" size="small" />
+          <Chip icon={<Code />} label="Bundle Size" color="success" size="small" />
+        </Stack>
+        <Alert severity="info" sx={{ mb: 3, fontSize: { xs: '0.85rem', sm: '0.9rem' } }}>
           <Typography variant="body2">
-            💡 <strong>ทำไมต้องใช้ React Hook Form?</strong> ลด bundle size, เพิ่ม performance, 
-            validation ที่แข็งแกร่ง และ TypeScript support ที่ยอดเยี่ยม
+            ⏱️ <strong>ระยะเวลา:</strong> 50 นาที | 
+            📊 <strong>ระดับ:</strong> ปานกลาง-สูง | 
+            🎯 <strong>เป้าหมาย:</strong> เรียนรู้การจัดการฟอร์มด้วย React Hook Form + Zod
           </Typography>
         </Alert>
+      </Box>
 
-        {/* Features Grid */}
-        <Typography variant="h6" sx={{ mb: 3 }}>
-          🌟 ข้อดีของ React Hook Form:
-        </Typography>
-        
-        <Box sx={{ 
-          display: 'grid', 
-          gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, 
-          gap: 2,
-          mb: 4
-        }}>
-          {rhfFeatures.map((feature, index) => (
-            <Card key={index} sx={{ height: '100%' }}>
-              <CardContent>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-                  <Box sx={{ color: `${feature.color}.main` }}>
-                    {feature.icon}
-                  </Box>
-                  <Typography variant="h6">
-                    {feature.title}
-                  </Typography>
-                </Box>
-                <Typography variant="body2">
-                  {feature.description}
-                </Typography>
-              </CardContent>
-            </Card>
-          ))}
-        </Box>
-
-        {/* Installation */}
-        <Typography variant="h6" sx={{ mb: 2 }}>
-          📦 การติดตั้ง:
-        </Typography>
-
-        <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 3 }}>
-          <Typography variant="body2" component="pre">
-{`# React Hook Form
-npm install react-hook-form
-
-# Zod Resolver (สำหรับ validation)
-npm install @hookform/resolvers
-
-# Zod (หากยังไม่ได้ติดตั้ง)
-npm install zod`}
-          </Typography>
-        </Box>
+      {/* Tabs */}
+      <Paper sx={{ mb: { xs: 3, sm: 4 } }}>
+        <Tabs
+          value={tabValue}
+          onChange={handleTabChange}
+          variant="scrollable"
+          scrollButtons="auto"
+          sx={{ borderBottom: 1, borderColor: 'divider' }}
+        >
+          <Tab label="🔰 เริ่มต้น" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }} />
+          <Tab label="📋 Basic Form" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }} />
+          <Tab label="🧩 Dynamic Form" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }} />
+          <Tab label="💡 Tips & Tricks" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }} />
+        </Tabs>
       </Paper>
 
-      {/* Basic Usage */}
-      <Paper sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
-          🚀 การใช้งานพื้นฐาน
+      {/* Tab Panels */}
+      <CustomTabPanel value={tabValue} index={0}>
+        <Typography variant="h6" sx={{ mb: 2, color: 'primary.main' }}>
+          📝 Basic React Hook Form
         </Typography>
-
-        <Tabs value={tabValue} onChange={handleTabChange} sx={{ mb: 3 }}>
-          <Tab label="Basic Form" />
-          <Tab label="With Validation" />
-          <Tab label="Controller Pattern" />
-          <Tab label="TypeScript" />
-        </Tabs>
-
-        <CustomTabPanel value={tabValue} index={0}>
-          <Typography variant="h6" sx={{ mb: 2, color: 'primary.main' }}>
-            📝 Basic React Hook Form
-          </Typography>
-          
-          <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 3 }}>
-            <Typography variant="body2" component="pre">
+        
+        <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 3 }}>
+          <Typography variant="body2" component="pre">
 {`'use client';
 import { useForm } from 'react-hook-form';
 
@@ -598,23 +519,23 @@ export default function BasicForm() {
     </form>
   );
 }`}
-            </Typography>
-          </Box>
-
-          <Alert severity="info">
-            <Typography variant="body2">
-              💡 <strong>register():</strong> เชื่อมต่อ input elements เข้ากับ React Hook Form
-            </Typography>
-          </Alert>
-        </CustomTabPanel>
-
-        <CustomTabPanel value={tabValue} index={1}>
-          <Typography variant="h6" sx={{ mb: 2, color: 'secondary.main' }}>
-            🛡️ Integration กับ Zod Validation
           </Typography>
-          
-          <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 3 }}>
-            <Typography variant="body2" component="pre">
+        </Box>
+
+        <Alert severity="info">
+          <Typography variant="body2">
+            💡 <strong>register():</strong> เชื่อมต่อ input elements เข้ากับ React Hook Form
+          </Typography>
+        </Alert>
+      </CustomTabPanel>
+
+      <CustomTabPanel value={tabValue} index={1}>
+        <Typography variant="h6" sx={{ mb: 2, color: 'secondary.main' }}>
+          🛡️ Integration กับ Zod Validation
+        </Typography>
+        
+        <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 3 }}>
+          <Typography variant="body2" component="pre">
 {`'use client';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -702,23 +623,23 @@ export default function ValidatedForm() {
     </form>
   );
 }`}
-            </Typography>
-          </Box>
-
-          <Alert severity="success">
-            <Typography variant="body2">
-              ✅ <strong>Zod + React Hook Form:</strong> Type safety และ validation ที่แข็งแกร่ง
-            </Typography>
-          </Alert>
-        </CustomTabPanel>
-
-        <CustomTabPanel value={tabValue} index={2}>
-          <Typography variant="h6" sx={{ mb: 2, color: 'info.main' }}>
-            🎛️ Controller Pattern สำหรับ Custom Components
           </Typography>
-          
-          <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 3 }}>
-            <Typography variant="body2" component="pre">
+        </Box>
+
+        <Alert severity="success">
+          <Typography variant="body2">
+            ✅ <strong>Zod + React Hook Form:</strong> Type safety และ validation ที่แข็งแกร่ง
+          </Typography>
+        </Alert>
+      </CustomTabPanel>
+
+      <CustomTabPanel value={tabValue} index={2}>
+        <Typography variant="h6" sx={{ mb: 2, color: 'info.main' }}>
+          🎛️ Controller Pattern สำหรับ Custom Components
+        </Typography>
+        
+        <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 3 }}>
+          <Typography variant="body2" component="pre">
 {`'use client';
 import { Controller, useForm } from 'react-hook-form';
 import { 
@@ -831,23 +752,23 @@ export default function ControllerForm() {
     </form>
   );
 }`}
-            </Typography>
-          </Box>
-
-          <Alert severity="warning">
-            <Typography variant="body2">
-              ⚠️ <strong>Controller:</strong> ใช้สำหรับ components ที่ไม่รองรับ ref โดยตรง เช่น MUI components
-            </Typography>
-          </Alert>
-        </CustomTabPanel>
-
-        <CustomTabPanel value={tabValue} index={3}>
-          <Typography variant="h6" sx={{ mb: 2, color: 'success.main' }}>
-            🔧 TypeScript Best Practices
           </Typography>
-          
-          <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 3 }}>
-            <Typography variant="body2" component="pre">
+        </Box>
+
+        <Alert severity="warning">
+          <Typography variant="body2">
+            ⚠️ <strong>Controller:</strong> ใช้สำหรับ components ที่ไม่รองรับ ref โดยตรง เช่น MUI components
+          </Typography>
+        </Alert>
+      </CustomTabPanel>
+
+      <CustomTabPanel value={tabValue} index={3}>
+        <Typography variant="h6" sx={{ mb: 2, color: 'success.main' }}>
+          🔧 TypeScript Best Practices
+        </Typography>
+        
+        <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 3 }}>
+          <Typography variant="body2" component="pre">
 {`// types/forms.ts
 export interface UserProfile {
   personalInfo: {
@@ -969,16 +890,15 @@ function PersonalInfoSection() {
     </section>
   );
 }`}
-            </Typography>
-          </Box>
+          </Typography>
+        </Box>
 
-          <Alert severity="info">
-            <Typography variant="body2">
-              💡 <strong>FormProvider:</strong> ใช้สำหรับแชร์ form methods ระหว่าง components
-            </Typography>
-          </Alert>
-        </CustomTabPanel>
-      </Paper>
+        <Alert severity="info">
+          <Typography variant="body2">
+            💡 <strong>FormProvider:</strong> ใช้สำหรับแชร์ form methods ระหว่าง components
+          </Typography>
+        </Alert>
+      </CustomTabPanel>
 
       {/* Interactive Demos */}
       <Box sx={{ mb: 4 }}>
@@ -1047,49 +967,33 @@ function PersonalInfoSection() {
       </Paper>
 
       {/* Navigation */}
-      <Paper sx={{ p: 4, bgcolor: 'success.light', color: 'success.dark' }}>
-        <Typography variant="h5" sx={{ mb: 2 }}>
-          🎯 ยินดีด้วย! คุณเรียนจบบทที่ 11 แล้ว
-        </Typography>
-        <Typography variant="body1" sx={{ mb: 3 }}>
-          ตอนนี้คุณสามารถสร้างฟอร์มที่มีประสิทธิภาพและใช้งานง่ายได้แล้ว
-          พร้อมสำหรับการเรียนรู้ Middleware & Security ในบทถัดไป
-        </Typography>
-        
-        <Alert severity="info" sx={{ mb: 3 }}>
-          <Typography variant="body2">
-            💡 <strong>บทถัดไป:</strong> เรียนรู้ Middleware & Security เพื่อสร้างแอปพลิเคชันที่ปลอดภัย
-          </Typography>
-        </Alert>
-      </Paper>
-
-      {/* Navigation */}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 6 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: { xs: 4, sm: 6 }, flexDirection: { xs: 'column', sm: 'row' }, gap: { xs: 2, sm: 0 } }}>
         <Button
           startIcon={<ArrowBack />}
           component={Link}
           href="/nextjs-basics/lesson-10"
           variant="outlined"
+          sx={{ fontSize: { xs: '0.85rem', sm: '0.9rem' }, order: { xs: 2, sm: 1 } }}
         >
           บทที่ 10: State Management
         </Button>
-        
-        <Chip 
-          label="11 / 16"
+        <Chip
+          label="11 / 18"
           color="primary"
           variant="outlined"
+          sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' }, order: { xs: 1, sm: 2 } }}
         />
-        
         <Button
           endIcon={<ArrowForward />}
           component={Link}
           href="/nextjs-basics/lesson-12"
           variant="contained"
           color="primary"
+          sx={{ fontSize: { xs: '0.85rem', sm: '0.9rem' }, order: { xs: 3, sm: 3 } }}
         >
-          บทที่ 12: Middleware & Security
+          บทที่ 12: Security
         </Button>
       </Box>
-    </Container>
+    </Box>
   );
 } 

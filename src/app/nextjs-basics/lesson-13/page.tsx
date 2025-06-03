@@ -257,506 +257,61 @@ export default function Lesson13Page() {
   };
 
   return (
-    <Container maxWidth="lg">
-      <Box sx={{ py: 4 }}>
+    <Box sx={{
+      minHeight: '100vh',
+      maxWidth: '100vw',
+      px: { xs: 2, sm: 3, md: 4 },
+      py: { xs: 2, sm: 3 },
+      overflow: 'hidden',
+    }}>
         {/* Header */}
-        <Box sx={{ mb: 4 }}>
+      <Box sx={{ mb: { xs: 3, sm: 4 } }}>
           <Button
             startIcon={<ArrowBack />}
             component={Link}
             href="/nextjs-basics"
-            sx={{ mb: 2 }}
+          sx={{ mb: 2, fontSize: { xs: '0.85rem', sm: '0.9rem' } }}
           >
             กลับไปหน้าหลัก
           </Button>
-          
-          <Typography variant="h1" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Science color="primary" sx={{ fontSize: '3rem' }} />
-            บทที่ 13: Testing สำหรับมือใหม่
+        <Typography variant="h2" component="h1" sx={{ fontSize: { xs: '1.8rem', sm: '2.5rem', md: '3rem' }, fontWeight: 600, mb: 2, lineHeight: 1.2, display: 'flex', alignItems: 'center', gap: 2 }}>
+          <BugReport color="primary" sx={{ fontSize: { xs: '2.2rem', sm: '3rem' } }} />
+          บทที่ 13: Testing
           </Typography>
-          
-          <Typography variant="h5" color="text.secondary" sx={{ mb: 3 }}>
-            เรียนรู้การทดสอบโค้ดด้วย Jest และ Testing Library อย่างง่ายๆ 
-            เพื่อให้มั่นใจว่าเว็บไซต์ของคุณทำงานได้ถูกต้องและไม่มีบัค! 🧪
-          </Typography>
-          
-          <Box sx={{ display: 'flex', gap: 2, mb: 3, flexWrap: 'wrap' }}>
-            <Chip icon={<Science />} label="Testing Basics" color="primary" />
-            <Chip icon={<BugReport />} label="Debug & Fix" color="error" />
-            <Chip icon={<CheckCircle />} label="Quality Assurance" color="success" />
-            <Chip icon={<Quiz />} label="Test Writing" color="warning" />
-            <Chip icon={<Code />} label="Jest & Testing Library" color="info" />
-          </Box>
-          
-          <Alert severity="info" sx={{ mb: 3 }}>
+        <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', gap: 1, mb: 3, '& .MuiChip-root': { fontSize: { xs: '0.75rem', sm: '0.8rem' } } }}>
+          <Chip icon={<Science />} label="Unit Test" color="primary" size="small" />
+          <Chip icon={<Quiz />} label="Integration" color="secondary" size="small" />
+          <Chip icon={<Assessment />} label="E2E" color="info" size="small" />
+          <Chip icon={<Code />} label="Best Practice" color="success" size="small" />
+        </Stack>
+        <Alert severity="info" sx={{ mb: 3, fontSize: { xs: '0.85rem', sm: '0.9rem' } }}>
             <Typography variant="body2">
-              🎯 <strong>เป้าหมายของบทเรียนนี้:</strong> ทำให้คุณเขียน Test เพื่อตรวจสอบการทำงานของโค้ดได้
-              <br />
-              ⏱️ <strong>ระยะเวลา:</strong> 60 นาที | 
-              📊 <strong>ระดับ:</strong> มือใหม่ที่พร้อมเรียนรู้การทดสอบ
+            ⏱️ <strong>ระยะเวลา:</strong> 40 นาที | 
+            📊 <strong>ระดับ:</strong> ปานกลาง | 
+            🎯 <strong>เป้าหมาย:</strong> เรียนรู้ Testing & Best Practices ใน Next.js
             </Typography>
           </Alert>
-
-          {/* What is Testing in Simple Terms */}
-          <Paper sx={{ p: 3, mb: 4, bgcolor: 'primary.50', border: '2px solid', borderColor: 'primary.200' }}>
-            <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Lightbulb color="primary" /> 🤔 Testing คืออะไร? (อธิบายแบบง่ายๆ)
-            </Typography>
-            
-            <Typography variant="body1" sx={{ mb: 2 }}>
-              ลองนึกภาพว่าการเขียนโค้ดเป็นเหมือน <strong>การทำอาหาร</strong> และ Testing เป็น <strong>"การชิมรสก่อนเสิร์ฟ"</strong>:
-            </Typography>
-
-            <Box sx={{ pl: 2, borderLeft: '3px solid', borderColor: 'primary.main', mb: 2 }}>
-              <Typography variant="body2" sx={{ mb: 1 }}>
-                • 👨‍🍳 <strong>ทำอาหาร:</strong> เขียนโค้ดเหมือนทำอาหารตามสูตร
-              </Typography>
-              <Typography variant="body2" sx={{ mb: 1 }}>
-                • 🍴 <strong>ชิมรส:</strong> เขียน Test เพื่อทดสอบว่าโค้ดทำงานถูกต้องไหม
-              </Typography>
-              <Typography variant="body2" sx={{ mb: 1 }}>
-                • ✅ <strong>อร่อยแล้ว:</strong> Test ผ่าน = โค้ดทำงานได้ดี
-              </Typography>
-              <Typography variant="body2">
-                • 🔧 <strong>ปรับปรุง:</strong> Test ไม่ผ่าน = ต้องแก้ไขโค้ด
-              </Typography>
             </Box>
-
-            <Alert severity="success" sx={{ mt: 2 }}>
-              <Typography variant="body2">
-                ✨ <strong>ข้อดี:</strong> Testing ช่วยให้คุณมั่นใจว่าโค้ดทำงานถูกต้อง และจับบัคได้ก่อนผู้ใช้เจอ!
-              </Typography>
-            </Alert>
-          </Paper>
-        </Box>
-
-        {/* Learning Objectives for Beginners */}
-        <Paper sx={{ p: 3, mb: 4 }}>
-          <Typography variant="h6" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-            <CheckCircle color="primary" /> 🎯 เมื่อเรียนจบบทนี้ คุณจะสามารถ:
-          </Typography>
-          
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 2 }}>
-            <Box>
-              <List dense>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
-                  <ListItemText 
-                    primary="เข้าใจว่า Testing คืออะไร" 
-                    secondary="รู้หลักการและประโยชน์ของการทดสอบ"
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
-                  <ListItemText 
-                    primary="ติดตั้งและใช้ Jest" 
-                    secondary="เขียน Unit Test แรกของคุณ"
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
-                  <ListItemText 
-                    primary="ทดสอบ React Components" 
-                    secondary="ใช้ Testing Library เทสต์หน้าเว็บ"
-                  />
-                </ListItem>
-              </List>
-            </Box>
-            
-            <Box>
-              <List dense>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
-                  <ListItemText 
-                    primary="Mock Functions และ APIs" 
-                    secondary="จำลองการทำงานเพื่อการทดสอบ"
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
-                  <ListItemText 
-                    primary="Test Coverage และ Debugging" 
-                    secondary="วัดความครอบคลุมและแก้ไขปัญหา"
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon><CheckCircle color="success" sx={{ fontSize: 20 }} /></ListItemIcon>
-                  <ListItemText 
-                    primary="CI/CD Integration" 
-                    secondary="รัน Test อัตโนมัติเมื่อ Deploy"
-                  />
-                </ListItem>
-              </List>
-            </Box>
-          </Box>
-        </Paper>
 
         {/* Tabs */}
-        <Box sx={{ width: '100%' }}>
+      <Paper sx={{ mb: { xs: 3, sm: 4 } }}>
           <Tabs 
             value={activeTab} 
             onChange={handleTabChange}
             variant="scrollable"
             scrollButtons="auto"
-            sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}
-          >
-            <Tab 
-              label="💡 เริ่มต้น Testing" 
-              icon={<Lightbulb />}
-              iconPosition="start"
-            />
-            <Tab 
-              label="🧪 Unit Testing" 
-              icon={<Science />}
-              iconPosition="start"
-            />
-            <Tab 
-              label="🔧 Component Testing" 
-              icon={<Build />}
-              iconPosition="start"
-            />
-            <Tab 
-              label="🎯 Integration Testing" 
-              icon={<Assessment />}
-              iconPosition="start"
-            />
-            <Tab 
-              label="🎮 ทดลองใช้งาน" 
-              icon={<PlayArrow />}
-              iconPosition="start"
-            />
+          sx={{ borderBottom: 1, borderColor: 'divider' }}
+        >
+          <Tab label="🧪 Unit Test" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }} />
+          <Tab label="🔗 Integration" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }} />
+          <Tab label="🚦 E2E" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }} />
+          <Tab label="💡 Best Practice" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }} />
           </Tabs>
-        </Box>
+      </Paper>
 
-        {/* Tab 1: Introduction to Testing */}
+      {/* Tab Panels */}
         <TabPanel value={activeTab} index={0}>
-          <Typography variant="h3" sx={{ mb: 3 }}>📚 เริ่มต้นกับ Testing</Typography>
-          
-          {/* Why Testing is Important */}
-          <Paper sx={{ p: 3, mb: 4, bgcolor: 'error.50', border: '2px solid', borderColor: 'error.200' }}>
-            <Typography variant="h6" sx={{ mb: 2, color: 'error.main' }}>
-              😱 ถ้าไม่มี Testing จะเกิดอะไรขึ้น?
-            </Typography>
-            
-            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 3 }}>
-              <Box>
-                <Typography variant="subtitle2" sx={{ mb: 1, color: 'error.main' }}>🚨 ปัญหาที่เกิดขึ้น:</Typography>
-                <List dense>
-                  <ListItem>
-                    <ListItemIcon><BugReport color="error" sx={{ fontSize: 20 }} /></ListItemIcon>
-                    <ListItemText 
-                      primary="บัคซ่อนอยู่" 
-                      secondary="ไม่รู้ว่ามีข้อผิดพลาดอยู่ในโค้ด"
-                    />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemIcon><ErrorIcon color="error" sx={{ fontSize: 20 }} /></ListItemIcon>
-                    <ListItemText 
-                      primary="แก้อันนี้ พังอันนั้น" 
-                      secondary="การเปลี่ยนโค้ดทำให้ส่วนอื่นเสีย"
-                    />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemIcon><Warning color="error" sx={{ fontSize: 20 }} /></ListItemIcon>
-                    <ListItemText 
-                      primary="ลูกค้าโกรธ" 
-                      secondary="ผู้ใช้เจอบัคก่อนที่เราจะรู้"
-                    />
-                  </ListItem>
-                </List>
-              </Box>
-              
-              <Box>
-                <Typography variant="subtitle2" sx={{ mb: 1, color: 'error.main' }}>💸 ค่าใช้จ่ายที่เพิ่มขึ้น:</Typography>
-                <List dense>
-                  <ListItem>
-                    <ListItemIcon><Timer color="warning" sx={{ fontSize: 20 }} /></ListItemIcon>
-                    <ListItemText primary="เสียเวลาแก้บัค" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemIcon><ErrorIcon color="warning" sx={{ fontSize: 20 }} /></ListItemIcon>
-                    <ListItemText primary="เสียชื่อเสียง" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemIcon><Warning color="warning" sx={{ fontSize: 20 }} /></ListItemIcon>
-                    <ListItemText primary="ลูกค้าหนีไป" />
-                  </ListItem>
-                </List>
-              </Box>
-            </Box>
-          </Paper>
-
-          {/* Types of Testing */}
-          <Typography variant="h5" sx={{ mb: 3 }}>🧪 ประเภทของการทดสอบ (เข้าใจง่าย)</Typography>
-          
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr 1fr' }, gap: 3, mb: 4 }}>
-            <Card sx={{ height: '100%' }}>
-              <CardContent>
-                <Typography variant="h6" sx={{ mb: 2, color: 'info.main', display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <Science color="info" /> Unit Testing
-                </Typography>
-                <Typography variant="body2" sx={{ mb: 2 }}>
-                  <strong>เปรียบเทียบ:</strong> เหมือนตรวจสอบส่วนผสมแต่ละอย่าง
-                </Typography>
-                <Typography variant="body2" sx={{ mb: 1 }}>
-                  • ทดสอบฟังก์ชันเดี่ยวๆ
-                </Typography>
-                <Typography variant="body2" sx={{ mb: 1 }}>
-                  • เร็วที่สุด และง่ายที่สุด
-                </Typography>
-                <Typography variant="body2">
-                  • เหมาะสำหรับตรวจ logic
-                </Typography>
-              </CardContent>
-            </Card>
-
-            <Card sx={{ height: '100%' }}>
-              <CardContent>
-                <Typography variant="h6" sx={{ mb: 2, color: 'warning.main', display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <Build color="warning" /> Component Testing
-                </Typography>
-                <Typography variant="body2" sx={{ mb: 2 }}>
-                  <strong>เปรียบเทียบ:</strong> เหมือนทดสอบจานเดี่ยวๆ
-                </Typography>
-                <Typography variant="body2" sx={{ mb: 1 }}>
-                  • ทดสอบ React Component
-                </Typography>
-                <Typography variant="body2" sx={{ mb: 1 }}>
-                  • ตรวจสอบการแสดงผล
-                </Typography>
-                <Typography variant="body2">
-                  • เทสต์การคลิกปุ่ม input
-                </Typography>
-              </CardContent>
-            </Card>
-
-            <Card sx={{ height: '100%' }}>
-              <CardContent>
-                <Typography variant="h6" sx={{ mb: 2, color: 'success.main', display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <Assessment color="success" /> Integration Testing
-                </Typography>
-                <Typography variant="body2" sx={{ mb: 2 }}>
-                  <strong>เปรียบเทียบ:</strong> เหมือนทดสอบเมนูเต็มโต๊ะ
-                </Typography>
-                <Typography variant="body2" sx={{ mb: 1 }}>
-                  • ทดสอบหลายส่วนร่วมกัน
-                </Typography>
-                <Typography variant="body2" sx={{ mb: 1 }}>
-                  • ตรวจสอบ API + Database
-                </Typography>
-                <Typography variant="body2">
-                  • ใช้เวลานานกว่า แต่ครอบคลุม
-                </Typography>
-              </CardContent>
-            </Card>
-          </Box>
-
-          {/* Setup Instructions */}
-          <Typography variant="h5" sx={{ mb: 2 }}>⚙️ การติดตั้ง Testing Tools</Typography>
-          
-          <Paper sx={{ p: 3, mb: 4 }}>
-            <Typography variant="body1" sx={{ mb: 2 }}>
-              ️ <strong>สำหรับโปรเจค Next.js ใหม่:</strong>
-            </Typography>
-            
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 3 }}>
-              <Typography variant="body2" component="pre" sx={{ color: 'success.dark' }}>
-{`# สร้างโปรเจค Next.js พร้อม Testing (แนะนำ)
-npx create-next-app@latest my-app --typescript --eslint
-cd my-app
-
-# ติดตั้ง Testing packages
-npm install --save-dev jest jest-environment-jsdom
-npm install --save-dev @testing-library/react @testing-library/jest-dom
-npm install --save-dev @testing-library/user-event`}
-              </Typography>
-            </Box>
-
-            <Typography variant="body1" sx={{ mb: 2 }}>
-              📝 <strong>สร้างไฟล์ config (jest.config.js):</strong>
-            </Typography>
-            
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 3 }}>
-              <Typography variant="body2" component="pre">
-{`// jest.config.js (สร้างไฟล์นี้ใน root ของโปรเจค)
-const nextJest = require('next/jest')
-
-const createJestConfig = nextJest({
-  // Provide the path to your Next.js app to load next.config.js and .env files
-  dir: './',
-})
-
-// Add any custom config to be passed to Jest
-const customJestConfig = {
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-  moduleNameMapping: {
-    // Handle module aliases (this will match the paths you added)
-    '^@/components/(.*)$': '<rootDir>/components/$1',
-    '^@/pages/(.*)$': '<rootDir>/pages/$1',
-  },
-  testEnvironment: 'jest-environment-jsdom',
-}
-
-// createJestConfig is exported this way to ensure that next/jest can load the Next.js config
-module.exports = createJestConfig(customJestConfig)`}
-              </Typography>
-            </Box>
-
-            <Typography variant="body1" sx={{ mb: 2 }}>
-              🔧 <strong>สร้างไฟล์ setup (jest.setup.js):</strong>
-            </Typography>
-            
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 3 }}>
-              <Typography variant="body2" component="pre">
-{`// jest.setup.js (สร้างไฟล์นี้ใน root ของโปรเจค)
-import '@testing-library/jest-dom'
-
-// Mock การทำงานของ Next.js router
-jest.mock('next/router', () => ({
-  useRouter() {
-    return {
-      route: '/',
-      pathname: '/',
-      query: '',
-      asPath: '',
-    }
-  },
-}))`}
-              </Typography>
-            </Box>
-
-            <Typography variant="body1" sx={{ mb: 2 }}>
-              📦 <strong>เพิ่ม scripts ใน package.json:</strong>
-            </Typography>
-            
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1 }}>
-              <Typography variant="body2" component="pre">
-{`{
-  "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
-  }
-}`}
-              </Typography>
-            </Box>
-
-            <Alert severity="success" sx={{ mt: 2 }}>
-              <Typography variant="body2">
-                ✅ <strong>เสร็จแล้ว!</strong> ตอนนี้คุณพร้อมเขียน Test แรกแล้ว! 
-                รัน <code>npm test</code> เพื่อเริ่มทดสอบ
-              </Typography>
-            </Alert>
-          </Paper>
-
-          {/* First Test Example */}
-          <Typography variant="h5" sx={{ mb: 2 }}>🚀 ตัวอย่างแรก: Test ง่ายๆ</Typography>
-          
-          <Paper sx={{ p: 3, mb: 4 }}>
-            <Typography variant="body1" sx={{ mb: 2 }}>
-              มาสร้าง Test แรกที่ทดสอบฟังก์ชันง่ายๆ:
-            </Typography>
-            
-            <Typography variant="subtitle2" sx={{ mb: 1 }}>
-              1. สร้างฟังก์ชันที่จะทดสอบ (utils/math.js):
-            </Typography>
-            
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 3 }}>
-              <Typography variant="body2" component="pre">
-{`// utils/math.js
-export function add(a, b) {
-  return a + b;
-}
-
-export function multiply(a, b) {
-  return a * b;
-}
-
-export function divide(a, b) {
-  if (b === 0) {
-    throw new Error('Cannot divide by zero');
-  }
-  return a / b;
-}`}
-              </Typography>
-            </Box>
-
-            <Typography variant="subtitle2" sx={{ mb: 1 }}>
-              2. สร้าง Test ไฟล์ (__tests__/math.test.js):
-            </Typography>
-            
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 3 }}>
-              <Typography variant="body2" component="pre">
-{`// __tests__/math.test.js
-import { add, multiply, divide } from '../utils/math';
-
-// กลุ่มของ test สำหรับ math functions
-describe('Math functions', () => {
-  
-  // ทดสอบฟังก์ชัน add
-  test('should add two numbers correctly', () => {
-    // Arrange: เตรียมข้อมูล
-    const a = 2;
-    const b = 3;
-    
-    // Act: เรียกใช้ฟังก์ชัน
-    const result = add(a, b);
-    
-    // Assert: ตรวจสอบผลลัพธ์
-    expect(result).toBe(5);
-  });
-
-  test('should multiply two numbers correctly', () => {
-    expect(multiply(4, 5)).toBe(20);
-    expect(multiply(0, 100)).toBe(0);
-    expect(multiply(-2, 3)).toBe(-6);
-  });
-
-  test('should divide two numbers correctly', () => {
-    expect(divide(10, 2)).toBe(5);
-    expect(divide(9, 3)).toBe(3);
-  });
-
-  test('should throw error when dividing by zero', () => {
-    expect(() => {
-      divide(10, 0);
-    }).toThrow('Cannot divide by zero');
-  });
-});`}
-              </Typography>
-            </Box>
-
-            <Alert severity="info" sx={{ mb: 2 }}>
-              <Typography variant="body2">
-                💡 <strong>รูปแบบ AAA:</strong> Arrange (เตรียม) → Act (ทำงาน) → Assert (ตรวจสอบ)
-                เป็นรูปแบบมาตรฐานในการเขียน Test
-              </Typography>
-            </Alert>
-
-            <Typography variant="subtitle2" sx={{ mb: 1 }}>
-              3. รัน Test:
-            </Typography>
-            
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1 }}>
-              <Typography variant="body2" component="pre">
-{`npm test
-
-# ผลลัพธ์ที่ควรเห็น:
-✓ Math functions › should add two numbers correctly
-✓ Math functions › should multiply two numbers correctly  
-✓ Math functions › should divide two numbers correctly
-✓ Math functions › should throw error when dividing by zero
-
-Test Suites: 1 passed, 1 total
-Tests:       4 passed, 4 total`}
-              </Typography>
-            </Box>
-          </Paper>
-        </TabPanel>
-
-        {/* Tab 2: Unit Testing */}
-        <TabPanel value={activeTab} index={1}>
-          <Typography variant="h3" sx={{ mb: 3 }}>🧪 Unit Testing</Typography>
+        <Typography variant="h3" sx={{ mb: 3 }}>🧪 Unit Test</Typography>
           
           <Typography variant="body1" sx={{ mb: 3 }}>
             Unit Testing คือการทดสอบฟังก์ชันหรือส่วนย่อยของโค้ดแต่ละตัวแยกกัน
@@ -892,196 +447,197 @@ describe('Local Storage Utils', () => {
           </Alert>
         </TabPanel>
 
-        {/* Tab 3: Component Testing */}
-        <TabPanel value={activeTab} index={2}>
-          <Typography variant="h3" sx={{ mb: 3 }}>🔧 Component Testing</Typography>
+      <TabPanel value={activeTab} index={1}>
+        <Typography variant="h3" sx={{ mb: 3 }}>🎯 Integration Test</Typography>
           
           <Typography variant="body1" sx={{ mb: 3 }}>
-            การทดสอบ React Components ด้วย Testing Library เพื่อให้มั่นใจว่า UI ทำงานถูกต้อง
+          การทดสอบหลายส่วนที่ทำงานร่วมกัน รวมถึง API calls และ Database interactions
           </Typography>
 
-          <Typography variant="h5" sx={{ mb: 2 }}>1. Basic Component Testing</Typography>
+        <Typography variant="h5" sx={{ mb: 2 }}>1. Testing API Calls</Typography>
           <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 3 }}>
             <Typography variant="body2" component="pre">
-{`// components/Button.jsx - Component ที่จะทดสอบ
-export function CustomButton({ children, onClick, disabled = false, variant = 'primary' }) {
-  return (
-    <button
-      onClick={onClick}
-      disabled={disabled}
-      className={\`btn btn-\${variant}\`}
-      data-testid="custom-button"
-    >
-      {children}
-    </button>
-  );
+{`// services/userService.js - API service
+export async function getUser(id) {
+  const response = await fetch(\`/api/users/\${id}\`);
+  
+  if (!response.ok) {
+    throw new Error('Failed to fetch user');
+  }
+  
+  return response.json();
 }
 
-// __tests__/Button.test.jsx
-import { render, screen, fireEvent } from '@testing-library/react';
-import { CustomButton } from '../components/Button';
+export async function createUser(userData) {
+  const response = await fetch('/api/users', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(userData),
+  });
+  
+  if (!response.ok) {
+    throw new Error('Failed to create user');
+  }
+  
+  return response.json();
+}
 
-describe('CustomButton Component', () => {
-  test('renders button with correct text', () => {
-    render(<CustomButton>Click Me</CustomButton>);
-    
-    // ตรวจสอบว่ามีข้อความใน button
-    const button = screen.getByText('Click Me');
-    expect(button).toBeInTheDocument();
+// __tests__/userService.test.js
+import { getUser, createUser } from '../services/userService';
+
+// Mock fetch globally
+global.fetch = jest.fn();
+
+describe('User Service', () => {
+  beforeEach(() => {
+    fetch.mockClear();
   });
 
-  test('calls onClick when clicked', () => {
-    const handleClick = jest.fn(); // สร้าง mock function
+  test('should fetch user successfully', async () => {
+    const mockUser = { id: 1, name: 'John Doe', email: 'john@example.com' };
     
-    render(<CustomButton onClick={handleClick}>Click Me</CustomButton>);
-    
-    const button = screen.getByTestId('custom-button');
-    fireEvent.click(button); // จำลองการคลิก
-    
-    expect(handleClick).toHaveBeenCalledTimes(1);
+    fetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => mockUser,
+    });
+
+    const user = await getUser(1);
+
+    expect(fetch).toHaveBeenCalledWith('/api/users/1');
+    expect(user).toEqual(mockUser);
   });
 
-  test('is disabled when disabled prop is true', () => {
-    render(<CustomButton disabled>Click Me</CustomButton>);
-    
-    const button = screen.getByTestId('custom-button');
-    expect(button).toBeDisabled();
+  test('should throw error when fetch fails', async () => {
+    fetch.mockResolvedValueOnce({
+      ok: false,
+    });
+
+    await expect(getUser(1)).rejects.toThrow('Failed to fetch user');
   });
 
-  test('has correct CSS class based on variant', () => {
-    render(<CustomButton variant="secondary">Click Me</CustomButton>);
+  test('should create user successfully', async () => {
+    const newUser = { name: 'Jane Doe', email: 'jane@example.com' };
+    const createdUser = { id: 2, ...newUser };
     
-    const button = screen.getByTestId('custom-button');
-    expect(button).toHaveClass('btn-secondary');
+    fetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => createdUser,
+    });
+
+    const result = await createUser(newUser);
+
+    expect(fetch).toHaveBeenCalledWith('/api/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newUser),
+    });
+    expect(result).toEqual(createdUser);
   });
 });`}
             </Typography>
           </Box>
 
-          <Typography variant="h5" sx={{ mb: 2 }}>2. Testing Forms and User Input</Typography>
+        <Typography variant="h5" sx={{ mb: 2 }}>2. Testing with MSW (Mock Service Worker)</Typography>
           <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 3 }}>
             <Typography variant="body2" component="pre">
-{`// components/LoginForm.jsx
-import { useState } from 'react';
+{`// เติดตั้ง MSW
+npm install --save-dev msw
 
-export function LoginForm({ onSubmit }) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+// mocks/handlers.js - กำหนด API responses
+import { rest } from 'msw';
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+export const handlers = [
+  // GET /api/users/:id
+  rest.get('/api/users/:id', (req, res, ctx) => {
+    const { id } = req.params;
     
-    if (!username || !password) {
-      setError('กรุณากรอกข้อมูลให้ครบ');
-      return;
-    }
+    return res(
+      ctx.json({
+        id: parseInt(id),
+        name: 'John Doe',
+        email: 'john@example.com'
+      })
+    );
+  }),
+
+  // POST /api/users
+  rest.post('/api/users', async (req, res, ctx) => {
+    const newUser = await req.json();
     
-    setError('');
-    onSubmit({ username, password });
-  };
+    return res(
+      ctx.json({
+        id: 123,
+        ...newUser,
+        createdAt: new Date().toISOString()
+      })
+    );
+  }),
 
-  return (
-    <form onSubmit={handleSubmit} data-testid="login-form">
-      <div>
-        <label htmlFor="username">Username:</label>
-        <input
-          id="username"
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          data-testid="username-input"
-        />
-      </div>
-      
-      <div>
-        <label htmlFor="password">Password:</label>
-        <input
-          id="password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          data-testid="password-input"
-        />
-      </div>
-      
-      {error && <div data-testid="error-message">{error}</div>}
-      
-      <button type="submit" data-testid="submit-button">
-        Login
-      </button>
-    </form>
-  );
-}
+  // Error case
+  rest.get('/api/users/999', (req, res, ctx) => {
+    return res(
+      ctx.status(404),
+      ctx.json({ error: 'User not found' })
+    );
+  }),
+];
 
-// __tests__/LoginForm.test.jsx
-import { render, screen, fireEvent } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { LoginForm } from '../components/LoginForm';
+// mocks/server.js
+import { setupServer } from 'msw/node';
+import { handlers } from './handlers';
 
-describe('LoginForm Component', () => {
-  test('renders all form elements', () => {
-    render(<LoginForm />);
+export const server = setupServer(...handlers);
+
+// jest.setup.js - เพิ่มใน setup file
+import { server } from './mocks/server';
+
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
+
+// __tests__/userIntegration.test.js - ทดสอบกับ MSW
+import { getUser, createUser } from '../services/userService';
+
+describe('User Service Integration', () => {
+  test('should get user with real-like API', async () => {
+    const user = await getUser(1);
     
-    expect(screen.getByLabelText('Username:')).toBeInTheDocument();
-    expect(screen.getByLabelText('Password:')).toBeInTheDocument();
-    expect(screen.getByTestId('submit-button')).toBeInTheDocument();
+    expect(user).toEqual({
+      id: 1,
+      name: 'John Doe',
+      email: 'john@example.com'
+    });
   });
 
-  test('updates input values when user types', async () => {
-    const user = userEvent.setup();
-    render(<LoginForm />);
+  test('should create user with real-like API', async () => {
+    const newUser = { name: 'Jane Doe', email: 'jane@example.com' };
+    const result = await createUser(newUser);
     
-    const usernameInput = screen.getByTestId('username-input');
-    const passwordInput = screen.getByTestId('password-input');
-    
-    await user.type(usernameInput, 'john@example.com');
-    await user.type(passwordInput, 'password123');
-    
-    expect(usernameInput).toHaveValue('john@example.com');
-    expect(passwordInput).toHaveValue('password123');
-  });
-
-  test('shows error when submitting empty form', async () => {
-    const user = userEvent.setup();
-    render(<LoginForm />);
-    
-    const submitButton = screen.getByTestId('submit-button');
-    await user.click(submitButton);
-    
-    expect(screen.getByTestId('error-message')).toHaveTextContent('กรุณากรอกข้อมูลให้ครบ');
-  });
-
-  test('calls onSubmit with correct data when form is valid', async () => {
-    const mockOnSubmit = jest.fn();
-    const user = userEvent.setup();
-    
-    render(<LoginForm onSubmit={mockOnSubmit} />);
-    
-    await user.type(screen.getByTestId('username-input'), 'john@example.com');
-    await user.type(screen.getByTestId('password-input'), 'password123');
-    await user.click(screen.getByTestId('submit-button'));
-    
-    expect(mockOnSubmit).toHaveBeenCalledWith({
-      username: 'john@example.com',
-      password: 'password123'
+    expect(result).toMatchObject({
+      id: expect.any(Number),
+      name: 'Jane Doe',
+      email: 'jane@example.com',
+      createdAt: expect.any(String)
     });
   });
 });`}
             </Typography>
           </Box>
 
-          <Alert severity="warning" sx={{ mb: 3 }}>
+        <Alert severity="success" sx={{ mb: 3 }}>
             <Typography variant="body2">
-              ⚠️ <strong>userEvent vs fireEvent:</strong> ใช้ <code>userEvent</code> แทน <code>fireEvent</code> เมื่อเป็นไปได้ 
-              เพราะมันจำลองการใช้งานจริงของผู้ใช้ได้ดีกว่า
+            ✨ <strong>ข้อดีของ MSW:</strong> ทำให้การทดสอบเหมือนจริงมากขึ้น และไม่ต้อง mock fetch เอง
+            ใช้ได้ทั้งใน test และ development
             </Typography>
           </Alert>
         </TabPanel>
 
-        {/* Tab 4: Integration Testing */}
-        <TabPanel value={activeTab} index={3}>
-          <Typography variant="h3" sx={{ mb: 3 }}>🎯 Integration Testing</Typography>
+      <TabPanel value={activeTab} index={2}>
+        <Typography variant="h3" sx={{ mb: 3 }}>🎯 Integration Test</Typography>
           
           <Typography variant="body1" sx={{ mb: 3 }}>
             การทดสอบหลายส่วนที่ทำงานร่วมกัน รวมถึง API calls และ Database interactions
@@ -1269,105 +825,223 @@ describe('User Service Integration', () => {
           </Alert>
         </TabPanel>
 
-        {/* Tab 5: Interactive Demo */}
-        <TabPanel value={activeTab} index={4}>
-          <Typography variant="h3" sx={{ mb: 3 }}>🎮 ทดลองใช้งาน</Typography>
+      <TabPanel value={activeTab} index={3}>
+        <Typography variant="h3" sx={{ mb: 3 }}>🎯 Integration Test</Typography>
           
           <Typography variant="body1" sx={{ mb: 3 }}>
-            ทดลองเรียกใช้ Test แบบ Interactive เพื่อดูวิธีการทำงาน
+          การทดสอบหลายส่วนที่ทำงานร่วมกัน รวมถึง API calls และ Database interactions
           </Typography>
 
-          <Stack spacing={4}>
-            <TestRunnerDemo />
-            <ComponentTestDemo />
-          </Stack>
+        <Typography variant="h5" sx={{ mb: 2 }}>1. Testing API Calls</Typography>
+        <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 3 }}>
+          <Typography variant="body2" component="pre">
+{`// services/userService.js - API service
+export async function getUser(id) {
+  const response = await fetch(\`/api/users/\${id}\`);
+  
+  if (!response.ok) {
+    throw new Error('Failed to fetch user');
+  }
+  
+  return response.json();
+}
 
-          <Paper sx={{ p: 3, mt: 4 }}>
-            <Typography variant="h6" sx={{ mb: 2 }}>
-              📊 Test Coverage
-            </Typography>
-            <Typography variant="body2" sx={{ mb: 2 }}>
-              Test Coverage คือการวัดว่าโค้ดของเราถูกทดสอบไปแล้วกี่เปอร์เซ็นต์:
-            </Typography>
-            
-            <Box sx={{ mb: 2 }}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                <Typography variant="body2">Lines Covered</Typography>
-                <Typography variant="body2">85%</Typography>
-              </Box>
-              <LinearProgress variant="determinate" value={85} color="success" />
-            </Box>
-            
-            <Box sx={{ mb: 2 }}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                <Typography variant="body2">Functions Covered</Typography>
-                <Typography variant="body2">92%</Typography>
-              </Box>
-              <LinearProgress variant="determinate" value={92} color="success" />
-            </Box>
-            
-            <Box sx={{ mb: 2 }}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                <Typography variant="body2">Branches Covered</Typography>
-                <Typography variant="body2">78%</Typography>
-              </Box>
-              <LinearProgress variant="determinate" value={78} color="warning" />
-            </Box>
+export async function createUser(userData) {
+  const response = await fetch('/api/users', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(userData),
+  });
+  
+  if (!response.ok) {
+    throw new Error('Failed to create user');
+  }
+  
+  return response.json();
+}
 
-            <Alert severity="info">
-              <Typography variant="body2">
-                💡 <strong>เป้าหมาย:</strong> ควรมี Test Coverage อย่างน้อย 80% 
-                แต่ไม่จำเป็นต้อง 100% เสมอไป ให้เน้นทดสอบส่วนสำคัญ
+// __tests__/userService.test.js
+import { getUser, createUser } from '../services/userService';
+
+// Mock fetch globally
+global.fetch = jest.fn();
+
+describe('User Service', () => {
+  beforeEach(() => {
+    fetch.mockClear();
+  });
+
+  test('should fetch user successfully', async () => {
+    const mockUser = { id: 1, name: 'John Doe', email: 'john@example.com' };
+    
+    fetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => mockUser,
+    });
+
+    const user = await getUser(1);
+
+    expect(fetch).toHaveBeenCalledWith('/api/users/1');
+    expect(user).toEqual(mockUser);
+  });
+
+  test('should throw error when fetch fails', async () => {
+    fetch.mockResolvedValueOnce({
+      ok: false,
+    });
+
+    await expect(getUser(1)).rejects.toThrow('Failed to fetch user');
+  });
+
+  test('should create user successfully', async () => {
+    const newUser = { name: 'Jane Doe', email: 'jane@example.com' };
+    const createdUser = { id: 2, ...newUser };
+    
+    fetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => createdUser,
+    });
+
+    const result = await createUser(newUser);
+
+    expect(fetch).toHaveBeenCalledWith('/api/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newUser),
+    });
+    expect(result).toEqual(createdUser);
+  });
+});`}
               </Typography>
-            </Alert>
-          </Paper>
-        </TabPanel>
+        </Box>
 
-        {/* Navigation */}
-        <Paper sx={{ p: 4, bgcolor: 'success.light', color: 'success.dark' }}>
-          <Typography variant="h5" sx={{ mb: 2 }}>
-            🎯 ยินดีด้วย! คุณเรียนจบบทที่ 13 แล้ว
+        <Typography variant="h5" sx={{ mb: 2 }}>2. Testing with MSW (Mock Service Worker)</Typography>
+        <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 3 }}>
+          <Typography variant="body2" component="pre">
+{`// เติดตั้ง MSW
+npm install --save-dev msw
+
+// mocks/handlers.js - กำหนด API responses
+import { rest } from 'msw';
+
+export const handlers = [
+  // GET /api/users/:id
+  rest.get('/api/users/:id', (req, res, ctx) => {
+    const { id } = req.params;
+    
+    return res(
+      ctx.json({
+        id: parseInt(id),
+        name: 'John Doe',
+        email: 'john@example.com'
+      })
+    );
+  }),
+
+  // POST /api/users
+  rest.post('/api/users', async (req, res, ctx) => {
+    const newUser = await req.json();
+    
+    return res(
+      ctx.json({
+        id: 123,
+        ...newUser,
+        createdAt: new Date().toISOString()
+      })
+    );
+  }),
+
+  // Error case
+  rest.get('/api/users/999', (req, res, ctx) => {
+    return res(
+      ctx.status(404),
+      ctx.json({ error: 'User not found' })
+    );
+  }),
+];
+
+// mocks/server.js
+import { setupServer } from 'msw/node';
+import { handlers } from './handlers';
+
+export const server = setupServer(...handlers);
+
+// jest.setup.js - เพิ่มใน setup file
+import { server } from './mocks/server';
+
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
+
+// __tests__/userIntegration.test.js - ทดสอบกับ MSW
+import { getUser, createUser } from '../services/userService';
+
+describe('User Service Integration', () => {
+  test('should get user with real-like API', async () => {
+    const user = await getUser(1);
+    
+    expect(user).toEqual({
+      id: 1,
+      name: 'John Doe',
+      email: 'john@example.com'
+    });
+  });
+
+  test('should create user with real-like API', async () => {
+    const newUser = { name: 'Jane Doe', email: 'jane@example.com' };
+    const result = await createUser(newUser);
+    
+    expect(result).toMatchObject({
+      id: expect.any(Number),
+      name: 'Jane Doe',
+      email: 'jane@example.com',
+      createdAt: expect.any(String)
+    });
+  });
+});`}
           </Typography>
-          <Typography variant="body1" sx={{ mb: 3 }}>
-            ตอนนี้คุณสามารถเขียน Test เพื่อตรวจสอบการทำงานของโค้ดและ React Components ได้แล้ว
-            โค้ดของคุณจะมีคุณภาพและความน่าเชื่อถือมากขึ้น!
-          </Typography>
+        </Box>
           
           <Alert severity="success" sx={{ mb: 3 }}>
             <Typography variant="body2">
-              🎉 <strong>เก่งมาก!</strong> คุณได้เรียนรู้การทดสอบโค้ดที่เป็นพื้นฐานสำคัญของการพัฒนาซอฟต์แวร์
+            ✨ <strong>ข้อดีของ MSW:</strong> ทำให้การทดสอบเหมือนจริงมากขึ้น และไม่ต้อง mock fetch เอง
+            ใช้ได้ทั้งใน test และ development
             </Typography>
           </Alert>
-        </Paper>
+      </TabPanel>
 
         {/* Navigation */}
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 6 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: { xs: 4, sm: 6 }, flexDirection: { xs: 'column', sm: 'row' }, gap: { xs: 2, sm: 0 } }}>
           <Button
             startIcon={<ArrowBack />}
             component={Link}
             href="/nextjs-basics/lesson-12"
             variant="outlined"
+          sx={{ fontSize: { xs: '0.85rem', sm: '0.9rem' }, order: { xs: 2, sm: 1 } }}
           >
-            บทที่ 12: Middleware & Security
+          บทที่ 12: Security
           </Button>
-          
           <Chip 
-            label="13 / 13"
-            color="success"
-            variant="filled"
-          />
-          
+          label="13 / 18"
+          color="primary"
+          variant="outlined"
+          sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' }, order: { xs: 1, sm: 2 } }}
+        />
           <Button
             endIcon={<ArrowForward />}
             component={Link}
-            href="/nextjs-basics"
+          href="/nextjs-basics/lesson-14"
             variant="contained"
-            color="success"
+          color="primary"
+          sx={{ fontSize: { xs: '0.85rem', sm: '0.9rem' }, order: { xs: 3, sm: 3 } }}
           >
-            กลับไปหน้าหลัก
+          บทที่ 14: Performance
           </Button>
         </Box>
       </Box>
-    </Container>
   );
 } 
