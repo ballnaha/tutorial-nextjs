@@ -23,7 +23,7 @@ import {
   Web,
   FiberManualRecord,
 } from '@mui/icons-material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -31,14 +31,20 @@ const menuItems = [
   { text: 'หน้าหลัก', icon: <Dashboard />, href: '/', description: 'หน้าแรกของเว็บไซต์' },
   { text: 'Next.js พื้นฐาน', icon: <Web />, href: '/nextjs-basics', description: '16 บทเรียน Next.js 15' },
   { text: 'Material-UI', icon: <School />, href: '/mui-tutorial', description: '8 บทเรียน MUI' },
-  { text: 'Prisma & MySQL', icon: <Storage />, href: '/prisma-tutorial', description: '10 บทเรียน Database' },
+  { text: 'Prisma & MySQL', icon: <Storage />, href: '/prisma-tutorial', description: '12 บทเรียน Database' },
 ];
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const pathname = usePathname();
+
+  // Prevent hydration mismatch by waiting for component to mount
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const isActive = (href: string) => {
     if (href === '/') {
@@ -52,13 +58,13 @@ export function Navbar() {
   };
 
   const handleMenuItemClick = (): void => {
-    if (isMobile) {
+    if (mounted && isMobile) {
       setMobileOpen(false);
     }
   };
 
   const handleLogoClick = (): void => {
-    if (isMobile && mobileOpen) {
+    if (mounted && isMobile && mobileOpen) {
       setMobileOpen(false);
     }
   };
@@ -133,6 +139,42 @@ export function Navbar() {
       </List>
     </Box>
   );
+
+  // Show loading state until component is mounted to prevent hydration mismatch
+  if (!mounted) {
+    return (
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="sticky" elevation={1}>
+          <Toolbar>
+            <Typography
+              variant="h6"
+              component={Link}
+              href="/"
+              sx={{
+                flexGrow: 1,
+                textDecoration: 'none',
+                color: 'inherit',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1,
+                fontWeight: 600,
+                '&:hover': {
+                  opacity: 0.8,
+                  textDecoration: 'none',
+                },
+                transition: 'opacity 0.2s ease',
+              }}
+            >
+              <School />
+              <Box component="span">
+                Next.js Tutorial ไทย
+              </Box>
+            </Typography>
+          </Toolbar>
+        </AppBar>
+      </Box>
+    );
+  }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
