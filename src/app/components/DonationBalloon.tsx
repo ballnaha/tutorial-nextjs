@@ -29,7 +29,7 @@ export function DonationBalloon() {
 
   // QR Code URL สำหรับบริจาค (ใช้ QR Code generator API)
   const donationText = "ขอบคุณสำหรับการสนับสนุน Next.js Tutorial ไทย! 🙏";
-  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(donationText)}`;
+  const qrCodeUrl = `myqr.png`;
 
   return (
     <>
@@ -142,13 +142,24 @@ export function DonationBalloon() {
               border: '2px dashed',
               borderColor: 'grey.300',
             }}>
-              <img 
+              <Box
+                component="img"
                 src={qrCodeUrl}
                 alt="QR Code สำหรับบริจาค"
-                style={{ 
-                  width: 200, 
-                  height: 200,
-                  borderRadius: 4,
+                sx={{ 
+                  width: '280px', 
+                  height: '280px',
+                  maxWidth: '100%',
+                  borderRadius: 0.5,
+                  // Responsive sizing
+                  '@media (max-width: 600px)': {
+                    width: '240px',
+                    height: '240px',
+                  },
+                  '@media (max-width: 400px)': {
+                    width: '200px', 
+                    height: '200px',
+                  }
                 }}
               />
             </Box>
