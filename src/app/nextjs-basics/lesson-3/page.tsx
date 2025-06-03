@@ -276,7 +276,7 @@ export default function Lesson3Page() {
               }}
             >
               วัตถุประสงค์การเรียนรู้
-            </Typography>
+        </Typography>
           </Box>
           
           <Stack spacing={1}>
@@ -318,9 +318,9 @@ export default function Lesson3Page() {
               fontWeight: 600
             }}
           >
-            🤔 React Server Components คืออะไร?
-          </Typography>
-          
+          🤔 React Server Components คืออะไร?
+        </Typography>
+        
           <Typography 
             variant="body1" 
             sx={{ 
@@ -329,16 +329,16 @@ export default function Lesson3Page() {
               fontSize: { xs: '0.95rem', sm: '1rem' }
             }}
           >
-            <strong>React Server Components</strong> เป็นฟีเจอร์ใหม่ที่ให้เราสามารถเรนเดอร์ React components บนเซิร์ฟเวอร์ได้ 
-            โดยไม่ต้องส่ง JavaScript ไปยังเบราว์เซอร์ ทำให้แอปพลิเคชันเร็วขึ้นและมี bundle size ที่เล็กลง
-          </Typography>
+          <strong>React Server Components</strong> เป็นฟีเจอร์ใหม่ที่ให้เราสามารถเรนเดอร์ React components บนเซิร์ฟเวอร์ได้ 
+          โดยไม่ต้องส่ง JavaScript ไปยังเบราว์เซอร์ ทำให้แอปพลิเคชันเร็วขึ้นและมี bundle size ที่เล็กลง
+        </Typography>
 
           <Alert severity="info" sx={{ mb: 3, fontSize: { xs: '0.85rem', sm: '0.9rem' } }}>
             💡 <strong>สำคัญ:</strong> ใน Next.js 15 + React 19, components เป็น Server Components โดย default 
             หากต้องการใช้เป็น Client Component ต้องเพิ่ม 'use client' ที่ด้านบนของไฟล์
-          </Alert>
+        </Alert>
 
-          {/* Visual Comparison */}
+        {/* Visual Comparison */}
           <Stack 
             direction={{ xs: 'column', md: 'row' }} 
             spacing={2} 
@@ -346,7 +346,7 @@ export default function Lesson3Page() {
           >
             <Card sx={{ flex: 1, bgcolor: 'success.light', boxShadow: 1 }}>
               <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
                   <Cloud sx={{ 
                     color: 'success.dark',
                     fontSize: { xs: 20, sm: 24 }
@@ -358,9 +358,9 @@ export default function Lesson3Page() {
                       fontSize: { xs: '1rem', sm: '1.1rem' }
                     }}
                   >
-                    Server Components
-                  </Typography>
-                </Box>
+                Server Components
+              </Typography>
+            </Box>
                 <Typography 
                   variant="body2" 
                   sx={{ 
@@ -369,8 +369,8 @@ export default function Lesson3Page() {
                     lineHeight: 1.4
                   }}
                 >
-                  เรนเดอร์บนเซิร์ฟเวอร์ และส่งผลลัพธ์ที่เป็น HTML ไปยังเบราว์เซอร์
-                </Typography>
+              เรนเดอร์บนเซิร์ฟเวอร์ และส่งผลลัพธ์ที่เป็น HTML ไปยังเบราว์เซอร์
+            </Typography>
                 <Stack spacing={0.5}>
                   {[
                     '✅ ไม่มี JavaScript ส่งไป client',
@@ -392,7 +392,7 @@ export default function Lesson3Page() {
 
             <Card sx={{ flex: 1, bgcolor: 'info.light', boxShadow: 1 }}>
               <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
                   <Computer sx={{ 
                     color: 'info.dark',
                     fontSize: { xs: 20, sm: 24 }
@@ -404,9 +404,9 @@ export default function Lesson3Page() {
                       fontSize: { xs: '1rem', sm: '1.1rem' }
                     }}
                   >
-                    Client Components
-                  </Typography>
-                </Box>
+                Client Components
+              </Typography>
+            </Box>
                 <Typography 
                   variant="body2" 
                   sx={{ 
@@ -415,8 +415,8 @@ export default function Lesson3Page() {
                     lineHeight: 1.4
                   }}
                 >
-                  เรนเดอร์บนเบราว์เซอร์ เหมือนกับ React components แบบปกติ
-                </Typography>
+              เรนเดอร์บนเบราว์เซอร์ เหมือนกับ React components แบบปกติ
+            </Typography>
                 <Stack spacing={0.5}>
                   {[
                     '✅ รองรับ interactivity เต็มรูปแบบ',
@@ -450,14 +450,14 @@ export default function Lesson3Page() {
               fontWeight: 600
             }}
           >
-            📊 เปรียบเทียบรายละเอียด
-          </Typography>
+          📊 เปรียบเทียบรายละเอียด
+        </Typography>
 
           <Card sx={{ boxShadow: 1 }}>
             <TableContainer>
               <Table size="small">
-                <TableHead>
-                  <TableRow>
+            <TableHead>
+              <TableRow>
                     <TableCell sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
                       <strong>คุณสมบัติ</strong>
                     </TableCell>
@@ -467,35 +467,35 @@ export default function Lesson3Page() {
                     <TableCell sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
                       <strong>Client Components</strong>
                     </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {componentComparison.map((item, index) => (
-                    <TableRow key={index}>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {componentComparison.map((item, index) => (
+                <TableRow key={index}>
                       <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.85rem' } }}>
                         {item.feature}
                       </TableCell>
-                      <TableCell>
-                        <Chip 
-                          label={item.server} 
-                          color={item.serverColor as any}
-                          size="small" 
+                  <TableCell>
+                    <Chip 
+                      label={item.server} 
+                      color={item.serverColor as any}
+                      size="small" 
                           sx={{ fontSize: { xs: '0.7rem', sm: '0.75rem' } }}
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <Chip 
-                          label={item.client} 
-                          color={item.clientColor as any}
-                          size="small" 
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <Chip 
+                      label={item.client} 
+                      color={item.clientColor as any}
+                      size="small" 
                           sx={{ fontSize: { xs: '0.7rem', sm: '0.75rem' } }}
-                        />
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+                    />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
           </Card>
         </CardContent>
       </Card>
@@ -511,8 +511,8 @@ export default function Lesson3Page() {
               fontWeight: 600
             }}
           >
-            🎯 เมื่อไหร่ควรใช้อันไหน?
-          </Typography>
+          🎯 เมื่อไหร่ควรใช้อันไหน?
+        </Typography>
 
           <Tabs 
             value={tabValue} 
@@ -528,12 +528,12 @@ export default function Lesson3Page() {
             variant="scrollable"
             scrollButtons="auto"
           >
-            <Tab label="Server Components" />
-            <Tab label="Client Components" />
-            <Tab label="เปรียบเทียบ Use Cases" />
-          </Tabs>
+          <Tab label="Server Components" />
+          <Tab label="Client Components" />
+          <Tab label="เปรียบเทียบ Use Cases" />
+        </Tabs>
 
-          <CustomTabPanel value={tabValue} index={0}>
+        <CustomTabPanel value={tabValue} index={0}>
             <Typography 
               variant="h6" 
               sx={{ 
@@ -542,11 +542,11 @@ export default function Lesson3Page() {
                 fontSize: { xs: '1.1rem', sm: '1.25rem' }
               }}
             >
-              🖥️ ใช้ Server Components เมื่อ:
-            </Typography>
-            
+            🖥️ ใช้ Server Components เมื่อ:
+          </Typography>
+          
             <Stack spacing={2}>
-              {useCases.server.map((useCase, index) => (
+            {useCases.server.map((useCase, index) => (
                 <Card key={index} sx={{ boxShadow: 1 }}>
                   <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
@@ -581,11 +581,11 @@ export default function Lesson3Page() {
                     </Typography>
                   </CardContent>
                 </Card>
-              ))}
+            ))}
             </Stack>
-          </CustomTabPanel>
+        </CustomTabPanel>
 
-          <CustomTabPanel value={tabValue} index={1}>
+        <CustomTabPanel value={tabValue} index={1}>
             <Typography 
               variant="h6" 
               sx={{ 
@@ -594,11 +594,11 @@ export default function Lesson3Page() {
                 fontSize: { xs: '1.1rem', sm: '1.25rem' }
               }}
             >
-              💻 ใช้ Client Components เมื่อ:
-            </Typography>
-            
+            💻 ใช้ Client Components เมื่อ:
+          </Typography>
+          
             <Stack spacing={2}>
-              {useCases.client.map((useCase, index) => (
+            {useCases.client.map((useCase, index) => (
                 <Card key={index} sx={{ boxShadow: 1 }}>
                   <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
@@ -633,11 +633,11 @@ export default function Lesson3Page() {
                     </Typography>
                   </CardContent>
                 </Card>
-              ))}
+            ))}
             </Stack>
-          </CustomTabPanel>
+        </CustomTabPanel>
 
-          <CustomTabPanel value={tabValue} index={2}>
+        <CustomTabPanel value={tabValue} index={2}>
             <Typography 
               variant="h6" 
               sx={{ 
@@ -662,8 +662,8 @@ export default function Lesson3Page() {
                       fontSize: { xs: '1rem', sm: '1.1rem' }
                     }}
                   >
-                    ✅ Server Components เหมาะสำหรับ:
-                  </Typography>
+                ✅ Server Components เหมาะสำหรับ:
+              </Typography>
                   <Stack spacing={0.5}>
                     {[
                       '• หน้าแสดงรายการสินค้า',
@@ -693,8 +693,8 @@ export default function Lesson3Page() {
                       fontSize: { xs: '1rem', sm: '1.1rem' }
                     }}
                   >
-                    ✅ Client Components เหมาะสำหรับ:
-                  </Typography>
+                ✅ Client Components เหมาะสำหรับ:
+              </Typography>
                   <Stack spacing={0.5}>
                     {[
                       '• ฟอร์มและ input fields',
@@ -714,7 +714,7 @@ export default function Lesson3Page() {
                 </CardContent>
               </Card>
             </Stack>
-          </CustomTabPanel>
+        </CustomTabPanel>
         </CardContent>
       </Card>
 
@@ -798,24 +798,24 @@ export default function Lesson3Page() {
                 }
               ].map((step, index) => (
                 <Step key={index} active>
-                  <StepLabel>
+                <StepLabel>
                     <Typography 
                       variant="h6"
                       sx={{ fontSize: { xs: '1rem', sm: '1.1rem' } }}
                     >
                       {step.title}
-                    </Typography>
-                  </StepLabel>
-                  <StepContent>
+                  </Typography>
+                </StepLabel>
+                <StepContent>
                     <Typography 
                       variant="body2" 
                       color="text.secondary"
                       sx={{ fontSize: { xs: '0.85rem', sm: '0.9rem' } }}
                     >
                       {step.description}
-                    </Typography>
-                  </StepContent>
-                </Step>
+                  </Typography>
+                </StepContent>
+              </Step>
               ))}
             </Stepper>
           </Box>
@@ -849,11 +849,11 @@ export default function Lesson3Page() {
                   >
                     1. Text Content Mismatch
                   </Typography>
-                </AccordionSummary>
+              </AccordionSummary>
                 <AccordionDetails sx={{ pt: 0 }}>
                   <Alert severity="error" sx={{ mb: 2, fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>
                     Warning: Text content does not match. Server: "..." Client: "..."
-                  </Alert>
+                </Alert>
                   <Typography 
                     variant="body2" 
                     sx={{ 
@@ -861,9 +861,9 @@ export default function Lesson3Page() {
                       fontSize: { xs: '0.85rem', sm: '0.9rem' }
                     }}
                   >
-                    <strong>สาเหตุ:</strong> เนื้อหาที่เรนเดอร์บนเซิร์ฟเวอร์ไม่ตรงกับที่เรนเดอร์บน client
-                  </Typography>
-                  
+                  <strong>สาเหตุ:</strong> เนื้อหาที่เรนเดอร์บนเซิร์ฟเวอร์ไม่ตรงกับที่เรนเดอร์บน client
+                </Typography>
+                
                   <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
                     <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
                       <Typography 
@@ -891,11 +891,11 @@ function CurrentTime() {
   
   return <div>เวลาปัจจุบัน: {time || 'กำลังโหลด...'}</div>
 }`}
-                      </Typography>
+                  </Typography>
                     </CardContent>
                   </Card>
-                </AccordionDetails>
-              </Accordion>
+              </AccordionDetails>
+            </Accordion>
 
               <Accordion sx={{ boxShadow: 1 }}>
                 <AccordionSummary 
@@ -912,12 +912,12 @@ function CurrentTime() {
                   >
                     2. Browser-only APIs
                   </Typography>
-                </AccordionSummary>
+              </AccordionSummary>
                 <AccordionDetails sx={{ pt: 0 }}>
                   <Alert severity="error" sx={{ mb: 2, fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>
                     ReferenceError: window is not defined
-                  </Alert>
-                  
+                </Alert>
+                
                   <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
                     <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
                       <Typography 
@@ -950,11 +950,11 @@ function WindowWidth() {
   
   return <div>หน้าจอกว้าง: {width || 'กำลังตรวจสอบ...'}px</div>
 }`}
-                      </Typography>
+                  </Typography>
                     </CardContent>
                   </Card>
-                </AccordionDetails>
-              </Accordion>
+              </AccordionDetails>
+            </Accordion>
 
               <Accordion sx={{ boxShadow: 1 }}>
                 <AccordionSummary 
@@ -971,7 +971,7 @@ function WindowWidth() {
                   >
                     3. Random Values
                   </Typography>
-                </AccordionSummary>
+              </AccordionSummary>
                 <AccordionDetails sx={{ pt: 0 }}>
                   <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
                     <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
@@ -1002,11 +1002,11 @@ function RandomColor() {
   
   return <div style={{ color }}>สีสุ่ม</div>
 }`}
-                      </Typography>
+                  </Typography>
                     </CardContent>
                   </Card>
-                </AccordionDetails>
-              </Accordion>
+              </AccordionDetails>
+            </Accordion>
             </Stack>
           </Box>
         </CardContent>
@@ -1029,8 +1029,8 @@ function RandomColor() {
             }}
           >
             💡 Best Practices สำคัญ
-          </Typography>
-          
+            </Typography>
+
           <Stack spacing={1.5}>
             {[
               'ใช้ Server Components เป็น default และเปลี่ยนเป็น Client เมื่อจำเป็น',
@@ -1046,18 +1046,18 @@ function RandomColor() {
                     fontSize: { xs: 16, sm: 20 }, 
                     mt: 0.5,
                     flexShrink: 0
-                  }} 
-                />
+        }}
+      />
                 <Typography 
                   variant="body2" 
                   sx={{ 
                     fontSize: { xs: '0.85rem', sm: '0.9rem' },
                     lineHeight: 1.4
-                  }}
-                >
+            }}
+          >
                   {practice}
                 </Typography>
-              </Box>
+          </Box>
             ))}
           </Stack>
         </CardContent>
@@ -1079,8 +1079,8 @@ function RandomColor() {
               fontWeight: 600
             }}
           >
-            🎯 ยินดีด้วย! คุณเรียนจบบทที่ 3 แล้ว
-          </Typography>
+          🎯 ยินดีด้วย! คุณเรียนจบบทที่ 3 แล้ว
+        </Typography>
           
           <Typography 
             variant="body1" 
@@ -1103,7 +1103,7 @@ function RandomColor() {
           >
             💡 <strong>บทถัดไป:</strong> เรียนรู้เรื่อง Data Fetching, Caching และ Server Actions 
             ใน Next.js 15 พร้อม React 19 features
-          </Alert>
+        </Alert>
         </CardContent>
       </Card>
 
@@ -1132,7 +1132,7 @@ function RandomColor() {
           variant="outlined"
           size="small"
         />
-
+        
         <Button
           endIcon={<ArrowForward />}
           component={Link}

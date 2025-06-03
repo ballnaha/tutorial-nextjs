@@ -222,7 +222,7 @@ export default function Lesson5Page() {
               }}
             >
               วัตถุประสงค์การเรียนรู้
-            </Typography>
+        </Typography>
           </Box>
           
           <Stack spacing={1}>
@@ -264,9 +264,9 @@ export default function Lesson5Page() {
               fontWeight: 600
             }}
           >
-            🤔 Data Fetching ใน Next.js 15 คืออะไร?
-          </Typography>
-          
+          🤔 Data Fetching ใน Next.js 15 คืออะไร?
+        </Typography>
+        
           <Typography 
             variant="body1" 
             sx={{ 
@@ -275,21 +275,21 @@ export default function Lesson5Page() {
               fontSize: { xs: '0.95rem', sm: '1rem' }
             }}
           >
-            <strong>Data Fetching</strong> หมายถึงการดึงข้อมูลจากแหล่งต่างๆ เช่น API, Database, หรือ File system 
-            โดย Next.js 15 มีการเปลี่ยนแปลงสำคัญในระบบ caching และ async request APIs ที่ทำให้การจัดการข้อมูลดีขึ้น
-          </Typography>
+          <strong>Data Fetching</strong> หมายถึงการดึงข้อมูลจากแหล่งต่างๆ เช่น API, Database, หรือ File system 
+          โดย Next.js 15 มีการเปลี่ยนแปลงสำคัญในระบบ caching และ async request APIs ที่ทำให้การจัดการข้อมูลดีขึ้น
+        </Typography>
 
           <Alert severity="info" sx={{ mb: 4, fontSize: { xs: '0.85rem', sm: '0.9rem' } }}>
             🎉 <strong>ใหม่ใน Next.js 15:</strong> ไม่ cache โดย default อีกต่อไป! 
             Async request APIs (cookies, headers, params) และ Enhanced caching control
-          </Alert>
+        </Alert>
 
           <Alert severity="warning" sx={{ mb: 4, fontSize: { xs: '0.85rem', sm: '0.9rem' } }}>
             ⚠️ <strong>Breaking Changes ใน Next.js 15:</strong> API Routes ไม่ cache GET requests by default, 
             params เป็น async, และ fetch requests ไม่ cache by default
-          </Alert>
+        </Alert>
 
-          {/* Fetching Methods Comparison */}
+        {/* Fetching Methods Comparison */}
           <Typography 
             variant="h5" 
             sx={{ 
@@ -298,27 +298,27 @@ export default function Lesson5Page() {
               fontWeight: 600
             }}
           >
-            🎯 วิธีการ Fetch ข้อมูลใน Next.js
-          </Typography>
+          🎯 วิธีการ Fetch ข้อมูลใน Next.js
+        </Typography>
 
           <Stack spacing={2} sx={{ mb: 4 }}>
-            {fetchingMethods.map((method, index) => (
+          {fetchingMethods.map((method, index) => (
               <Card key={index} sx={{ boxShadow: 1 }}>
                 <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-                    <Box sx={{ color: 'primary.main' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+                  <Box sx={{ color: 'primary.main' }}>
                       {React.cloneElement(method.icon, { 
                         sx: { fontSize: { xs: 20, sm: 24 } }
                       })}
-                    </Box>
+                  </Box>
                     <Typography 
                       variant="h6"
                       sx={{ fontSize: { xs: '1rem', sm: '1.1rem' } }}
                     >
-                      {method.method}
-                    </Typography>
-                  </Box>
-                  
+                    {method.method}
+                  </Typography>
+                </Box>
+                
                   <Typography 
                     variant="body2" 
                     sx={{ 
@@ -327,9 +327,9 @@ export default function Lesson5Page() {
                       lineHeight: 1.4
                     }}
                   >
-                    {method.description}
-                  </Typography>
-                  
+                  {method.description}
+                </Typography>
+                
                   <Typography 
                     variant="body2" 
                     color="text.secondary" 
@@ -338,15 +338,15 @@ export default function Lesson5Page() {
                       fontSize: { xs: '0.8rem', sm: '0.85rem' }
                     }}
                   >
-                    <strong>ใช้เมื่อ:</strong> {method.when}
-                  </Typography>
-                  
+                  <strong>ใช้เมื่อ:</strong> {method.when}
+                </Typography>
+                
                   <Stack 
                     direction={{ xs: 'column', sm: 'row' }} 
                     spacing={1} 
                     sx={{ mt: 2 }}
                   >
-                    <Box sx={{ flex: 1 }}>
+                  <Box sx={{ flex: 1 }}>
                       <Typography 
                         variant="caption" 
                         color="success.main" 
@@ -355,9 +355,9 @@ export default function Lesson5Page() {
                           fontSize: { xs: '0.75rem', sm: '0.8rem' }
                         }}
                       >
-                        ข้อดี:
-                      </Typography>
-                      {method.pros.map((pro, i) => (
+                      ข้อดี:
+                    </Typography>
+                    {method.pros.map((pro, i) => (
                         <Typography 
                           key={i} 
                           variant="caption" 
@@ -365,12 +365,12 @@ export default function Lesson5Page() {
                           color="success.main"
                           sx={{ fontSize: { xs: '0.7rem', sm: '0.75rem' } }}
                         >
-                          • {pro}
-                        </Typography>
-                      ))}
-                    </Box>
-                    
-                    <Box sx={{ flex: 1 }}>
+                        • {pro}
+                      </Typography>
+                    ))}
+                  </Box>
+                  
+                  <Box sx={{ flex: 1 }}>
                       <Typography 
                         variant="caption" 
                         color="error.main" 
@@ -379,9 +379,9 @@ export default function Lesson5Page() {
                           fontSize: { xs: '0.75rem', sm: '0.8rem' }
                         }}
                       >
-                        ข้อเสีย:
-                      </Typography>
-                      {method.cons.map((con, i) => (
+                      ข้อเสีย:
+                    </Typography>
+                    {method.cons.map((con, i) => (
                         <Typography 
                           key={i} 
                           variant="caption" 
@@ -389,14 +389,14 @@ export default function Lesson5Page() {
                           color="error.main"
                           sx={{ fontSize: { xs: '0.7rem', sm: '0.75rem' } }}
                         >
-                          • {con}
-                        </Typography>
-                      ))}
-                    </Box>
+                        • {con}
+                      </Typography>
+                    ))}
+                  </Box>
                   </Stack>
-                </CardContent>
-              </Card>
-            ))}
+              </CardContent>
+            </Card>
+          ))}
           </Stack>
         </CardContent>
       </Card>
@@ -412,8 +412,8 @@ export default function Lesson5Page() {
               fontWeight: 600
             }}
           >
-            🚀 Caching Strategies
-          </Typography>
+          🚀 Caching Strategies
+        </Typography>
 
           <Typography 
             variant="body1" 
@@ -423,11 +423,11 @@ export default function Lesson5Page() {
               lineHeight: 1.6
             }}
           >
-            Next.js มี caching strategies หลายแบบที่ช่วยเพิ่มประสิทธิภาพ
-          </Typography>
+          Next.js มี caching strategies หลายแบบที่ช่วยเพิ่มประสิทธิภาพ
+        </Typography>
 
           <Stack spacing={2} sx={{ mb: 4 }}>
-            {cachingStrategies.map((strategy, index) => (
+          {cachingStrategies.map((strategy, index) => (
               <Card key={index} sx={{ boxShadow: 1 }}>
                 <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
@@ -461,13 +461,13 @@ export default function Lesson5Page() {
                   />
                 </CardContent>
               </Card>
-            ))}
+          ))}
           </Stack>
 
           <Alert severity="success" sx={{ mb: 3, fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>
             ✅ <strong>Performance Tip:</strong> Next.js 15 มีระบบ caching ที่ยืดหยุ่นมากขึ้น 
             และสามารถกำหนด revalidate time ได้
-          </Alert>
+        </Alert>
         </CardContent>
       </Card>
 
@@ -482,8 +482,8 @@ export default function Lesson5Page() {
               fontWeight: 600
             }}
           >
-            🖥️ Server Components Data Fetching
-          </Typography>
+          🖥️ Server Components Data Fetching
+        </Typography>
 
           <Typography 
             variant="body1" 
@@ -493,8 +493,8 @@ export default function Lesson5Page() {
               lineHeight: 1.6
             }}
           >
-            ใน Next.js 13+ สามารถใช้ fetch โดยตรงใน Server Components ได้ โดยไม่ต้องใช้ getServerSideProps
-          </Typography>
+          ใน Next.js 13+ สามารถใช้ fetch โดยตรงใน Server Components ได้ โดยไม่ต้องใช้ getServerSideProps
+        </Typography>
 
           <Stack spacing={1.5}>
             <Accordion sx={{ boxShadow: 1 }}>
@@ -506,7 +506,7 @@ export default function Lesson5Page() {
                   }
                 }}
               >
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                   <Storage 
                     color="success" 
                     sx={{ fontSize: { xs: 18, sm: 20 } }}
@@ -517,8 +517,8 @@ export default function Lesson5Page() {
                   >
                     Basic Server-side Fetching
                   </Typography>
-                </Box>
-              </AccordionSummary>
+            </Box>
+          </AccordionSummary>
               <AccordionDetails sx={{ pt: 0 }}>
                 <Typography 
                   variant="body1" 
@@ -527,9 +527,9 @@ export default function Lesson5Page() {
                     fontSize: { xs: '0.9rem', sm: '1rem' }
                   }}
                 >
-                  ตัวอย่างการ fetch ข้อมูลพื้นฐานใน Server Component
-                </Typography>
-                
+              ตัวอย่างการ fetch ข้อมูลพื้นฐานใน Server Component
+            </Typography>
+            
                 <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
                   <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
                     <Typography 
@@ -566,15 +566,15 @@ async function ProductsPage() {
 }
 
 export default ProductsPage;`}
-                    </Typography>
+              </Typography>
                   </CardContent>
                 </Card>
 
                 <Alert severity="success" sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>
-                  ✅ <strong>ข้อดี:</strong> ข้อมูลจะถูก render บนเซิร์ฟเวอร์ ทำให้ SEO ดีและโหลดเร็ว
-                </Alert>
-              </AccordionDetails>
-            </Accordion>
+                ✅ <strong>ข้อดี:</strong> ข้อมูลจะถูก render บนเซิร์ฟเวอร์ ทำให้ SEO ดีและโหลดเร็ว
+            </Alert>
+          </AccordionDetails>
+        </Accordion>
           </Stack>
         </CardContent>
       </Card>
@@ -1459,7 +1459,7 @@ export default function UsersPage() {
               </Box>
 
               <Alert severity="info" sx={{ mb: 2 }}>
-                💡 ใช้ Suspense เพื่อแสดง loading state ขณะ fetch ข้อมูล
+                  💡 ใช้ Suspense เพื่อแสดง loading state ขณะ fetch ข้อมูล
               </Alert>
 
               <Button variant="contained" onClick={handleNext} sx={{ mt: 1, mr: 1 }}>
@@ -1860,8 +1860,8 @@ function ClientComponent() {
               fontWeight: 600
             }}
           >
-            💡 Best Practices สำคัญ
-          </Typography>
+          💡 Best Practices สำคัญ
+        </Typography>
           
           <Stack spacing={1.5}>
             {[
@@ -1912,8 +1912,8 @@ function ClientComponent() {
               fontWeight: 600
             }}
           >
-            🎯 ยินดีด้วย! คุณเรียนจบบทที่ 5 แล้ว
-          </Typography>
+          🎯 ยินดีด้วย! คุณเรียนจบบทที่ 5 แล้ว
+        </Typography>
           
           <Typography 
             variant="body1" 
@@ -1936,7 +1936,7 @@ function ClientComponent() {
           >
             💡 <strong>บทถัดไป:</strong> เรียนรู้เรื่อง Layouts, Templates และ Nested Layouts 
             ใน Next.js 15 สำหรับสร้าง UI structure ที่ยืดหยุ่น
-          </Alert>
+        </Alert>
         </CardContent>
       </Card>
 
@@ -1965,7 +1965,7 @@ function ClientComponent() {
           variant="outlined"
           size="small"
         />
-
+        
         <Button
           endIcon={<ArrowForward />}
           component={Link}

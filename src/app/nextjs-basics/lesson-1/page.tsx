@@ -191,7 +191,7 @@ export default function Lesson1Page() {
               }}
             >
               วัตถุประสงค์การเรียนรู้
-            </Typography>
+        </Typography>
           </Box>
           
           <Stack spacing={1}>
@@ -233,9 +233,9 @@ export default function Lesson1Page() {
               fontWeight: 600
             }}
           >
-            🤔 Next.js คืออะไร?
-          </Typography>
-          
+          🤔 Next.js คืออะไร?
+        </Typography>
+        
           <Typography 
             variant="body1" 
             sx={{ 
@@ -244,19 +244,19 @@ export default function Lesson1Page() {
               fontSize: { xs: '0.95rem', sm: '1rem' }
             }}
           >
-            <strong>Next.js</strong> เป็น React Framework ที่ถูกพัฒนาโดย Vercel เพื่อช่วยให้การสร้างเว็บแอปพลิเคชันด้วย React 
-            ง่ายและมีประสิทธิภาพมากขึ้น โดย Next.js มาพร้อมกับฟีเจอร์ที่จำเป็นสำหรับการ production ทั้งหมด
-          </Typography>
+          <strong>Next.js</strong> เป็น React Framework ที่ถูกพัฒนาโดย Vercel เพื่อช่วยให้การสร้างเว็บแอปพลิเคชันด้วย React 
+          ง่ายและมีประสิทธิภาพมากขึ้น โดย Next.js มาพร้อมกับฟีเจอร์ที่จำเป็นสำหรับการ production ทั้งหมด
+        </Typography>
 
           <Stack spacing={2} sx={{ mb: 3 }}>
             <Alert severity="info" sx={{ fontSize: { xs: '0.85rem', sm: '0.9rem' } }}>
-              🎉 <strong>Next.js 15 ใหม่!</strong> เวอร์ชันล่าสุดมาพร้อม React 19, Turbopack (stable), 
-              enhanced caching system และ performance improvements มากมาย
-            </Alert>
+            🎉 <strong>Next.js 15 ใหม่!</strong> เวอร์ชันล่าสุดมาพร้อม React 19, Turbopack (stable), 
+            enhanced caching system และ performance improvements มากมาย
+        </Alert>
 
             <Alert severity="success" sx={{ fontSize: { xs: '0.85rem', sm: '0.9rem' } }}>
-              💡 <strong>เปรียบเทียบง่ายๆ:</strong> หาก React เป็นเหมือน "เครื่องมือสำหรับสร้างบ้าน" 
-              แล้ว Next.js เป็นเหมือน "บ้านสำเร็จรูปที่มีฟีเจอร์ครบครัน" พร้อมใช้งานได้ทันที
+            💡 <strong>เปรียบเทียบง่ายๆ:</strong> หาก React เป็นเหมือน "เครื่องมือสำหรับสร้างบ้าน" 
+            แล้ว Next.js เป็นเหมือน "บ้านสำเร็จรูปที่มีฟีเจอร์ครบครัน" พร้อมใช้งานได้ทันที
             </Alert>
           </Stack>
 
@@ -286,8 +286,8 @@ export default function Lesson1Page() {
                     fontSize: { xs: '1rem', sm: '1.1rem' }
                   }}
                 >
-                  ⚛️ React (Library)
-                </Typography>
+              ⚛️ React (Library)
+            </Typography>
                 <Stack spacing={0.5}>
                   {[
                     'ต้องตั้งค่าเองทุกอย่าง',
@@ -322,8 +322,8 @@ export default function Lesson1Page() {
                     fontSize: { xs: '1rem', sm: '1.1rem' }
                   }}
                 >
-                  ⚡ Next.js 15 (Framework)
-                </Typography>
+              ⚡ Next.js 15 (Framework)
+            </Typography>
                 <Stack spacing={0.5}>
                   {[
                     'มาพร้อมการตั้งค่าเบื้องต้น',
@@ -355,11 +355,11 @@ export default function Lesson1Page() {
               fontWeight: 600
             }}
           >
-            🌟 ฟีเจอร์เด่นของ Next.js:
-          </Typography>
-          
+          🌟 ฟีเจอร์เด่นของ Next.js:
+        </Typography>
+        
           <Stack spacing={1.5}>
-            {features.map((feature, index) => (
+          {features.map((feature, index) => (
               <Card key={index} sx={{ boxShadow: 1 }}>
                 <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
                   <Typography 
@@ -370,8 +370,8 @@ export default function Lesson1Page() {
                       fontWeight: 600
                     }}
                   >
-                    {feature.icon} {feature.title}
-                  </Typography>
+                {feature.icon} {feature.title}
+              </Typography>
                   <Typography 
                     variant="body2" 
                     color="text.secondary"
@@ -380,11 +380,11 @@ export default function Lesson1Page() {
                       lineHeight: 1.4
                     }}
                   >
-                    {feature.description}
-                  </Typography>
+                {feature.description}
+              </Typography>
                 </CardContent>
               </Card>
-            ))}
+          ))}
           </Stack>
         </CardContent>
       </Card>
@@ -400,8 +400,8 @@ export default function Lesson1Page() {
               fontWeight: 600
             }}
           >
-            💻 การติดตั้ง Next.js
-          </Typography>
+          💻 การติดตั้ง Next.js
+        </Typography>
 
           <Alert 
             severity="warning" 
@@ -412,11 +412,11 @@ export default function Lesson1Page() {
           >
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <Warning sx={{ fontSize: { xs: 16, sm: 20 } }} />
-              <Typography variant="body2">
-                <strong>ข้อกำหนดเบื้องต้น:</strong> ต้องมี Node.js เวอร์ชัน 18.18.0 หรือใหม่กว่า
-              </Typography>
+          <Typography variant="body2">
+            <strong>ข้อกำหนดเบื้องต้น:</strong> ต้องมี Node.js เวอร์ชัน 18.18.0 หรือใหม่กว่า
+          </Typography>
             </Box>
-          </Alert>
+        </Alert>
 
           <Stepper 
             activeStep={activeStep} 
@@ -427,17 +427,17 @@ export default function Lesson1Page() {
               }
             }}
           >
-            {installationSteps.map((step, index) => (
-              <Step key={step.label}>
-                <StepLabel>
+          {installationSteps.map((step, index) => (
+            <Step key={step.label}>
+              <StepLabel>
                   <Typography 
                     variant="h6"
                     sx={{ fontSize: { xs: '1rem', sm: '1.1rem' } }}
                   >
                     {step.label}
                   </Typography>
-                </StepLabel>
-                <StepContent>
+              </StepLabel>
+              <StepContent>
                   <Typography 
                     variant="body1" 
                     sx={{ 
@@ -446,9 +446,9 @@ export default function Lesson1Page() {
                       lineHeight: 1.5
                     }}
                   >
-                    {step.description}
-                  </Typography>
-                  
+                  {step.description}
+                </Typography>
+                
                   <Card sx={{ 
                     mb: 2, 
                     boxShadow: 1
@@ -456,7 +456,7 @@ export default function Lesson1Page() {
                     className="code-block"
                   >
                     <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
                         <Terminal sx={{ fontSize: { xs: 14, sm: 16 } }} />
                         <Typography 
                           variant="body2"
@@ -464,7 +464,7 @@ export default function Lesson1Page() {
                         >
                           คำสั่ง:
                         </Typography>
-                      </Box>
+                  </Box>
                       <Typography 
                         variant="body2" 
                         sx={{ 
@@ -473,8 +473,8 @@ export default function Lesson1Page() {
                           wordBreak: 'break-all'
                         }}
                       >
-                        $ {step.command}
-                      </Typography>
+                    $ {step.command}
+                  </Typography>
                     </CardContent>
                   </Card>
 
@@ -485,36 +485,36 @@ export default function Lesson1Page() {
                       fontSize: { xs: '0.8rem', sm: '0.85rem' }
                     }}
                   >
-                    <Typography variant="body2">
-                      <strong>ผลลัพธ์ที่คาดหวัง:</strong> {step.expectedOutput}
-                    </Typography>
-                  </Alert>
+                  <Typography variant="body2">
+                    <strong>ผลลัพธ์ที่คาดหวัง:</strong> {step.expectedOutput}
+                  </Typography>
+                </Alert>
 
                   <Stack direction="row" spacing={1} sx={{ mb: 1 }}>
-                    <Button
-                      variant="contained"
-                      onClick={handleNext}
+                  <Button
+                    variant="contained"
+                    onClick={handleNext}
                       size="small"
-                      disabled={index === installationSteps.length - 1}
+                    disabled={index === installationSteps.length - 1}
                       sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
-                    >
-                      {index === installationSteps.length - 1 ? 'เสร็จสิ้น' : 'ถัดไป'}
-                    </Button>
-                    <Button
-                      disabled={index === 0}
-                      onClick={handleBack}
+                  >
+                    {index === installationSteps.length - 1 ? 'เสร็จสิ้น' : 'ถัดไป'}
+                  </Button>
+                  <Button
+                    disabled={index === 0}
+                    onClick={handleBack}
                       size="small"
                       sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
-                    >
-                      ย้อนกลับ
-                    </Button>
+                  >
+                    ย้อนกลับ
+                  </Button>
                   </Stack>
-                </StepContent>
-              </Step>
-            ))}
-          </Stepper>
+              </StepContent>
+            </Step>
+          ))}
+        </Stepper>
 
-          {activeStep === installationSteps.length && (
+        {activeStep === installationSteps.length && (
             <Card sx={{ mt: 3, bgcolor: 'success.light', boxShadow: 1 }}>
               <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
                 <Typography 
@@ -525,8 +525,8 @@ export default function Lesson1Page() {
                     fontWeight: 600
                   }}
                 >
-                  🎉 ยินดีด้วย! คุณติดตั้ง Next.js 15 สำเร็จแล้ว
-                </Typography>
+              🎉 ยินดีด้วย! คุณติดตั้ง Next.js 15 สำเร็จแล้ว
+            </Typography>
                 
                 <Typography 
                   variant="body1" 
@@ -550,9 +550,9 @@ export default function Lesson1Page() {
                   >
                     http://localhost:3000
                   </Box>{' '}
-                  เพื่อดูเว็บไซต์แรกของคุณพร้อม Next.js 15 และ React 19
-                </Typography>
-                
+              เพื่อดูเว็บไซต์แรกของคุณพร้อม Next.js 15 และ React 19
+            </Typography>
+            
                 <Alert 
                   severity="info" 
                   sx={{ 
@@ -562,18 +562,18 @@ export default function Lesson1Page() {
                 >
                   💡 <strong>Turbopack Tips:</strong> หากต้องการใช้ Turbopack เพิ่มเติม สามารถรันด้วย{' '}
                   <code>npm run dev --turbo</code> หรือเพิ่ม <code>--turbo</code> flag
-                </Alert>
-                
+            </Alert>
+            
                 <Button 
                   onClick={handleReset} 
                   size="small"
                   sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
                 >
-                  เริ่มใหม่
-                </Button>
+              เริ่มใหม่
+            </Button>
               </CardContent>
             </Card>
-          )}
+        )}
         </CardContent>
       </Card>
 
@@ -588,8 +588,8 @@ export default function Lesson1Page() {
               fontWeight: 600
             }}
           >
-            📁 โครงสร้างโปรเจค Next.js
-          </Typography>
+          📁 โครงสร้างโปรเจค Next.js
+        </Typography>
 
           <Typography 
             variant="body1" 
@@ -599,8 +599,8 @@ export default function Lesson1Page() {
               lineHeight: 1.5
             }}
           >
-            หลังจากสร้างโปรเจคเสร็จแล้ว คุณจะพบโครงสร้างไฟล์และโฟลเดอร์ดังนี้:
-          </Typography>
+          หลังจากสร้างโปรเจคเสร็จแล้ว คุณจะพบโครงสร้างไฟล์และโฟลเดอร์ดังนี้:
+        </Typography>
 
           <Card sx={{ 
             mb: 3, 
@@ -631,12 +631,12 @@ export default function Lesson1Page() {
 ├── package.json
 ├── tailwind.config.js
 └── tsconfig.json`}
-              </Typography>
+          </Typography>
             </CardContent>
           </Card>
 
           <Stack spacing={1}>
-            {projectStructure.map((item, index) => (
+        {projectStructure.map((item, index) => (
               <Accordion key={index} sx={{ boxShadow: 1 }}>
                 <AccordionSummary 
                   expandIcon={<ExpandMore />}
@@ -646,7 +646,7 @@ export default function Lesson1Page() {
                     }
                   }}
                 >
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <Folder 
                       color="primary" 
                       sx={{ fontSize: { xs: 18, sm: 20 } }} 
@@ -658,10 +658,10 @@ export default function Lesson1Page() {
                         fontSize: { xs: '0.85rem', sm: '0.95rem' }
                       }}
                     >
-                      {item.path}
-                    </Typography>
-                  </Box>
-                </AccordionSummary>
+                  {item.path}
+                </Typography>
+              </Box>
+            </AccordionSummary>
                 <AccordionDetails sx={{ pt: 0 }}>
                   <Typography 
                     variant="body2"
@@ -670,11 +670,11 @@ export default function Lesson1Page() {
                       lineHeight: 1.4
                     }}
                   >
-                    {item.description}
-                  </Typography>
-                </AccordionDetails>
-              </Accordion>
-            ))}
+                {item.description}
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+        ))}
           </Stack>
         </CardContent>
       </Card>
@@ -695,8 +695,8 @@ export default function Lesson1Page() {
               fontWeight: 600
             }}
           >
-            🎯 ยินดีด้วย! คุณเรียนจบบทที่ 1 แล้ว
-          </Typography>
+          🎯 ยินดีด้วย! คุณเรียนจบบทที่ 1 แล้ว
+        </Typography>
           
           <Typography 
             variant="body1" 
@@ -706,10 +706,10 @@ export default function Lesson1Page() {
               lineHeight: 1.5
             }}
           >
-            ตอนนี้คุณรู้จัก Next.js 15 และติดตั้งเรียบร้อยแล้ว! 
-            พร้อมสำหรับการเรียนรู้เรื่อง File-based Routing ในบทถัดไป
-          </Typography>
-          
+          ตอนนี้คุณรู้จัก Next.js 15 และติดตั้งเรียบร้อยแล้ว! 
+          พร้อมสำหรับการเรียนรู้เรื่อง File-based Routing ในบทถัดไป
+        </Typography>
+        
           <Alert 
             severity="info" 
             sx={{ 
@@ -718,7 +718,7 @@ export default function Lesson1Page() {
             }}
           >
             💡 <strong>บทถัดไป:</strong> เรียนรู้ File-based Routing ซึ่งเป็นหนึ่งในฟีเจอร์ที่ทำให้ Next.js พิเศษ
-          </Alert>
+        </Alert>
         </CardContent>
       </Card>
 
@@ -747,7 +747,7 @@ export default function Lesson1Page() {
           variant="outlined"
           size="small"
         />
-
+        
         <Button
           endIcon={<ArrowForward />}
           component={Link}

@@ -191,7 +191,7 @@ export default function Lesson6Page() {
               }}
             >
               วัตถุประสงค์การเรียนรู้
-            </Typography>
+        </Typography>
           </Box>
           
           <Stack spacing={1}>
@@ -236,9 +236,9 @@ export default function Lesson6Page() {
               fontWeight: 600
             }}
           >
-            🤔 Prisma คืออะไร?
-          </Typography>
-          
+          🤔 Prisma คืออะไร?
+        </Typography>
+        
           <Typography 
             variant="body1" 
             sx={{ 
@@ -247,16 +247,16 @@ export default function Lesson6Page() {
               fontSize: { xs: '0.95rem', sm: '1rem' }
             }}
           >
-            <strong>Prisma</strong> เป็น Next-generation ORM (Object-Relational Mapping) ที่ช่วยให้การทำงานกับฐานข้อมูลใน Node.js/TypeScript 
-            ง่ายและปลอดภัยขึ้น พร้อมด้วย type safety และ developer experience ที่ยอดเยี่ยม
-          </Typography>
+          <strong>Prisma</strong> เป็น Next-generation ORM (Object-Relational Mapping) ที่ช่วยให้การทำงานกับฐานข้อมูลใน Node.js/TypeScript 
+          ง่ายและปลอดภัยขึ้น พร้อมด้วย type safety และ developer experience ที่ยอดเยี่ยม
+        </Typography>
 
           <Alert severity="info" sx={{ mb: 3, fontSize: { xs: '0.85rem', sm: '0.9rem' } }}>
             🎉 <strong>Prisma 6.8.0 + Next.js 15:</strong> เวอร์ชันล่าสุดรองรับ React 19, 
             Prisma Postgres (GA), TypedSQL, omit API, enhanced caching และ performance improvements มากมาย
-          </Alert>
+        </Alert>
 
-          {/* Features Grid */}
+        {/* Features Grid */}
           <Typography 
             variant="h6" 
             sx={{ 
@@ -265,11 +265,11 @@ export default function Lesson6Page() {
               fontWeight: 600
             }}
           >
-            🌟 ฟีเจอร์เด่นของ Prisma 6.x:
-          </Typography>
-          
+          🌟 ฟีเจอร์เด่นของ Prisma 6.x:
+        </Typography>
+        
           <Stack spacing={2} sx={{ mb: 4 }}>
-            {prismaFeatures.map((feature, index) => (
+          {prismaFeatures.map((feature, index) => (
               <Card key={index} sx={{ boxShadow: 1 }}>
                 <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
@@ -296,7 +296,7 @@ export default function Lesson6Page() {
                   </Typography>
                 </CardContent>
               </Card>
-            ))}
+          ))}
           </Stack>
         </CardContent>
       </Card>
@@ -312,28 +312,28 @@ export default function Lesson6Page() {
               fontWeight: 600
             }}
           >
-            💻 การติดตั้งและ Setup Prisma
-          </Typography>
+          💻 การติดตั้งและ Setup Prisma
+        </Typography>
 
           <Alert severity="warning" sx={{ mb: 3, fontSize: { xs: '0.85rem', sm: '0.9rem' } }}>
-            <Typography variant="body2">
-              <Warning sx={{ mr: 1, verticalAlign: 'middle' }} />
-              <strong>ข้อกำหนดเบื้องต้น:</strong> ต้องมี Node.js 18.18.0+ และ Next.js 15
-            </Typography>
-          </Alert>
+          <Typography variant="body2">
+            <Warning sx={{ mr: 1, verticalAlign: 'middle' }} />
+            <strong>ข้อกำหนดเบื้องต้น:</strong> ต้องมี Node.js 18.18.0+ และ Next.js 15
+          </Typography>
+        </Alert>
 
-          <Stepper activeStep={activeStep} orientation="vertical">
-            <Step>
-              <StepLabel>
-                <Typography variant="h6">ติดตั้ง Prisma</Typography>
-              </StepLabel>
-              <StepContent>
-                <Typography variant="body1" sx={{ mb: 2 }}>
-                  ติดตั้ง Prisma CLI และ Client สำหรับ Next.js 15
-                </Typography>
-                
-                <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-                  <Typography variant="body2" component="pre">
+        <Stepper activeStep={activeStep} orientation="vertical">
+          <Step>
+            <StepLabel>
+              <Typography variant="h6">ติดตั้ง Prisma</Typography>
+            </StepLabel>
+            <StepContent>
+              <Typography variant="body1" sx={{ mb: 2 }}>
+                ติดตั้ง Prisma CLI และ Client สำหรับ Next.js 15
+              </Typography>
+              
+              <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
+                <Typography variant="body2" component="pre">
 {`# ติดตั้ง Prisma CLI
 npm install prisma@latest --save-dev
 
@@ -345,50 +345,50 @@ npm install pg @types/pg
 
 # หรือใช้ Prisma Postgres (แนะนำ)
 # ไม่ต้องติดตั้ง driver เพิ่ม`}
+                </Typography>
+              </Box>
+
+              <Alert severity="success" sx={{ mb: 2 }}>
+                <Typography variant="body2">
+                  ✅ <strong>Prisma 6.8.0:</strong> รองรับ Prisma Postgres, TypedSQL และ Edge Runtime
+                </Typography>
+              </Alert>
+
+              <Button variant="contained" onClick={handleNext} sx={{ mt: 1, mr: 1 }}>
+                ถัดไป
+              </Button>
+            </StepContent>
+          </Step>
+
+          <Step>
+            <StepLabel>
+              <Typography variant="h6">Initialize Prisma</Typography>
+            </StepLabel>
+            <StepContent>
+              <Typography variant="body1" sx={{ mb: 2 }}>
+                สร้างไฟล์ Prisma schema และ environment variables
+              </Typography>
+              
+              <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
+                <Box sx={{ bgcolor: 'grey.900', color: 'white', p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 2 }}>
+                  <Typography variant="body2">
+                    $ npx prisma init
                   </Typography>
                 </Box>
 
-                <Alert severity="success" sx={{ mb: 2 }}>
-                  <Typography variant="body2">
-                    ✅ <strong>Prisma 6.8.0:</strong> รองรับ Prisma Postgres, TypedSQL และ Edge Runtime
-                  </Typography>
-                </Alert>
-
-                <Button variant="contained" onClick={handleNext} sx={{ mt: 1, mr: 1 }}>
-                  ถัดไป
-                </Button>
-              </StepContent>
-            </Step>
-
-            <Step>
-              <StepLabel>
-                <Typography variant="h6">Initialize Prisma</Typography>
-              </StepLabel>
-              <StepContent>
-                <Typography variant="body1" sx={{ mb: 2 }}>
-                  สร้างไฟล์ Prisma schema และ environment variables
+                <Typography variant="body2" sx={{ mb: 2 }}>
+                  หรือใช้ Prisma Postgres (แนะนำสำหรับโปรเจคใหม่):
                 </Typography>
-                
-                <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-                  <Box sx={{ bgcolor: 'grey.900', color: 'white', p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 2 }}>
-                    <Typography variant="body2">
-                      $ npx prisma init
-                    </Typography>
-                  </Box>
 
-                  <Typography variant="body2" sx={{ mb: 2 }}>
-                    หรือใช้ Prisma Postgres (แนะนำสำหรับโปรเจคใหม่):
+                <Box sx={{ bgcolor: 'grey.900', color: 'white', p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 2 }}>
+                  <Typography variant="body2">
+                    $ npx prisma@latest init --db prisma
                   </Typography>
+                </Box>
 
-                  <Box sx={{ bgcolor: 'grey.900', color: 'white', p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 2 }}>
-                    <Typography variant="body2">
-                      $ npx prisma@latest init --db prisma
-                    </Typography>
-                  </Box>
-
-                  <Typography variant="body2" sx={{ mb: 2 }}>
-                    คำสั่งนี้จะสร้างไฟล์:
-                  </Typography>
+                <Typography variant="body2" sx={{ mb: 2 }}>
+                  คำสั่งนี้จะสร้างไฟล์:
+                </Typography>
 
                   <Stack spacing={1} sx={{ mb: 2 }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -418,26 +418,26 @@ npm install pg @types/pg
                   </Stack>
 
                   <Button variant="contained" onClick={handleNext} sx={{ mt: 1, mr: 1 }} size="small">
-                    ถัดไป
-                  </Button>
+                  ถัดไป
+                </Button>
                   <Button onClick={handleBack} sx={{ mt: 1, mr: 1 }} size="small">
-                    ย้อนกลับ
-                  </Button>
-                </Box>
-              </StepContent>
-            </Step>
+                  ย้อนกลับ
+                </Button>
+              </Box>
+            </StepContent>
+          </Step>
 
-            <Step>
-              <StepLabel>
-                <Typography variant="h6">ตั้งค่า Environment Variables</Typography>
-              </StepLabel>
-              <StepContent>
-                <Typography variant="body1" sx={{ mb: 2 }}>
-                  แก้ไขไฟล์ .env เพื่อกำหนด DATABASE_URL
-                </Typography>
-                
-                <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-                  <Typography variant="body2" component="pre">
+          <Step>
+            <StepLabel>
+              <Typography variant="h6">ตั้งค่า Environment Variables</Typography>
+            </StepLabel>
+            <StepContent>
+              <Typography variant="body1" sx={{ mb: 2 }}>
+                แก้ไขไฟล์ .env เพื่อกำหนด DATABASE_URL
+              </Typography>
+              
+              <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
+                <Typography variant="body2" component="pre">
 {`# .env
 # Prisma Postgres (แนะนำ)
 DATABASE_URL="prisma+postgres://accelerate.prisma-data.net/?api_key=your_api_key"
@@ -447,41 +447,41 @@ DATABASE_URL="prisma+postgres://accelerate.prisma-data.net/?api_key=your_api_key
 
 # สำหรับ SQLite (development)
 # DATABASE_URL="file:./dev.db"`}
-                  </Typography>
-                </Box>
-
-                <Alert severity="info" sx={{ mb: 2 }}>
-                  <Typography variant="body2">
-                    💡 <strong>Prisma Postgres:</strong> Zero cold starts, global caching, และ connection pooling built-in
-                  </Typography>
-                </Alert>
-
-                <Button variant="contained" onClick={handleNext} sx={{ mt: 1, mr: 1 }}>
-                  ถัดไป
-                </Button>
-                <Button onClick={handleBack} sx={{ mt: 1, mr: 1 }}>
-                  ย้อนกลับ
-                </Button>
-              </StepContent>
-            </Step>
-
-            <Step>
-              <StepLabel>
-                <Typography variant="h6">สร้าง Prisma Client Instance</Typography>
-              </StepLabel>
-              <StepContent>
-                <Typography variant="body1" sx={{ mb: 2 }}>
-                  สร้างไฟล์สำหรับจัดการ Prisma Client instance
                 </Typography>
-                
-                <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-                  <Typography variant="body2">
-                    $ mkdir lib && touch lib/prisma.ts
-                  </Typography>
-                </Box>
+              </Box>
 
-                <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-                  <Typography variant="body2" component="pre">
+              <Alert severity="info" sx={{ mb: 2 }}>
+                <Typography variant="body2">
+                  💡 <strong>Prisma Postgres:</strong> Zero cold starts, global caching, และ connection pooling built-in
+                </Typography>
+              </Alert>
+
+              <Button variant="contained" onClick={handleNext} sx={{ mt: 1, mr: 1 }}>
+                ถัดไป
+              </Button>
+              <Button onClick={handleBack} sx={{ mt: 1, mr: 1 }}>
+                ย้อนกลับ
+              </Button>
+            </StepContent>
+          </Step>
+
+          <Step>
+            <StepLabel>
+              <Typography variant="h6">สร้าง Prisma Client Instance</Typography>
+            </StepLabel>
+            <StepContent>
+              <Typography variant="body1" sx={{ mb: 2 }}>
+                สร้างไฟล์สำหรับจัดการ Prisma Client instance
+              </Typography>
+              
+              <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
+                <Typography variant="body2">
+                  $ mkdir lib && touch lib/prisma.ts
+                </Typography>
+              </Box>
+
+              <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
+                <Typography variant="body2" component="pre">
 {`// lib/prisma.ts - Prisma 6.x compatible
 import { PrismaClient } from '@prisma/client';
 
@@ -524,40 +524,40 @@ export async function checkConnection() {
 export async function closeConnection() {
   await prisma.$disconnect();
 }`}
-                  </Typography>
-                </Box>
+                </Typography>
+              </Box>
 
-                <Alert severity="warning" sx={{ mb: 2 }}>
-                  <Typography variant="body2">
-                    ⚠️ <strong>Prisma 6.x:</strong> Enhanced connection management และ transaction options
-                  </Typography>
-                </Alert>
+              <Alert severity="warning" sx={{ mb: 2 }}>
+                <Typography variant="body2">
+                  ⚠️ <strong>Prisma 6.x:</strong> Enhanced connection management และ transaction options
+                </Typography>
+              </Alert>
 
-                <Button variant="contained" onClick={handleNext} sx={{ mt: 1, mr: 1 }}>
-                  เสร็จสิ้น
-                </Button>
-                <Button onClick={handleBack} sx={{ mt: 1, mr: 1 }}>
-                  ย้อนกลับ
-                </Button>
-              </StepContent>
-            </Step>
-          </Stepper>
+              <Button variant="contained" onClick={handleNext} sx={{ mt: 1, mr: 1 }}>
+                เสร็จสิ้น
+              </Button>
+              <Button onClick={handleBack} sx={{ mt: 1, mr: 1 }}>
+                ย้อนกลับ
+              </Button>
+            </StepContent>
+          </Step>
+        </Stepper>
 
-          {activeStep === 4 && (
+        {activeStep === 4 && (
             <Card sx={{ p: 3, mt: 3, bgcolor: 'success.light', boxShadow: 1 }}>
               <CardContent>
-                <Typography variant="h6" sx={{ mb: 2 }}>
-                  🎉 Setup เสร็จสิ้น!
-                </Typography>
-                <Typography variant="body1" sx={{ mb: 2 }}>
-                  ตอนนี้คุณพร้อมใช้งาน Prisma กับ Next.js 15 แล้ว
-                </Typography>
+            <Typography variant="h6" sx={{ mb: 2 }}>
+              🎉 Setup เสร็จสิ้น!
+            </Typography>
+            <Typography variant="body1" sx={{ mb: 2 }}>
+              ตอนนี้คุณพร้อมใช้งาน Prisma กับ Next.js 15 แล้ว
+            </Typography>
                 <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }} size="small">
-                  เริ่มใหม่
-                </Button>
+              เริ่มใหม่
+            </Button>
               </CardContent>
             </Card>
-          )}
+        )}
         </CardContent>
       </Card>
 
@@ -572,8 +572,8 @@ export async function closeConnection() {
               fontWeight: 600
             }}
           >
-            📝 การสร้าง Database Schema
-          </Typography>
+          📝 การสร้าง Database Schema
+        </Typography>
 
           <Typography 
             variant="body1" 
@@ -582,22 +582,22 @@ export async function closeConnection() {
               fontSize: { xs: '0.95rem', sm: '1rem' }
             }}
           >
-            มาเรียนรู้การเขียน Prisma Schema เพื่อกำหนดโครงสร้างฐานข้อมูล
+          มาเรียนรู้การเขียน Prisma Schema เพื่อกำหนดโครงสร้างฐานข้อมูล
+        </Typography>
+
+        <Tabs value={tabValue} onChange={handleTabChange} sx={{ mb: 3 }}>
+          <Tab label="Basic Schema" />
+          <Tab label="Relations" />
+          <Tab label="Advanced Features" />
+        </Tabs>
+
+        <CustomTabPanel value={tabValue} index={0}>
+          <Typography variant="h6" sx={{ mb: 2, color: 'primary.main' }}>
+            📄 Basic Schema Structure (Prisma 6.x)
           </Typography>
-
-          <Tabs value={tabValue} onChange={handleTabChange} sx={{ mb: 3 }}>
-            <Tab label="Basic Schema" />
-            <Tab label="Relations" />
-            <Tab label="Advanced Features" />
-          </Tabs>
-
-          <CustomTabPanel value={tabValue} index={0}>
-            <Typography variant="h6" sx={{ mb: 2, color: 'primary.main' }}>
-              📄 Basic Schema Structure (Prisma 6.x)
-            </Typography>
-            
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 3 }}>
-              <Typography variant="body2" component="pre">
+          
+          <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 3 }}>
+            <Typography variant="body2" component="pre">
 {`// prisma/schema.prisma
 generator client {
   provider = "prisma-client-js"
@@ -637,23 +637,23 @@ model Post {
   
   @@map("posts")
 }`}
-              </Typography>
-            </Box>
-
-            <Alert severity="info">
-              <Typography variant="body2">
-                💡 <strong>Prisma 6.x:</strong> uuid(7) สำหรับ temporally sortable IDs, typedSql และ relationJoins
-              </Typography>
-            </Alert>
-          </CustomTabPanel>
-
-          <CustomTabPanel value={tabValue} index={1}>
-            <Typography variant="h6" sx={{ mb: 2, color: 'success.main' }}>
-              🔗 Database Relations
             </Typography>
-            
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 3 }}>
-              <Typography variant="body2" component="pre">
+          </Box>
+
+          <Alert severity="info">
+            <Typography variant="body2">
+              💡 <strong>Prisma 6.x:</strong> uuid(7) สำหรับ temporally sortable IDs, typedSql และ relationJoins
+            </Typography>
+          </Alert>
+        </CustomTabPanel>
+
+        <CustomTabPanel value={tabValue} index={1}>
+          <Typography variant="h6" sx={{ mb: 2, color: 'success.main' }}>
+            🔗 Database Relations
+          </Typography>
+          
+          <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 3 }}>
+            <Typography variant="body2" component="pre">
 {`model User {
   id    Int    @id @default(autoincrement())
   email String @unique
@@ -703,23 +703,23 @@ model Follow {
   
   @@unique([followerId, followingId])
 }`}
-              </Typography>
-            </Box>
-
-            <Alert severity="success">
-              <Typography variant="body2">
-                ✅ <strong>Relations:</strong> One-to-One, One-to-Many, Many-to-Many
-              </Typography>
-            </Alert>
-          </CustomTabPanel>
-
-          <CustomTabPanel value={tabValue} index={2}>
-            <Typography variant="h6" sx={{ mb: 2, color: 'warning.main' }}>
-              ⚡ Advanced Features (Prisma 6.x)
             </Typography>
-            
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 3 }}>
-              <Typography variant="body2" component="pre">
+          </Box>
+
+          <Alert severity="success">
+            <Typography variant="body2">
+              ✅ <strong>Relations:</strong> One-to-One, One-to-Many, Many-to-Many
+            </Typography>
+          </Alert>
+        </CustomTabPanel>
+
+        <CustomTabPanel value={tabValue} index={2}>
+          <Typography variant="h6" sx={{ mb: 2, color: 'warning.main' }}>
+            ⚡ Advanced Features (Prisma 6.x)
+          </Typography>
+          
+          <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 3 }}>
+            <Typography variant="body2" component="pre">
 {`// Prisma 6.x Advanced Features
 model User {
   id    String @id @default(uuid(7)) // UUIDv7
@@ -759,15 +759,15 @@ LEFT JOIN posts p ON p.author_id = u.id
 WHERE u.id = $1
 GROUP BY u.id, u.name, u.email;
 */`}
-              </Typography>
-            </Box>
+            </Typography>
+          </Box>
 
-            <Alert severity="info">
-              <Typography variant="body2">
-                ✨ <strong>TypedSQL:</strong> Type-safe raw SQL queries ด้วย .sql files
-              </Typography>
-            </Alert>
-          </CustomTabPanel>
+          <Alert severity="info">
+            <Typography variant="body2">
+              ✨ <strong>TypedSQL:</strong> Type-safe raw SQL queries ด้วย .sql files
+            </Typography>
+          </Alert>
+        </CustomTabPanel>
         </CardContent>
       </Card>
 
@@ -782,8 +782,8 @@ GROUP BY u.id, u.name, u.email;
               fontWeight: 600
             }}
           >
-            🔄 Database Migrations
-          </Typography>
+          🔄 Database Migrations
+        </Typography>
 
           <Typography 
             variant="body1" 
@@ -792,51 +792,51 @@ GROUP BY u.id, u.name, u.email;
               fontSize: { xs: '0.95rem', sm: '1rem' }
             }}
           >
-            Migrations คือการจัดการการเปลี่ยนแปลง database schema อย่างปลอดภัยและควบคุมได้
-          </Typography>
+          Migrations คือการจัดการการเปลี่ยนแปลง database schema อย่างปลอดภัยและควบคุมได้
+        </Typography>
 
-          <Accordion sx={{ mb: 2 }}>
-            <AccordionSummary expandIcon={<ExpandMore />}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                <TableChart color="primary" />
-                <Typography variant="h6">สร้าง Migration แรก</Typography>
-              </Box>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography variant="body1" sx={{ mb: 2 }}>
-                หลังจากสร้าง schema แล้ว ต้องสร้าง migration เพื่อสร้างตารางในฐานข้อมูล
+        <Accordion sx={{ mb: 2 }}>
+          <AccordionSummary expandIcon={<ExpandMore />}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              <TableChart color="primary" />
+              <Typography variant="h6">สร้าง Migration แรก</Typography>
+            </Box>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography variant="body1" sx={{ mb: 2 }}>
+              หลังจากสร้าง schema แล้ว ต้องสร้าง migration เพื่อสร้างตารางในฐานข้อมูล
+            </Typography>
+            
+            <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
+              <Typography variant="body2">
+                $ npx prisma migrate dev --name init
               </Typography>
-              
-              <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-                <Typography variant="body2">
-                  $ npx prisma migrate dev --name init
-                </Typography>
-              </Box>
+            </Box>
 
-              <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
-                <Typography variant="body2">
-                  $ npx prisma generate
-                </Typography>
-              </Box>
+            <Box className="code-block" sx={{ p: 2, borderRadius: 1, mb: 2 }}>
+              <Typography variant="body2">
+                $ npx prisma generate
+              </Typography>
+            </Box>
 
-              <Alert severity="success" sx={{ mb: 2 }}>
-                <Typography variant="body2">
-                  ✅ คำสั่งนี้จะสร้างไฟล์ migration ใน prisma/migrations/ และ generate Prisma Client
-                </Typography>
-              </Alert>
-            </AccordionDetails>
-          </Accordion>
+            <Alert severity="success" sx={{ mb: 2 }}>
+              <Typography variant="body2">
+                ✅ คำสั่งนี้จะสร้างไฟล์ migration ใน prisma/migrations/ และ generate Prisma Client
+              </Typography>
+            </Alert>
+          </AccordionDetails>
+        </Accordion>
 
-          <Accordion sx={{ mb: 2 }}>
-            <AccordionSummary expandIcon={<ExpandMore />}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                <Settings color="warning" />
-                <Typography variant="h6">Migration Commands</Typography>
-              </Box>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Box sx={{ bgcolor: 'grey.50', p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 2 }}>
-                <Typography variant="body2" component="pre">
+        <Accordion sx={{ mb: 2 }}>
+          <AccordionSummary expandIcon={<ExpandMore />}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              <Settings color="warning" />
+              <Typography variant="h6">Migration Commands</Typography>
+            </Box>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Box sx={{ bgcolor: 'grey.50', p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 2 }}>
+              <Typography variant="body2" component="pre">
 {`# Development commands
 npx prisma migrate dev           # สร้างและ apply migration
 npx prisma migrate reset         # รีเซ็ต database และ apply migrations ใหม่
@@ -855,16 +855,16 @@ npx prisma studio              # เปิด Database GUI
 # Prisma Postgres commands
 npx prisma dev                  # Start local Prisma Postgres
 npx prisma studio --browser none # Studio without browser`}
-                </Typography>
-              </Box>
+              </Typography>
+            </Box>
 
-              <Alert severity="success">
-                <Typography variant="body2">
-                  ✅ <strong>Prisma 6.x:</strong> Enhanced CLI commands และ Prisma Postgres support
-                </Typography>
-              </Alert>
-            </AccordionDetails>
-          </Accordion>
+            <Alert severity="success">
+              <Typography variant="body2">
+                ✅ <strong>Prisma 6.x:</strong> Enhanced CLI commands และ Prisma Postgres support
+              </Typography>
+            </Alert>
+          </AccordionDetails>
+        </Accordion>
         </CardContent>
       </Card>
 
@@ -879,8 +879,8 @@ npx prisma studio --browser none # Studio without browser`}
               fontWeight: 600
             }}
           >
-            📊 CRUD Operations กับ Prisma
-          </Typography>
+          📊 CRUD Operations กับ Prisma
+        </Typography>
 
           <Typography 
             variant="body1" 
@@ -889,23 +889,23 @@ npx prisma studio --browser none # Studio without browser`}
               fontSize: { xs: '0.95rem', sm: '1rem' }
             }}
           >
-            เรียนรู้การใช้ Prisma Client เพื่อทำ CRUD operations ใน Next.js 15
-          </Typography>
+          เรียนรู้การใช้ Prisma Client เพื่อทำ CRUD operations ใน Next.js 15
+        </Typography>
 
-          <Accordion sx={{ mb: 2 }}>
-            <AccordionSummary expandIcon={<ExpandMore />}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                <DataObject color="success" />
-                <Typography variant="h6">Server Components Data Fetching</Typography>
-              </Box>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography variant="body1" sx={{ mb: 2 }}>
-                ใช้ Prisma ใน Server Components สำหรับ data fetching ด้วย React 19 และ Prisma 6.x
-              </Typography>
-              
-              <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 2 }}>
-                <Typography variant="body2" component="pre">
+        <Accordion sx={{ mb: 2 }}>
+          <AccordionSummary expandIcon={<ExpandMore />}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              <DataObject color="success" />
+              <Typography variant="h6">Server Components Data Fetching</Typography>
+            </Box>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography variant="body1" sx={{ mb: 2 }}>
+              ใช้ Prisma ใน Server Components สำหรับ data fetching ด้วย React 19 และ Prisma 6.x
+            </Typography>
+            
+            <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 2 }}>
+              <Typography variant="body2" component="pre">
 {`// app/users/page.tsx (Server Component)
 import { prisma } from '@/lib/prisma';
 
@@ -952,30 +952,30 @@ export async function getServerSideProps({ params }: { params: { id: string } })
   };
 }`}
               </Typography>
-              </Box>
+            </Box>
 
-              <Alert severity="info">
-                <Typography variant="body2">
-                  💡 <strong>Prisma 6.x:</strong> relationLoadStrategy และ TypedSQL สำหรับ performance ที่ดีขึ้น
-                </Typography>
-              </Alert>
-            </AccordionDetails>
-          </Accordion>
-
-          <Accordion sx={{ mb: 2 }}>
-            <AccordionSummary expandIcon={<ExpandMore />}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                <ApiOutlined color="primary" />
-                <Typography variant="h6">API Routes สำหรับ CRUD</Typography>
-              </Box>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography variant="body1" sx={{ mb: 2 }}>
-                สร้าง API routes สำหรับ CRUD operations ด้วย Next.js 15 async APIs
+            <Alert severity="info">
+              <Typography variant="body2">
+                💡 <strong>Prisma 6.x:</strong> relationLoadStrategy และ TypedSQL สำหรับ performance ที่ดีขึ้น
               </Typography>
-              
-              <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 2 }}>
-                <Typography variant="body2" component="pre">
+            </Alert>
+          </AccordionDetails>
+        </Accordion>
+
+        <Accordion sx={{ mb: 2 }}>
+          <AccordionSummary expandIcon={<ExpandMore />}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              <ApiOutlined color="primary" />
+              <Typography variant="h6">API Routes สำหรับ CRUD</Typography>
+            </Box>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography variant="body1" sx={{ mb: 2 }}>
+              สร้าง API routes สำหรับ CRUD operations ด้วย Next.js 15 async APIs
+            </Typography>
+            
+            <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 2 }}>
+              <Typography variant="body2" component="pre">
 {`// app/api/users/route.ts (Prisma 6.x)
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
@@ -1049,31 +1049,31 @@ export async function POST(request: NextRequest) {
     );
   }
 }`}
-                </Typography>
-              </Box>
-
-              <Alert severity="success">
-                <Typography variant="body2">
-                  ✅ <strong>Omit API (GA):</strong> ซ่อน sensitive fields โดยไม่ต้องใช้ select
-                </Typography>
-              </Alert>
-            </AccordionDetails>
-          </Accordion>
-
-          <Accordion sx={{ mb: 2 }}>
-            <AccordionSummary expandIcon={<ExpandMore />}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                <Memory color="warning" />
-                <Typography variant="h6">Dynamic Routes สำหรับ Individual Records</Typography>
-              </Box>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography variant="body1" sx={{ mb: 2 }}>
-                สร้าง API routes สำหรับจัดการ record เดี่ยวๆ ด้วย async params
               </Typography>
-              
-              <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 2 }}>
-                <Typography variant="body2" component="pre">
+            </Box>
+
+            <Alert severity="success">
+              <Typography variant="body2">
+                ✅ <strong>Omit API (GA):</strong> ซ่อน sensitive fields โดยไม่ต้องใช้ select
+              </Typography>
+            </Alert>
+          </AccordionDetails>
+        </Accordion>
+
+        <Accordion sx={{ mb: 2 }}>
+          <AccordionSummary expandIcon={<ExpandMore />}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              <Memory color="warning" />
+              <Typography variant="h6">Dynamic Routes สำหรับ Individual Records</Typography>
+            </Box>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography variant="body1" sx={{ mb: 2 }}>
+              สร้าง API routes สำหรับจัดการ record เดี่ยวๆ ด้วย async params
+            </Typography>
+            
+            <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 2 }}>
+              <Typography variant="body2" component="pre">
 {`// app/api/users/[id]/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
@@ -1182,16 +1182,16 @@ export async function DELETE(
     );
   }
 }`}
-                </Typography>
-              </Box>
+              </Typography>
+            </Box>
 
-              <Alert severity="warning">
-                <Typography variant="body2">
-                  ⚠️ <strong>Next.js 15:</strong> params เป็น Promise ต้องใช้ await
-                </Typography>
-              </Alert>
-            </AccordionDetails>
-          </Accordion>
+            <Alert severity="warning">
+              <Typography variant="body2">
+                ⚠️ <strong>Next.js 15:</strong> params เป็น Promise ต้องใช้ await
+              </Typography>
+            </Alert>
+          </AccordionDetails>
+        </Accordion>
         </CardContent>
       </Card>
 
@@ -1207,8 +1207,8 @@ export async function DELETE(
               fontWeight: 600
             }}
           >
-            💡 Best Practices สำหรับ Prisma + Next.js 15
-          </Typography>
+          💡 Best Practices สำหรับ Prisma + Next.js 15
+        </Typography>
           
           <Stack spacing={1.5}>
             {[
@@ -1285,22 +1285,22 @@ export async function DELETE(
               fontWeight: 600
             }}
           >
-            ⚡ Performance และ Caching ใน Next.js 15
+          ⚡ Performance และ Caching ใน Next.js 15
+        </Typography>
+
+        <Tabs value={tabValue} onChange={handleTabChange} sx={{ mb: 3 }}>
+          <Tab label="Next.js 15 Caching" />
+          <Tab label="Query Optimization" />
+          <Tab label="Connection Pooling" />
+        </Tabs>
+
+        <CustomTabPanel value={tabValue} index={0}>
+          <Typography variant="h6" sx={{ mb: 2, color: 'success.main' }}>
+            🔄 Prisma 6.x Caching & Performance
           </Typography>
-
-          <Tabs value={tabValue} onChange={handleTabChange} sx={{ mb: 3 }}>
-            <Tab label="Next.js 15 Caching" />
-            <Tab label="Query Optimization" />
-            <Tab label="Connection Pooling" />
-          </Tabs>
-
-          <CustomTabPanel value={tabValue} index={0}>
-            <Typography variant="h6" sx={{ mb: 2, color: 'success.main' }}>
-              🔄 Prisma 6.x Caching & Performance
-            </Typography>
-            
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 3 }}>
-              <Typography variant="body2" component="pre">
+          
+          <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 3 }}>
+            <Typography variant="body2" component="pre">
 {`// Server Components - Enhanced with Prisma 6.x
 export default async function PostsPage() {
   // Prisma 6.x: relationLoadStrategy for better performance
@@ -1337,23 +1337,23 @@ const prisma = new PrismaClient({
   // Prisma Postgres handles caching automatically
   log: ['query', 'info', 'warn', 'error'],
 });`}
-              </Typography>
-            </Box>
-
-            <Alert severity="info">
-              <Typography variant="body2">
-                💡 <strong>Prisma 6.x:</strong> Built-in performance optimizations และ Prisma Postgres caching
-              </Typography>
-            </Alert>
-          </CustomTabPanel>
-
-          <CustomTabPanel value={tabValue} index={1}>
-            <Typography variant="h6" sx={{ mb: 2, color: 'info.main' }}>
-              📊 Advanced Query Optimization (Prisma 6.x)
             </Typography>
-            
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 3 }}>
-              <Typography variant="body2" component="pre">
+          </Box>
+
+          <Alert severity="info">
+            <Typography variant="body2">
+              💡 <strong>Prisma 6.x:</strong> Built-in performance optimizations และ Prisma Postgres caching
+            </Typography>
+          </Alert>
+        </CustomTabPanel>
+
+        <CustomTabPanel value={tabValue} index={1}>
+          <Typography variant="h6" sx={{ mb: 2, color: 'info.main' }}>
+            📊 Advanced Query Optimization (Prisma 6.x)
+          </Typography>
+          
+          <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 3 }}>
+            <Typography variant="body2" component="pre">
 {`// Prisma 6.x: Enhanced query strategies
 const posts = await prisma.post.findMany({
   relationLoadStrategy: 'join', // Use database joins
@@ -1410,23 +1410,23 @@ const analytics = await prisma.$queryRawTyped(
     20  // limit
   )
 );`}
-              </Typography>
-            </Box>
-
-            <Alert severity="success">
-              <Typography variant="body2">
-                ✅ <strong>Performance:</strong> relationLoadStrategy, Omit API และ TypedSQL
-              </Typography>
-            </Alert>
-          </CustomTabPanel>
-
-          <CustomTabPanel value={tabValue} index={2}>
-            <Typography variant="h6" sx={{ mb: 2, color: 'warning.main' }}>
-              🏊 Prisma Postgres & Connection Management
             </Typography>
-            
-            <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 3 }}>
-              <Typography variant="body2" component="pre">
+          </Box>
+
+          <Alert severity="success">
+            <Typography variant="body2">
+              ✅ <strong>Performance:</strong> relationLoadStrategy, Omit API และ TypedSQL
+            </Typography>
+          </Alert>
+        </CustomTabPanel>
+
+        <CustomTabPanel value={tabValue} index={2}>
+          <Typography variant="h6" sx={{ mb: 2, color: 'warning.main' }}>
+            🏊 Prisma Postgres & Connection Management
+          </Typography>
+          
+          <Box className="code-block" sx={{ p: 2, borderRadius: 1, fontFamily: 'monospace', mb: 3 }}>
+            <Typography variant="body2" component="pre">
 {`// Prisma Postgres setup (แนะนำ)
 // .env
 DATABASE_URL="prisma+postgres://accelerate.prisma-data.net/?api_key=your_api_key"
@@ -1473,15 +1473,15 @@ export async function checkConnection() {
 export async function closeConnection() {
   await prisma.$disconnect();
 }`}
-              </Typography>
-            </Box>
+            </Typography>
+          </Box>
 
-            <Alert severity="info">
-              <Typography variant="body2">
-                💡 <strong>Prisma Postgres:</strong> Zero cold starts, global caching และ automatic connection pooling
-              </Typography>
-            </Alert>
-          </CustomTabPanel>
+          <Alert severity="info">
+            <Typography variant="body2">
+              💡 <strong>Prisma Postgres:</strong> Zero cold starts, global caching และ automatic connection pooling
+            </Typography>
+          </Alert>
+        </CustomTabPanel>
         </CardContent>
       </Card>
 
@@ -1496,8 +1496,8 @@ export async function closeConnection() {
               fontWeight: 600
             }}
           >
-            🎯 ยินดีด้วย! คุณเรียนจบบทที่ 6 แล้ว
-          </Typography>
+          🎯 ยินดีด้วย! คุณเรียนจบบทที่ 6 แล้ว
+        </Typography>
           <Typography 
             variant="body1" 
             sx={{ 
@@ -1506,10 +1506,10 @@ export async function closeConnection() {
               lineHeight: 1.5
             }}
           >
-            ตอนนี้คุณมีความรู้เกี่ยวกับ Prisma ORM 6.8 และการจัดการฐานข้อมูลแล้ว 
-            พร้อมสำหรับการเรียนรู้เรื่อง React Hooks ในบทถัดไป
-          </Typography>
-          
+          ตอนนี้คุณมีความรู้เกี่ยวกับ Prisma ORM 6.8 และการจัดการฐานข้อมูลแล้ว 
+          พร้อมสำหรับการเรียนรู้เรื่อง React Hooks ในบทถัดไป
+        </Typography>
+        
           <Typography 
             variant="h6" 
             sx={{ 
@@ -1518,8 +1518,8 @@ export async function closeConnection() {
               fontWeight: 600
             }}
           >
-            📚 สิ่งที่คุณได้เรียนรู้ในบทนี้:
-          </Typography>
+          📚 สิ่งที่คุณได้เรียนรู้ในบทนี้:
+        </Typography>
           
           <Stack spacing={1} sx={{ mb: 3 }}>
             {[
@@ -1544,7 +1544,7 @@ export async function closeConnection() {
                   }}
                 >
                   {item}
-                </Typography>
+          </Typography>
               </Box>
             ))}
           </Stack>
@@ -1557,7 +1557,7 @@ export async function closeConnection() {
             }}
           >
             💡 <strong>บทถัดไป:</strong> เรียนรู้ React Hooks (useState, useEffect) สำหรับ state management และ side effects
-          </Alert>
+        </Alert>
         </CardContent>
       </Card>
 

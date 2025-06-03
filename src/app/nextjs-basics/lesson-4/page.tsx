@@ -235,7 +235,7 @@ export default function Lesson4Page() {
               }}
             >
               วัตถุประสงค์การเรียนรู้
-            </Typography>
+        </Typography>
           </Box>
           
           <Stack spacing={1}>
@@ -277,9 +277,9 @@ export default function Lesson4Page() {
               fontWeight: 600
             }}
           >
-            🤔 Navigation ใน Next.js คืออะไร?
-          </Typography>
-          
+          🤔 Navigation ใน Next.js คืออะไร?
+        </Typography>
+        
           <Typography 
             variant="body1" 
             sx={{ 
@@ -290,14 +290,14 @@ export default function Lesson4Page() {
           >
             <strong>Navigation ใน Next.js</strong> หมายถึงการเปลี่ยนหน้าระหว่าง routes ต่างๆ โดยไม่ต้องโหลดหน้าเว็บใหม่ทั้งหมด 
             ทำให้การใช้งานเร็วและลื่นไหลมากขึ้น พร้อมกับ fresh data ใน Next.js 15
-          </Typography>
+        </Typography>
 
           <Alert severity="info" sx={{ mb: 3, fontSize: { xs: '0.85rem', sm: '0.9rem' } }}>
             💡 <strong>สำคัญ:</strong> ใน Next.js 15 navigation จะได้ fresh data โดย default 
             แต่ยังคงได้ประโยชน์จาก client-side navigation และ prefetching
-          </Alert>
+        </Alert>
 
-          {/* Comparison */}
+        {/* Comparison */}
           <Typography 
             variant="h5" 
             sx={{ 
@@ -306,14 +306,14 @@ export default function Lesson4Page() {
               fontWeight: 600
             }}
           >
-            ⚡ เปรียบเทียบ Traditional vs Next.js Navigation
-          </Typography>
+          ⚡ เปรียบเทียบ Traditional vs Next.js Navigation
+        </Typography>
 
           <Card sx={{ boxShadow: 1 }}>
             <TableContainer>
               <Table size="small">
-                <TableHead>
-                  <TableRow>
+            <TableHead>
+              <TableRow>
                     <TableCell sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
                       <strong>คุณสมบัติ</strong>
                     </TableCell>
@@ -323,35 +323,35 @@ export default function Lesson4Page() {
                     <TableCell sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
                       <strong>Next.js</strong>
                     </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {navigationComparison.map((item, index) => (
-                    <TableRow key={index}>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {navigationComparison.map((item, index) => (
+                <TableRow key={index}>
                       <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.85rem' } }}>
                         {item.feature}
                       </TableCell>
-                      <TableCell>
-                        <Chip 
-                          label={item.traditional} 
-                          color={item.tradColor as any}
-                          size="small" 
+                  <TableCell>
+                    <Chip 
+                      label={item.traditional} 
+                      color={item.tradColor as any}
+                      size="small" 
                           sx={{ fontSize: { xs: '0.7rem', sm: '0.75rem' } }}
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <Chip 
-                          label={item.nextjs} 
-                          color={item.nextColor as any}
-                          size="small" 
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <Chip 
+                      label={item.nextjs} 
+                      color={item.nextColor as any}
+                      size="small" 
                           sx={{ fontSize: { xs: '0.7rem', sm: '0.75rem' } }}
-                        />
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+                    />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
           </Card>
         </CardContent>
       </Card>
@@ -367,11 +367,11 @@ export default function Lesson4Page() {
               fontWeight: 600
             }}
           >
-            🌟 ฟีเจอร์ของ Next.js Link
-          </Typography>
+          🌟 ฟีเจอร์ของ Next.js Link
+        </Typography>
 
           <Stack spacing={2} sx={{ mb: 4 }}>
-            {linkFeatures.map((feature, index) => (
+          {linkFeatures.map((feature, index) => (
               <Card key={index} sx={{ boxShadow: 1 }}>
                 <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
@@ -406,13 +406,13 @@ export default function Lesson4Page() {
                   </Typography>
                 </CardContent>
               </Card>
-            ))}
+          ))}
           </Stack>
 
           <Alert severity="success" sx={{ mb: 3, fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>
             ✅ <strong>Performance Tip:</strong> Next.js จะ prefetch routes โดยอัตโนมัติ 
             เมื่อ Link component ปรากฏใน viewport (มองเห็นได้บนหน้าจอ)
-          </Alert>
+        </Alert>
         </CardContent>
       </Card>
 
@@ -427,8 +427,8 @@ export default function Lesson4Page() {
               fontWeight: 600
             }}
           >
-            📖 การใช้ Link Component
-          </Typography>
+          📖 การใช้ Link Component
+        </Typography>
 
           <Stack spacing={1.5}>
             <Accordion sx={{ boxShadow: 1 }}>
@@ -440,7 +440,7 @@ export default function Lesson4Page() {
                   }
                 }}
               >
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                   <LinkIcon 
                     color="primary" 
                     sx={{ fontSize: { xs: 18, sm: 20 } }}
@@ -451,8 +451,8 @@ export default function Lesson4Page() {
                   >
                     การใช้งานพื้นฐาน
                   </Typography>
-                </Box>
-              </AccordionSummary>
+            </Box>
+          </AccordionSummary>
               <AccordionDetails sx={{ pt: 0 }}>
                 <Typography 
                   variant="body1" 
@@ -461,9 +461,9 @@ export default function Lesson4Page() {
                     fontSize: { xs: '0.9rem', sm: '1rem' }
                   }}
                 >
-                  ตัวอย่างการใช้ Link component แบบง่ายๆ
-                </Typography>
-                
+              ตัวอย่างการใช้ Link component แบบง่ายๆ
+            </Typography>
+            
                 <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
                   <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
                     <Typography 
@@ -499,15 +499,15 @@ export default function Navigation() {
     </nav>
   );
 }`}
-                    </Typography>
+              </Typography>
                   </CardContent>
                 </Card>
 
                 <Alert severity="info" sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>
-                  💡 Link component จะสร้าง &lt;a&gt; tag โดยอัตโนมัติ และจัดการ client-side navigation
-                </Alert>
-              </AccordionDetails>
-            </Accordion>
+                💡 Link component จะสร้าง &lt;a&gt; tag โดยอัตโนมัติ และจัดการ client-side navigation
+            </Alert>
+          </AccordionDetails>
+        </Accordion>
 
             <Accordion sx={{ boxShadow: 1 }}>
               <AccordionSummary 
@@ -518,7 +518,7 @@ export default function Navigation() {
                   }
                 }}
               >
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                   <ArrowForward 
                     color="success" 
                     sx={{ fontSize: { xs: 18, sm: 20 } }}
@@ -529,8 +529,8 @@ export default function Navigation() {
                   >
                     Dynamic Routes
                   </Typography>
-                </Box>
-              </AccordionSummary>
+            </Box>
+          </AccordionSummary>
               <AccordionDetails sx={{ pt: 0 }}>
                 <Typography 
                   variant="body1" 
@@ -539,9 +539,9 @@ export default function Navigation() {
                     fontSize: { xs: '0.9rem', sm: '1rem' }
                   }}
                 >
-                  การใช้ Link กับ dynamic routes และการส่งพารามิเตอร์
-                </Typography>
-                
+              การใช้ Link กับ dynamic routes และการส่งพารามิเตอร์
+            </Typography>
+            
                 <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
                   <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
                     <Typography 
@@ -581,15 +581,15 @@ export default function ProductList({ products }: { products: Product[] }) {
     </div>
   );
 }`}
-                    </Typography>
+              </Typography>
                   </CardContent>
                 </Card>
 
                 <Alert severity="success" sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>
                   ✅ สามารถใช้ template literal สำหรับ dynamic routes ได้ง่าย
-                </Alert>
-              </AccordionDetails>
-            </Accordion>
+            </Alert>
+          </AccordionDetails>
+        </Accordion>
           </Stack>
         </CardContent>
       </Card>
@@ -866,9 +866,9 @@ export default function AdvancedNavigation() {
               fontWeight: 600
             }}
           >
-            ✋ ฝึกปฏิบัติ: สร้าง Navigation System
-          </Typography>
-          
+          ✋ ฝึกปฏิบัติ: สร้าง Navigation System
+        </Typography>
+        
           <Typography 
             variant="body1" 
             sx={{ 
@@ -878,7 +878,7 @@ export default function AdvancedNavigation() {
             }}
           >
             ลองทำตามขั้นตอนนี้เพื่อสร้าง navigation system ที่สมบูรณ์
-          </Typography>
+        </Typography>
 
           <Stepper 
             activeStep={activeStep} 
@@ -889,16 +889,16 @@ export default function AdvancedNavigation() {
               }
             }}
           >
-            <Step>
-              <StepLabel>
+          <Step>
+            <StepLabel>
                 <Typography 
                   variant="h6"
                   sx={{ fontSize: { xs: '1rem', sm: '1.1rem' } }}
                 >
                   สร้าง Basic Navigation
                 </Typography>
-              </StepLabel>
-              <StepContent>
+            </StepLabel>
+            <StepContent>
                 <Typography 
                   variant="body1" 
                   sx={{ 
@@ -908,8 +908,8 @@ export default function AdvancedNavigation() {
                   }}
                 >
                   สร้าง navigation component พื้นฐาน:
-                </Typography>
-                
+              </Typography>
+              
                 <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
                   <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
                     <Typography 
@@ -942,31 +942,31 @@ export default function Navigation() {
                   </CardContent>
                 </Card>
 
-                <Button 
+              <Button
                   variant="contained" 
                   onClick={handleNext} 
                   size="small"
-                  sx={{ 
+                sx={{
                     mt: 1, 
                     mr: 1,
                     fontSize: { xs: '0.8rem', sm: '0.9rem' }
                   }}
                 >
-                  ถัดไป
-                </Button>
-              </StepContent>
-            </Step>
+                ถัดไป
+              </Button>
+            </StepContent>
+          </Step>
 
-            <Step>
-              <StepLabel>
+          <Step>
+            <StepLabel>
                 <Typography 
                   variant="h6"
                   sx={{ fontSize: { xs: '1rem', sm: '1.1rem' } }}
                 >
                   เพิ่ม Active States
                 </Typography>
-              </StepLabel>
-              <StepContent>
+            </StepLabel>
+            <StepContent>
                 <Typography 
                   variant="body1" 
                   sx={{ 
@@ -976,8 +976,8 @@ export default function Navigation() {
                   }}
                 >
                   เพิ่ม active states เพื่อแสดงหน้าปัจจุบัน:
-                </Typography>
-                
+              </Typography>
+              
                 <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
                   <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
                     <Typography 
@@ -1009,15 +1009,15 @@ export default function Navigation() {
               fontWeight: pathname === '/' ? 'bold' : 'normal'
             }}
           >
-            หน้าแรก
-          </Link>
+        หน้าแรก
+      </Link>
         </li>
         {/* เพิ่ม active state สำหรับลิงก์อื่นๆ */}
       </ul>
     </nav>
   );
 }`}
-                    </Typography>
+                </Typography>
                   </CardContent>
                 </Card>
 
@@ -1028,29 +1028,29 @@ export default function Navigation() {
                     size="small"
                     sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
                   >
-                    ถัดไป
-                  </Button>
+                ถัดไป
+              </Button>
                   <Button 
                     onClick={handleBack} 
                     size="small"
                     sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}
                   >
-                    ย้อนกลับ
-                  </Button>
+                ย้อนกลับ
+              </Button>
                 </Stack>
-              </StepContent>
-            </Step>
+            </StepContent>
+          </Step>
 
-            <Step>
-              <StepLabel>
+          <Step>
+            <StepLabel>
                 <Typography 
                   variant="h6"
                   sx={{ fontSize: { xs: '1rem', sm: '1.1rem' } }}
                 >
                   เพิ่ม Programmatic Navigation
                 </Typography>
-              </StepLabel>
-              <StepContent>
+            </StepLabel>
+            <StepContent>
                 <Typography 
                   variant="body1" 
                   sx={{ 
@@ -1060,8 +1060,8 @@ export default function Navigation() {
                   }}
                 >
                   เพิ่มปุ่มสำหรับ navigation แบบ programmatic:
-                </Typography>
-                
+              </Typography>
+              
                 <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
                   <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
                     <Typography 
@@ -1084,24 +1084,24 @@ export default function NavigationButtons() {
   return (
     <div style={{ padding: '1rem', display: 'flex', gap: '0.5rem' }}>
       <button onClick={() => router.push('/')}>
-        หน้าแรก
+          หน้าแรก
       </button>
       <button onClick={() => router.push('/about')}>
-        เกี่ยวกับเรา
+          เกี่ยวกับเรา
       </button>
       <button onClick={() => router.push('/contact')}>
-        ติดต่อเรา
+          ติดต่อเรา
       </button>
     </div>
   );
 }`}
-                    </Typography>
+                </Typography>
                   </CardContent>
                 </Card>
 
                 <Alert severity="success" sx={{ mb: 2, fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>
                   ✅ ตอนนี้คุณมี navigation system ที่สมบูรณ์แล้ว!
-                </Alert>
+              </Alert>
 
                 <Button 
                   variant="contained" 
@@ -1113,8 +1113,8 @@ export default function NavigationButtons() {
                     fontSize: { xs: '0.8rem', sm: '0.9rem' }
                   }}
                 >
-                  เสร็จสิ้น
-                </Button>
+                เสร็จสิ้น
+              </Button>
                 <Button 
                   onClick={handleBack} 
                   size="small"
@@ -1124,13 +1124,13 @@ export default function NavigationButtons() {
                     fontSize: { xs: '0.8rem', sm: '0.9rem' }
                   }}
                 >
-                  ย้อนกลับ
-                </Button>
-              </StepContent>
-            </Step>
-          </Stepper>
+                ย้อนกลับ
+              </Button>
+            </StepContent>
+          </Step>
+        </Stepper>
 
-          {activeStep === 3 && (
+        {activeStep === 3 && (
             <Card sx={{ mt: 3, bgcolor: 'success.light', boxShadow: 1 }}>
               <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
                 <Typography 
@@ -1141,8 +1141,8 @@ export default function NavigationButtons() {
                     fontWeight: 600
                   }}
                 >
-                  🎉 ยินดีด้วย! คุณสร้าง Navigation System แล้ว
-                </Typography>
+              🎉 ยินดีด้วย! คุณสร้าง Navigation System แล้ว
+            </Typography>
                 <Typography 
                   variant="body1" 
                   sx={{ 
@@ -1152,7 +1152,7 @@ export default function NavigationButtons() {
                   }}
                 >
                   ตอนนี้คุณมี navigation ที่สมบูรณ์ รวมถึง active states และ programmatic navigation
-                </Typography>
+            </Typography>
                 <Button 
                   onClick={handleReset} 
                   size="small"
@@ -1162,11 +1162,11 @@ export default function NavigationButtons() {
                     fontSize: { xs: '0.8rem', sm: '0.9rem' }
                   }}
                 >
-                  ลองใหม่
-                </Button>
+              ลองใหม่
+            </Button>
               </CardContent>
             </Card>
-          )}
+        )}
         </CardContent>
       </Card>
 
@@ -1181,8 +1181,8 @@ export default function NavigationButtons() {
               fontWeight: 600
             }}
           >
-            ⚡ Performance และ Advanced Tips
-          </Typography>
+          ⚡ Performance และ Advanced Tips
+        </Typography>
 
           <Tabs 
             value={tabValue} 
@@ -1198,12 +1198,12 @@ export default function NavigationButtons() {
             variant="scrollable"
             scrollButtons="auto"
           >
-            <Tab label="Prefetching" />
-            <Tab label="Loading States" />
-            <Tab label="Error Handling" />
-          </Tabs>
+          <Tab label="Prefetching" />
+          <Tab label="Loading States" />
+          <Tab label="Error Handling" />
+        </Tabs>
 
-          <CustomTabPanel value={tabValue} index={0}>
+        <CustomTabPanel value={tabValue} index={0}>
             <Typography 
               variant="h6" 
               sx={{ 
@@ -1212,9 +1212,9 @@ export default function NavigationButtons() {
                 fontSize: { xs: '1.1rem', sm: '1.25rem' }
               }}
             >
-              🚀 Prefetching Strategies
-            </Typography>
-            
+            🚀 Prefetching Strategies
+          </Typography>
+          
             <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
               <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
                 <Typography 
@@ -1246,16 +1246,16 @@ export default function NavigationButtons() {
     Dashboard
   </Link>
 )}`}
-                </Typography>
+            </Typography>
               </CardContent>
             </Card>
 
             <Alert severity="info" sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>
               💡 <strong>การใช้งาน:</strong> ปิด prefetch สำหรับหน้าที่มีข้อมูลเยอะ หรือต้องการ authentication
-            </Alert>
-          </CustomTabPanel>
+          </Alert>
+        </CustomTabPanel>
 
-          <CustomTabPanel value={tabValue} index={1}>
+        <CustomTabPanel value={tabValue} index={1}>
             <Typography 
               variant="h6" 
               sx={{ 
@@ -1264,9 +1264,9 @@ export default function NavigationButtons() {
                 fontSize: { xs: '1.1rem', sm: '1.25rem' }
               }}
             >
-              ⏳ Loading States
-            </Typography>
-            
+            ⏳ Loading States
+          </Typography>
+          
             <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
               <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
                 <Typography 
@@ -1306,16 +1306,16 @@ export default function NavigationWithLoading() {
     </div>
   );
 }`}
-                </Typography>
+            </Typography>
               </CardContent>
             </Card>
 
             <Alert severity="warning" sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>
               ⚠️ ใช้ useTransition เพื่อจัดการ loading states ระหว่างการเปลี่ยนหน้า
-            </Alert>
-          </CustomTabPanel>
+          </Alert>
+        </CustomTabPanel>
 
-          <CustomTabPanel value={tabValue} index={2}>
+        <CustomTabPanel value={tabValue} index={2}>
             <Typography 
               variant="h6" 
               sx={{ 
@@ -1324,9 +1324,9 @@ export default function NavigationWithLoading() {
                 fontSize: { xs: '1.1rem', sm: '1.25rem' }
               }}
             >
-              🛠️ Error Handling
-            </Typography>
-            
+            🛠️ Error Handling
+          </Typography>
+          
             <Card className="code-block" sx={{ mb: 2, boxShadow: 1 }}>
               <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
                 <Typography 
@@ -1367,14 +1367,14 @@ export default function SafeNavigation() {
     </div>
   );
 }`}
-                </Typography>
+            </Typography>
               </CardContent>
             </Card>
 
             <Alert severity="error" sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}>
               ❌ เสมอต้อง validate URLs และจัดการ errors ที่อาจเกิดขึ้น
-            </Alert>
-          </CustomTabPanel>
+          </Alert>
+        </CustomTabPanel>
         </CardContent>
       </Card>
 
@@ -1394,8 +1394,8 @@ export default function SafeNavigation() {
               fontWeight: 600
             }}
           >
-            💡 Best Practices สำคัญ
-          </Typography>
+          💡 Best Practices สำคัญ
+        </Typography>
           
           <Stack spacing={1.5}>
             {[
@@ -1446,8 +1446,8 @@ export default function SafeNavigation() {
               fontWeight: 600
             }}
           >
-            🎯 ยินดีด้วย! คุณเรียนจบบทที่ 4 แล้ว
-          </Typography>
+          🎯 ยินดีด้วย! คุณเรียนจบบทที่ 4 แล้ว
+        </Typography>
           
           <Typography 
             variant="body1" 
@@ -1470,7 +1470,7 @@ export default function SafeNavigation() {
           >
             💡 <strong>บทถัดไป:</strong> เรียนรู้เรื่อง Layouts, Templates และ Nested Layouts 
             ใน Next.js 15 สำหรับสร้าง UI structure ที่ยืดหยุ่น
-          </Alert>
+        </Alert>
         </CardContent>
       </Card>
 
@@ -1499,7 +1499,7 @@ export default function SafeNavigation() {
           variant="outlined"
           size="small"
         />
-
+        
         <Button
           endIcon={<ArrowForward />}
           component={Link}
