@@ -28,6 +28,7 @@ import {
   Select,
   MenuItem,
   InputLabel,
+  IconButton,
 } from '@mui/material';
 import {
   CheckCircle,
@@ -240,7 +241,7 @@ function AdvancedFormDemo() {
     try {
       const schema = createSchema(formData.userType);
       const validatedData = schema.parse(formData);
-      alert('สมัครเรียบร้อย! ตรวจสอบ console สำหรับข้อมูล');
+      alert('สมัครเรียบร้อย!');
       console.log('Validated data:', validatedData);
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -260,20 +261,18 @@ function AdvancedFormDemo() {
       <Stack spacing={3}>
         <FormControl>
           <FormLabel>ประเภทผู้ใช้</FormLabel>
-          <Stack direction="row" spacing={2}>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={formData.userType === 'company'}
-                  onChange={(e) => setFormData(prev => ({ 
-                    ...prev, 
-                    userType: e.target.checked ? 'company' : 'individual' 
-                  }))}
-                />
-              }
-              label={formData.userType === 'individual' ? 'บุคคลธรรมดา' : 'นิติบุคคล'}
-            />
-          </Stack>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={formData.userType === 'company'}
+                onChange={(e) => setFormData(prev => ({ 
+                  ...prev, 
+                  userType: e.target.checked ? 'company' : 'individual' 
+                }))}
+              />
+            }
+            label={formData.userType === 'individual' ? 'บุคคลธรรมดา' : 'นิติบุคคล'}
+          />
         </FormControl>
 
         {formData.userType === 'individual' ? (
@@ -326,12 +325,9 @@ function AdvancedFormDemo() {
           fullWidth
           InputProps={{
             endAdornment: (
-              <Button
-                onClick={() => setShowPassword(!showPassword)}
-                sx={{ minWidth: 'auto', p: 1 }}
-              >
+              <IconButton onClick={() => setShowPassword(!showPassword)}>
                 {showPassword ? <VisibilityOff /> : <Visibility />}
-              </Button>
+              </IconButton>
             )
           }}
         />
@@ -370,10 +366,15 @@ function AdvancedFormDemo() {
 }
 
 export default function Lesson8Page() {
-  const [tabValue, setTabValue] = useState(0);
+  const [basicTabValue, setBasicTabValue] = useState(0);
+  const [advancedTabValue, setAdvancedTabValue] = useState(0);
 
-  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-    setTabValue(newValue);
+  const handleBasicTabChange = (event: React.SyntheticEvent, newValue: number) => {
+    setBasicTabValue(newValue);
+  };
+
+  const handleAdvancedTabChange = (event: React.SyntheticEvent, newValue: number) => {
+    setAdvancedTabValue(newValue);
   };
 
   return (
@@ -499,20 +500,461 @@ export default function Lesson8Page() {
         <Typography variant="body1" sx={{ mb: 3, fontSize: { xs: '0.95rem', sm: '1rem' } }}>
           เรียนรู้การใช้ Zod กับ React forms พร้อมตัวอย่างที่ทำงานได้จริง
         </Typography>
+
+        {/* Basic Form Example */}
         <Card sx={{ mb: 4 }}>
           <CardContent>
             <Typography variant="h6" sx={{ mb: 3, color: 'primary.main', fontWeight: 600, fontSize: { xs: '1.1rem', sm: '1.25rem' } }}>
-              🎯 Registration Form Demo
+              🎯 Basic Registration Form
             </Typography>
-            <SimpleFormDemo />
+            
+            <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 2 }}>
+              <Tabs value={basicTabValue} onChange={handleBasicTabChange}>
+                <Tab label="Demo" sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }} />
+                <Tab label="Code" sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }} />
+              </Tabs>
+            </Box>
+
+            <CustomTabPanel value={basicTabValue} index={0}>
+              <SimpleFormDemo />
+            </CustomTabPanel>
+
+            <CustomTabPanel value={basicTabValue} index={1}>
+              <Box sx={{ 
+                bgcolor: 'grey.50', 
+                p: 2, 
+                borderRadius: 1, 
+                overflow: 'auto',
+                '& pre': { 
+                  fontSize: { xs: '0.75rem', sm: '0.85rem' },
+                  lineHeight: 1.4,
+                  margin: 0,
+                  whiteSpace: 'pre-wrap',
+                  wordBreak: 'break-word'
+                }
+              }}>
+                <Typography variant="body2" sx={{ mb: 2, fontWeight: 600 }}>Schema Definition:</Typography>
+                <Box component="pre" sx={{ mb: 3, bgcolor: 'white', p: 2, borderRadius: 1 }}>
+{`import { z } from 'zod';
+
+const formSchema = z.object({
+  name: z.string().min(2, "ชื่อต้องมีอย่างน้อย 2 ตัวอักษร"),
+  email: z.string().email("อีเมลไม่ถูกต้อง"),
+  age: z.string()
+    .regex(/^\\d+$/, "อายุต้องเป็นตัวเลข")
+    .transform(Number)
+    .refine(n => n >= 18, "ต้องมีอายุอย่างน้อย 18 ปี")
+});`}
+                </Box>
+                
+                <Typography variant="body2" sx={{ mb: 2, fontWeight: 600 }}>Form State Management:</Typography>
+                <Box component="pre" sx={{ mb: 3, bgcolor: 'white', p: 2, borderRadius: 1 }}>
+{`const [formData, setFormData] = useState({
+  name: '',
+  email: '',
+  age: ''
+});
+const [errors, setErrors] = useState<Record<string, string>>({});
+const [isSubmitting, setIsSubmitting] = useState(false);`}
+                </Box>
+                
+                <Typography variant="body2" sx={{ mb: 2, fontWeight: 600 }}>Form Validation Handler:</Typography>
+                <Box component="pre" sx={{ mb: 3, bgcolor: 'white', p: 2, borderRadius: 1 }}>
+{`const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setIsSubmitting(true);
+  setErrors({});
+
+  try {
+    const validatedData = formSchema.parse(formData);
+    
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    alert(\`สมัครเรียบร้อย! ชื่อ: \${validatedData.name}\`);
+    setFormData({ name: '', email: '', age: '' });
+    
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      const fieldErrors: Record<string, string> = {};
+      error.errors.forEach(err => {
+        if (err.path) {
+          fieldErrors[err.path[0]] = err.message;
+        }
+      });
+      setErrors(fieldErrors);
+    }
+  } finally {
+    setIsSubmitting(false);
+  }
+};`}
+                </Box>
+
+                <Typography variant="body2" sx={{ mb: 2, fontWeight: 600 }}>Form JSX Components:</Typography>
+                <Box component="pre" sx={{ bgcolor: 'white', p: 2, borderRadius: 1 }}>
+{`<Box component="form" onSubmit={handleSubmit} sx={{ maxWidth: 400 }}>
+  <Stack spacing={2}>
+    <TextField
+      label="ชื่อ"
+      value={formData.name}
+      onChange={(e) => setFormData(prev => ({ 
+        ...prev, 
+        name: e.target.value 
+      }))}
+      error={!!errors.name}
+      helperText={errors.name}
+      fullWidth
+    />
+    
+    <TextField
+      label="อีเมล"
+      type="email"
+      value={formData.email}
+      onChange={(e) => setFormData(prev => ({ 
+        ...prev, 
+        email: e.target.value 
+      }))}
+      error={!!errors.email}
+      helperText={errors.email}
+      fullWidth
+    />
+    
+    <TextField
+      label="อายุ"
+      type="number"
+      value={formData.age}
+      onChange={(e) => setFormData(prev => ({ 
+        ...prev, 
+        age: e.target.value 
+      }))}
+      error={!!errors.age}
+      helperText={errors.age}
+      fullWidth
+    />
+    
+    <Button
+      type="submit"
+      variant="contained"
+      disabled={isSubmitting}
+      fullWidth
+    >
+      {isSubmitting ? 'กำลังส่ง...' : 'สมัครสมาชิก'}
+    </Button>
+  </Stack>
+</Box>`}
+                </Box>
+              </Box>
+            </CustomTabPanel>
           </CardContent>
         </Card>
+
+        {/* Advanced Form Example */}
         <Card sx={{ mb: 4 }}>
           <CardContent>
             <Typography variant="h6" sx={{ mb: 3, color: 'secondary.main', fontWeight: 600, fontSize: { xs: '1.1rem', sm: '1.25rem' } }}>
-              🔧 Advanced Form with Cross-field Validation
+              🔧 Advanced Form with Conditional Validation
             </Typography>
-            <AdvancedFormDemo />
+            
+            <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 2 }}>
+              <Tabs value={advancedTabValue} onChange={handleAdvancedTabChange}>
+                <Tab label="Demo" sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }} />
+                <Tab label="Code" sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }} />
+              </Tabs>
+            </Box>
+
+            <CustomTabPanel value={advancedTabValue} index={0}>
+              <AdvancedFormDemo />
+            </CustomTabPanel>
+
+            <CustomTabPanel value={advancedTabValue} index={1}>
+              <Box sx={{ 
+                bgcolor: 'grey.50', 
+                p: 2, 
+                borderRadius: 1, 
+                overflow: 'auto',
+                '& pre': { 
+                  fontSize: { xs: '0.75rem', sm: '0.85rem' },
+                  lineHeight: 1.4,
+                  margin: 0,
+                  whiteSpace: 'pre-wrap',
+                  wordBreak: 'break-word'
+                }
+              }}>
+                <Typography variant="body2" sx={{ mb: 2, fontWeight: 600 }}>Conditional Schema:</Typography>
+                <Box component="pre" sx={{ mb: 3, bgcolor: 'white', p: 2, borderRadius: 1 }}>
+{`const createSchema = (userType: 'individual' | 'company') => {
+  const baseSchema = z.object({
+    userType: z.enum(['individual', 'company']),
+    email: z.string().email("อีเมลไม่ถูกต้อง"),
+    password: z.string().min(8, "รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร"),
+    confirmPassword: z.string(),
+    agreeTerms: z.boolean().refine(val => val === true, "ต้องยอมรับข้อตกลง")
+  });
+
+  if (userType === 'individual') {
+    return baseSchema.extend({
+      firstName: z.string().min(2, "ชื่อต้องมีอย่างน้อย 2 ตัวอักษร"),
+      lastName: z.string().min(2, "นามสกุลต้องมีอย่างน้อย 2 ตัวอักษร")
+    }).refine(data => data.password === data.confirmPassword, {
+      message: "รหัสผ่านไม่ตรงกัน",
+      path: ["confirmPassword"]
+    });
+  } else {
+    return baseSchema.extend({
+      companyName: z.string().min(2, "ชื่อบริษัทต้องมีอย่างน้อย 2 ตัวอักษร")
+    }).refine(data => data.password === data.confirmPassword, {
+      message: "รหัสผ่านไม่ตรงกัน",
+      path: ["confirmPassword"]
+    });
+  }
+};`}
+                </Box>
+                
+                <Typography variant="body2" sx={{ mb: 2, fontWeight: 600 }}>Form State & Validation:</Typography>
+                <Box component="pre" sx={{ mb: 3, bgcolor: 'white', p: 2, borderRadius: 1 }}>
+{`const [formData, setFormData] = useState({
+  userType: 'individual' as 'individual' | 'company',
+  firstName: '',
+  lastName: '',
+  companyName: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+  agreeTerms: false
+});
+const [errors, setErrors] = useState<Record<string, string>>({});
+const [showPassword, setShowPassword] = useState(false);
+
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setErrors({});
+
+  try {
+    const schema = createSchema(formData.userType);
+    const validatedData = schema.parse(formData);
+    alert('สมัครเรียบร้อย!');
+    console.log('Validated data:', validatedData);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      const fieldErrors: Record<string, string> = {};
+      error.errors.forEach(err => {
+        if (err.path) {
+          fieldErrors[err.path[0]] = err.message;
+        }
+      });
+      setErrors(fieldErrors);
+    }
+  }
+};`}
+                </Box>
+                
+                <Typography variant="body2" sx={{ mb: 2, fontWeight: 600 }}>Conditional Form Components:</Typography>
+                <Box component="pre" sx={{ mb: 3, bgcolor: 'white', p: 2, borderRadius: 1 }}>
+{`<Box component="form" onSubmit={handleSubmit} sx={{ maxWidth: 500 }}>
+  <Stack spacing={3}>
+    {/* User Type Switch */}
+    <FormControl>
+      <FormLabel>ประเภทผู้ใช้</FormLabel>
+      <FormControlLabel
+        control={
+          <Switch
+            checked={formData.userType === 'company'}
+            onChange={(e) => setFormData(prev => ({ 
+              ...prev, 
+              userType: e.target.checked ? 'company' : 'individual' 
+            }))}
+          />
+        }
+        label={formData.userType === 'individual' ? 'บุคคลธรรมดา' : 'นิติบุคคล'}
+      />
+    </FormControl>
+
+    {/* Conditional Fields */}
+    {formData.userType === 'individual' ? (
+      <Stack direction="row" spacing={2}>
+        <TextField
+          label="ชื่อ"
+          value={formData.firstName}
+          onChange={(e) => setFormData(prev => ({ 
+            ...prev, firstName: e.target.value 
+          }))}
+          error={!!errors.firstName}
+          helperText={errors.firstName}
+          fullWidth
+        />
+        <TextField
+          label="นามสกุล"
+          value={formData.lastName}
+          onChange={(e) => setFormData(prev => ({ 
+            ...prev, lastName: e.target.value 
+          }))}
+          error={!!errors.lastName}
+          helperText={errors.lastName}
+          fullWidth
+        />
+      </Stack>
+    ) : (
+      <TextField
+        label="ชื่อบริษัท"
+        value={formData.companyName}
+        onChange={(e) => setFormData(prev => ({ 
+          ...prev, companyName: e.target.value 
+        }))}
+        error={!!errors.companyName}
+        helperText={errors.companyName}
+        fullWidth
+      />
+    )}
+
+    {/* Password & Submit Fields */}
+    <TextField
+      label="อีเมล"
+      type="email"
+      value={formData.email}
+      onChange={(e) => setFormData(prev => ({ 
+        ...prev, email: e.target.value 
+      }))}
+      error={!!errors.email}
+      helperText={errors.email}
+      fullWidth
+    />
+
+    <TextField
+      label="รหัสผ่าน"
+      type={showPassword ? 'text' : 'password'}
+      value={formData.password}
+      onChange={(e) => setFormData(prev => ({ 
+        ...prev, password: e.target.value 
+      }))}
+      error={!!errors.password}
+      helperText={errors.password}
+      fullWidth
+      InputProps={{
+        endAdornment: (
+          <IconButton onClick={() => setShowPassword(!showPassword)}>
+            {showPassword ? <VisibilityOff /> : <Visibility />}
+          </IconButton>
+        )
+      }}
+    />
+
+    <TextField
+      label="ยืนยันรหัสผ่าน"
+      type={showPassword ? 'text' : 'password'}
+      value={formData.confirmPassword}
+      onChange={(e) => setFormData(prev => ({ 
+        ...prev, confirmPassword: e.target.value 
+      }))}
+      error={!!errors.confirmPassword}
+      helperText={errors.confirmPassword}
+      fullWidth
+    />
+
+    <FormControlLabel
+      control={
+        <Switch
+          checked={formData.agreeTerms}
+          onChange={(e) => setFormData(prev => ({ 
+            ...prev, agreeTerms: e.target.checked 
+          }))}
+        />
+      }
+      label="ยอมรับข้อตกลงการใช้งาน"
+    />
+
+    <Button type="submit" variant="contained" size="large" fullWidth>
+      สมัครสมาชิก
+    </Button>
+  </Stack>
+</Box>`}
+                </Box>
+                
+                <Typography variant="body2" sx={{ mb: 2, fontWeight: 600 }}>Cross-field Validation:</Typography>
+                <Box component="pre" sx={{ bgcolor: 'white', p: 2, borderRadius: 1 }}>
+{`// ใช้ refine สำหรับ cross-field validation
+.refine(data => data.password === data.confirmPassword, {
+  message: "รหัสผ่านไม่ตรงกัน",
+  path: ["confirmPassword"] // กำหนด path ของ error
+})`}
+                </Box>
+              </Box>
+            </CustomTabPanel>
+          </CardContent>
+        </Card>
+
+        {/* API Validation Example */}
+        <Card sx={{ mb: 4 }}>
+          <CardContent>
+            <Typography variant="h6" sx={{ mb: 3, color: 'info.main', fontWeight: 600, fontSize: { xs: '1.1rem', sm: '1.25rem' } }}>
+              🔗 API Route Validation
+            </Typography>
+            
+            <Box sx={{ 
+              bgcolor: 'grey.50', 
+              p: 2, 
+              borderRadius: 1, 
+              overflow: 'auto',
+              '& pre': { 
+                fontSize: { xs: '0.75rem', sm: '0.85rem' },
+                lineHeight: 1.4,
+                margin: 0,
+                whiteSpace: 'pre-wrap',
+                wordBreak: 'break-word'
+              }
+            }}>
+              <Typography variant="body2" sx={{ mb: 2, fontWeight: 600 }}>API Route (app/api/users/route.ts):</Typography>
+              <Box component="pre" sx={{ mb: 3, bgcolor: 'white', p: 2, borderRadius: 1 }}>
+{`import { z } from 'zod';
+import { NextRequest, NextResponse } from 'next/server';
+
+const createUserSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email format"),
+  age: z.number().min(18, "Must be at least 18 years old")
+});
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+    
+    // Validate request body
+    const validatedData = createUserSchema.parse(body);
+    
+    // Process validated data
+    const user = await createUser(validatedData);
+    
+    return NextResponse.json({ success: true, user });
+    
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { success: false, errors: error.errors },
+        { status: 400 }
+      );
+    }
+    
+    return NextResponse.json(
+      { success: false, message: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}`}
+              </Box>
+              
+              <Typography variant="body2" sx={{ mb: 2, fontWeight: 600 }}>Environment Variables Validation:</Typography>
+              <Box component="pre" sx={{ bgcolor: 'white', p: 2, borderRadius: 1 }}>
+{`// lib/env.ts
+import { z } from 'zod';
+
+const envSchema = z.object({
+  DATABASE_URL: z.string().url("Invalid database URL"),
+  NEXTAUTH_SECRET: z.string().min(32, "Secret must be at least 32 characters"),
+  NODE_ENV: z.enum(['development', 'production', 'test']).default('development')
+});
+
+export const env = envSchema.parse(process.env);`}
+              </Box>
+            </Box>
           </CardContent>
         </Card>
       </Card>
