@@ -4,6 +4,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { theme } from './theme';
 import { Navbar } from './components/Navbar';
+import { GoogleAnalytics } from './components/GoogleAnalytics';
 import { Box } from '@mui/material';
 import { Prompt } from 'next/font/google';
 import { Metadata, Viewport } from 'next';
@@ -224,6 +225,7 @@ export default function RootLayout({
         <meta property="article:tag" content="Next.js, React, Tutorial, Programming" />
       </head>
       <body>
+        <GoogleAnalytics />
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
