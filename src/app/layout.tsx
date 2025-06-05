@@ -17,7 +17,7 @@ const prompt = Prompt({
 
 // Global SEO Metadata
 export const metadata: Metadata = {
-  metadataBase: new URL('https://nextjs-tutorial-thai.com'),
+  metadataBase: new URL('https://tutorial-nextjs-tau-one.vercel.app'),
   title: {
     default: 'Next.js Tutorial ไทย - เรียนรู้ Next.js, Material-UI และ Prisma ฟรี',
     template: '%s | Next.js Tutorial ไทย'
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     'React.js',
     'Node.js tutorial'
   ],
-  authors: [{ name: 'Next.js Tutorial Thai', url: 'https://nextjs-tutorial-thai.com' }],
+  authors: [{ name: 'Next.js Tutorial Thai', url: 'https://tutorial-nextjs-tau-one.vercel.app' }],
   creator: 'Next.js Tutorial Thai',
   publisher: 'Next.js Tutorial Thai',
   applicationName: 'Next.js Tutorial ไทย',
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'th_TH',
-    url: 'https://nextjs-tutorial-thai.com',
+    url: 'https://tutorial-nextjs-tau-one.vercel.app',
     siteName: 'Next.js Tutorial ไทย',
     title: 'Next.js Tutorial ไทย - เรียนรู้การสร้างเว็บแอปพลิเคชันฟรี',
     description: 'บทเรียน Next.js ภาษาไทยครบครัน เรียนรู้ Next.js, Material-UI และ Prisma ตั้งแต่เริ่มต้นจนใช้งานได้จริง',
@@ -88,10 +88,10 @@ export const metadata: Metadata = {
     yahoo: 'your-yahoo-verification-code',
   },
   alternates: {
-    canonical: 'https://nextjs-tutorial-thai.com',
+    canonical: 'https://tutorial-nextjs-tau-one.vercel.app',
     languages: {
-      'th-TH': 'https://nextjs-tutorial-thai.com',
-      'en-US': 'https://nextjs-tutorial-thai.com/en',
+      'th-TH': 'https://tutorial-nextjs-tau-one.vercel.app',
+      'en-US': 'https://tutorial-nextjs-tau-one.vercel.app',
     },
   },
   other: {
@@ -117,19 +117,19 @@ const globalStructuredData = {
   "@graph": [
     {
       "@type": "WebSite",
-      "@id": "https://nextjs-tutorial-thai.com/#website",
-      "url": "https://nextjs-tutorial-thai.com/",
+      "@id": "https://tutorial-nextjs-tau-one.vercel.app/#website",
+      "url": "https://tutorial-nextjs-tau-one.vercel.app/",
       "name": "Next.js Tutorial ไทย",
       "description": "บทเรียน Next.js ภาษาไทยที่สมบูรณ์แบบ เรียนรู้ตั้งแต่พื้นฐานจนใช้งานได้จริง",
       "publisher": {
-        "@id": "https://nextjs-tutorial-thai.com/#organization"
+        "@id": "https://tutorial-nextjs-tau-one.vercel.app/#organization"
       },
       "potentialAction": [
         {
           "@type": "SearchAction",
           "target": {
             "@type": "EntryPoint",
-            "urlTemplate": "https://nextjs-tutorial-thai.com/search?q={search_term_string}"
+            "urlTemplate": "https://tutorial-nextjs-tau-one.vercel.app/search?q={search_term_string}"
           },
           "query-input": "required name=search_term_string"
         }
@@ -138,20 +138,20 @@ const globalStructuredData = {
     },
     {
       "@type": "Organization",
-      "@id": "https://nextjs-tutorial-thai.com/#organization",
+      "@id": "https://tutorial-nextjs-tau-one.vercel.app/#organization",
       "name": "Next.js Tutorial ไทย",
-      "url": "https://nextjs-tutorial-thai.com/",
+      "url": "https://tutorial-nextjs-tau-one.vercel.app/",
       "logo": {
         "@type": "ImageObject",
         "inLanguage": "th-TH",
-        "url": "https://nextjs-tutorial-thai.com/logo.png",
-        "contentUrl": "https://nextjs-tutorial-thai.com/logo.png",
+        "url": "https://tutorial-nextjs-tau-one.vercel.app/logo.png",
+        "contentUrl": "https://tutorial-nextjs-tau-one.vercel.app/logo.png",
         "width": 512,
         "height": 512,
         "caption": "Next.js Tutorial ไทย"
       },
       "image": {
-        "@id": "https://nextjs-tutorial-thai.com/logo.png"
+        "@id": "https://tutorial-nextjs-tau-one.vercel.app/logo.png"
       },
       "sameAs": [
         "https://github.com/nextjs-tutorial-thai",
@@ -161,13 +161,13 @@ const globalStructuredData = {
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://nextjs-tutorial-thai.com/#breadcrumb",
+      "@id": "https://tutorial-nextjs-tau-one.vercel.app/#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
           "position": 1,
           "name": "หน้าแรก",
-          "item": "https://nextjs-tutorial-thai.com/"
+          "item": "https://tutorial-nextjs-tau-one.vercel.app/"
         }
       ]
     }
@@ -219,7 +219,7 @@ export default function RootLayout({
         <meta name="revisit-after" content="1 days" />
         
         {/* Rich Snippets */}
-        <meta property="article:publisher" content="https://nextjs-tutorial-thai.com" />
+        <meta property="article:publisher" content="https://tutorial-nextjs-tau-one.vercel.app/" />
         <meta property="article:author" content="Next.js Tutorial Thai" />
         <meta property="article:section" content="Education" />
         <meta property="article:tag" content="Next.js, React, Tutorial, Programming" />

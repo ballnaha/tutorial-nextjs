@@ -168,17 +168,41 @@ const tutorialCards = [
       'Production Deployment'
     ]
   },
+  {
+    title: 'Workshop',
+    description: 'เรียนรู้การสร้างโปรเจคจริงแบบ Hands-on Learning พร้อม Professional Theme Template, Advanced Components และ Best Practices ระดับ Production',
+    icon: <Build sx={{ fontSize: 40 }} />,
+    color: '#FF6B35',
+    lessons: 3,
+    difficulty: 'ปานกลาง - สูง',
+    duration: '8-12 ชั่วโมง',
+    href: '/workshop',
+    features: [
+      'Professional Theme Template System',
+      'Advanced Vertical Menu & Navigation',
+      'Smart Submenu Management',
+      'Responsive Design Patterns',
+      'TypeScript Best Practices',
+      'Component Architecture ขั้นสูง',
+      'State Management Patterns',
+      'Performance Optimization',
+      'Production-Ready Code',
+      'Interactive Live Demos',
+      'Complete Source Code',
+      'Real-world Project Examples'
+    ]
+  },
 ];
 
 const highlights = [
   { text: 'บทเรียนภาษาไทยที่เข้าใจง่าย', icon: <Language /> },
   { text: 'ตัวอย่างโค้ดที่ใช้งานได้จริง', icon: <Code /> },
-  { text: 'อัปเดตตามเทคโนโลยีล่าสุด', icon: <Speed /> },
+  { text: 'Workshop สำหรับฝึกฝนจริง', icon: <Build /> },
   { text: 'เรียนฟรี 100% ไม่มีค่าใช้จ่าย', icon: <CheckCircle /> },
 ];
 
 const stats = [
-  { number: '36', label: 'บทเรียน', icon: <Web /> },
+  { number: '39', label: 'บทเรียน', icon: <Web /> },
   { number: '100%', label: 'ฟรี', icon: <CheckCircle /> },
 ];
 
@@ -210,7 +234,7 @@ const courseStructuredData = {
   "@context": "https://schema.org",
   "@type": "Course",
   "name": "Next.js Tutorial ไทย - เรียนรู้การสร้างเว็บแอปพลิเคชัน",
-  "description": "บทเรียน Next.js ภาษาไทยครบครัน เรียนรู้ Next.js, Material-UI และ Prisma",
+  "description": "บทเรียน Next.js ภาษาไทยครบครัน เรียนรู้ Next.js, Material-UI, Prisma และ Workshop สำหรับ Hands-on Learning",
   "provider": {
     "@type": "Organization",
     "name": "Next.js Tutorial ไทย"
@@ -244,21 +268,10 @@ export default function HomePage() {
 
       <Container maxWidth="lg">
         {/* Hero Section */}
-        <Box component="section" sx={{ textAlign: 'center', py: 6 }}>
-          <Avatar
-            sx={{
-              width: 80,
-              height: 80,
-              mx: 'auto',
-              mb: 3,
-              bgcolor: 'primary.main',
-              fontSize: '2rem',
-            }}
-            aria-label="Next.js Tutorial Logo"
-          >
-            📚
-          </Avatar>
-          
+        <Box component="section" sx={{ textAlign: 'center', py: 4 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
+            <img src="/next-js.svg" alt="Next.js Tutorial Logo" style={{ width: '150px', height: '150px' , textAlign: 'center'}} />
+          </Box>
           <Typography 
             variant="h1" 
             component="h1"
@@ -281,7 +294,7 @@ export default function HomePage() {
               fontWeight: 400
             }}
           >
-            เรียนรู้ Next.js 15, TypeScript, Material-UI และ Prisma อย่างครบครันด้วยบทเรียนภาษาไทยที่เข้าใจง่าย 
+            เรียนรู้ Next.js 15, TypeScript, Material-UI และ Prisma อย่างครบครันด้วยบทเรียนภาษาไทยที่เข้าใจง่าย พร้อม Workshop สำหรับ Hands-on Learning
           </Typography>
 
           <Typography variant="body1" color="text.secondary" sx={{ mb: 4, maxWidth: '800px', mx: 'auto' }}>
@@ -414,93 +427,97 @@ export default function HomePage() {
             sx={{ mb: 4, maxWidth: '600px', mx: 'auto' }}
           >
             เรียนรู้การพัฒนาเว็บแอปพลิเคชันครบวงจร ตั้งแต่ Frontend ด้วย Next.js, TypeScript และ Material-UI 
-            ไปจนถึง Backend ด้วย Prisma และ MySQL
+            ไปจนถึง Backend ด้วย Prisma และ MySQL พร้อม Workshop สำหรับฝึกทำโปรเจคจริง
           </Typography>
 
           <Box sx={{ 
-            display: 'flex', 
-            flexDirection: { xs: 'column', lg: 'row' }, 
-            gap: 3
+            display: 'grid',
+            gridTemplateColumns: { 
+              xs: '1fr', 
+              md: '1fr 1fr', 
+              xl: '1fr 1fr 1fr 1fr' 
+            },
+            gap: 3,
+            alignItems: 'stretch'
           }}>
             {tutorialCards.map((card, index) => (
-              <Box key={index} sx={{ flex: 1 }}>
-                <Card 
-                  component="article"
-                  sx={{ 
-                    height: '100%', 
-                    display: 'flex', 
-                    flexDirection: 'column',
-                    transition: 'all 0.2s ease-in-out',
-                    '&:hover': {
-                      boxShadow: 6,
-                    }
-                  }}
-                >
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 3 }}>
-                      <Avatar sx={{ bgcolor: card.color, mr: 2, width: 56, height: 56 }}>
-                        {card.icon}
-                      </Avatar>
-                      <Box sx={{ flex: 1 }}>
-                        <Typography variant="h5" component="h3" sx={{ mb: 1 }}>
-                          {card.title}
-                        </Typography>
-                        <Box sx={{ display: 'flex', gap: 1, mb: 1, flexWrap: 'wrap' }}>
-                          <Chip label={`${card.lessons} บท`} size="small" />
-                          <Chip label={card.difficulty} size="small" color="secondary" />
-                          <Chip label={card.duration} size="small" variant="outlined" />
-                        </Box>
+              <Card 
+                key={index}
+                component="article"
+                sx={{ 
+                  height: '100%', 
+                  display: 'flex', 
+                  flexDirection: 'column',
+                  transition: 'all 0.2s ease-in-out',
+                  '&:hover': {
+                    boxShadow: 6,
+                  }
+                }}
+              >
+                <CardContent sx={{ flexGrow: 1 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 3 }}>
+                    <Avatar sx={{ bgcolor: card.color, mr: 2, width: 56, height: 56 }}>
+                      {card.icon}
+                    </Avatar>
+                    <Box sx={{ flex: 1 }}>
+                      <Typography variant="h5" component="h3" sx={{ mb: 1 }}>
+                        {card.title}
+                      </Typography>
+                      <Box sx={{ display: 'flex', gap: 1, mb: 1, flexWrap: 'wrap' }}>
+                        <Chip label={`${card.lessons} บท`} size="small" />
+                        <Chip label={card.difficulty} size="small" color="secondary" />
+                        <Chip label={card.duration} size="small" variant="outlined" />
                       </Box>
                     </Box>
-                    
-                    <Typography variant="body1" color="text.secondary" sx={{ mb: 3, lineHeight: 1.6 }}>
-                      {card.description}
-                    </Typography>
-
-                    <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
-                      สิ่งที่จะได้เรียนรู้:
-                    </Typography>
-                    <List dense>
-                      {card.features.slice(0, 6).map((feature, idx) => (
-                        <ListItem key={idx} sx={{ py: 0.25, pl: 0 }}>
-                          <ListItemIcon sx={{ minWidth: 24 }}>
-                            <CheckCircle color="primary" sx={{ fontSize: 16 }} />
-                          </ListItemIcon>
-                          <ListItemText 
-                            primary={feature} 
-                            primaryTypographyProps={{ variant: 'body2' }}
-                          />
-                        </ListItem>
-                      ))}
-                      {card.features.length > 6 && (
-                        <ListItem sx={{ py: 0.25, pl: 0 }}>
-                          <ListItemText 
-                            primary={`และอีก ${card.features.length - 6} หัวข้อ...`}
-                            primaryTypographyProps={{ 
-                              variant: 'body2', 
-                              fontStyle: 'italic',
-                              color: 'text.secondary'
-                            }}
-                          />
-                        </ListItem>
-                      )}
-                    </List>
-                  </CardContent>
+                  </Box>
                   
-                  <CardActions sx={{ p: 2 }}>
-                    <Button
-                      component={Link}
-                      href={card.href}
-                      variant="contained"
-                      fullWidth
-                      startIcon={<School />}
-                      size="large"
-                    >
-                      เริ่มเรียน {card.title}
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Box>
+                  <Typography variant="body1" color="text.secondary" sx={{ mb: 3, lineHeight: 1.6 }}>
+                    {card.description}
+                  </Typography>
+
+                  <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
+                    สิ่งที่จะได้เรียนรู้:
+                  </Typography>
+                  <List dense>
+                    {card.features.slice(0, 6).map((feature, idx) => (
+                      <ListItem key={idx} sx={{ py: 0.25, pl: 0 }}>
+                        <ListItemIcon sx={{ minWidth: 24 }}>
+                          <CheckCircle color="primary" sx={{ fontSize: 16 }} />
+                        </ListItemIcon>
+                        <ListItemText 
+                          primary={feature} 
+                          primaryTypographyProps={{ variant: 'body2' }}
+                        />
+                      </ListItem>
+                    ))}
+                    {card.features.length > 6 && (
+                      <ListItem sx={{ py: 0.25, pl: 0 }}>
+                        <ListItemText 
+                          primary={`และอีก ${card.features.length - 6} หัวข้อ...`}
+                          primaryTypographyProps={{ 
+                            variant: 'body2', 
+                            fontStyle: 'italic',
+                            color: 'text.secondary'
+                          }}
+                        />
+                      </ListItem>
+                    )}
+                  </List>
+                </CardContent>
+                
+                <CardActions sx={{ p: 2 }}>
+                  <Button
+                    component={Link}
+                    href={card.href}
+                    variant="contained"
+                    fullWidth
+                    startIcon={<School />}
+                    size="large"
+                  >
+                    เริ่มเรียน {card.title}
+                  </Button>
+                </CardActions>
+              </Card>
             ))}
           </Box>
         </Box>
@@ -559,7 +576,7 @@ export default function HomePage() {
                 เรียนตามลำดับ
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                เริ่มจาก Next.js พื้นฐานก่อน แล้วไปต่อ TypeScript, Material-UI และ Prisma
+                เริ่มจาก Next.js พื้นฐานก่อน แล้วไปต่อ Material-UI, Prisma และ Workshop ขั้นสูง
               </Typography>
             </Box>
             
@@ -575,10 +592,10 @@ export default function HomePage() {
                 3️⃣
               </Avatar>
               <Typography variant="h6" sx={{ mb: 1 }}>
-                ฝึกทำโปรเจค
+                ฝึก Workshop จริง
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                ลองสร้างแอปพลิเคชันจริงตามที่เรียน เพื่อฝึกฝนทักษะ
+                ลองสร้างโปรเจคจริงใน Workshop และแอปพลิเคชันตามที่เรียนเพื่อฝึกฝนทักษะ
               </Typography>
             </Box>
           </Box>
@@ -617,7 +634,8 @@ export default function HomePage() {
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 สามารถสร้างเว็บแอปพลิเคชันแบบ Full Stack ได้ เช่น เว็บร้านค้า, Blog, 
-                ระบบจัดการข้อมูล หรือแอปพลิเคชันอื่นๆ ตามความต้องการ พร้อม TypeScript ที่ปลอดภัย
+                ระบบจัดการข้อมูล หรือแอปพลิเคชันอื่นๆ ตามความต้องการ พร้อม TypeScript ที่ปลอดภัย 
+                และสามารถนำ Workshop ไปปรับใช้สร้างระบบ Admin Dashboard ระดับมืออาชีพได้
               </Typography>
             </Paper>
 
